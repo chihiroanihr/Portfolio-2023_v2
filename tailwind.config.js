@@ -46,10 +46,10 @@ export default {
       },
       gridTemplateColumns: {
         // fixed width size
-        "fixed-4": "repeat(4, 100px)",
-        "fixed-6": "repeat(6, 100px)",
-        "fixed-8": "repeat(8, 100px)",
-        "fixed-12": "repeat(8, 100px)",
+        "fixed-4": "repeat(4, minmax(80px, 1fr))",
+        "fixed-6": "repeat(6, minmax(80px, 1fr))",
+        "fixed-8": "repeat(8, minmax(80px, 1fr))",
+        "fixed-12": "repeat(12, minmax(80px, 1fr))",
       },
     },
     screens: {
