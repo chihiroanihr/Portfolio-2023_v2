@@ -32,10 +32,10 @@ const Navbar = () => {
 
         {/* Menu Background */}
         <Blob
-          className={`z-20 fixed -top-24 -right-20 md:-top-36 md:-right-44 transition-all duration-700 ease-in
+          className={`z-20 fixed -top-14 -right-20 xl:-top-36 xl:-right-44 transition-all duration-700 ease-in
           ${
             isMenuOpen
-              ? "w-screen h-screen scale-[2.5] md:scale-[4]"
+              ? "w-screen h-screen scale-[4] md:scale-[3.5] xl:scale-[4] xxl:scale-[3.5]"
               : "w-0 h-0"
           }`}
         />
@@ -46,14 +46,14 @@ const Navbar = () => {
         className={`z-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity
               ${
                 isMenuOpen
-                  ? "cursor-pointer opacity-100 duration-800 delay-300"
+                  ? "cursor-pointer opacity-100 duration-500 delay-500"
                   : "pointer-events-none opacity-0 duration-200"
               }`}
       >
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             Top
@@ -62,7 +62,7 @@ const Navbar = () => {
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             About
@@ -71,7 +71,7 @@ const Navbar = () => {
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             Service
@@ -80,7 +80,7 @@ const Navbar = () => {
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             Contact
