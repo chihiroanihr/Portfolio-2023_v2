@@ -2,6 +2,7 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   mode: "jit",
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -14,16 +15,20 @@ export default {
         },
         milky: "#E7E1D8",
       },
+      boxShadow: {
+        "light-btn": "-1px 3px 8px -1px rgba(0, 0, 0, 0.2)",
+        "dark-btn": "-1px 3px 8px -1px rgba(0, 0, 0, 0.6)",
+      },
       fontFamily: {
-        defaultSans: [
+        "default-sans": [
           "Montserrat",
           "Poppins",
           "Noto Sans",
           "Open Sans",
           "sans-serif",
         ],
-        cabinSans: ["Cabin", "sans-serif"],
-        titleCursive: [
+        "cabin-sans": ["Cabin", "sans-serif"],
+        "title-cursive": [
           "Homemade Apple",
           "WindSong",
           "Segoe",
@@ -31,13 +36,20 @@ export default {
           "Alex Brush",
           "cursive",
         ],
-        autographyCursive: [
+        "autography-cursive": [
           "Birthstone Bounce",
           "Mr De Haviland",
           "Alex Brush",
           "Allura",
           "cursive",
         ],
+      },
+      gridTemplateColumns: {
+        // fixed width size
+        "fixed-4": "repeat(4, 100px)",
+        "fixed-6": "repeat(6, 100px)",
+        "fixed-8": "repeat(8, 100px)",
+        "fixed-12": "repeat(8, 100px)",
       },
     },
     screens: {
