@@ -50,7 +50,7 @@ export default {
       },
       gridTemplateColumns: {
         // fixed width size
-        "fixed-4": "repeat(4, minmax(80px, 1fr))",
+        "fixed-4": "repeat(4, minmax(100px, 1fr))",
         "fixed-6": "repeat(6, minmax(80px, 1fr))",
         "fixed-8": "repeat(8, minmax(80px, 1fr))",
         "fixed-12": "repeat(12, minmax(80px, 1fr))",
