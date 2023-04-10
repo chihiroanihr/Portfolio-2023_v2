@@ -32,7 +32,7 @@ const Navbar = () => {
 
         {/* Menu Background */}
         <Blob
-          className={`z-20 fixed -top-24 -right-20 md:-top-36 md:-right-44 transition-all duration-500 ease-out 
+          className={`z-20 fixed -top-24 -right-20 md:-top-36 md:-right-44 transition-all duration-700 ease-in
           ${
             isMenuOpen
               ? "w-screen h-screen scale-[2.5] md:scale-[4]"
