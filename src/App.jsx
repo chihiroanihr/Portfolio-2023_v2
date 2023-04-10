@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <Home />
       <DarkLight
-        className="z-30 fixed bottom-7 right-4 lg:right-6"
+        className="z-10 fixed bottom-7 right-4 lg:right-6"
         onClick={handleClick}
       />
     </div>

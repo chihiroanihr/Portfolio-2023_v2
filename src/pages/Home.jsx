@@ -50,21 +50,21 @@ const Home = () => {
             alt="coffee-image-3"
             className="absolute top-[45%] right-[50%] -rotate-[17deg] -translate-y-1/2
             xl:w-[400px] xl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.7] pointer-events-none"
+            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.7] pointer-events-none no-select"
           />
           <img
             src={coffeeImg2}
             alt="coffee-image-2"
             className="absolute top-1/2 xs:right-[30%] right-[34%] -rotate-6 -translate-y-1/2
             xl:w-[400px] xl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-75 pointer-events-none"
+            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-75 pointer-events-none no-select"
           />
           <img
             src={coffeeImg1}
             alt="coffee-image-1"
             className="absolute top-[60%] xs:right-[5%] right-[16%] rotate-6 -translate-y-1/2
             xl:w-[400px] xl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.8] pointer-events-none"
+            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.8] pointer-events-none no-select"
           />
         </div>
       </div>
