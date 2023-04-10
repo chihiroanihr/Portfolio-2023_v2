@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="z-10 fixed top-0 l-0 r-0 w-screen h-20">
+      <nav className="z-20 fixed top-0 l-0 r-0 w-screen h-20">
         <div className="flex justify-end items-center h-full">
           {/* Navbar Brand */}
           <div className="absolute flex flex-col gap-1 w-full mx-auto text-center text-coffee-600 dark:text-coffee-300">
@@ -24,7 +24,7 @@ const Navbar = () => {
 
           {/* Menu Button */}
           <MenuButton
-            className="relative z-20 scale-[0.5] sm:scale-[0.7] mr-2 lg:mr-5"
+            className="relative z-30 scale-[0.5] sm:scale-[0.7] mr-2 lg:mr-5"
             onClick={handleMenuClick}
             isMenuOpen={isMenuOpen}
           />
