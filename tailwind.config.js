@@ -18,6 +18,14 @@ export default {
       boxShadow: {
         "light-btn": "-1px 3px 8px -1px rgba(0, 0, 0, 0.2)",
         "dark-btn": "-1px 3px 8px -1px rgba(0, 0, 0, 0.6)",
+        "cards-1":
+          "rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset",
+        "cards-2":
+          "rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px",
+        "cards-3":
+          "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        "cards-dark":
+          "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
       },
       fontFamily: {
         "default-sans": [
