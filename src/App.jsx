@@ -3,6 +3,7 @@ import { Home, About, Works, Galleries, Contact, Footer } from "./pages";
 import { Loader, Navbar, DarkLight } from "./components";
 
 function App() {
+  // Page Loading State
   const [isPageLoading, setIsPageLoading] = useState(true);
   useLayoutEffect(() => {
     const setIsPageLoadingHandle = () => setIsPageLoading(false);
@@ -16,8 +17,10 @@ function App() {
     }
   }, []);
 
+  // Page Loaded (Loader Hidden) State
   const [isLoaderHidden, setIsLoaderHidden] = useState(false);
 
+  // Play Animation State
   const [playAnimation, setPlayAnimation] = useState(false);
   useLayoutEffect(() => {
     let timeoutId;
@@ -32,6 +35,7 @@ function App() {
     };
   }, [isLoaderHidden]);
 
+  // Toggle Light/Dark Mode State
   const [darkMode, setDarkMode] = useState(false);
   const handleClick = useCallback(() => {
     setDarkMode((prevMode) => !prevMode);

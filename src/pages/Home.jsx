@@ -1,10 +1,10 @@
-import coffeeImg1 from "../assets/images/coffee-1.jpg";
-import coffeeImg2 from "../assets/images/coffee-2.jpg";
-import coffeeImg3 from "../assets/images/coffee-3.jpg";
-
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitTextToChars from "../utils/SplitTextToChars";
+
+import coffeeImg1 from "../assets/images/coffee-1.jpg";
+import coffeeImg2 from "../assets/images/coffee-2.jpg";
+import coffeeImg3 from "../assets/images/coffee-3.jpg";
 
 const Home = ({ playAnimation }) => {
   const animateCreativityCharRef = useRef(null);
