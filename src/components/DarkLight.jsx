@@ -5,7 +5,8 @@ const DarkLight = ({ onClick, className }) => {
       onClick={onClick}
     >
       <svg
-        className="w-7 fill-transparent stroke-coffee-600 dark:fill-yellow-400 dark:stroke-yellow-400 transition-all duration-500"
+        className="w-10 fill-transparent dark:fill-yellow-400 stroke-coffee-600 dark:stroke-yellow-400
+        transition-all duration-500"
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth="1.5"
