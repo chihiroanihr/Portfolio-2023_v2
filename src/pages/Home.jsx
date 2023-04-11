@@ -33,7 +33,7 @@ const Home = ({ playAnimation }) => {
             rotationX: -90,
             transformOrigin: "0% 50% -50",
             ease: "inOut",
-            stagger: 0.03,
+            stagger: 0.05,
           },
           "+=0"
         );
@@ -98,7 +98,7 @@ const Home = ({ playAnimation }) => {
           flex flex-col justify-center md:gap-8 sm:gap-4 gap-2 z-10"
         >
           <p
-            className="lg:text-5xl md:text-4xl sm:text-2xl xs:text-xl text-lg
+            className="lg:text-5xl md:text-4xl sm:text-2xl xs:text-2xl text-lg
             font-default-sans font-extralight text-coffee-600 dark:text-coffee-300 xl:mb-5 md:mb-4 mb-2"
           >
             Sipping on
@@ -106,18 +106,21 @@ const Home = ({ playAnimation }) => {
           <p
             ref={animateCreativityCharRef}
             id="creativity"
-            className="lg:text-8xl md:text-7xl sm:text-5xl xs:text-4xl text-3xl
+            className="lg:text-8xl md:text-7xl sm:text-5xl xs:text-5xl text-4xl z-10 pl-2
             font-title-cursive whitespace-nowrap text-coffee-600 dark:text-coffee-300"
           >
             Creativity
           </p>
           <div
-            className="lg:text-5xl md:text-4xl sm:text-2xl xs:text-xl text-lg
+            className="lg:text-5xl md:text-4xl sm:text-2xl xs:text-2xl text-lg
             font-default-sans font-extralight text-coffee-600 dark:text-coffee-300"
           >
             <p className="relative inline-block">
               one cup of{" "}
-              <span ref={animateCoffeeCharRef} className="font-light">
+              <span
+                ref={animateCoffeeCharRef}
+                className="font-light prevent-select"
+              >
                 coffee
               </span>
               <span
@@ -141,21 +144,21 @@ const Home = ({ playAnimation }) => {
             alt="coffee-image-3"
             className="absolute top-[45%] right-[50%] -rotate-[17deg] -translate-y-1/2
             xl:w-[400px] xl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.7] pointer-events-none no-select"
+            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.7] pointer-events-none prevent-select"
           />
           <img
             src={coffeeImg2}
             alt="coffee-image-2"
             className="absolute top-1/2 xs:right-[30%] right-[34%] -rotate-6 -translate-y-1/2
             xl:w-[400px] xl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-75 pointer-events-none no-select"
+            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-75 pointer-events-none prevent-select"
           />
           <img
             src={coffeeImg1}
             alt="coffee-image-1"
             className="absolute top-[60%] xs:right-[5%] right-[16%] rotate-6 -translate-y-1/2
             xl:w-[400px] xl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.8] pointer-events-none no-select"
+            rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center dark:brightness-[0.8] pointer-events-none prevent-select"
           />
         </div>
       </div>

@@ -5,7 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.no-select {
+.prevent-select {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -14,6 +14,6 @@
   -ms-user-select: none;
   user-select: none;
 }
-.no-select:focus {
+.prevent-select:focus {
   outline: none !important;
 }
