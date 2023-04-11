@@ -2,7 +2,36 @@ import coffeeImg1 from "../assets/images/coffee-1.jpg";
 import coffeeImg2 from "../assets/images/coffee-2.jpg";
 import coffeeImg3 from "../assets/images/coffee-3.jpg";
 
-const Home = () => {
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import SplitTextToChars from "../utils/SplitTextToChars";
+
+const Home = ({ playAnimation }) => {
+  const animateCharRef = useRef(null);
+
+  useEffect(() => {
+    if (playAnimation && animateCharRef.current) {
+      const chars = SplitTextToChars(animateCharRef.current);
+      gsap.set(animateCharRef.current, { perspective: 400 });
+
+      gsap.from(
+        chars,
+        {
+          duration: 0.4,
+          delay: 0.5,
+          opacity: 0,
+          scale: 1,
+          y: -40,
+          rotationX: -90,
+          transformOrigin: "0% 50% -50",
+          ease: "inOut",
+          stagger: 0.025,
+        },
+        "+=0"
+      );
+    }
+  }, [playAnimation]);
+
   return (
     <section
       id="home"
@@ -27,8 +56,10 @@ const Home = () => {
             Sipping on
           </p>
           <p
+            ref={animateCharRef}
+            id="creativity"
             className="lg:text-8xl md:text-7xl sm:text-5xl xs:text-4xl text-3xl
-            font-title-cursive  text-coffee-600 dark:text-coffee-300"
+            font-title-cursive whitespace-nowrap text-coffee-600 dark:text-coffee-300"
           >
             Creativity
           </p>
