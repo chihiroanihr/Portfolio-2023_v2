@@ -18,3 +18,5 @@ function SplitTextToChars(textNode) {
 }
 
 export default SplitTextToChars;
+
+// https://webanimation.blog/blog/wavy-text-animation-using-react-hooks-with-gsap-v3
