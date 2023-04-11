@@ -35,6 +35,7 @@ function App() {
     };
   }, [isLoaderHidden]);
 
+
   // Toggle Light/Dark Mode State
   const [darkMode, setDarkMode] = useState(false);
   const handleClick = useCallback(() => {
