@@ -24,7 +24,7 @@ const Navbar = () => {
 
           {/* Menu Button */}
           <MenuButton
-            className="z-40 relative scale-[0.5] sm:scale-[0.7] mr-2 lg:mr-5"
+            className="z-40 relative scale-[0.5] sm:scale-[0.7] mr-2 md:mr-5"
             onClick={handleMenuClick}
             isMenuOpen={isMenuOpen}
           />

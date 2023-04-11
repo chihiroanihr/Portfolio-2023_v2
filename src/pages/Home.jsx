@@ -1,34 +1,82 @@
-import coffeeImg1 from "../assets/images/coffee-1.jpg";
-import coffeeImg2 from "../assets/images/coffee-2.jpg";
-import coffeeImg3 from "../assets/images/coffee-3.jpg";
-
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitTextToChars from "../utils/SplitTextToChars";
 
+import coffeeImg1 from "../assets/images/coffee-1.jpg";
+import coffeeImg2 from "../assets/images/coffee-2.jpg";
+import coffeeImg3 from "../assets/images/coffee-3.jpg";
+
 const Home = ({ playAnimation }) => {
-  const animateCharRef = useRef(null);
+  const animateCreativityCharRef = useRef(null);
+  const animateCoffeeCharRef = useRef(null);
+  const animateCoffeeCharCopyRef = useRef(null);
 
   useEffect(() => {
-    if (playAnimation && animateCharRef.current) {
-      const chars = SplitTextToChars(animateCharRef.current);
-      gsap.set(animateCharRef.current, { perspective: 400 });
+    if (playAnimation) {
+      if (animateCreativityCharRef.current) {
+        const creativityChars = SplitTextToChars(
+          animateCreativityCharRef.current
+        );
 
-      gsap.from(
-        chars,
-        {
-          duration: 0.4,
-          delay: 0.5,
-          opacity: 0,
-          scale: 1,
-          y: -40,
-          rotationX: -90,
-          transformOrigin: "0% 50% -50",
-          ease: "inOut",
-          stagger: 0.025,
-        },
-        "+=0"
-      );
+        gsap.set(animateCreativityCharRef.current, {
+          perspective: 400,
+        });
+
+        gsap.from(
+          creativityChars,
+          {
+            duration: 0.4,
+            delay: 0.5,
+            opacity: 0,
+            scale: 1,
+            y: -40,
+            rotationX: -90,
+            transformOrigin: "0% 50% -50",
+            ease: "inOut",
+            stagger: 0.03,
+          },
+          "+=0"
+        );
+      }
+
+      if (animateCoffeeCharRef.current && animateCoffeeCharCopyRef) {
+        const coffeeChars = SplitTextToChars(animateCoffeeCharRef.current);
+        const coffeeCharsCopy = SplitTextToChars(
+          animateCoffeeCharCopyRef.current
+        );
+
+        gsap.fromTo(
+          coffeeChars,
+          {
+            y: 0,
+            opacity: 1,
+          },
+          {
+            y: -20,
+            opacity: 0,
+            stagger: 0.05,
+            duration: 0.15,
+            ease: "power4.out",
+          },
+          "+=0"
+        );
+
+        gsap.fromTo(
+          coffeeCharsCopy,
+          {
+            y: 20,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.05,
+            duration: 0.15,
+            ease: "power4.out",
+          },
+          "+=0"
+        );
+      }
     }
   }, [playAnimation]);
 
@@ -56,19 +104,31 @@ const Home = ({ playAnimation }) => {
             Sipping on
           </p>
           <p
-            ref={animateCharRef}
+            ref={animateCreativityCharRef}
             id="creativity"
             className="lg:text-8xl md:text-7xl sm:text-5xl xs:text-4xl text-3xl
             font-title-cursive whitespace-nowrap text-coffee-600 dark:text-coffee-300"
           >
             Creativity
           </p>
-          <p
+          <div
             className="lg:text-5xl md:text-4xl sm:text-2xl xs:text-xl text-lg
             font-default-sans font-extralight text-coffee-600 dark:text-coffee-300"
           >
-            one cup of <span className="font-light">coffee</span> at a time.
-          </p>
+            <p className="relative inline-block">
+              one cup of{" "}
+              <span ref={animateCoffeeCharRef} className="font-light">
+                coffee
+              </span>
+              <span
+                ref={animateCoffeeCharCopyRef}
+                className="absolute top-0 right-0 font-light text-yellow-500"
+              >
+                coffee
+              </span>
+            </p>
+            <p> at a time.</p>
+          </div>
         </div>
 
         {/* Image Area */}
