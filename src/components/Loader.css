@@ -1,0 +1,36 @@
+.spinner {
+  margin: 100px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+}
+
+.spinner div {
+  width: 8px;
+  height: 8px;
+  background-color: #333;
+  border-radius: 100%;
+  display: inline-block;
+  animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.spinner .dot1 {
+  animation-delay: -0.32s;
+}
+
+.spinner .dot2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes spinner {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
