@@ -51,7 +51,7 @@ function App() {
             : "opacity-0 pointer-events-none"
         } ${darkMode ? "dark" : ""}`}
       >
-        <Navbar />
+        <Navbar playAnimation={playAnimation} />
         <Home playAnimation={playAnimation} />
         <DarkLight
           className="z-10 fixed bottom-7 right-5 lg:right-7"

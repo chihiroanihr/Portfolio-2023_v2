@@ -1,83 +1,147 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import SplitTextToChars from "../utils/SplitTextToChars";
-
-import coffeeImg1 from "../assets/images/coffee-1.jpg";
-import coffeeImg2 from "../assets/images/coffee-2.jpg";
-import coffeeImg3 from "../assets/images/coffee-3.jpg";
+import { SplitTextToWords, SplitTextToChars } from "../utils/SplitText";
+import { LandingImageCards } from "../components";
 
 const Home = ({ playAnimation }) => {
-  const animateCreativityCharRef = useRef(null);
-  const animateCoffeeCharRef = useRef(null);
-  const animateCoffeeCharCopyRef = useRef(null);
+  // Create Refs
+  const sippingOnTextRef = useRef(null);
+  const creativityTextRef = useRef(null);
+  const coffeeTextRef = useRef(null);
+  const coffeeTextCopyRef = useRef(null);
+  const oneCupOfTextRef = useRef(null);
+  const atTimeTextRef = useRef(null);
 
+  // Define text node references and animation configurations
+  const textNodes = [
+    {
+      ref: sippingOnTextRef,
+      splitTextFunction: SplitTextToWords,
+      animationFunction: "from",
+      animation: { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.1 },
+    },
+    {
+      ref: creativityTextRef,
+      splitTextFunction: SplitTextToChars,
+      animationFunction: "from",
+      animation: {
+        duration: 1,
+        opacity: 0,
+        scale: 1,
+        y: -40,
+        rotationX: -90,
+        transformOrigin: "0% 50% -50",
+        ease: "inOut",
+        stagger: 0.05,
+      },
+      offset: ">-0.15",
+    },
+    {
+      ref: oneCupOfTextRef,
+      splitTextFunction: SplitTextToWords,
+      animationFunction: "from",
+      animation: { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.05 },
+      offset: ">-0.6",
+    },
+    {
+      ref: coffeeTextRef,
+      animationFunction: "from",
+      animation: { duration: 0.07, opacity: 0, ease: "inOut" },
+      offset: ">-0.08",
+    },
+    {
+      ref: atTimeTextRef,
+      splitTextFunction: SplitTextToWords,
+      animationFunction: "from",
+      animation: { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.05 },
+    },
+    {
+      ref: coffeeTextRef,
+      splitTextFunction: SplitTextToChars,
+      animationFunction: "to",
+      animation: {
+        y: -20,
+        opacity: 0,
+        stagger: 0.05,
+        duration: 0.15,
+        ease: "power4.out",
+      },
+    },
+    {
+      ref: coffeeTextCopyRef,
+      splitTextFunction: SplitTextToChars,
+      animationFunction: "from",
+      animation: {
+        y: 20,
+        opacity: 0,
+        stagger: 0.05,
+        duration: 0.15,
+        ease: "power4.out",
+      },
+    },
+  ];
+
+  // Create Animation Timeline
+  const timeline = useRef(gsap.timeline());
+
+  // Start or Update Animation when playAnimation is triggered
   useEffect(() => {
-    if (playAnimation) {
-      if (animateCreativityCharRef.current) {
-        const creativityChars = SplitTextToChars(
-          animateCreativityCharRef.current
-        );
+    // If playAnimation is not triggered yet than skip
+    if (!playAnimation) return;
 
-        gsap.set(animateCreativityCharRef.current, {
-          perspective: 400,
-        });
+    // Custom: set perspective to "creativity" title text
+    timeline.current.set(creativityTextRef.current, {
+      perspective: 400,
+    });
 
-        gsap.from(
-          creativityChars,
-          {
-            duration: 0.4,
-            delay: 0.5,
-            opacity: 0,
-            scale: 1,
-            y: -40,
-            rotationX: -90,
-            transformOrigin: "0% 50% -50",
-            ease: "inOut",
-            stagger: 0.05,
-          },
-          "+=0"
-        );
+    // Loop through each text node and register its animation to the timeline
+    textNodes.forEach(
+      ({
+        ref,
+        splitTextFunction = null,
+        animationFunction,
+        animation,
+        offset = null,
+      }) => {
+        // if target ref exists
+        if (ref.current) {
+          // Split text if function specified
+          const refToAnimate = splitTextFunction
+            ? splitTextFunction(ref.current)
+            : ref.current;
+
+          // Animate
+          switch (animationFunction) {
+            case "from":
+              timeline.current.from(refToAnimate, animation, offset && offset);
+              break;
+            case "to":
+              timeline.current.to(refToAnimate, animation, offset && offset);
+              break;
+            case "fromTo":
+              timeline.current.fromTo(
+                refToAnimate,
+                animation.from,
+                animation.to,
+                offset && offset
+              );
+              break;
+            default:
+              console.log(
+                "[Error]: Inappropriate GSAP animation function given."
+              );
+              break;
+          }
+        }
       }
+    );
 
-      if (animateCoffeeCharRef.current && animateCoffeeCharCopyRef) {
-        const coffeeChars = SplitTextToChars(animateCoffeeCharRef.current);
-        const coffeeCharsCopy = SplitTextToChars(
-          animateCoffeeCharCopyRef.current
-        );
+    // Gather child timelines into one parent timeline
+    // timeline.current.add(LandingImageCards.timeline.current)
 
-        gsap.fromTo(
-          coffeeChars,
-          {
-            y: 0,
-            opacity: 1,
-          },
-          {
-            y: -20,
-            opacity: 0,
-            stagger: 0.05,
-            duration: 0.15,
-            ease: "power4.out",
-          },
-          "+=0"
-        );
-
-        gsap.fromTo(
-          coffeeCharsCopy,
-          {
-            y: 20,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.05,
-            duration: 0.15,
-            ease: "power4.out",
-          },
-          "+=0"
-        );
-      }
-    }
+    return () => {
+      timeline.current.kill();
+    };
   }, [playAnimation]);
 
   return (
@@ -86,85 +150,67 @@ const Home = ({ playAnimation }) => {
       className="h-screen bg-coffee-100 dark:bg-coffee-800 overflow-x-hidden"
     >
       <div
-        // Overflow grid on purpose via "fixed"
+        // overflow grid on purpose via "fixed"
         className="grid gap-[20px] grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4
         h-full max-w-screen-xxxl mx-auto xl:px-[150px] lg:px-[100px] md:px-[70px] xs:px-[35px] px-[20px]"
       >
-        {/* Text Area */}
+        {/* -------- Text Area -------- */}
         <div
           className="xxxl:row-start-1 xxl:row-start-2 md:row-start-3 row-start-4 row-span-full
           xl:col-span-6 lg:col-span-7 md:col-span-6 sm:col-span-5 col-span-full
           xl:col-start-1 lg:col-start-1 md:col-start-1 sm:col-start-1 col-start-1
           flex flex-col justify-center leading-snug z-10"
         >
-          <p
+          <div
+            ref={sippingOnTextRef}
             className="xl:mb-[35px] md:mb-[30px] mb-[20px]
             lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
             font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
           >
             Sipping on
-          </p>
-          <p
-            ref={animateCreativityCharRef}
+          </div>
+          <div
+            ref={creativityTextRef}
             id="creativity"
             className="lg:text-[96px] md:text-[72px] xs:text-[48px] text-[36px] z-10 pl-[8px]
             font-title-cursive whitespace-nowrap text-coffee-600 dark:text-coffee-300"
           >
             Creativity
-          </p>
+          </div>
           <div
             className="lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
             font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
           >
-            <div className="relative inline-block">
-              one cup of{" "}
+            {/* texts into one line (inline) - necessary due to animation */}
+            <div
+              // ref={(el) => (lastWordsRefs.current[0] = el)}
+              className="relative inline-block"
+            >
+              <span ref={oneCupOfTextRef}>one cup of </span>
               <span
-                ref={animateCoffeeCharRef}
+                ref={coffeeTextRef}
                 className="md:font-light font-normal prevent-select"
               >
                 coffee
               </span>
               <span
-                ref={animateCoffeeCharCopyRef}
+                ref={coffeeTextCopyRef}
                 className="absolute top-0 right-0 md:font-light font-normal text-yellow-500"
               >
                 coffee
               </span>
             </div>
-            <p> at a time.</p>
+            <p ref={atTimeTextRef}>at a time.</p>
           </div>
         </div>
 
-        {/* Image Area */}
+        {/* -------- Image Area -------- */}
         <div
           className="row-start-1 row-end-6 xl:row-span-full 
           xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full
           relative"
         >
-          <img
-            src={coffeeImg3}
-            alt="coffee-image-3"
-            className="absolute top-[45%] right-[50%] -rotate-[17deg] -translate-y-1/2
-            xxl:w-[400px] xxl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark dark:brightness-[0.7] object-cover object-center
-            pointer-events-none prevent-select"
-          />
-          <img
-            src={coffeeImg2}
-            alt="coffee-image-2"
-            className="absolute top-1/2 xs:right-[30%] right-[34%] -rotate-6 -translate-y-1/2
-            xxl:w-[400px] xxl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-2xl shadow-cards-light dark:shadow-cards-dark dark:brightness-75 object-cover object-center
-            pointer-events-none prevent-select"
-          />
-          <img
-            src={coffeeImg1}
-            alt="coffee-image-1"
-            className="absolute top-[60%] xs:right-[5%] right-[16%] rotate-6 -translate-y-1/2
-            xxl:w-[400px] xxl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
-            rounded-[16px] shadow-cards-light dark:shadow-cards-dark dark:brightness-[0.8] object-cover object-center
-            pointer-events-none prevent-select"
-          />
+          <LandingImageCards playAnimation={playAnimation} />
         </div>
       </div>
     </section>

@@ -8,9 +8,10 @@ export default {
       colors: {
         coffee: {
           100: "#F0EDEB",
-          300: "#D3CAC4",
+          300: "#D3CAC4", // #EFDECD
           400: "#A59A99",
           600: "#786766",
+          700: "#6F4F3A",
           800: "#251A1A",
         },
         milky: "#E7E1D8",
@@ -57,7 +58,7 @@ export default {
       },
     },
     screens: {
-      xs: "320px",
+      xs: "360px",
       sm: "480px",
       md: "768px",
       lg: "1024px",

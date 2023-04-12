@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MenuButton from "./MenuButton";
 import Blob from "./Blob";
 
-const Navbar = () => {
+const Navbar = ({ playAnimation }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuClick = () => setIsMenuOpen(!isMenuOpen);
@@ -17,7 +17,7 @@ const Navbar = () => {
             <p className="font-cabin-sans text-xs tracking-widest">
               Web Developer + Designer
             </p>
-            <p className="font-autography-cursive text-3xl tracking-wide">
+            <p className="font-autography-cursive xs:text-3xl text-2xl tracking-wide">
               Rhina Kim
             </p>
           </div>
@@ -31,14 +31,22 @@ const Navbar = () => {
         </div>
 
         {/* Menu Background */}
-        <Blob
-          className={`z-20 fixed -top-14 -right-20 xl:-top-36 xl:-right-44 transition-all duration-700 ease-in
+        {/* <Blob
+          className={`z-20 fixed -top-[150px] -right-[80px] xl:-top-[150px] xl:-right-[200px]
+          transition-all duration-700 ease-linear
           ${
             isMenuOpen
-              ? "w-screen h-screen scale-[4] md:scale-[3.5] xl:scale-[4] xxl:scale-[3.5]"
+              ? "w-screen h-screen scale-[4.5] md:scale-[4] xl:scale-[4.5] xxl:scale-[4]"
               : "w-0 h-0"
           }`}
-        />
+        /> */}
+        <div
+          className={`z-20 fixed -top-[50px] -right-[50px] w-[100px] h-[100px] rounded-full
+          transition-transform duration-700 bg-coffee-300 dark:bg-coffee-700
+          ${
+            isMenuOpen ? "xl:scale-[50] md:scale-[35] scale-[20]" : "scale-[0]"
+          }`}
+        ></div>
       </nav>
 
       {/* Menu Lists */}
@@ -46,14 +54,14 @@ const Navbar = () => {
         className={`z-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity
               ${
                 isMenuOpen
-                  ? "cursor-pointer opacity-100 duration-500 delay-500"
+                  ? "cursor-pointer opacity-100 duration-500 delay-200"
                   : "pointer-events-none opacity-0 duration-200"
               }`}
       >
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             Top
@@ -62,7 +70,7 @@ const Navbar = () => {
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             About
@@ -71,7 +79,7 @@ const Navbar = () => {
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             Service
@@ -80,7 +88,7 @@ const Navbar = () => {
         <li className="text-center list-none">
           <a
             href="#"
-            className="block p-3 text-coffee-800 font-default-sans font-semibold tracking-widest uppercase no-underline"
+            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
             onClick={closeMenu}
           >
             Contact
