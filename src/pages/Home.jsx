@@ -4,7 +4,10 @@ import { SplitTextToWords, SplitTextToChars } from "../utils/SplitText";
 import { LandingImageCards } from "../components";
 
 const Home = ({ playAnimation }) => {
-  // Create Refs
+  // Create a parent reference containing child elements that you want to animate
+  const textSectionRef = useRef(null);
+
+  // Create child references
   const sippingOnTextRef = useRef(null);
   const creativityTextRef = useRef(null);
   const coffeeTextRef = useRef(null);
@@ -12,136 +15,83 @@ const Home = ({ playAnimation }) => {
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
 
-  // Define text node references and animation configurations
-  const textNodes = [
-    {
-      ref: sippingOnTextRef,
-      splitTextFunction: SplitTextToWords,
-      animationFunction: "from",
-      animation: { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.1 },
-    },
-    {
-      ref: creativityTextRef,
-      splitTextFunction: SplitTextToChars,
-      animationFunction: "from",
-      animation: {
-        duration: 1,
-        opacity: 0,
-        scale: 1,
-        y: -40,
-        rotationX: -90,
-        transformOrigin: "0% 50% -50",
-        ease: "inOut",
-        stagger: 0.05,
-      },
-      offset: ">-0.15",
-    },
-    {
-      ref: oneCupOfTextRef,
-      splitTextFunction: SplitTextToWords,
-      animationFunction: "from",
-      animation: { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.05 },
-      offset: ">-0.6",
-    },
-    {
-      ref: coffeeTextRef,
-      animationFunction: "from",
-      animation: { duration: 0.07, opacity: 0, ease: "inOut" },
-      offset: ">-0.08",
-    },
-    {
-      ref: atTimeTextRef,
-      splitTextFunction: SplitTextToWords,
-      animationFunction: "from",
-      animation: { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.05 },
-    },
-    {
-      ref: coffeeTextRef,
-      splitTextFunction: SplitTextToChars,
-      animationFunction: "to",
-      animation: {
-        y: -20,
-        opacity: 0,
-        stagger: 0.05,
-        duration: 0.15,
-        ease: "power4.out",
-      },
-    },
-    {
-      ref: coffeeTextCopyRef,
-      splitTextFunction: SplitTextToChars,
-      animationFunction: "from",
-      animation: {
-        y: 20,
-        opacity: 0,
-        stagger: 0.05,
-        duration: 0.15,
-        ease: "power4.out",
-      },
-    },
-  ];
-
   // Create Animation Timeline
   const timeline = useRef(gsap.timeline());
 
   // Start or Update Animation when playAnimation is triggered
   useEffect(() => {
-    // If playAnimation is not triggered yet than skip
-    if (!playAnimation) return;
+    let context = gsap.context(() => {
+      // If playAnimation is not triggered yet than skip
+      if (!playAnimation) return;
 
-    // Custom: set perspective to "creativity" title text
-    timeline.current.set(creativityTextRef.current, {
-      perspective: 400,
-    });
+      const sippingOnWords = SplitTextToWords(sippingOnTextRef.current);
+      const creativityChars = SplitTextToChars(creativityTextRef.current);
+      const oneCupOfWords = SplitTextToWords(oneCupOfTextRef.current);
+      const coffeeText = coffeeTextRef.current;
+      const atTimeWords = SplitTextToWords(atTimeTextRef.current);
+      const coffeeChars = SplitTextToChars(coffeeTextRef.current);
+      const coffeeCharsCopy = SplitTextToChars(coffeeTextCopyRef.current);
 
-    // Loop through each text node and register its animation to the timeline
-    textNodes.forEach(
-      ({
-        ref,
-        splitTextFunction = null,
-        animationFunction,
-        animation,
-        offset = null,
-      }) => {
-        // if target ref exists
-        if (ref.current) {
-          // Split text if function specified
-          const refToAnimate = splitTextFunction
-            ? splitTextFunction(ref.current)
-            : ref.current;
+      // Register animations to the timeline
+      timeline.current
+        // Custom: set perspective to "creativity" title text
+        .set(creativityTextRef.current, {
+          perspective: 400,
+        })
+        .from(sippingOnWords, {
+          duration: 0.2,
+          opacity: 0,
+          ease: "inOut",
+          stagger: 0.1,
+        })
+        .from(
+          creativityChars,
+          {
+            duration: 1,
+            opacity: 0,
+            scale: 1,
+            y: -40,
+            rotationX: -90,
+            transformOrigin: "0% 50% -50",
+            ease: "inOut",
+            stagger: 0.05,
+          },
+          ">-0.15"
+        )
+        .from(
+          oneCupOfWords,
+          { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.05 },
+          ">-0.6"
+        )
+        .from(
+          coffeeText,
+          { duration: 0.07, opacity: 0, ease: "inOut" },
+          ">-0.08"
+        )
+        .from(atTimeWords, {
+          duration: 0.2,
+          opacity: 0,
+          ease: "inOut",
+          stagger: 0.05,
+        })
+        .to(coffeeChars, {
+          y: -20,
+          opacity: 0,
+          stagger: 0.05,
+          duration: 0.15,
+          ease: "power4.out",
+        })
+        .from(coffeeCharsCopy, {
+          y: 20,
+          opacity: 0,
+          stagger: 0.05,
+          duration: 0.15,
+          ease: "power4.out",
+        });
+    }, textSectionRef);
 
-          // Animate
-          switch (animationFunction) {
-            case "from":
-              timeline.current.from(refToAnimate, animation, offset && offset);
-              break;
-            case "to":
-              timeline.current.to(refToAnimate, animation, offset && offset);
-              break;
-            case "fromTo":
-              timeline.current.fromTo(
-                refToAnimate,
-                animation.from,
-                animation.to,
-                offset && offset
-              );
-              break;
-            default:
-              console.log(
-                "[Error]: Inappropriate GSAP animation function given."
-              );
-              break;
-          }
-        }
-      }
-    );
-
-    // Gather child timelines into one parent timeline
-    // timeline.current.add(LandingImageCards.timeline.current)
-
-    return () => {
-      timeline.current.kill();
-    };
+    // Clean animation: prevent continuing to execute
+    return () => context.revert();
   }, [playAnimation]);
 
   return (
@@ -156,6 +106,7 @@ const Home = ({ playAnimation }) => {
       >
         {/* -------- Text Area -------- */}
         <div
+          ref={textSectionRef}
           className="xxxl:row-start-1 xxl:row-start-2 md:row-start-3 row-start-4 row-span-full
           xl:col-span-6 lg:col-span-7 md:col-span-6 sm:col-span-5 col-span-full
           xl:col-start-1 lg:col-start-1 md:col-start-1 sm:col-start-1 col-start-1
