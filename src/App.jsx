@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useLayoutEffect,
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { Home, About, Works, Galleries, Contact, Footer } from "./pages";
 import { Loader, Navbar, DarkLight } from "./components";
@@ -28,7 +22,7 @@ function App() {
   // Set Play Animation State
   const [playAnimation, setPlayAnimation] = useState(false);
   // By using layout effects, execution starts as soon as possible, without waiting for all assets to load.
-  useLayoutEffect(() => {
+  useEffect(() => {
     let timeoutId;
     if (isLoaderHidden) {
       // Allow animation
@@ -49,21 +43,27 @@ function App() {
   }, []);
 
   // Handle All Animations
-  const childrenTimelineRefs = useRef([]);
+  const homeRef = useRef(null);
+  const navbarRef = useRef(null);
+  const darkLightRef = useRef(null);
+
+  const timelineRef = useRef(gsap.timeline());
+
   useEffect(() => {
-    const timeline = gsap.timeline();
-
-    // Check if all animation elements are fully built and registered before playing
-    const isReady = childrenTimelineRefs.current.every((ref) => {
-      timeline.add(ref.getTimeline());
-      return timeline.getChildren().length > 10;
-    });
-
-    // // Check if all animation elements are fully built and registered before playing
-    if (isReady) {
-      console.log(timeline.getChildren());
-      timeline.restart();
-    }
+    if (!playAnimation) return;
+    timelineRef.current.add(navbarRef.current);
+    timelineRef.current.from(
+      darkLightRef.current,
+      {
+        y: -10,
+        opacity: 0,
+        duration: 1,
+        ease: "inOut",
+        clearProps: "all",
+      },
+      ">-0.5"
+    );
+    timelineRef.current.add(homeRef.current, ">-1");
   }, [playAnimation]);
 
   return (
@@ -75,12 +75,11 @@ function App() {
             : "opacity-0 pointer-events-none"
         } ${darkMode ? "dark" : ""}`}
       >
-        <Navbar playAnimation={playAnimation} />
-        <Home
-          ref={(el) => (childrenTimelineRefs.current[0] = el)}
-          playAnimation={playAnimation}
-        />
+        <Navbar ref={navbarRef} playAnimation={playAnimation} />
+        <Home ref={homeRef} playAnimation={playAnimation} />
         <DarkLight
+          ref={darkLightRef}
+          playAnimation={playAnimation}
           className="z-10 fixed bottom-7 right-5 lg:right-7"
           onClick={handleClick}
         />

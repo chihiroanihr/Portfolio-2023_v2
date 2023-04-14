@@ -1,6 +1,14 @@
-const DarkLight = ({ onClick, className }) => {
+import { forwardRef } from "react";
+
+const DarkLight = forwardRef((props, ref) => {
+  // !! forwardRef expects a function that accepts props and ref as arguments
+  // Thus destructuring is a recommended approach
+  const onClick = props.onClick;
+  const className = props.className;
+
   return (
     <div
+      ref={ref}
       className={`${className} p-2 rounded-full shadow-light-btn dark:shadow-dark-btn cursor-pointer`}
       onClick={onClick}
     >
@@ -18,6 +26,6 @@ const DarkLight = ({ onClick, className }) => {
       </svg>
     </div>
   );
-};
+});
 
 export default DarkLight;

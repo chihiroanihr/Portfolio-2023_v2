@@ -1,4 +1,4 @@
-import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+import { useEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
 import { SplitTextToWords, SplitTextToChars } from "../utils/SplitText";
 import { LandingImageCards } from "../components";
@@ -8,7 +8,7 @@ const Home = forwardRef((props, ref) => {
   // Thus destructuring is a recommended approach
   const { playAnimation } = props;
 
-  // Parent reference containing child elements that you want to animate
+  // Scoped reference containing child elements that you want to animate
   const textSectionRef = useRef(null);
 
   // Child references
@@ -19,23 +19,15 @@ const Home = forwardRef((props, ref) => {
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
 
-  // Child Component Reference
+  // Child Component reference
   const childComponentRef = useRef(null);
 
-  // Animation Timeline Reference
-  const timelineRef = useRef(gsap.timeline({ paused: true }));
-
-  // Public method that can be accessed from the parent component
-  useImperativeHandle(ref, () => ({
-    getTimeline: () => timelineRef.current,
-  }));
-
-  // Update Animation when playAnimation is triggered
+  // Update animation when playAnimation is triggered
   useEffect(() => {
-    let context = gsap.context(() => {
-      // If playAnimation is not triggered yet than skip
-      if (!playAnimation) return;
+    // If playAnimation is not triggered yet than skip
+    if (!playAnimation) return;
 
+    let context = gsap.context(() => {
       // Split texts from refs into words / chars
       const sippingOnWords = SplitTextToWords(sippingOnTextRef.current);
       const creativityChars = SplitTextToChars(creativityTextRef.current);
@@ -46,66 +38,76 @@ const Home = forwardRef((props, ref) => {
       const coffeeCharsCopy = SplitTextToChars(coffeeTextCopyRef.current);
 
       // Register animations to the timeline
-      timelineRef.current
+      ref.current = gsap
+        .timeline()
         // Custom: set perspective to "creativity" title text
         .set(creativityTextRef.current, {
           perspective: 400,
         })
-        // Add all animations within textSectionRef
+        // Add all animations within textSectionRef scope
         .from(sippingOnWords, {
-          duration: 0.2,
           opacity: 0,
-          ease: "inOut",
-          stagger: 0.1,
+          duration: 2,
+          stagger: 0.06,
+          ease: "out",
         })
         .from(
           creativityChars,
           {
-            duration: 1,
-            opacity: 0,
-            scale: 1,
             y: -40,
             rotationX: -90,
             transformOrigin: "0% 50% -50",
-            ease: "inOut",
+            opacity: 0,
+            scale: 1,
+            duration: 1.5,
             stagger: 0.05,
+            ease: "out",
           },
-          ">-0.15"
+          "=-2"
         )
         .from(
           oneCupOfWords,
-          { duration: 0.2, opacity: 0, ease: "inOut", stagger: 0.05 },
-          ">-0.6"
+          { duration: 2, opacity: 0, ease: "out", stagger: 0.06 },
+          "=-1.5"
+        )
+        .from(coffeeText, { duration: 2, opacity: 0, ease: "out" }, ">-2")
+        .from(
+          atTimeWords,
+          {
+            duration: 2,
+            opacity: 0,
+            stagger: 0.06,
+            ease: "out",
+          },
+          "=-2"
+        )
+        .addLabel("rolling-text", "<0.5")
+        .to(
+          coffeeChars,
+          {
+            y: -20,
+            opacity: 0,
+            duration: 0.15,
+            stagger: 0.05,
+            ease: "power4.out",
+          },
+          "rolling-text"
         )
         .from(
-          coffeeText,
-          { duration: 0.07, opacity: 0, ease: "inOut" },
-          ">-0.08"
-        )
-        .from(atTimeWords, {
-          duration: 0.2,
-          opacity: 0,
-          ease: "inOut",
-          stagger: 0.05,
-        })
-        .to(coffeeChars, {
-          y: -20,
-          opacity: 0,
-          stagger: 0.05,
-          duration: 0.15,
-          ease: "power4.out",
-        })
-        .from(coffeeCharsCopy, {
-          y: 20,
-          opacity: 0,
-          stagger: 0.05,
-          duration: 0.15,
-          ease: "power4.out",
-        });
+          coffeeCharsCopy,
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.15,
+            stagger: 0.05,
+            ease: "power4.out",
+          },
+          ">"
+        );
     }, textSectionRef);
 
     // Add child component's animation
-    timelineRef.current.add(childComponentRef.current.getTimeline());
+    ref.current.add(childComponentRef.current, ">rolling-text");
 
     // Clean animation: prevent continuing to execute even after component unmounted
     return () => context.revert();
@@ -150,10 +152,7 @@ const Home = forwardRef((props, ref) => {
             font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
           >
             {/* texts into one line (inline) - necessary due to animation */}
-            <div
-              // ref={(el) => (lastWordsRefs.current[0] = el)}
-              className="relative inline-block"
-            >
+            <div className="relative inline-block">
               <span ref={oneCupOfTextRef}>one cup of </span>
               <span
                 ref={coffeeTextRef}

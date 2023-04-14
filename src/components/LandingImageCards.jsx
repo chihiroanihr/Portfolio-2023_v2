@@ -1,4 +1,4 @@
-import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
+import { useRef, useEffect, forwardRef } from "react";
 import gsap from "gsap";
 import { homeImageCards } from "../constants/data";
 
@@ -10,28 +10,21 @@ const LandingImageCards = forwardRef((props, ref) => {
   // References to use for animation
   const imageCardsRefs = useRef([]);
 
-  // Animation Timeline Reference
-  const timelineRef = useRef(gsap.timeline({ paused: true }));
-
-  // Public method that can be accessed from the parent component
-  useImperativeHandle(ref, () => ({
-    getTimeline: () => timelineRef.current,
-  }));
-
   // Update Animation when playAnimation is triggered
   useEffect(() => {
     if (!playAnimation) return;
 
     if (imageCardsRefs.current) {
       // Register animations to the timeline
-      timelineRef.current.from(imageCardsRefs.current, {
+      ref.current = gsap.timeline().from(imageCardsRefs.current, {
         x: 200,
         y: -200,
         rotation: 0,
         opacity: 0,
+        duration: 1.5,
         stagger: 0.15,
-        duration: 1,
         ease: "power4.out",
+        clearProps: "all",
       });
     }
 

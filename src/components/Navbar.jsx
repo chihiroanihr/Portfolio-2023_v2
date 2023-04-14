@@ -1,19 +1,68 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect, forwardRef } from "react";
+import gsap from "gsap";
 import MenuButton from "./MenuButton";
 import Blob from "./Blob";
 
-const Navbar = ({ playAnimation }) => {
+const Navbar = forwardRef((props, ref) => {
+  // !! forwardRef expects a function that accepts props and ref as arguments
+  // Thus destructuring is a recommended approach
+  const { playAnimation } = props;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuClick = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  // Scoped reference containing child elements that you want to animate
+  const menuBarRef = useRef(null);
+  const navbarBrandRef = useRef(null);
+  const childComponentRef = useRef(null);
+
+  // Update Animation when playAnimation is triggered
+  useEffect(() => {
+    // If playAnimation is not triggered yet than skip
+    if (!playAnimation) return;
+
+    let context = gsap.context(() => {
+      // Register animations to the timeline
+      ref.current = gsap
+        .timeline()
+        // Add all animations within textSectionRef scope
+        .from(navbarBrandRef.current, {
+          y: -10,
+          opacity: 0,
+          duration: 1,
+          ease: "inOut",
+          clearProps: "all",
+        })
+        .from(
+          childComponentRef.current,
+          {
+            y: -10,
+            opacity: 0,
+            duration: 1,
+            ease: "inOut",
+            clearProps: "all",
+          },
+          ">-0.5"
+        );
+    }, menuBarRef);
+
+    // Clean animation: prevent continuing to execute even after component unmounted
+    return () => context.revert();
+
+    // (Animation cleaning will be done in parent component)
+  }, [playAnimation]);
+
   return (
     <>
       <nav className="z-30 fixed top-0 l-0 r-0 w-screen h-20">
-        <div className="flex justify-end items-center h-full">
+        <div ref={menuBarRef} className="flex justify-end items-center h-full">
           {/* Navbar Brand */}
-          <div className="absolute flex flex-col gap-1 w-full mx-auto text-center text-coffee-600 dark:text-coffee-300">
+          <div
+            ref={navbarBrandRef}
+            className="absolute flex flex-col gap-1 w-full mx-auto text-center text-coffee-600 dark:text-coffee-300"
+          >
             <p className="font-cabin-sans text-xs tracking-widest">
               Web Developer + Designer
             </p>
@@ -24,9 +73,10 @@ const Navbar = ({ playAnimation }) => {
 
           {/* Menu Button */}
           <MenuButton
-            className="z-40 relative scale-[0.5] sm:scale-[0.7] mr-2 md:mr-5"
+            ref={childComponentRef}
             onClick={handleMenuClick}
             isMenuOpen={isMenuOpen}
+            className="z-40 relative scale-[0.5] sm:scale-[0.7] mr-2 md:mr-5"
           />
         </div>
 
@@ -97,6 +147,6 @@ const Navbar = ({ playAnimation }) => {
       </ul>
     </>
   );
-};
+});
 
 export default Navbar;
