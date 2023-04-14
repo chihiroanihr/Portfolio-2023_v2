@@ -1,13 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import gsap from "gsap";
 import { SplitTextToWords, SplitTextToChars } from "../utils/SplitText";
 import { LandingImageCards } from "../components";
 
-const Home = ({ playAnimation }) => {
-  // Create a parent reference containing child elements that you want to animate
+const Home = forwardRef((props, ref) => {
+  // !! forwardRef expects a function that accepts props and ref as arguments
+  // Thus destructuring is a recommended approach
+  const { playAnimation } = props;
+
+  // Parent reference containing child elements that you want to animate
   const textSectionRef = useRef(null);
 
-  // Create child references
+  // Child references
   const sippingOnTextRef = useRef(null);
   const creativityTextRef = useRef(null);
   const coffeeTextRef = useRef(null);
@@ -15,15 +19,24 @@ const Home = ({ playAnimation }) => {
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
 
-  // Create Animation Timeline
-  const timeline = useRef(gsap.timeline());
+  // Child Component Reference
+  const childComponentRef = useRef(null);
 
-  // Start or Update Animation when playAnimation is triggered
+  // Animation Timeline Reference
+  const timelineRef = useRef(gsap.timeline({ paused: true }));
+
+  // Public method that can be accessed from the parent component
+  useImperativeHandle(ref, () => ({
+    getTimeline: () => timelineRef.current,
+  }));
+
+  // Update Animation when playAnimation is triggered
   useEffect(() => {
     let context = gsap.context(() => {
       // If playAnimation is not triggered yet than skip
       if (!playAnimation) return;
 
+      // Split texts from refs into words / chars
       const sippingOnWords = SplitTextToWords(sippingOnTextRef.current);
       const creativityChars = SplitTextToChars(creativityTextRef.current);
       const oneCupOfWords = SplitTextToWords(oneCupOfTextRef.current);
@@ -33,11 +46,12 @@ const Home = ({ playAnimation }) => {
       const coffeeCharsCopy = SplitTextToChars(coffeeTextCopyRef.current);
 
       // Register animations to the timeline
-      timeline.current
+      timelineRef.current
         // Custom: set perspective to "creativity" title text
         .set(creativityTextRef.current, {
           perspective: 400,
         })
+        // Add all animations within textSectionRef
         .from(sippingOnWords, {
           duration: 0.2,
           opacity: 0,
@@ -90,7 +104,10 @@ const Home = ({ playAnimation }) => {
         });
     }, textSectionRef);
 
-    // Clean animation: prevent continuing to execute
+    // Add child component's animation
+    timelineRef.current.add(childComponentRef.current.getTimeline());
+
+    // Clean animation: prevent continuing to execute even after component unmounted
     return () => context.revert();
   }, [playAnimation]);
 
@@ -161,11 +178,14 @@ const Home = ({ playAnimation }) => {
           xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full
           relative"
         >
-          <LandingImageCards playAnimation={playAnimation} />
+          <LandingImageCards
+            ref={childComponentRef}
+            playAnimation={playAnimation}
+          />
         </div>
       </div>
     </section>
   );
-};
+});
 
 export default Home;
