@@ -1,12 +1,8 @@
 import { forwardRef } from "react";
 import "gsap";
-const MenuButton = forwardRef((props, ref) => {
-  // !! forwardRef expects a function that accepts props and ref as arguments
-  // Thus destructuring is a recommended approach
-  const onClick = props.onClick;
-  const isMenuOpen = props.isMenuOpen;
-  const className = props.className;
 
+// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
+const MenuButton = forwardRef(({ onClick, isMenuOpen, className }, ref) => {
   return (
     <div ref={ref}>
       <div
@@ -43,5 +39,8 @@ const MenuButton = forwardRef((props, ref) => {
     </div>
   );
 });
+
+// !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
+MenuButton.defaultProps = { onClick: null, isMenuOpen: false, className: "" };
 
 export default MenuButton;

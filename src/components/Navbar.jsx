@@ -1,16 +1,14 @@
 import React, { useRef, useState, useEffect, forwardRef } from "react";
 import gsap from "gsap";
 import MenuButton from "./MenuButton";
-import Blob from "./Blob";
 
-const Navbar = forwardRef((props, ref) => {
-  // !! forwardRef expects a function that accepts props and ref as arguments
-  // Thus destructuring is a recommended approach
-  const { playAnimation } = props;
-
+// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
+const Navbar = forwardRef(({ playAnimation }, ref) => {
+  // Set Menu Oepn State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  // Toggle Menu Button
   const handleMenuClick = () => setIsMenuOpen(!isMenuOpen);
+  // Close Menu Button
   const closeMenu = () => setIsMenuOpen(false);
 
   // Scoped reference containing child elements that you want to animate
@@ -50,8 +48,6 @@ const Navbar = forwardRef((props, ref) => {
 
     // Clean animation: prevent continuing to execute even after component unmounted
     return () => context.revert();
-
-    // (Animation cleaning will be done in parent component)
   }, [playAnimation]);
 
   return (
@@ -79,17 +75,7 @@ const Navbar = forwardRef((props, ref) => {
             className="z-40 relative scale-[0.5] sm:scale-[0.7] mr-2 md:mr-5"
           />
         </div>
-
         {/* Menu Background */}
-        {/* <Blob
-          className={`z-20 fixed -top-[150px] -right-[80px] xl:-top-[150px] xl:-right-[200px]
-          transition-all duration-700 ease-linear
-          ${
-            isMenuOpen
-              ? "w-screen h-screen scale-[4.5] md:scale-[4] xl:scale-[4.5] xxl:scale-[4]"
-              : "w-0 h-0"
-          }`}
-        /> */}
         <div
           className={`z-20 fixed -top-[50px] -right-[50px] w-[100px] h-[100px] rounded-full
           transition-transform duration-700 bg-coffee-300 dark:bg-coffee-700
@@ -148,5 +134,8 @@ const Navbar = forwardRef((props, ref) => {
     </>
   );
 });
+
+// !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
+Navbar.defaultProps = { playAnimation: false };
 
 export default Navbar;

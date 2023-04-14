@@ -1,11 +1,7 @@
 import { forwardRef } from "react";
 
-const DarkLight = forwardRef((props, ref) => {
-  // !! forwardRef expects a function that accepts props and ref as arguments
-  // Thus destructuring is a recommended approach
-  const onClick = props.onClick;
-  const className = props.className;
-
+// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
+const DarkLight = forwardRef(({ onClick, className }, ref) => {
   return (
     <div
       ref={ref}
@@ -27,5 +23,8 @@ const DarkLight = forwardRef((props, ref) => {
     </div>
   );
 });
+
+// !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
+DarkLight.defaultProps = { onClick: null, className: "" };
 
 export default DarkLight;

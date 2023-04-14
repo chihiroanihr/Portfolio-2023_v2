@@ -3,11 +3,8 @@ import gsap from "gsap";
 import { SplitTextToWords, SplitTextToChars } from "../utils/SplitText";
 import { LandingImageCards } from "../components";
 
-const Home = forwardRef((props, ref) => {
-  // !! forwardRef expects a function that accepts props and ref as arguments
-  // Thus destructuring is a recommended approach
-  const { playAnimation } = props;
-
+// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
+const Home = forwardRef(({ playAnimation }, ref) => {
   // Scoped reference containing child elements that you want to animate
   const textSectionRef = useRef(null);
 
@@ -186,5 +183,8 @@ const Home = forwardRef((props, ref) => {
     </section>
   );
 });
+
+// !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
+Home.defaultProps = { playAnimation: false };
 
 export default Home;

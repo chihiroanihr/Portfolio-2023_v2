@@ -77,9 +77,9 @@ function App() {
         <Home ref={homeRef} playAnimation={playAnimation} />
         <DarkLight
           ref={darkLightRef}
+          onClick={handleClick}
           playAnimation={playAnimation}
           className="z-10 fixed bottom-7 right-5 lg:right-7"
-          onClick={handleClick}
         />
       </div>
 
