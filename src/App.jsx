@@ -21,7 +21,6 @@ function App() {
 
   // Set Play Animation State
   const [playAnimation, setPlayAnimation] = useState(false);
-  // By using layout effects, execution starts as soon as possible, without waiting for all assets to load.
   useEffect(() => {
     let timeoutId;
     if (isLoaderHidden) {
@@ -46,13 +45,12 @@ function App() {
   const homeRef = useRef(null);
   const navbarRef = useRef(null);
   const darkLightRef = useRef(null);
-
-  const timelineRef = useRef(gsap.timeline());
-
+  // Create GSAP animation timeline
+  const timeline = gsap.timeline();
   useEffect(() => {
     if (!playAnimation) return;
-    timelineRef.current.add(navbarRef.current);
-    timelineRef.current.from(
+    timeline.add(navbarRef.current);
+    timeline.from(
       darkLightRef.current,
       {
         y: -10,
@@ -63,7 +61,7 @@ function App() {
       },
       ">-0.5"
     );
-    timelineRef.current.add(homeRef.current, ">-1");
+    timeline.add(homeRef.current, ">-1");
   }, [playAnimation]);
 
   return (
