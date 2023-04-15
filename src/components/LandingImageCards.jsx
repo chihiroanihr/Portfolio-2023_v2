@@ -12,17 +12,22 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
     if (!playAnimation) return;
 
     // Register animations to the timeline
-    ref.current = gsap.timeline().from(imageCardsRefs.current, {
-      x: 200,
-      y: -200,
-      rotation: 0,
-      opacity: 0,
-      duration: 1.5,
-      stagger: 0.15,
-      ease: "power4.out",
-      clearProps: "all",
-    });
-    // (Animation cleaning will be done in parent component)
+    ref.current = gsap
+      .timeline({ defaults: { clearProps: "all" } })
+      .from(imageCardsRefs.current, {
+        x: 200,
+        y: -200,
+        rotation: 0,
+        opacity: 0,
+        duration: 1.5,
+        stagger: 0.15,
+        ease: "power4.out",
+      });
+
+    // Clean up animation when component unmounts
+    return () => {
+      ref.current?.kill();
+    };
   }, [playAnimation]);
 
   return (

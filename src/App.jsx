@@ -1,4 +1,10 @@
-import { useCallback, useState, useRef, useEffect } from "react";
+import {
+  useCallback,
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import gsap from "gsap";
 import { Home, About, Works, Galleries, Contact, Footer } from "./pages";
 import { Loader, Navbar, DarkLight } from "./components";
@@ -6,11 +12,13 @@ import { Loader, Navbar, DarkLight } from "./components";
 function App() {
   // Set Page Loading State
   const [isPageLoading, setIsPageLoading] = useState(true);
+
+  // Load page on start / load
   useEffect(() => {
+    const handleLoad = () => setIsPageLoading(false);
     if (document.readyState === "complete") {
-      setIsPageLoading(false);
+      handleLoad();
     } else {
-      const handleLoad = () => setIsPageLoading(false); // inline arrow callback function
       window.addEventListener("load", handleLoad);
       return () => window.removeEventListener("load", handleLoad);
     }
@@ -18,10 +26,12 @@ function App() {
 
   // Set Page Loaded (Loader Hidden) State
   const [isLoaderHidden, setIsLoaderHidden] = useState(false);
-
   // Set Play Animation State
   const [playAnimation, setPlayAnimation] = useState(false);
-  useEffect(() => {
+
+  // Allow animations / interactions when loader is hidden
+  // !! useLayoutEffect executes before the DOM is painted -> avoid flash of content (some flickers during animation)
+  useLayoutEffect(() => {
     let timeoutId;
     if (isLoaderHidden) {
       // Allow animation
@@ -46,9 +56,12 @@ function App() {
   const navbarRef = useRef(null);
   const darkLightRef = useRef(null);
   // Create GSAP animation timeline
-  const timeline = gsap.timeline();
-  useEffect(() => {
+  const timeline = gsap.timeline({ defaults: { clearProps: "all" } });
+  
+  useLayoutEffect(() => {
+    // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
+    // Add all animation timelines from children components into one timeline
     timeline.add(navbarRef.current);
     timeline.from(
       darkLightRef.current,
@@ -57,22 +70,27 @@ function App() {
         opacity: 0,
         duration: 1,
         ease: "inOut",
-        clearProps: "all",
       },
       ">-0.5"
     );
     timeline.add(homeRef.current, ">-1");
+
+    // Clean up animation when component unmounts
+    return () => {
+      timeline?.kill();
+    };
   }, [playAnimation]);
+
+  // Whole Page Styles after Loaded
+  const pageStyles = `opacity-${
+    isLoaderHidden
+      ? "100 transition-opacity duration-500"
+      : "0 pointer-events-none"
+  } ${darkMode ? "dark" : ""}`;
 
   return (
     <>
-      <div
-        className={`${
-          isLoaderHidden
-            ? "opacity-100 transition-opacity duration-500"
-            : "opacity-0 pointer-events-none"
-        } ${darkMode ? "dark" : ""}`}
-      >
+      <div className={pageStyles}>
         <Navbar ref={navbarRef} playAnimation={playAnimation} />
         <Home ref={homeRef} playAnimation={playAnimation} />
         <DarkLight

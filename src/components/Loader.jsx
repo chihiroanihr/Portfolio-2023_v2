@@ -5,11 +5,13 @@ const Loader = ({ isPageLoading, setIsLoaderHidden, className }) => {
   useEffect(() => {
     let timeoutId;
 
+    // Hide loader after a delay
     if (!isPageLoading) {
       timeoutId = setTimeout(() => {
         setIsLoaderHidden(true);
       }, 1000);
     }
+    //  Clean up the setTimeout when the component unmounts
     return () => {
       clearTimeout(timeoutId);
     };

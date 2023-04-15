@@ -7,7 +7,7 @@ const Navbar = forwardRef(({ playAnimation }, ref) => {
   // Set Menu Oepn State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Toggle Menu Button
-  const handleMenuClick = () => setIsMenuOpen(!isMenuOpen);
+  const handleMenuClick = () => setIsMenuOpen((prev) => !prev);
   // Close Menu Button
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -24,14 +24,13 @@ const Navbar = forwardRef(({ playAnimation }, ref) => {
     let context = gsap.context(() => {
       // Register animations to the timeline
       ref.current = gsap
-        .timeline()
+        .timeline({ defaults: { clearProps: "all" } })
         // Add all animations within textSectionRef scope
         .from(navbarBrandRef.current, {
           y: -10,
           opacity: 0,
           duration: 1,
           ease: "inOut",
-          clearProps: "all",
         })
         .from(
           childComponentRef.current,
@@ -40,7 +39,6 @@ const Navbar = forwardRef(({ playAnimation }, ref) => {
             opacity: 0,
             duration: 1,
             ease: "inOut",
-            clearProps: "all",
           },
           ">-0.5"
         );
