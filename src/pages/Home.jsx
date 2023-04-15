@@ -1,7 +1,7 @@
 import { useEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
-import { SplitTextToWords, SplitTextToChars } from "../utils/SplitText";
-import { LandingImageCards } from "../components";
+import { SplitTextToWords, SplitTextToChars } from "@utils/SplitText";
+import { LandingImageCards } from "@components";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const Home = forwardRef(({ playAnimation }, ref) => {

@@ -1,6 +1,6 @@
 import { useRef, useEffect, forwardRef } from "react";
 import gsap from "gsap";
-import { homeImageCards } from "../constants/data";
+import { homeImageCards } from "@constants/data";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
