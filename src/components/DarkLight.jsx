@@ -1,12 +1,12 @@
 import { forwardRef } from "react";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const DarkLight = forwardRef(({ onClick, className }, ref) => {
+const DarkLight = forwardRef(({ toggleDarkMode, className }, ref) => {
   return (
     <div
       ref={ref}
       className={`${className} p-2 rounded-full shadow-light-btn dark:shadow-dark-btn cursor-pointer`}
-      onClick={onClick}
+      onClick={toggleDarkMode}
     >
       <svg
         className="w-10 fill-transparent dark:fill-yellow-400 stroke-coffee-600 dark:stroke-yellow-400
@@ -25,6 +25,6 @@ const DarkLight = forwardRef(({ onClick, className }, ref) => {
 });
 
 // !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
-DarkLight.defaultProps = { onClick: null, className: "" };
+DarkLight.defaultProps = { toggleDarkMode: null, className: "" };
 
 export default DarkLight;

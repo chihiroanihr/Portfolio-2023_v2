@@ -3,55 +3,53 @@ import gsap from "gsap";
 import MenuButton from "./MenuButton";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const Navbar = forwardRef(({ playAnimation }, ref) => {
-  // Set Menu Oepn State
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Toggle Menu Button
-  const handleMenuClick = () => setIsMenuOpen((prev) => !prev);
-  // Close Menu Button
-  const closeMenu = () => setIsMenuOpen(false);
+const Navbar = forwardRef(
+  (
+    { playAnimation, className, isMenuOpen, handleToggleMenu, handleCloseMenu },
+    ref
+  ) => {
+    // Scoped reference containing child elements that you want to animate
+    const menuBarRef = useRef(null);
+    // Child references
+    const navbarBrandRef = useRef(null);
+    const childComponentRef = useRef(null);
 
-  // Scoped reference containing child elements that you want to animate
-  const menuBarRef = useRef(null);
-  // Child references
-  const navbarBrandRef = useRef(null);
-  const childComponentRef = useRef(null);
+    // Update Animation when playAnimation is triggered
+    useEffect(() => {
+      // If playAnimation is not triggered yet than skip
+      if (!playAnimation) return;
 
-  // Update Animation when playAnimation is triggered
-  useEffect(() => {
-    // If playAnimation is not triggered yet than skip
-    if (!playAnimation) return;
-
-    let context = gsap.context(() => {
-      // Register animations to the timeline
-      ref.current = gsap
-        .timeline({ defaults: { clearProps: "all" } })
-        // Add all animations within textSectionRef scope
-        .from(navbarBrandRef.current, {
-          y: -10,
-          opacity: 0,
-          duration: 1,
-          ease: "inOut",
-        })
-        .from(
-          childComponentRef.current,
-          {
+      let context = gsap.context(() => {
+        // Register animations to the timeline
+        ref.current = gsap
+          .timeline({ defaults: { clearProps: "all" } })
+          // Add all animations within textSectionRef scope
+          .from(navbarBrandRef.current, {
             y: -10,
             opacity: 0,
             duration: 1,
             ease: "inOut",
-          },
-          ">-0.5"
-        );
-    }, menuBarRef);
+          })
+          .from(
+            childComponentRef.current,
+            {
+              y: -10,
+              opacity: 0,
+              duration: 1,
+              ease: "inOut",
+            },
+            ">-0.5"
+          );
+      }, menuBarRef);
 
-    // Clean animation: prevent continuing to execute even after component unmounted
-    return () => context.revert();
-  }, [playAnimation]);
+      // Clean animation: prevent continuing to execute even after component unmounted
+      return () => context.revert();
+    }, [playAnimation]);
 
-  return (
-    <>
-      <nav className="z-30 fixed top-0 l-0 r-0 w-screen h-20">
+    return (
+      // Navbar
+      <nav className={`${className} w-screen h-20`}>
+        {/* When Menu Closed */}
         <div ref={menuBarRef} className="flex justify-end items-center h-full">
           {/* Navbar Brand */}
           <div
@@ -69,72 +67,82 @@ const Navbar = forwardRef(({ playAnimation }, ref) => {
           {/* Menu Button */}
           <MenuButton
             ref={childComponentRef}
-            onClick={handleMenuClick}
+            onClick={handleToggleMenu}
             isMenuOpen={isMenuOpen}
-            className="z-40 relative scale-[0.5] sm:scale-[0.7] mr-2 md:mr-5"
+            className="z-30 relative scale-[0.5] sm:scale-[0.7] mr-2 md:mr-5"
           />
         </div>
-        {/* Menu Background */}
-        <div
-          className={`z-20 fixed -top-[50px] -right-[50px] w-[100px] h-[100px] rounded-full
-          transition-transform duration-700 bg-coffee-300 dark:bg-coffee-700
-          ${
-            isMenuOpen ? "xl:scale-[50] md:scale-[35] scale-[20]" : "scale-[0]"
-          }`}
-        ></div>
-      </nav>
 
-      {/* Menu Lists */}
-      <ul
-        className={`z-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity
-              ${
-                isMenuOpen
-                  ? "cursor-pointer opacity-100 duration-500 delay-200"
-                  : "pointer-events-none opacity-0 duration-200"
-              }`}
-      >
-        <li className="text-center list-none">
-          <a
-            href="#"
-            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-            onClick={closeMenu}
+        {/* When Menu Opened */}
+        <div>
+          {/* Menu Background (hidden) */}
+          <div
+            className={`z-20 fixed -top-[50px] -right-[50px] w-[100px] h-[100px] rounded-full
+            transition-transform duration-700 bg-coffee-300 dark:bg-coffee-700 ${
+              isMenuOpen
+                ? "xl:scale-[50] md:scale-[35] scale-[20]"
+                : "scale-[0]"
+            }`}
+          ></div>
+
+          {/* Menu Lists (hidden) */}
+          <ul
+            className={`z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity ${
+              isMenuOpen
+                ? "cursor-pointer opacity-100 duration-500 delay-200"
+                : "pointer-events-none opacity-0 duration-200"
+            }`}
           >
-            Top
-          </a>
-        </li>
-        <li className="text-center list-none">
-          <a
-            href="#"
-            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-            onClick={closeMenu}
-          >
-            About
-          </a>
-        </li>
-        <li className="text-center list-none">
-          <a
-            href="#"
-            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-            onClick={closeMenu}
-          >
-            Service
-          </a>
-        </li>
-        <li className="text-center list-none">
-          <a
-            href="#"
-            className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-            onClick={closeMenu}
-          >
-            Contact
-          </a>
-        </li>
-      </ul>
-    </>
-  );
-});
+            <li className="text-center list-none">
+              <a
+                href="#"
+                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
+                onClick={handleCloseMenu}
+              >
+                Top
+              </a>
+            </li>
+            <li className="text-center list-none">
+              <a
+                href="#"
+                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
+                onClick={handleCloseMenu}
+              >
+                About
+              </a>
+            </li>
+            <li className="text-center list-none">
+              <a
+                href="#"
+                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
+                onClick={handleCloseMenu}
+              >
+                Service
+              </a>
+            </li>
+            <li className="text-center list-none">
+              <a
+                href="#"
+                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
+                onClick={handleCloseMenu}
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
+);
 
 // !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
-Navbar.defaultProps = { playAnimation: false };
+Navbar.defaultProps = {
+  className: "",
+  playAnimation: false,
+  isMenuOpen: false,
+  handleToggleMenu: null,
+  handleCloseMenu: null,
+};
 
 export default Navbar;

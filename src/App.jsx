@@ -26,6 +26,7 @@ function App() {
 
   // Set Page Loaded (Loader Hidden) State
   const [isLoaderHidden, setIsLoaderHidden] = useState(false);
+
   // Set Play Animation State
   const [playAnimation, setPlayAnimation] = useState(false);
 
@@ -45,25 +46,37 @@ function App() {
     };
   }, [isLoaderHidden]);
 
-  // Toggle Light/Dark Mode State
+  // Set Dark Mode State
   const [darkMode, setDarkMode] = useState(false);
-  const handleClick = useCallback(() => {
-    setDarkMode((prevMode) => !prevMode);
+  // Toggle Light/Dark Mode State
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prev) => !prev);
   }, []);
+
+  // Set Menu Oepn State
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Toggle Menu Button
+  const handleToggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
+  // Close Menu Button
+  const handleCloseMenu = () => setIsMenuOpen(false);
 
   // Handle All Animations
   const homeRef = useRef(null);
   const navbarRef = useRef(null);
   const darkLightRef = useRef(null);
   // Create GSAP animation timeline
-  const timeline = gsap.timeline({ defaults: { clearProps: "all" } });
+  const timelineRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // ! Create new timeline on every render otherwise the animation will pause if you re-render in the middle.
+    timelineRef.current = gsap.timeline({ defaults: { clearProps: "all" } });
     // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
     // Add all animation timelines from children components into one timeline
-    timeline.add(navbarRef.current);
-    timeline.from(
+    timelineRef.current.add(navbarRef.current);
+    timelineRef.current.from(
       darkLightRef.current,
       {
         y: -10,
@@ -73,36 +86,17 @@ function App() {
       },
       ">-0.5"
     );
-    timeline.add(homeRef.current, ">-1");
-
-    timeline.play()
+    timelineRef.current.add(homeRef.current, ">-1");
 
     // Clean up animation when component unmounts
     return () => {
-      timeline?.kill();
+      timelineRef.current?.kill();
     };
   }, [playAnimation]);
 
-  // Whole Page Styles after Loaded
-  const pageStyles = `opacity-${
-    isLoaderHidden
-      ? "100 transition-opacity duration-500"
-      : "0 pointer-events-none"
-  } ${darkMode ? "dark" : ""}`;
-
   return (
     <>
-      <div className={pageStyles}>
-        <Navbar ref={navbarRef} playAnimation={playAnimation} />
-        <Home ref={homeRef} playAnimation={playAnimation} />
-        <DarkLight
-          ref={darkLightRef}
-          onClick={handleClick}
-          playAnimation={playAnimation}
-          className="z-10 fixed bottom-7 right-5 lg:right-7"
-        />
-      </div>
-
+      {/* Loader (hidden) */}
       <Loader
         isPageLoading={isPageLoading}
         setIsLoaderHidden={setIsLoaderHidden}
@@ -110,6 +104,42 @@ function App() {
           isLoaderHidden && "hidden"
         }`}
       />
+
+      {/* Page */}
+      <div
+        className={`opacity-${
+          isLoaderHidden
+            ? "100 transition-opacity duration-500"
+            : "0 pointer-events-none"
+        } ${darkMode ? "dark" : ""}`}
+      >
+        {/* Navbar (sticky) */}
+        <div>
+          <Navbar
+            ref={navbarRef}
+            isMenuOpen={isMenuOpen}
+            handleToggleMenu={handleToggleMenu}
+            handleCloseMenu={handleCloseMenu}
+            playAnimation={playAnimation}
+            className="z-30 fixed top-0 l-0 r-0"
+          />
+        </div>
+
+        {/* Contents */}
+        <div>
+          <Home ref={homeRef} playAnimation={playAnimation} />
+        </div>
+
+        {/* Dark Light Mode Button (sticky) */}
+        <div>
+          <DarkLight
+            ref={darkLightRef}
+            toggleDarkMode={toggleDarkMode}
+            playAnimation={playAnimation}
+            className="z-10 fixed bottom-7 right-5 lg:right-7"
+          />
+        </div>
+      </div>
     </>
   );
 }

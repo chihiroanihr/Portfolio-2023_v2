@@ -111,73 +111,78 @@ const Home = forwardRef(({ playAnimation }, ref) => {
   return (
     <section
       id="home"
-      className="h-screen bg-coffee-100 dark:bg-coffee-800 overflow-x-hidden"
+      className="h-[200vh] bg-coffee-100 dark:bg-coffee-800 overflow-x-hidden"
     >
-      <div
-        // overflow grid on purpose via "fixed"
-        className="grid gap-[20px] grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4
-        h-full max-w-screen-xxxl mx-auto xl:px-[150px] lg:px-[100px] md:px-[70px] xs:px-[35px] px-[20px]"
-      >
-        {/* -------- Text Area -------- */}
+      {/* ------------------------ First Home section ------------------------ */}
+      <div className="h-screen">
         <div
-          ref={textSectionRef}
-          className="xxxl:row-start-1 xxl:row-start-2 md:row-start-3 row-start-4 row-span-full
+          // overflow grid on purpose via "fixed"
+          className="grid gap-[20px] grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4
+        h-full max-w-screen-xxxl mx-auto xl:px-[150px] lg:px-[100px] md:px-[70px] xs:px-[35px] px-[20px]"
+        >
+          {/* -------- Text Area -------- */}
+          <div
+            ref={textSectionRef}
+            className="xxxl:row-start-1 xxl:row-start-2 md:row-start-3 row-start-4 row-span-full
           xl:col-span-6 lg:col-span-7 md:col-span-6 sm:col-span-5 col-span-full
           xl:col-start-1 lg:col-start-1 md:col-start-1 sm:col-start-1 col-start-1
           flex flex-col justify-center leading-snug z-10"
-        >
-          <div
-            ref={sippingOnTextRef}
-            className="xl:mb-[35px] md:mb-[30px] mb-[20px]
+          >
+            <div
+              ref={sippingOnTextRef}
+              className="xl:mb-[35px] md:mb-[30px] mb-[20px]
             lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
             font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
-          >
-            Sipping on
-          </div>
-          <div
-            ref={creativityTextRef}
-            id="creativity"
-            className="lg:text-[96px] md:text-[72px] xs:text-[48px] text-[36px] z-10 pl-[8px]
-            font-title-cursive whitespace-nowrap text-coffee-600 dark:text-coffee-300"
-          >
-            Creativity
-          </div>
-          <div
-            className="lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
-            font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
-          >
-            {/* texts into one line (inline) - necessary due to animation */}
-            <div className="relative inline-block">
-              <span ref={oneCupOfTextRef}>one cup of </span>
-              <span
-                ref={coffeeTextRef}
-                className="md:font-light font-normal prevent-select"
-              >
-                coffee
-              </span>
-              <span
-                ref={coffeeTextCopyRef}
-                className="absolute top-0 right-0 md:font-light font-normal text-yellow-500"
-              >
-                coffee
-              </span>
+            >
+              Sipping on
             </div>
-            <p ref={atTimeTextRef}>at a time.</p>
+            <div
+              ref={creativityTextRef}
+              id="creativity"
+              className="lg:text-[96px] md:text-[72px] xs:text-[48px] text-[36px] z-10 pl-[8px]
+            font-title-cursive whitespace-nowrap text-coffee-600 dark:text-coffee-300"
+            >
+              Creativity
+            </div>
+            <div
+              className="lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
+            font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
+            >
+              {/* texts into one line (inline) - necessary due to animation */}
+              <div className="relative inline-block">
+                <span ref={oneCupOfTextRef}>one cup of </span>
+                <span
+                  ref={coffeeTextRef}
+                  className="md:font-light font-normal prevent-select"
+                >
+                  coffee
+                </span>
+                <span
+                  ref={coffeeTextCopyRef}
+                  className="absolute top-0 right-0 md:font-light font-normal text-yellow-500"
+                >
+                  coffee
+                </span>
+              </div>
+              <p ref={atTimeTextRef}>at a time.</p>
+            </div>
           </div>
-        </div>
 
-        {/* -------- Image Area -------- */}
-        <div
-          className="row-start-1 row-end-6 xl:row-span-full 
+          {/* -------- Image Area -------- */}
+          <div
+            className="row-start-1 row-end-6 xl:row-span-full 
           xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full
           relative"
-        >
-          <LandingImageCards
-            ref={childComponentRef}
-            playAnimation={playAnimation}
-          />
+          >
+            <LandingImageCards
+              ref={childComponentRef}
+              playAnimation={playAnimation}
+            />
+          </div>
         </div>
       </div>
+      {/* ------------------------ Second Home section ------------------------ */}
+      <div className="h-screen"></div>
     </section>
   );
 });
