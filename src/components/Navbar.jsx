@@ -13,6 +13,7 @@ const Navbar = forwardRef(({ playAnimation }, ref) => {
 
   // Scoped reference containing child elements that you want to animate
   const menuBarRef = useRef(null);
+  // Child references
   const navbarBrandRef = useRef(null);
   const childComponentRef = useRef(null);
 

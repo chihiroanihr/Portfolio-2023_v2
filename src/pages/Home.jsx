@@ -1,13 +1,12 @@
 import { useEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
-import { SplitTextToWords, SplitTextToChars } from "@utils/SplitText";
+import { splitTextToWords, splitTextToChars } from "@utils/splitText";
 import { LandingImageCards } from "@components";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const Home = forwardRef(({ playAnimation }, ref) => {
   // Scoped reference containing child elements that you want to animate
   const textSectionRef = useRef(null);
-
   // Child references
   const sippingOnTextRef = useRef(null);
   const creativityTextRef = useRef(null);
@@ -15,7 +14,6 @@ const Home = forwardRef(({ playAnimation }, ref) => {
   const coffeeTextCopyRef = useRef(null);
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
-
   // Child Component reference
   const childComponentRef = useRef(null);
 
@@ -26,13 +24,13 @@ const Home = forwardRef(({ playAnimation }, ref) => {
 
     let context = gsap.context(() => {
       // Split texts from refs into words / chars
-      const sippingOnWords = SplitTextToWords(sippingOnTextRef.current);
-      const creativityChars = SplitTextToChars(creativityTextRef.current);
-      const oneCupOfWords = SplitTextToWords(oneCupOfTextRef.current);
+      const sippingOnWords = splitTextToWords(sippingOnTextRef.current);
+      const creativityChars = splitTextToChars(creativityTextRef.current);
+      const oneCupOfWords = splitTextToWords(oneCupOfTextRef.current);
       const coffeeText = coffeeTextRef.current;
-      const atTimeWords = SplitTextToWords(atTimeTextRef.current);
-      const coffeeChars = SplitTextToChars(coffeeTextRef.current);
-      const coffeeCharsCopy = SplitTextToChars(coffeeTextCopyRef.current);
+      const atTimeWords = splitTextToWords(atTimeTextRef.current);
+      const coffeeChars = splitTextToChars(coffeeTextRef.current);
+      const coffeeCharsCopy = splitTextToChars(coffeeTextCopyRef.current);
 
       // Register animations to the timeline
       ref.current = gsap

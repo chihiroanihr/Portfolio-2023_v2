@@ -2,7 +2,7 @@
 // https://webanimation.blog/blog/wavy-text-animation-using-react-hooks-with-gsap-v3
 
 // ---------------- Split Text To Chars Function ---------------- //
-export const SplitTextToChars = (textNode) => {
+export const splitTextToChars = (textNode) => {
   // Obtain and Split texts
   const textContent = textNode.textContent;
   const textSplit = textContent.split("");
@@ -29,7 +29,7 @@ export const SplitTextToChars = (textNode) => {
 };
 
 // ---------------- Split Text To Words Function ---------------- //
-export const SplitTextToWords = (textNode) => {
+export const splitTextToWords = (textNode) => {
   // Obtain and Split texts
   const textContent = textNode.textContent;
   const wordSplit = textContent.split(" ");
