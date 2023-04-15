@@ -57,8 +57,8 @@ function App() {
   const darkLightRef = useRef(null);
   // Create GSAP animation timeline
   const timeline = gsap.timeline({ defaults: { clearProps: "all" } });
-  
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
     // Add all animation timelines from children components into one timeline
@@ -74,6 +74,8 @@ function App() {
       ">-0.5"
     );
     timeline.add(homeRef.current, ">-1");
+
+    timeline.play()
 
     // Clean up animation when component unmounts
     return () => {
