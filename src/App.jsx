@@ -15,12 +15,12 @@ function App() {
 
   // Load page on start / load
   useEffect(() => {
-    const handleLoad = () => setIsPageLoading(false);
+    const handlePageLoading = () => setIsPageLoading(false);
     if (document.readyState === "complete") {
-      handleLoad();
+      handlePageLoading();
     } else {
-      window.addEventListener("load", handleLoad);
-      return () => window.removeEventListener("load", handleLoad);
+      window.addEventListener("load", handlePageLoading);
+      return () => window.removeEventListener("load", handlePageLoading);
     }
   }, []);
 
@@ -47,10 +47,10 @@ function App() {
   }, [isLoaderHidden]);
 
   // Set Dark Mode State
-  const [darkMode, setDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   // Toggle Light/Dark Mode State
-  const toggleDarkMode = useCallback(() => {
-    setDarkMode((prev) => !prev);
+  const handleToggleDarkMode = useCallback(() => {
+    setIsDarkMode((prev) => !prev);
   }, []);
 
   // Set Menu Oepn State
@@ -111,7 +111,7 @@ function App() {
           isLoaderHidden
             ? "100 transition-opacity duration-500"
             : "0 pointer-events-none"
-        } ${darkMode ? "dark" : ""}`}
+        } ${isDarkMode ? "dark" : ""}`}
       >
         {/* Navbar (sticky) */}
         <div>
@@ -134,7 +134,7 @@ function App() {
         <div>
           <DarkLight
             ref={darkLightRef}
-            toggleDarkMode={toggleDarkMode}
+            handleToggleDarkMode={handleToggleDarkMode}
             playAnimation={playAnimation}
             className="z-10 fixed bottom-7 right-5 lg:right-7"
           />
