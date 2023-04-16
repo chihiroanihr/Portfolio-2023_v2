@@ -19,8 +19,8 @@ const Loader = ({ isPageLoading, setIsLoaderHidden, className }) => {
 
   return (
     <div
-      className={`${className} spinner w-screen h-screen 
-      ${!isPageLoading ? "opacity-0 transition-opacity duration-500" : ""}`}
+      className={`${className} spinner w-screen h-screen transition-opacity duration-500
+      ${!isPageLoading ? "opacity-0" : "opacity-100"}`}
     >
       <div className="dot1"></div>
       <div className="dot2"></div>
