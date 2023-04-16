@@ -1,11 +1,17 @@
-import React, { useRef, useState, useEffect, forwardRef } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  forwardRef,
+} from "react";
 import gsap from "gsap";
 import MenuButton from "./MenuButton";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const Navbar = forwardRef(
   (
-    { playAnimation, className, isMenuOpen, handleToggleMenu, handleCloseMenu },
+    { playAnimation, isMenuOpen, handleToggleMenu, handleCloseMenu, className },
     ref
   ) => {
     // Scoped reference containing child elements that you want to animate
@@ -136,13 +142,13 @@ const Navbar = forwardRef(
   }
 );
 
-// !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
+// !! Assign the default value to prevent errors when they are not passed by the parent component.
 Navbar.defaultProps = {
-  className: "",
   playAnimation: false,
   isMenuOpen: false,
   handleToggleMenu: null,
   handleCloseMenu: null,
+  className: "",
 };
 
 export default Navbar;

@@ -28,4 +28,11 @@ const Loader = ({ isPageLoading, setIsLoaderHidden, className }) => {
   );
 };
 
+// !! Assign the default value to prevent errors when they are not passed by the parent component.
+Loader.defaultProps = {
+  isPageLoading: true,
+  setIsLoaderHidden: null,
+  className: "",
+};
+
 export default Loader;

@@ -49,7 +49,7 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
   );
 });
 
-// !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
+// !! Assign the default value to prevent errors when they are not passed by the parent component.
 LandingImageCards.defaultProps = { playAnimation: false };
 
 export default LandingImageCards;
