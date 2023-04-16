@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "body-scroll-lock": "^4.0.0-beta.0",
+    "body-scroll-lock-upgrade": "^1.0.3",
     "gsap": "^3.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
