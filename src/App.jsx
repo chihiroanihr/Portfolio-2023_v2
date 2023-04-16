@@ -51,14 +51,14 @@ function App() {
   // Toggle Light/Dark Mode State
   const handleToggleDarkMode = useCallback(() => {
     setIsDarkMode((prev) => !prev);
-  }, []);
+  }, [isDarkMode]);
 
   // Set Menu Oepn State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Toggle Menu Button
   const handleToggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
-  }, []);
+  }, [isMenuOpen]);
   // Close Menu Button
   const handleCloseMenu = () => setIsMenuOpen(false);
 
