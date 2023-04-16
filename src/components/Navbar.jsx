@@ -6,6 +6,7 @@ import React, {
   forwardRef,
 } from "react";
 import gsap from "gsap";
+import { useBodyScrollLock } from "@utils";
 import MenuButton from "./MenuButton";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
@@ -25,7 +26,7 @@ const Navbar = forwardRef(
       // If playAnimation is not triggered yet than skip
       if (!playAnimation) return;
 
-      let context = gsap.context(() => {
+      const context = gsap.context(() => {
         // Register animations to the timeline
         ref.current = gsap
           .timeline({ defaults: { clearProps: "all" } })
@@ -52,6 +53,23 @@ const Navbar = forwardRef(
       return () => context.revert();
     }, [playAnimation]);
 
+    // Set Scroll Lock State
+    const [isScrollLocked, setIsScrollLocked] = useState(false);
+
+    // Activate Scroll Lock
+    const handleScrollLock = useCallback(() => {
+      setIsScrollLocked((prev) => !prev);
+    }, [isScrollLocked]);
+
+    // Reference to activate scroll lock
+    const scrollLockTargetRef = useRef(null);
+
+    // Function to execute scroll lock on the target reference
+    useBodyScrollLock({
+      isScrollLocked,
+      scrollLockTargetRef,
+    });
+
     return (
       // Navbar
       <nav className={`${className} w-screen h-20`}>
@@ -73,7 +91,10 @@ const Navbar = forwardRef(
           {/* Menu Button */}
           <MenuButton
             ref={childComponentRef}
-            onClick={handleToggleMenu}
+            onClick={() => {
+              handleToggleMenu();
+              handleScrollLock();
+            }}
             isMenuOpen={isMenuOpen}
             className="z-30 relative scale-[0.5] sm:scale-[0.7] mr-2 md:mr-5"
           />
@@ -93,6 +114,7 @@ const Navbar = forwardRef(
 
           {/* Menu Lists (hidden) */}
           <ul
+            ref={scrollLockTargetRef}
             className={`z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity ${
               isMenuOpen
                 ? "cursor-pointer opacity-100 duration-500 delay-200"
@@ -103,7 +125,10 @@ const Navbar = forwardRef(
               <a
                 href="#"
                 className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={handleCloseMenu}
+                onClick={() => {
+                  handleCloseMenu();
+                  handleScrollLock();
+                }}
               >
                 Top
               </a>
@@ -112,7 +137,10 @@ const Navbar = forwardRef(
               <a
                 href="#"
                 className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={handleCloseMenu}
+                onClick={() => {
+                  handleCloseMenu();
+                  handleScrollLock();
+                }}
               >
                 About
               </a>
@@ -121,7 +149,10 @@ const Navbar = forwardRef(
               <a
                 href="#"
                 className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={handleCloseMenu}
+                onClick={() => {
+                  handleCloseMenu();
+                  handleScrollLock();
+                }}
               >
                 Service
               </a>
@@ -130,7 +161,10 @@ const Navbar = forwardRef(
               <a
                 href="#"
                 className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={handleCloseMenu}
+                onClick={() => {
+                  handleCloseMenu();
+                  handleScrollLock();
+                }}
               >
                 Contact
               </a>
