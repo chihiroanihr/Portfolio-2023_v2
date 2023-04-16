@@ -12,6 +12,7 @@
     "gsap": "^3.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+    "why-did-you-update": "^1.0.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
