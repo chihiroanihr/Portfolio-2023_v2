@@ -1,7 +1,7 @@
 import {
-  useCallback,
-  useState,
   useRef,
+  useState,
+  useCallback,
   useEffect,
   useLayoutEffect,
 } from "react";
@@ -62,13 +62,14 @@ function App() {
   // Close Menu Button
   const handleCloseMenu = () => setIsMenuOpen(false);
 
-  // Handle All Animations
+  // Reference to handle animations
   const homeRef = useRef(null);
   const navbarRef = useRef(null);
   const darkLightRef = useRef(null);
   // Create GSAP animation timeline
   const timelineRef = useRef(null);
 
+  // Handle All Animations from parent + child components
   useLayoutEffect(() => {
     // ! Create new timeline on every render otherwise the animation will pause if you re-render in the middle.
     timelineRef.current = gsap.timeline({ defaults: { clearProps: "all" } });
@@ -95,7 +96,7 @@ function App() {
   }, [playAnimation]);
 
   return (
-    <>
+    <div className={isDarkMode ? "dark" : ""}>
       {/* Loader (hidden) */}
       <Loader
         isPageLoading={isPageLoading}
@@ -107,40 +108,36 @@ function App() {
 
       {/* Page */}
       <div
-        className={`opacity-${
-          isLoaderHidden
-            ? "100 transition-opacity duration-500"
-            : "0 pointer-events-none"
-        } ${isDarkMode ? "dark" : ""}`}
+        className={`bg-coffee-100 dark:bg-coffee-800 transition-opacity duration-500 opacity-${
+          isLoaderHidden ? "100" : "0 pointer-events-none"
+        }`}
       >
         {/* Navbar (sticky) */}
-        <div>
-          <Navbar
-            ref={navbarRef}
-            isMenuOpen={isMenuOpen}
-            handleToggleMenu={handleToggleMenu}
-            handleCloseMenu={handleCloseMenu}
-            playAnimation={playAnimation}
-            className="z-30 fixed top-0 l-0 r-0"
-          />
-        </div>
+        <Navbar
+          ref={navbarRef}
+          isMenuOpen={isMenuOpen}
+          handleToggleMenu={handleToggleMenu}
+          handleCloseMenu={handleCloseMenu}
+          playAnimation={playAnimation}
+          className="z-30 fixed top-0 l-0 r-0"
+        />
 
         {/* Contents */}
-        <div>
-          <Home ref={homeRef} playAnimation={playAnimation} />
-        </div>
+        <Home
+          ref={homeRef}
+          playAnimation={playAnimation}
+          className="max-w-screen-xxxl mx-auto overflow-x-hidden"
+        />
 
         {/* Dark Light Mode Button (sticky) */}
-        <div>
-          <DarkLight
-            ref={darkLightRef}
-            handleToggleDarkMode={handleToggleDarkMode}
-            playAnimation={playAnimation}
-            className="z-10 fixed bottom-7 right-5 lg:right-7"
-          />
-        </div>
+        <DarkLight
+          ref={darkLightRef}
+          handleToggleDarkMode={handleToggleDarkMode}
+          playAnimation={playAnimation}
+          className="z-10 fixed bottom-7 right-5 lg:right-7"
+        />
       </div>
-    </>
+    </div>
   );
 }
 
