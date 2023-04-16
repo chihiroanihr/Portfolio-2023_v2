@@ -4,7 +4,7 @@ import { splitTextToWords, splitTextToChars } from "@utils";
 import { LandingImageCards } from "@components";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const Home = forwardRef(({ playAnimation }, ref) => {
+const Home = forwardRef(({ playAnimation, className }, ref) => {
   // Scoped reference containing child elements that you want to animate
   const textSectionRef = useRef(null);
   // Child references
@@ -109,16 +109,13 @@ const Home = forwardRef(({ playAnimation }, ref) => {
   }, [playAnimation]);
 
   return (
-    <section
-      id="home"
-      className="h-[200vh] bg-coffee-100 dark:bg-coffee-800 overflow-x-hidden"
-    >
+    <section id="home" className={className}>
       {/* ------------------------ First Home section ------------------------ */}
       <div className="h-screen">
         <div
           // overflow grid on purpose via "fixed"
           className="grid gap-[20px] grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4
-        h-full max-w-screen-xxxl mx-auto xl:px-[150px] lg:px-[100px] md:px-[70px] xs:px-[35px] px-[20px]"
+        h-full xl:px-[150px] lg:px-[100px] md:px-[70px] xs:px-[35px] px-[20px]"
         >
           {/* -------- Text Area -------- */}
           <div
@@ -181,6 +178,7 @@ const Home = forwardRef(({ playAnimation }, ref) => {
           </div>
         </div>
       </div>
+
       {/* ------------------------ Second Home section ------------------------ */}
       <div className="h-screen"></div>
     </section>
@@ -188,6 +186,6 @@ const Home = forwardRef(({ playAnimation }, ref) => {
 });
 
 // !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
-Home.defaultProps = { playAnimation: false };
+Home.defaultProps = { playAnimation: false, className: "" };
 
 export default Home;
