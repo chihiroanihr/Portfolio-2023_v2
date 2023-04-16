@@ -13,14 +13,17 @@ To follow best practices, easy to read and understand source codes.
 To separate logic into sub-logics for the easier maintenance and modifications.
 
 - Use of React Hooks
+  - useState
   - useRef
   - useEffect
   - useLayoutEffect
     <!-- - Control over the timing of animation -->
     <!-- - To avoid any flickering / flashing of the content (animation only starts before DOM painted) -->
+    - useCallback
   - forwardRef
 - Use of third party libraries
   - GSAP
+  - body-scroll-lock-upgrade
   - tailwind
 
 ## Packages Installed
@@ -34,6 +37,9 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 - **gsap**<br />
   `npm install gsap`
+
+- **body-scroll-lock-upgrade**<br />
+  `npm install body-scroll-lock-upgrade`
 
 ## Assets Used
 
