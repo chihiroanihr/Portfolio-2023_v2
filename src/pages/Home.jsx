@@ -1,6 +1,6 @@
 import { useEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
-import { splitTextToWords, splitTextToChars } from "@utils/splitText";
+import { splitTextToWords, splitTextToChars } from "@utils";
 import { LandingImageCards } from "@components";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
