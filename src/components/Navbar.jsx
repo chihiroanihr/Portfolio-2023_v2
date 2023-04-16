@@ -8,6 +8,7 @@ import React, {
 import gsap from "gsap";
 import { useBodyScrollLock } from "@utils";
 import MenuButton from "./MenuButton";
+import { menuLists } from "@constants/data";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const Navbar = forwardRef(
@@ -78,7 +79,8 @@ const Navbar = forwardRef(
           {/* Navbar Brand */}
           <div
             ref={navbarBrandRef}
-            className="absolute flex flex-col gap-1 w-full mx-auto text-center text-coffee-600 dark:text-coffee-300"
+            className="absolute flex flex-col gap-1 w-full mx-auto
+            text-center text-coffee-600 dark:text-coffee-300"
           >
             <p className="font-cabin-sans text-xs tracking-widest">
               Web Developer + Designer
@@ -115,60 +117,28 @@ const Navbar = forwardRef(
           {/* Menu Lists (hidden) */}
           <ul
             ref={scrollLockTargetRef}
-            className={`z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity ${
+            className={`z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+            flex flex-col transition-opacity ${
               isMenuOpen
                 ? "cursor-pointer opacity-100 duration-500 delay-200"
                 : "pointer-events-none opacity-0 duration-200"
             }`}
           >
-            <li className="text-center list-none">
-              <a
-                href="#"
-                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={() => {
-                  handleCloseMenu();
-                  handleScrollLock();
-                }}
-              >
-                Top
-              </a>
-            </li>
-            <li className="text-center list-none">
-              <a
-                href="#"
-                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={() => {
-                  handleCloseMenu();
-                  handleScrollLock();
-                }}
-              >
-                About
-              </a>
-            </li>
-            <li className="text-center list-none">
-              <a
-                href="#"
-                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={() => {
-                  handleCloseMenu();
-                  handleScrollLock();
-                }}
-              >
-                Service
-              </a>
-            </li>
-            <li className="text-center list-none">
-              <a
-                href="#"
-                className="block p-3 text-coffee-800 dark:text-coffee-100 font-default-sans font-semibold tracking-widest uppercase no-underline"
-                onClick={() => {
-                  handleCloseMenu();
-                  handleScrollLock();
-                }}
-              >
-                Contact
-              </a>
-            </li>
+            {menuLists.map(({ id, href }, index) => (
+              <li key={id} className="text-center list-none">
+                <a
+                  href={href}
+                  onClick={() => {
+                    handleCloseMenu();
+                    handleScrollLock();
+                  }}
+                  className="block p-3 text-coffee-800 dark:text-coffee-100 
+                  font-default-sans font-semibold tracking-widest uppercase no-underline"
+                >
+                  {id}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </nav>
