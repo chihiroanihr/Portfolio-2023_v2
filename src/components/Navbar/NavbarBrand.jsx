@@ -42,7 +42,7 @@ const NavbarBrand = forwardRef(({ className }, ref) => {
     <div
       ref={ref}
       // ! "absolute" necessary to make nav brand position center relative to edges of the screen.
-      className={`${className} flex flex-col gap-1
+      className={`${className} flex flex-col sm:gap-[4px] gap-[2px]
       text-center text-coffee-600 dark:text-coffee-300`}
     >
       <p className="font-cabin-sans text-xs tracking-widest">

@@ -85,7 +85,7 @@ const Navbar = forwardRef(({ playAnimation, className }, ref) => {
   return (
     // Navbar (sticky)
     <nav className={`${className} w-screen h-20`}>
-      {/* When Menu Closed */}
+      {/* ---------- When Menu Closed ---------- */}
       <div ref={menuBarRef} className="h-full flex justify-end items-center">
         {/* Navbar Brand */}
         <NavbarBrand ref={navbarBrandRef} className="absolute w-full mx-auto" />
@@ -102,7 +102,7 @@ const Navbar = forwardRef(({ playAnimation, className }, ref) => {
         />
       </div>
 
-      {/* When Menu Opened */}
+      {/* ---------- When Menu Opened ---------- */}
       <div>
         {/* Menu Background (hidden) */}
         <MenuBackground

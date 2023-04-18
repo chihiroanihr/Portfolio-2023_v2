@@ -40,7 +40,7 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
           src={img}
           alt={id}
           className={`absolute -translate-y-1/2 ${style.position} ${style.rotation} ${style.brightness}
-            xxl:w-[400px] xxl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[200px] h-[350px]
+            xxl:w-[400px] xxl:h-[650px] md:w-[300px] md:h-[500px] xs:w-[250px] xs:h-[400px] w-[180px] h-[300px]
             rounded-2xl shadow-cards-light dark:shadow-cards-dark object-cover object-center
             pointer-events-none prevent-select`}
         />

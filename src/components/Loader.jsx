@@ -1,5 +1,5 @@
 import "./Loader.css";
-import loadingIcon from "../assets/images/loading-icon.png";
+import loadingIcon from "@assets/images/loading-icon.png";
 
 const Loader = () => {
   return (

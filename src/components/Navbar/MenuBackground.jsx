@@ -3,10 +3,10 @@ import React from "react";
 const MenuBackground = ({ isMenuOpen, className }) => {
   return (
     <div
-      className={`${className} rounded-full 
-      transition-transform duration-700 bg-coffee-300 dark:bg-coffee-700 ${
+      className={`${className} rounded-full
+      bg-coffee-300 dark:bg-coffee-700 ${
         isMenuOpen ? "xl:scale-[50] md:scale-[35] scale-[20]" : "scale-[0]"
-      }`}
+      } transition-transform duration-700`}
     ></div>
   );
 };

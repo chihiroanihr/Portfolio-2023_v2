@@ -119,7 +119,7 @@ function App() {
 
   return (
     <div className={isDarkMode ? "dark" : ""}>
-      {/* Loader (hidden) */}
+      {/* -------- Loader (hidden) -------- */}
       <Loading
         ref={scrollLockTargetRef}
         setIsLoaderHidden={setIsLoaderHidden}
@@ -127,11 +127,11 @@ function App() {
           isLoaderHidden && "hidden"
         }`}
       />
-      {/* Page */}
+      {/* -------- Loaded Page -------- */}
       <div
-        className={`bg-coffee-100 dark:bg-coffee-800 transition-opacity duration-500 ${
+        className={`bg-coffee-100 dark:bg-coffee-800 ${
           isLoaderHidden ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        } transition-opacity duration-500`}
       >
         {/* Navbar (sticky) */}
         <Navbar
@@ -146,6 +146,11 @@ function App() {
           playAnimation={playAnimation}
           className="max-w-screen-xxxl mx-auto overflow-x-hidden"
         />
+        <About />
+        <Works />
+        <Galleries />
+        <Contact />
+        <Footer />
 
         {/* Dark Light Mode Button (sticky) */}
         <DarkLightButton
