@@ -41,6 +41,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         })
         // Add all animations within textSectionRef scope
         .from(sippingOnWords, {
+          id: "home-sipping-on-words",
           opacity: 0,
           duration: 2,
           stagger: 0.06,
@@ -49,6 +50,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         .from(
           creativityChars,
           {
+            id: "home-creativity-chars",
             y: -40,
             rotationX: -90,
             transformOrigin: "0% 50% -50",
@@ -62,13 +64,29 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         )
         .from(
           oneCupOfWords,
-          { duration: 2, opacity: 0, ease: "out", stagger: 0.06 },
+          {
+            id: "home-one-cup-of-words",
+            duration: 2,
+            opacity: 0,
+            ease: "out",
+            stagger: 0.06,
+          },
           "=-1.5"
         )
-        .from(coffeeText, { duration: 2, opacity: 0, ease: "out" }, ">-2")
+        .from(
+          coffeeText,
+          {
+            id: "home-coffee-text",
+            duration: 2,
+            opacity: 0,
+            ease: "out",
+          },
+          ">-2"
+        )
         .from(
           atTimeWords,
           {
+            id: "home-at-a-time-words",
             duration: 2,
             opacity: 0,
             stagger: 0.06,
@@ -80,6 +98,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         .to(
           coffeeChars,
           {
+            id: "home-coffee-chars",
             y: -20,
             opacity: 0,
             duration: 0.15,
@@ -91,6 +110,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         .from(
           coffeeCharsCopy,
           {
+            id: "home-coffee-chars-copy",
             y: 20,
             opacity: 0,
             duration: 0.15,

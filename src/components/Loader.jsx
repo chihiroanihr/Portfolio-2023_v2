@@ -1,38 +1,23 @@
-import { useEffect } from "react";
 import "./Loader.css";
+import loadingIcon from "../assets/images/loading-icon.png";
 
-const Loader = ({ isPageLoading, setIsLoaderHidden, className }) => {
-  useEffect(() => {
-    let timeoutId;
-
-    // Hide loader after a delay
-    if (!isPageLoading) {
-      timeoutId = setTimeout(() => {
-        setIsLoaderHidden(true);
-      }, 1000);
-    }
-    //  Clean up the setTimeout when the component unmounts
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [isPageLoading, setIsLoaderHidden]);
-
+const Loader = () => {
   return (
+    // <div className="spinner relative text-center">
+    //   <div className="dot1 inline-block"></div>
+    //   <div className="dot2 inline-block"></div>
+    // </div>
     <div
-      className={`${className} spinner w-screen h-screen transition-opacity duration-500
-      ${!isPageLoading ? "opacity-0" : "opacity-100"}`}
+      className="relative text-center
+      sm:w-[100px] sm:h-[100px] xs:w-[80px] xs:h-[80px] w-[70px] h-[70px]"
     >
-      <div className="dot1"></div>
-      <div className="dot2"></div>
+      <img
+        src={loadingIcon}
+        alt="Loading Icon"
+        className="mix-blend-color-dodge"
+      />
     </div>
   );
-};
-
-// !! Assign the default value to prevent errors when they are not passed by the parent component.
-Loader.defaultProps = {
-  isPageLoading: true,
-  setIsLoaderHidden: null,
-  className: "",
 };
 
 export default Loader;

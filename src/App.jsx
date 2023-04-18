@@ -6,28 +6,24 @@ import {
   useLayoutEffect,
 } from "react";
 import gsap from "gsap";
-import { Home, About, Works, Galleries, Contact, Footer } from "./pages";
-import { Loader, Navbar, DarkLight } from "./components";
+import {
+  Loading,
+  Home,
+  About,
+  Works,
+  Galleries,
+  Contact,
+  Footer,
+} from "./pages";
+import { Navbar, DarkLight } from "./components";
 
 function App() {
-  // Set Page Loading State
-  const [isPageLoading, setIsPageLoading] = useState(true);
-
-  // Load page on start / load
-  useEffect(() => {
-    const handlePageLoading = () => setIsPageLoading(false);
-    if (document.readyState === "complete") {
-      handlePageLoading();
-    } else {
-      window.addEventListener("load", handlePageLoading);
       return () => window.removeEventListener("load", handlePageLoading);
-    }
-  }, []);
-
-  // Set Page Loaded (Loader Hidden) State
+  // ================================ Document On Load ================================ //
+  // Set Loader Hidden State (after page loaded)
   const [isLoaderHidden, setIsLoaderHidden] = useState(false);
 
-  // Set Play Animation State
+  // Set Play Animation State (after loader hidden)
   const [playAnimation, setPlayAnimation] = useState(false);
 
   // Allow animations / interactions when loader is hidden
@@ -38,7 +34,6 @@ function App() {
       // Allow animation
       setPlayAnimation(true);
       // Allow scroll
-      timeoutId = setTimeout(() => {}, 1000);
     }
 
     return () => {
@@ -46,22 +41,7 @@ function App() {
     };
   }, [isLoaderHidden]);
 
-  // Set Dark Mode State
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  // Toggle Light/Dark Mode State
-  const handleToggleDarkMode = useCallback(() => {
-    setIsDarkMode((prev) => !prev);
-  }, [isDarkMode]);
-
-  // Set Menu Oepn State
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Toggle Menu Button
-  const handleToggleMenu = useCallback(() => {
-    setIsMenuOpen((prev) => !prev);
-  }, [isMenuOpen]);
-  // Close Menu Button
-  const handleCloseMenu = () => setIsMenuOpen(false);
-
+  // =============================== Landing Animations =============================== //
   // Reference to handle animations
   const homeRef = useRef(null);
   const navbarRef = useRef(null);
@@ -70,16 +50,28 @@ function App() {
   const timelineRef = useRef(null);
 
   // Handle All Animations from parent + child components
-  useLayoutEffect(() => {
-    // ! Create new timeline on every render otherwise the animation will pause if you re-render in the middle.
-    timelineRef.current = gsap.timeline({ defaults: { clearProps: "all" } });
+  // ! Referenced animations fails to get added to the timeline on first-render with useLayoutEffect(), thus use useEffect()
+  useEffect(() => {
     // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
-    // Add all animation timelines from children components into one timeline
+
+    // ! Create new timeline on every render otherwise the animation will pause if you re-render in the middle.
+    timelineRef.current = gsap.timeline({
+      defaults: { clearProps: "all" },
+      paused: true,
+      onStart: function () {
+        console.log("play");
+      },
+      onComplete: function () {
+        console.log("finish");
+      },
+    });
+    // Add all children components' animation timelines into one timeline
     timelineRef.current.add(navbarRef.current);
     timelineRef.current.from(
       darkLightRef.current,
       {
+        id: "dark-light-button",
         y: -10,
         opacity: 0,
         duration: 1,
@@ -89,37 +81,43 @@ function App() {
     );
     timelineRef.current.add(homeRef.current, ">-1");
 
+    // Play all animations once everything is added
+    timelineRef.current.play();
+
     // Clean up animation when component unmounts
     return () => {
       timelineRef.current?.kill();
     };
   }, [playAnimation]);
 
+  // ============================= Toggle Dark/Light Mode ============================= //
+  // Set Dark Mode State
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Toggle Light/Dark Mode State
+  const handleToggleDarkMode = useCallback(() => {
+    setIsDarkMode((prev) => !prev);
+  }, [isDarkMode]);
+
   return (
     <div className={isDarkMode ? "dark" : ""}>
       {/* Loader (hidden) */}
-      <Loader
-        isPageLoading={isPageLoading}
+      <Loading
         setIsLoaderHidden={setIsLoaderHidden}
         className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
           isLoaderHidden && "hidden"
         }`}
       />
-
       {/* Page */}
       <div
-        className={`bg-coffee-100 dark:bg-coffee-800 transition-opacity duration-500 opacity-${
-          isLoaderHidden ? "100" : "0 pointer-events-none"
+        className={`bg-coffee-100 dark:bg-coffee-800 transition-opacity duration-500 ${
+          isLoaderHidden ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
         {/* Navbar (sticky) */}
         <Navbar
           ref={navbarRef}
-          isMenuOpen={isMenuOpen}
-          handleToggleMenu={handleToggleMenu}
-          handleCloseMenu={handleCloseMenu}
           playAnimation={playAnimation}
-          className="z-30 fixed top-0 l-0 r-0"
+          className="z-20 fixed top-0 l-0 r-0"
         />
 
         {/* Contents */}

@@ -15,6 +15,7 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
     ref.current = gsap
       .timeline({ defaults: { clearProps: "all" } })
       .from(imageCardsRefs.current, {
+        id: "home-landing-images",
         x: 200,
         y: -200,
         rotation: 0,
