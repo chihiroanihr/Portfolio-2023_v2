@@ -74,9 +74,9 @@ const Loading = forwardRef(({ setIsLoaderHidden, className }, ref) => {
         isPageLoaded ? "opacity-0" : "opacity-100"
       } transition-opacity duration-1000`}
     >
-      {/* Loader / Spinner Icon */}
+      {/* Loader / Spinner Icon (stays forever) */}
       <Loader />
-      {/* Text Section */}
+      {/* Text Section (animated dynamically) */}
       <div className="relative w-full text-center">
         <p
           className={`absolute w-full leading-relaxed ${
