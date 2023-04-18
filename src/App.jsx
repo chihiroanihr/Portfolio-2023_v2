@@ -6,6 +6,7 @@ import {
   useLayoutEffect,
 } from "react";
 import gsap from "gsap";
+import { useBodyScrollLock } from "./utils";
 import {
   Loading,
   Home,
@@ -33,6 +34,9 @@ function App() {
       // Allow animation
       setPlayAnimation(true);
       // Allow scroll
+      timeoutId = setTimeout(() => {
+        handleScrollLock();
+      }, 1000);
     }
 
     return () => {
@@ -97,10 +101,26 @@ function App() {
     setIsDarkMode((prev) => !prev);
   }, [isDarkMode]);
 
+  // ================================== Scroll Lock ================================== //
+  // Reference to activate scroll lock
+  const scrollLockTargetRef = useRef(null);
+  // Set Scroll Lock State
+  const [isScrollLocked, setIsScrollLocked] = useState(true);
+  // Activate Scroll Lock (handle state change when clicked)
+  const handleScrollLock = useCallback(() => {
+    setIsScrollLocked((prev) => !prev);
+  }, [isScrollLocked]);
+  // Function to execute scroll lock on the target reference
+  useBodyScrollLock({
+    isScrollLocked,
+    scrollLockTargetRef,
+  });
+
   return (
     <div className={isDarkMode ? "dark" : ""}>
       {/* Loader (hidden) */}
       <Loading
+        ref={scrollLockTargetRef}
         setIsLoaderHidden={setIsLoaderHidden}
         className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
           isLoaderHidden && "hidden"
