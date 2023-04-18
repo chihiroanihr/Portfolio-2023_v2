@@ -2,7 +2,7 @@ import { useEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitTextToWords, splitTextToChars } from "@utils";
-import { LandingImageCards } from "@components";
+import { LandingImageCards, Coffee } from "@components";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -235,7 +235,9 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
       </div>
 
       {/* ------------------------ Second Home section ------------------------ */}
-      <div className="h-screen"></div>
+      <div className="h-screen">
+        <Coffee className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+      </div>
     </section>
   );
 });
