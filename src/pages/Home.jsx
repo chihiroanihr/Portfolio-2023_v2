@@ -1,7 +1,10 @@
 import { useEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitTextToWords, splitTextToChars } from "@utils";
 import { LandingImageCards } from "@components";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const Home = forwardRef(({ playAnimation, className }, ref) => {
@@ -127,6 +130,38 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
     // Clean animation: prevent continuing to execute even after component unmounted
     return () => context.revert();
   }, [playAnimation]);
+
+  // // Animations when user Scrolls Up
+  // useEffect(() => {
+  //   // If navbar brand ref does not exist then skip
+  //   if (!ref.current) return;
+
+  //   // Register animation on scroll
+  //   gsap.set(ref.current, { clearProps: true });
+  //   gsap.fromTo(
+  //     ref.current,
+  //     {
+  //       y: 0,
+  //       opacity: 1,
+  //     },
+  //     {
+  //       y: -100,
+  //       opacity: 0,
+  //       scrollTrigger: {
+  //         id: "",
+  //         trigger: ref.current,
+  //         toggleActions: "play pause reverse reset",
+  //         scrub: 2,
+  //         start: "20% top",
+  //         end: "200% top",
+  //         markers: { startColor: "green", endColor: "green" },
+  //       },
+  //     }
+  //   );
+
+  //   // Clean scroll trigger animation when unmounted
+  //   return () => ScrollTrigger.getById("").kill(true);
+  // }, []);
 
   return (
     <section id="home" className={className}>

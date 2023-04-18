@@ -36,7 +36,7 @@ function App() {
       setPlayAnimation(true);
       // Allow scroll
       timeoutId = setTimeout(() => {
-        handleScrollLock();
+        setIsScrollLocked(false);
       }, 1000);
     }
 
@@ -107,10 +107,6 @@ function App() {
   const scrollLockTargetRef = useRef(null);
   // Set Scroll Lock State
   const [isScrollLocked, setIsScrollLocked] = useState(true);
-  // Activate Scroll Lock (handle state change when clicked)
-  const handleScrollLock = useCallback(() => {
-    setIsScrollLocked((prev) => !prev);
-  }, [isScrollLocked]);
   // Function to execute scroll lock on the target reference
   useBodyScrollLock({
     isScrollLocked,
