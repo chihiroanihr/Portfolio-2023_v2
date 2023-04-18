@@ -1,13 +1,13 @@
-import coffeeImg1 from "../assets/images/coffee-1.jpg";
-import coffeeImg2 from "../assets/images/coffee-2.jpg";
-import coffeeImg3 from "../assets/images/coffee-3.jpg";
+import coffeeBgImg1 from "../assets/images/coffee-bg-1.jpg";
+import coffeeBgImg2 from "../assets/images/coffee-bg-2.jpg";
+import coffeeBgImg3 from "../assets/images/coffee-bg-3.jpg";
 
 // From Left To Right
 // From Underneath To Top
 export const homeImageCards = [
   {
     id: "coffee-img-3",
-    img: coffeeImg3,
+    img: coffeeBgImg3,
     style: {
       position: "top-[45%] right-[50%]",
       rotation: "-rotate-[17deg]",
@@ -16,7 +16,7 @@ export const homeImageCards = [
   },
   {
     id: "coffee-img-2",
-    img: coffeeImg2,
+    img: coffeeBgImg2,
     style: {
       position: "top-1/2 xs:right-[30%] right-[34%]",
       rotation: "-rotate-6",
@@ -25,7 +25,7 @@ export const homeImageCards = [
   },
   {
     id: "coffee-img-1",
-    img: coffeeImg1,
+    img: coffeeBgImg1,
     style: {
       position: "top-[60%] xs:right-[5%] right-[16%]",
       rotation: "rotate-6",
