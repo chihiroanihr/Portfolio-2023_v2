@@ -18,7 +18,6 @@ import {
 import { Navbar, DarkLight } from "./components";
 
 function App() {
-      return () => window.removeEventListener("load", handlePageLoading);
   // ================================ Document On Load ================================ //
   // Set Loader Hidden State (after page loaded)
   const [isLoaderHidden, setIsLoaderHidden] = useState(false);
