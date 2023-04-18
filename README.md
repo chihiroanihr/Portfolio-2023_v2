@@ -2,6 +2,8 @@
 
 ## Objective
 
+This portfolio is crafted using the distinguished React.js framework.
+
 ### UI / UX Design Objective
 
 How your project achieves the desired functionality?
@@ -26,7 +28,7 @@ To separate logic into sub-logics for the easier maintenance and modifications.
   - body-scroll-lock-upgrade
   - tailwind
 
-## Packages Installed
+## Dependencies Installed
 
 - **tailwindcss**
 - **postcss**
