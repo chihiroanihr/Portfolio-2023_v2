@@ -45,7 +45,15 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 ## Assets Used
 
+### Fonts
+
 - **Google Fonts**: https://fonts.google.com/
+
+### Images
+
+- https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/ (_Image Credit: pixabay.com_)
+- https://unsplash.com/photos/nBJHO6wmRWw (_Image Credit: Nathan Dumlao_)
+- https://unsplash.com/photos/tA90pRfL2gM (_Image Credit: Nathan Dumlao_)
 
 ## Environment Used
 
