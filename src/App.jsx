@@ -114,7 +114,7 @@ function App() {
   });
 
   return (
-    <div className={isDarkMode ? "dark" : ""}>
+    <div className={`scroll-smooth ${isDarkMode ? "dark" : ""}`}>
       {/* -------- Loader (hidden) -------- */}
       <Loading
         ref={scrollLockTargetRef}
