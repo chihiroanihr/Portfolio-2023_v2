@@ -16,7 +16,8 @@ import {
   Contact,
   Footer,
 } from "./pages";
-import { Navbar, DarkLight } from "./components";
+import { Navbar } from "./layouts";
+import { DarkLightButton } from "./components";
 
 function App() {
   // ================================ Document On Load ================================ //
@@ -147,7 +148,7 @@ function App() {
         />
 
         {/* Dark Light Mode Button (sticky) */}
-        <DarkLight
+        <DarkLightButton
           ref={darkLightRef}
           handleToggleDarkMode={handleToggleDarkMode}
           playAnimation={playAnimation}

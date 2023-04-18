@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const MenuButton = forwardRef(({ onClick, isMenuOpen, className }, ref) => {
+const MenuButton = forwardRef(({ isMenuOpen, onClick, className }, ref) => {
   return (
     <div ref={ref}>
       <div
@@ -40,6 +40,6 @@ const MenuButton = forwardRef(({ onClick, isMenuOpen, className }, ref) => {
 });
 
 // !! Assign the default value to prevent errors when they are not passed by the parent component.
-MenuButton.defaultProps = { onClick: null, isMenuOpen: false, className: "" };
+MenuButton.defaultProps = { isMenuOpen: false, onClick: null, className: "" };
 
 export default MenuButton;
