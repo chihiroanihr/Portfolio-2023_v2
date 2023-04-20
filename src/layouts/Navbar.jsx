@@ -6,6 +6,7 @@ import React, {
   forwardRef,
 } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useBodyScrollLock } from "@utils";
 import {
   MenuButton,
@@ -14,49 +15,65 @@ import {
   NavbarBrand,
 } from "@components";
 
+gsap.registerPlugin(ScrollTrigger);
+
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const Navbar = forwardRef(({ playAnimation, className }, ref) => {
   // =============================== Landing Animations =============================== //
-  // Scoped reference containing child elements that you want to animate
-  const menuBarRef = useRef(null);
   // Child references
   const navbarBrandRef = useRef(null);
   const menuButtonRef = useRef(null);
+  const navbarBrandTween = useRef(null);
 
   // Update Animation when playAnimation is triggered
   useEffect(() => {
     // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
 
-    const context = gsap.context(() => {
-      // Register animations to the timeline
-      ref.current = gsap
-        .timeline({ defaults: { clearProps: "all" } })
-        // Add all animations within textSectionRef scope
-        .from(navbarBrandRef.current, {
-          id: "navbar-brand",
+    // Register animations to the timeline
+    ref.current = gsap
+      .timeline({ defaults: { clearProps: true } })
+      // Add all animations within textSectionRef scope
+      .from(navbarBrandRef.current, {
+        id: "navbar-brand",
+        y: -10,
+        opacity: 0,
+        duration: 1,
+        ease: "inOut",
+        // Allow scroll up animations
+        onComplete: function () {
+          navbarBrandTween.current = gsap.to(navbarBrandRef.current, {
+            y: -100,
+            opacity: 0,
+            scrollTrigger: {
+              id: "home-navbar-brand-on-scroll",
+              trigger: navbarBrandRef.current,
+              scrub: 2,
+              start: "20% top",
+              end: "200% top",
+              // markers: { startColor: "blue", endColor: "blue" },
+            },
+          });
+        },
+      })
+      .from(
+        menuButtonRef.current,
+        {
+          id: "menu-button",
           y: -10,
           opacity: 0,
           duration: 1,
           ease: "inOut",
-          clearProps: "all",
-        })
-        .from(
-          menuButtonRef.current,
-          {
-            id: "menu-button",
-            y: -10,
-            opacity: 0,
-            duration: 1,
-            ease: "inOut",
-            clearProps: "all",
-          },
-          ">-0.5"
-        );
-    }, menuBarRef);
+        },
+        ">-0.5"
+      );
 
     // Clean animation: prevent continuing to execute even after component unmounted
-    return () => context.revert();
+    return () => {
+      navbarBrandTween.current?.scrollTrigger?.kill();
+      navbarBrandTween.current?.kill();
+      ref.current.kill();
+    };
   }, [playAnimation]);
 
   // =============================== Toggle Menu Button =============================== //
@@ -86,7 +103,7 @@ const Navbar = forwardRef(({ playAnimation, className }, ref) => {
     // Navbar (sticky)
     <nav className={`${className} w-screen h-20`}>
       {/* ---------- When Menu Closed ---------- */}
-      <div ref={menuBarRef} className="h-full flex justify-end items-center">
+      <div className="h-full flex justify-end items-center">
         {/* Navbar Brand */}
         <NavbarBrand ref={navbarBrandRef} className="absolute w-full mx-auto" />
 

@@ -1,3 +1,4 @@
 import Navbar from "./Navbar";
+import CoffeeLanding from "./CoffeeLanding";
 
-export { Navbar };
+export { Navbar, CoffeeLanding };

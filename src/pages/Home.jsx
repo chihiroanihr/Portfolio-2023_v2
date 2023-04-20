@@ -1,8 +1,9 @@
-import { useEffect, useRef, forwardRef } from "react";
+import { useRef, forwardRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitTextToWords, splitTextToChars } from "@utils";
-import { LandingImageCards, Coffee } from "@components";
+import { LandingImageCards } from "@components";
+import { CoffeeLanding } from "@layouts";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,156 +18,157 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
   const coffeeTextCopyRef = useRef(null);
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
+  const oneCupOfCoffeeTextRef = useRef(null);
   // Child Component reference
-  const childComponentRef = useRef(null);
+  const imageCardsRef = useRef(null);
+  // Timeline reference for scroll animation
+  const textTweens = useRef(null);
 
   // Update animation when playAnimation is triggered
   useEffect(() => {
     // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
+    console.log("[LOG] (Home1.jsx) Animation Started");
 
-    let context = gsap.context(() => {
-      // Split texts from refs into words / chars
-      const sippingOnWords = splitTextToWords(sippingOnTextRef.current);
-      const creativityChars = splitTextToChars(creativityTextRef.current);
-      const oneCupOfWords = splitTextToWords(oneCupOfTextRef.current);
-      const coffeeText = coffeeTextRef.current;
-      const atTimeWords = splitTextToWords(atTimeTextRef.current);
-      const coffeeChars = splitTextToChars(coffeeTextRef.current);
-      const coffeeCharsCopy = splitTextToChars(coffeeTextCopyRef.current);
+    // Split texts from refs into words / chars
+    const sippingOnWords = splitTextToWords(sippingOnTextRef.current);
+    const creativityChars = splitTextToChars(creativityTextRef.current);
+    const oneCupOfWords = splitTextToWords(oneCupOfTextRef.current);
+    const coffeeText = coffeeTextRef.current;
+    const atTimeWords = splitTextToWords(atTimeTextRef.current);
+    const coffeeChars = splitTextToChars(coffeeTextRef.current);
+    const coffeeCharsCopy = splitTextToChars(coffeeTextCopyRef.current);
 
-      // Register animations to the timeline
-      ref.current = gsap
-        .timeline()
-        // Custom: set perspective to "creativity" title text
-        .set(creativityTextRef.current, {
-          perspective: 400,
-        })
-        // Add all animations within textSectionRef scope
-        .from(sippingOnWords, {
-          id: "home-sipping-on-words",
+    // Register animations to the timeline
+    ref.current = gsap
+      .timeline({
+        // Allow scroll triggered animations on complete
+        onComplete: function () {
+          textTweens.current = gsap.to(
+            [
+              sippingOnTextRef.current,
+              creativityTextRef.current,
+              oneCupOfCoffeeTextRef.current,
+              atTimeTextRef.current,
+            ],
+            {
+              x: -100,
+              opacity: 0,
+              stagger: 0.1,
+              scrollTrigger: {
+                id: "home-text-section-on-scroll",
+                trigger: textSectionRef.current,
+                scrub: 2,
+                start: "top top",
+                end: "bottom top",
+                // markers: true,
+              },
+            }
+          );
+        },
+      })
+      // Custom: set perspective to "creativity" title text
+      .set(creativityTextRef.current, {
+        perspective: 400,
+      })
+      // Add all animations within textSectionRef scope
+      .from(sippingOnWords, {
+        id: "home-sipping-on-words",
+        opacity: 0,
+        duration: 2,
+        stagger: 0.06,
+        ease: "out",
+      })
+      .from(
+        creativityChars,
+        {
+          id: "home-creativity-chars",
+          y: -40,
+          rotationX: -90,
+          transformOrigin: "0% 50% -50",
           opacity: 0,
+          scale: 1,
+          duration: 1.5,
+          stagger: 0.05,
+          ease: "out",
+        },
+        "=-2"
+      )
+      .from(
+        oneCupOfWords,
+        {
+          id: "home-one-cup-of-words",
           duration: 2,
+          opacity: 0,
+          ease: "out",
+          stagger: 0.06,
+        },
+        "=-1.5"
+      )
+      .from(
+        coffeeText,
+        {
+          id: "home-coffee-text",
+          duration: 2,
+          opacity: 0,
+          ease: "out",
+        },
+        ">-2"
+      )
+      .from(
+        atTimeWords,
+        {
+          id: "home-at-a-time-words",
+          duration: 2,
+          opacity: 0,
           stagger: 0.06,
           ease: "out",
-        })
-        .from(
-          creativityChars,
-          {
-            id: "home-creativity-chars",
-            y: -40,
-            rotationX: -90,
-            transformOrigin: "0% 50% -50",
-            opacity: 0,
-            scale: 1,
-            duration: 1.5,
-            stagger: 0.05,
-            ease: "out",
-          },
-          "=-2"
-        )
-        .from(
-          oneCupOfWords,
-          {
-            id: "home-one-cup-of-words",
-            duration: 2,
-            opacity: 0,
-            ease: "out",
-            stagger: 0.06,
-          },
-          "=-1.5"
-        )
-        .from(
-          coffeeText,
-          {
-            id: "home-coffee-text",
-            duration: 2,
-            opacity: 0,
-            ease: "out",
-          },
-          ">-2"
-        )
-        .from(
-          atTimeWords,
-          {
-            id: "home-at-a-time-words",
-            duration: 2,
-            opacity: 0,
-            stagger: 0.06,
-            ease: "out",
-          },
-          "=-2"
-        )
-        .addLabel("rolling-text", "<0.5")
-        .to(
-          coffeeChars,
-          {
-            id: "home-coffee-chars",
-            y: -20,
-            opacity: 0,
-            duration: 0.15,
-            stagger: 0.05,
-            ease: "power4.out",
-          },
-          "rolling-text"
-        )
-        .from(
-          coffeeCharsCopy,
-          {
-            id: "home-coffee-chars-copy",
-            y: 20,
-            opacity: 0,
-            duration: 0.15,
-            stagger: 0.05,
-            ease: "power4.out",
-          },
-          ">"
-        );
-    }, textSectionRef);
-
-    // Add child component's animation
-    ref.current.add(childComponentRef.current, ">rolling-text");
+        },
+        "=-2"
+      )
+      .addLabel("rolling-text", "<0.5")
+      .to(
+        coffeeChars,
+        {
+          id: "home-coffee-chars",
+          y: -20,
+          opacity: 0,
+          duration: 0.15,
+          stagger: 0.05,
+          ease: "power4.out",
+        },
+        "rolling-text"
+      )
+      .from(
+        coffeeCharsCopy,
+        {
+          id: "home-coffee-chars-copy",
+          y: 20,
+          opacity: 0,
+          duration: 0.15,
+          stagger: 0.05,
+          ease: "power4.out",
+        },
+        ">"
+      )
+      .add(imageCardsRef.current, ">rolling-text");
 
     // Clean animation: prevent continuing to execute even after component unmounted
-    return () => context.revert();
+    return () => {
+      textTweens.current?.scrollTrigger?.kill();
+      textTweens.current?.kill();
+      imageCardsRef.current?.kill();
+      imageCardsRef.current = null;
+      ref.current?.scrollTrigger?.kill();
+      ref.current?.kill();
+      console.log("[LOG] (Home1.jsx) Animation Killed");
+    };
   }, [playAnimation]);
-
-  // // Animations when user Scrolls Up
-  // useEffect(() => {
-  //   // If navbar brand ref does not exist then skip
-  //   if (!ref.current) return;
-
-  //   // Register animation on scroll
-  //   gsap.set(ref.current, { clearProps: true });
-  //   gsap.fromTo(
-  //     ref.current,
-  //     {
-  //       y: 0,
-  //       opacity: 1,
-  //     },
-  //     {
-  //       y: -100,
-  //       opacity: 0,
-  //       scrollTrigger: {
-  //         id: "",
-  //         trigger: ref.current,
-  //         toggleActions: "play pause reverse reset",
-  //         scrub: 2,
-  //         start: "20% top",
-  //         end: "200% top",
-  //         markers: { startColor: "green", endColor: "green" },
-  //       },
-  //     }
-  //   );
-
-  //   // Clean scroll trigger animation when unmounted
-  //   return () => ScrollTrigger.getById("").kill(true);
-  // }, []);
 
   return (
     <section id="home" className={className}>
       {/* ------------------------ First Home section ------------------------ */}
-      <div className="h-screen">
+      <div id="home-1" className="h-screen">
         <div
           // overflow grid on purpose via "fixed"
           className="grid gap-[20px] grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4
@@ -182,7 +184,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
           >
             <div
               ref={sippingOnTextRef}
-              className="xl:mb-[35px] md:mb-[30px] mb-[20px]
+              className="xl:mb-[35px] md:mb-[30px] mb-[15px]
               lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
               font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
             >
@@ -201,7 +203,10 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
               font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
             >
               {/* texts into one line (inline) - necessary due to animation */}
-              <div className="relative inline-block">
+              <div
+                ref={oneCupOfCoffeeTextRef}
+                className="relative inline-block"
+              >
                 <span ref={oneCupOfTextRef}>one cup of </span>
                 <span
                   ref={coffeeTextRef}
@@ -227,7 +232,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
             relative"
           >
             <LandingImageCards
-              ref={childComponentRef}
+              ref={imageCardsRef}
               playAnimation={playAnimation}
             />
           </div>
@@ -235,9 +240,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
       </div>
 
       {/* ------------------------ Second Home section ------------------------ */}
-      <div className="h-screen">
-        <Coffee className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-      </div>
+      <CoffeeLanding className="h-screen xl:my-[300px] lg:my-[100px]" />
     </section>
   );
 });
