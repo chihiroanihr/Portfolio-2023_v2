@@ -142,7 +142,7 @@ function App() {
           playAnimation={playAnimation}
           className="max-w-screen-xxxl mx-auto overflow-x-hidden"
         />
-        <About />
+        <About className="max-w-screen-xxxl mx-auto overflow-x-hidden" />
         <Works />
         <Galleries />
         <Contact />
