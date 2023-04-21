@@ -2,7 +2,10 @@ import "./Coffee2.css";
 
 const Coffee2 = () => {
   return (
-    <div className="relative sm:scale-125 xs:scale-90 scale-75">
+    <div
+      className="relative dark:brightness-[0.8]
+      lg:scale-[1.25] md:scale-[1.2] sm:scale-[0.9] xs:scale-[0.7] scale-[0.65]"
+    >
       <div className="cup"></div>
       <div className="coffee"></div>
     </div>

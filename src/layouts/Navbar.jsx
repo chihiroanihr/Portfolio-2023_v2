@@ -72,7 +72,7 @@ const Navbar = forwardRef(({ playAnimation, className }, ref) => {
     return () => {
       navbarBrandTween.current?.scrollTrigger?.kill();
       navbarBrandTween.current?.kill();
-      ref.current.kill();
+      ref.current?.kill();
     };
   }, [playAnimation]);
 

@@ -11,7 +11,7 @@ export const homeImageCards = [
     style: {
       position: "top-[45%] right-[50%]",
       rotation: "-rotate-[17deg]",
-      brightness: "dark:brightness-[0.7]",
+      brightness: "dark:brightness-[0.5]",
     },
   },
   {
@@ -20,7 +20,7 @@ export const homeImageCards = [
     style: {
       position: "top-1/2 xs:right-[30%] right-[34%]",
       rotation: "-rotate-6",
-      brightness: "dark:brightness-75",
+      brightness: "dark:brightness-[0.6]",
     },
   },
   {
@@ -29,7 +29,7 @@ export const homeImageCards = [
     style: {
       position: "top-[60%] xs:right-[5%] right-[16%]",
       rotation: "rotate-6",
-      brightness: "dark:brightness-[0.8]",
+      brightness: "dark:brightness-[0.6]",
     },
   },
 ];

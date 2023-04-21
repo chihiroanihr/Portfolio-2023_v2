@@ -18,7 +18,7 @@ const SpiralText = ({ onDataUpdate, className, fillColor, ...props }) => {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       x="0px"
       y="0px"
-      viewBox="0 0 1957 769"
+      viewBox="0 0 1900 780"
       xmlSpace="preserve"
       preserveAspectRatio="xMidYMid meet"
       className={className}

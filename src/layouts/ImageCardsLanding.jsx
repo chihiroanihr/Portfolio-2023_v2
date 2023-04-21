@@ -6,12 +6,13 @@ import { homeImageCards } from "@constants/data";
 gsap.registerPlugin(ScrollTrigger);
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
+const ImageCardsLanding = forwardRef(({ playAnimation }, ref) => {
   // References to use for animation
   const imageCardsRefs = useRef([]);
   const imageCardsTweens = useRef([]);
 
-  const allowScrollAnim = () => {
+  // Allow scroll triggered animations on complete
+  const allowImageCardsScrollAnim = () => {
     imageCardsRefs.current.forEach((imageCard, index) => {
       let animationProps = {};
       let top = 0;
@@ -62,7 +63,7 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
   // Update Animation when playAnimation is triggered
   useEffect(() => {
     if (!playAnimation) return;
-    console.log("[LOG] (LandingImageCards.jsx) Animation Started");
+    console.log("[LOG] (ImageCardsLanding.jsx) Animation Started");
 
     // Register animations to the timeline
     const timeline = gsap.from(imageCardsRefs.current, {
@@ -75,7 +76,7 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
       stagger: 0.15,
       ease: "power4.out",
       clearProps: true,
-      onComplete: allowScrollAnim,
+      onComplete: allowImageCardsScrollAnim,
     });
 
     ref.current = timeline;
@@ -87,7 +88,7 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
         tween?.kill();
       });
       timeline?.kill();
-      console.log("[LOG] (LandingImageCards.jsx) Animation Killed");
+      console.log("[LOG] (ImageCardsLanding.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
@@ -110,6 +111,6 @@ const LandingImageCards = forwardRef(({ playAnimation }, ref) => {
 });
 
 // !! Assign the default value to prevent errors when they are not passed by the parent component.
-LandingImageCards.defaultProps = { playAnimation: false };
+ImageCardsLanding.defaultProps = { playAnimation: false };
 
-export default LandingImageCards;
+export default ImageCardsLanding;

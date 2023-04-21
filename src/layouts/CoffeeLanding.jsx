@@ -7,7 +7,7 @@ import { Coffee, Coffee2 } from "@components";
 gsap.registerPlugin(ScrollTrigger);
 
 const CoffeeLanding = ({ className }) => {
-  const home2Ref = useRef(null);
+  const coffeeLandingRef = useRef(null);
 
   const [svgRef, setSvgRef] = useState(null);
   const [textPathRef, setTextPathRef] = useState(null);
@@ -30,7 +30,7 @@ const CoffeeLanding = ({ className }) => {
     if (!textPathRef && !svgRef && !spiralPathDOM && !totalPathLength) return;
     console.log("[LOG] (Home2.jsx) Animation Started");
 
-    const targetScrollTrigger = home2Ref.current;
+    const targetScrollTrigger = coffeeLandingRef.current;
     const timeline = gsap.to(textPathRef.current, {
       attr: { startOffset: totalPathLength - 400 },
       scrollTrigger: {
@@ -41,7 +41,6 @@ const CoffeeLanding = ({ className }) => {
         anticipatePin: 1,
         start: "top top",
         end: "+=100%",
-        toggleActions: "restart pause reverse reset",
         // markers: { startColor: "yellow", endColor: "yellow" },
       },
     });
@@ -54,17 +53,19 @@ const CoffeeLanding = ({ className }) => {
   }, [svgRef, textPathRef, spiralPathDOM, totalPathLength]);
 
   return (
-    <div id="home-2" ref={home2Ref} className={className}>
-      <div className="h-full flex justify-center items-center">
-        {/* <Coffee /> */}
-        <Coffee2 />
-        <SpiralText
-          onDataUpdate={handleChildData}
-          className="absolute xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[250%] left-[2%]
-            font-default-sans font-medium"
-          fillColor="fill-coffee-600 dark:fill-coffee-300"
-        />
-      </div>
+    <div
+      ref={coffeeLandingRef}
+      className={`${className} flex justify-center items-center`}
+    >
+      {/* <Coffee /> */}
+      <Coffee2 />
+      <SpiralText
+        onDataUpdate={handleChildData}
+        className="absolute xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]
+        
+        font-default-sans font-medium text-2xl sm:text-xl"
+        fillColor="fill-coffee-600 dark:fill-coffee-300"
+      />
     </div>
   );
 };

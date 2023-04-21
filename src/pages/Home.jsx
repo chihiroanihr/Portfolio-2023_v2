@@ -2,13 +2,13 @@ import { useRef, forwardRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitTextToWords, splitTextToChars } from "@utils";
-import { LandingImageCards } from "@components";
-import { CoffeeLanding } from "@layouts";
+import { CoffeeLanding, ImageCardsLanding } from "@layouts";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const Home = forwardRef(({ playAnimation, className }, ref) => {
+  // ============================= Landing Animations ============================= //
   // Scoped reference containing child elements that you want to animate
   const textSectionRef = useRef(null);
   // Child references
@@ -19,6 +19,8 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
   const oneCupOfCoffeeTextRef = useRef(null);
+  const scrollTextRef = useRef(null);
+  const scrollLineRef = useRef(null);
   // Child Component reference
   const imageCardsRef = useRef(null);
   // Timeline reference for scroll animation
@@ -39,39 +41,41 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
     const coffeeChars = splitTextToChars(coffeeTextRef.current);
     const coffeeCharsCopy = splitTextToChars(coffeeTextCopyRef.current);
 
+    // Allow scroll triggered animations on complete
+    const allowTextSectionScrollAnim = () => {
+      textTweens.current = gsap.to(
+        [
+          sippingOnTextRef.current,
+          creativityTextRef.current,
+          oneCupOfCoffeeTextRef.current,
+          atTimeTextRef.current,
+        ],
+        {
+          x: -100,
+          opacity: 0,
+          stagger: 0.1,
+          scrollTrigger: {
+            id: "home-text-section-on-scroll",
+            trigger: textSectionRef.current,
+            scrub: 2,
+            start: "top top",
+            end: "bottom top",
+            // markers: true,
+          },
+        }
+      );
+    };
+
     // Register animations to the timeline
     ref.current = gsap
       .timeline({
-        // Allow scroll triggered animations on complete
-        onComplete: function () {
-          textTweens.current = gsap.to(
-            [
-              sippingOnTextRef.current,
-              creativityTextRef.current,
-              oneCupOfCoffeeTextRef.current,
-              atTimeTextRef.current,
-            ],
-            {
-              x: -100,
-              opacity: 0,
-              stagger: 0.1,
-              scrollTrigger: {
-                id: "home-text-section-on-scroll",
-                trigger: textSectionRef.current,
-                scrub: 2,
-                start: "top top",
-                end: "bottom top",
-                // markers: true,
-              },
-            }
-          );
-        },
+        onComplete: allowTextSectionScrollAnim,
       })
       // Custom: set perspective to "creativity" title text
       .set(creativityTextRef.current, {
         perspective: 400,
       })
-      // Add all animations within textSectionRef scope
+      // Add all animations
       .from(sippingOnWords, {
         id: "home-sipping-on-words",
         opacity: 0,
@@ -151,19 +155,68 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         },
         ">"
       )
-      .add(imageCardsRef.current, ">rolling-text");
+      .add(imageCardsRef.current, ">rolling-text")
+      .from(
+        scrollTextRef.current,
+        {
+          id: "home-scroll-text",
+          duration: 1,
+          opacity: 0,
+          ease: "out",
+        },
+        ">-1.3"
+      )
+      .from(
+        scrollLineRef.current,
+        {
+          id: "home-scroll-line",
+          duration: 1,
+          opacity: 0,
+          scaleY: 0,
+          transformOrigin: "top",
+          ease: "out",
+          clearProps: true,
+        },
+        ">-0.5"
+      );
 
     // Clean animation: prevent continuing to execute even after component unmounted
     return () => {
       textTweens.current?.scrollTrigger?.kill();
       textTweens.current?.kill();
       imageCardsRef.current?.kill();
-      imageCardsRef.current = null;
+      // imageCardsRef.current = null;
       ref.current?.scrollTrigger?.kill();
       ref.current?.kill();
       console.log("[LOG] (Home1.jsx) Animation Killed");
     };
   }, [playAnimation]);
+
+  // =========================== Scroll Line Animations =========================== //
+  // Scroll Line Reference
+  const scrollLineWrapperRef = useRef(null);
+  useEffect(() => {
+    const onScroll = () => {
+      // Calculate the scroll percentage based on the window's scroll position,
+      // the document's height, and the window's height.
+      const wintop = window.pageYOffset,
+        docheight = document.documentElement.scrollHeight,
+        winheight = window.innerHeight;
+      // Select the referenced element and update its style property to change its width.
+      const scrolled = (wintop / (docheight - winheight)) * 100;
+      const scrolled15vh = (+scrolled + 15).toFixed(2); // Initial height: 15vh
+      // If reached to maximum 45vh then pause
+      if (scrollLineWrapperRef.current && scrolled15vh < 45) {
+        scrollLineWrapperRef.current.style.height = scrolled15vh + "vh";
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
     <section id="home" className={className}>
@@ -171,8 +224,8 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
       <div id="home-1" className="h-screen">
         <div
           // overflow grid on purpose via "fixed"
-          className="grid gap-[20px] grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4
-          h-full xl:px-[150px] lg:px-[100px] md:px-[70px] xs:px-[35px] px-[20px]"
+          className="h-[90vh] pt-[10vh] xl:px-[150px] lg:px-[100px] md:px-[70px] xs:px-[35px] px-[20px]
+          grid gap-[20px] grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4"
         >
           {/* -------- Text Area -------- */}
           <div
@@ -231,16 +284,36 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
             xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full
             relative"
           >
-            <LandingImageCards
+            <ImageCardsLanding
               ref={imageCardsRef}
               playAnimation={playAnimation}
             />
           </div>
         </div>
+
+        {/* -------- Scroll Line 1 -------- */}
+        <div ref={scrollLineWrapperRef} className="relative h-[15vh]">
+          <div className="absolute top-[-5vh] w-full h-full flex flex-col justify-center items-center">
+            <div
+              ref={scrollTextRef}
+              className="text-coffee-600 dark:text-coffee-300 text-[13px]
+            font-default-sans font-medium tracking-widest uppercase"
+            >
+              Scroll
+            </div>
+            <div
+              ref={scrollLineRef}
+              className="h-full w-[1px] bg-coffee-600"
+            ></div>
+          </div>
+        </div>
       </div>
 
       {/* ------------------------ Second Home section ------------------------ */}
-      <CoffeeLanding className="h-screen xl:my-[300px] lg:my-[100px]" />
+      <CoffeeLanding
+        id="home-2"
+        className="h-screen xl:my-[300px] lg:my-[100px]"
+      />
     </section>
   );
 });
