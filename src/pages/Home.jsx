@@ -293,11 +293,11 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
 
         {/* -------- Scroll Line 1 -------- */}
         <div ref={scrollLineWrapperRef} className="relative h-[15vh]">
-          <div className="absolute top-[-5vh] w-full h-full flex flex-col justify-center items-center">
+          <div className="absolute top-[-5vh] w-full h-full flex flex-col justify-center items-center gap-1">
             <div
               ref={scrollTextRef}
               className="text-coffee-600 dark:text-coffee-300 text-[13px]
-            font-default-sans font-medium tracking-widest uppercase"
+            font-default-sans font-medium tracking-[0.2em] uppercase"
             >
               Scroll
             </div>
