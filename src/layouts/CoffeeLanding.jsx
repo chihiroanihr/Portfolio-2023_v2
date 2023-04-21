@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SpiralText } from "@components";
-import { Coffee, Coffee2 } from "@components";
+import { Coffee } from "@components";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,8 +57,8 @@ const CoffeeLanding = ({ className }) => {
       ref={coffeeLandingRef}
       className={`${className} flex justify-center items-center`}
     >
-      {/* <Coffee /> */}
-      <Coffee2 />
+      {/* <CoffeeAlt /> */}
+      <Coffee />
       <SpiralText
         onDataUpdate={handleChildData}
         className="absolute xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]
