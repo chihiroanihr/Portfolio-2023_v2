@@ -63,7 +63,7 @@ const CoffeeLanding = ({ className }) => {
         onDataUpdate={handleChildData}
         className="absolute xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]
         
-        font-default-sans font-medium text-2xl sm:text-xl"
+        font-default-sans font-medium xxxl:text-xl text-2xl"
         fillColor="fill-coffee-600 dark:fill-coffee-300"
       />
     </div>
