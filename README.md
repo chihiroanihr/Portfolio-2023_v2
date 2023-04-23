@@ -43,6 +43,9 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 - **body-scroll-lock-upgrade**<br />
   `npm install body-scroll-lock-upgrade`
 
+- **react-icons**<br />
+  `npm install react-icons --save`
+
 ## Assets Used
 
 ### Fonts
