@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { buttonStyle } from "@constants/buttonStyle";
 
 // !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
 const DarkLightButton = forwardRef(
@@ -6,7 +7,7 @@ const DarkLightButton = forwardRef(
     return (
       <div
         ref={ref}
-        className={`${className} p-2 rounded-full shadow-light-btn dark:shadow-dark-btn cursor-pointer`}
+        className={`${className} ${buttonStyle.darkLightBtnStyle} cursor-pointer`}
         onClick={handleToggleDarkMode}
       >
         <svg
