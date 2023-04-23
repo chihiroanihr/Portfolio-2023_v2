@@ -13,7 +13,7 @@ const SocialIcons = (props) => {
     >
       <TbBrandLinkedin
         className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{ scale: 1.3, strokeWidth: 1.6 }}
+        style={{ scale: "1.3", strokeWidth: 1.45 }}
       />
       <TbBrandGithub
         className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
@@ -26,7 +26,7 @@ const SocialIcons = (props) => {
       {/* <TbBrandGithub className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer" /> */}
       <FaInstagram
         className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{ scale: 1.05, strokeWidth: 0.9 }}
+        style={{ scale: "1.05", strokeWidth: 0.9 }}
       />
       <FaDribbble
         className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
@@ -34,7 +34,7 @@ const SocialIcons = (props) => {
       />
       <TbBrandPinterest
         className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{ scale: 1.2, strokeWidth: 1.5 }}
+        style={{ scale: "1.2", strokeWidth: 1.5 }}
       />
       <TbBrandBehance
         className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
