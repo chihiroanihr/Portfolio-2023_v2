@@ -36,4 +36,10 @@ const BlobImage = ({ className, ...props }) => {
   );
 };
 
+// Default Props
+BlobImage.defaultProps = {
+  className: "",
+  props: null,
+};
+
 export default BlobImage;

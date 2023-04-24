@@ -6,7 +6,9 @@ import { TbBrandPinterest } from "react-icons/tb";
 import { TbBrandBehance } from "react-icons/tb";
 
 const SocialIcons = (props) => {
+  // Retrieve Props
   const classes = props.className;
+
   return (
     <div
       className={`text-[45px] ${classes} flex flex-col justify-center items-center gap-1`}
@@ -46,6 +48,11 @@ const SocialIcons = (props) => {
       />
     </div>
   );
+};
+
+// Default Props
+SocialIcons.defaultProps = {
+  classes: "",
 };
 
 export default SocialIcons;

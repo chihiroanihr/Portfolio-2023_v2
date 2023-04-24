@@ -1,17 +1,23 @@
-import { useRef, forwardRef, useEffect } from "react";
+import { useRef, forwardRef, useContext, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { splitTextToWords, splitTextToChars } from "@utils";
+import { ScrollLine } from "@components";
 import { CoffeeLanding, ImageCardsLanding } from "@layouts";
+import { PlayAnimationContext } from "@contexts";
+import { splitTextToWords, splitTextToChars } from "@utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const Home = forwardRef(({ playAnimation, className }, ref) => {
-  // ============================= Landing Animations ============================= //
-  // Scoped reference containing child elements that you want to animate
-  const textSectionRef = useRef(null);
-  // Child references
+// Forward Ref from Parent Component
+// ! forwardRef expects a function that accepts only props and ref as arguments
+const Home = forwardRef((props, ref) => {
+  // Retrieve Props
+  const classes = props.className;
+
+  // Retrieve Play Animation State
+  const { playAnimation } = useContext(PlayAnimationContext);
+
+  // DOM References for Landing Animations
   const sippingOnTextRef = useRef(null);
   const creativityTextRef = useRef(null);
   const coffeeTextRef = useRef(null);
@@ -19,16 +25,16 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
   const oneCupOfCoffeeTextRef = useRef(null);
-  const scrollTextRef = useRef(null);
-  const scrollLineRef = useRef(null);
-  // Child Component reference
-  const imageCardsRef = useRef(null);
-  // Timeline reference for scroll animation
-  const textTweens = useRef(null);
+  // DOM Reference to Child Components for Landing Animations
+  const imageCardsRef = useRef({ timeline: null });
+  const scrollLineRef = useRef({ timeline: null });
+  // DOM Reference for Scroll Animation
+  const textSectionRef = useRef(null);
+  // Timeline Reference for Scroll Animation
+  const textScrollTweenRef = useRef(null);
 
   // Update animation when playAnimation is triggered
   useEffect(() => {
-    // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
     console.log("[LOG] (Home1.jsx) Animation Started");
 
@@ -43,7 +49,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
 
     // Allow scroll triggered animations on complete
     const allowTextSectionScrollAnim = () => {
-      textTweens.current = gsap.to(
+      textScrollTweenRef.current = gsap.to(
         [
           sippingOnTextRef.current,
           creativityTextRef.current,
@@ -67,7 +73,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
     };
 
     // Register animations to the timeline
-    ref.current = gsap
+    ref.current.timeline = gsap
       .timeline({
         onComplete: allowTextSectionScrollAnim,
       })
@@ -155,71 +161,26 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         },
         ">"
       )
-      .add(imageCardsRef.current, ">rolling-text")
-      .from(
-        scrollTextRef.current,
-        {
-          id: "home-scroll-text",
-          duration: 1,
-          opacity: 0,
-          ease: "out",
-        },
-        ">-1.3"
-      )
-      .from(
-        scrollLineRef.current,
-        {
-          id: "home-scroll-line",
-          duration: 1,
-          opacity: 0,
-          scaleY: 0,
-          transformOrigin: "top",
-          ease: "out",
-          clearProps: true,
-        },
-        ">-0.5"
-      );
+      // Add children component's animations
+      .add(imageCardsRef.current.timeline, ">rolling-text")
+      .add(scrollLineRef.current.timeline, ">-1.3");
 
-    // Clean animation: prevent continuing to execute even after component unmounted
+    // Clean Up Animations
+    // ! prevent continuing to execute even after component unmounted
     return () => {
-      textTweens.current?.scrollTrigger?.kill();
-      textTweens.current?.kill();
-      imageCardsRef.current?.kill();
+      textScrollTweenRef.current?.scrollTrigger?.kill();
+      textScrollTweenRef.current?.kill();
+      imageCardsRef.current.timeline?.kill();
       // imageCardsRef.current = null;
-      ref.current?.scrollTrigger?.kill();
-      ref.current?.kill();
+      scrollLineRef.current.timeline?.kill();
+      ref.current.timeline?.scrollTrigger?.kill();
+      ref.current.timeline?.kill();
       console.log("[LOG] (Home1.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
-  // =========================== Scroll Line Animations =========================== //
-  // Scroll Line Reference
-  const scrollLineWrapperRef = useRef(null);
-  useEffect(() => {
-    const onScroll = () => {
-      // Calculate the scroll percentage based on the window's scroll position,
-      // the document's height, and the window's height.
-      const wintop = window.pageYOffset,
-        docheight = document.documentElement.scrollHeight,
-        winheight = window.innerHeight;
-      // Select the referenced element and update its style property to change its width.
-      const scrolled = (wintop / (docheight - winheight)) * 100;
-      const scrolled15vh = (+scrolled + 15).toFixed(2); // Initial height: 15vh
-      // If reached to maximum 45vh then pause
-      if (scrollLineWrapperRef.current && scrolled15vh < 45) {
-        scrollLineWrapperRef.current.style.height = scrolled15vh + "vh";
-      }
-    };
-
-    window.addEventListener("scroll", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
   return (
-    <section id="home" className={className}>
+    <section id="home" className={classes}>
       {/* ------------------------ First Home section ------------------------ */}
       <div
         id="home-1"
@@ -227,7 +188,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
         xl:px-[150px] lg:px-[100px] md:px-[70px] sm:px-[45px] xs:px-[35px] px-[20px]"
       >
         <div
-          // overflow grid on purpose via "fixed"
+          // !! overflow grid on purpose via "fixed"
           className="h-[90vh] pt-[10vh] grid gap-[20px]
           grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4"
         >
@@ -259,7 +220,7 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
               className="lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
               font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
             >
-              {/* texts into one line (inline) - necessary due to animation */}
+              {/* !! texts into one line (inline) - necessary due to animation */}
               <div
                 ref={oneCupOfCoffeeTextRef}
                 className="relative inline-block"
@@ -283,34 +244,15 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
           </div>
 
           {/* -------- Image Area -------- */}
-          <div
+          <ImageCardsLanding
+            ref={imageCardsRef}
             className="row-start-1 row-end-6 xl:row-span-full 
-            xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full
-            relative"
-          >
-            <ImageCardsLanding
-              ref={imageCardsRef}
-              playAnimation={playAnimation}
-            />
-          </div>
+            xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full"
+          />
         </div>
 
         {/* -------- Scroll Line -------- */}
-        <div ref={scrollLineWrapperRef} className="relative h-[15vh]">
-          <div className="absolute top-[-5vh] w-full h-full flex flex-col justify-center items-center gap-1">
-            <div
-              ref={scrollTextRef}
-              className="text-coffee-600 dark:text-coffee-300 text-[13px]
-            font-default-sans font-medium tracking-[0.2em] uppercase"
-            >
-              Scroll
-            </div>
-            <div
-              ref={scrollLineRef}
-              className="h-full w-[1px] bg-coffee-600"
-            ></div>
-          </div>
-        </div>
+        <ScrollLine ref={scrollLineRef} className="h-[15vh]" />
       </div>
 
       {/* ------------------------ Second Home section ------------------------ */}
@@ -322,7 +264,8 @@ const Home = forwardRef(({ playAnimation, className }, ref) => {
   );
 });
 
-// !! Sets the default value for the playAnimation prop to false to prevent errors when they are not passed by the parent component.
-Home.defaultProps = { playAnimation: false, className: "" };
+// Default Props
+// ! Sets the default value to prevent errors when they are not passed by the parent component.
+Home.defaultProps = { classes: "" };
 
 export default Home;

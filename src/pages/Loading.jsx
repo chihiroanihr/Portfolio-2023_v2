@@ -1,9 +1,13 @@
 import { useState, useEffect, forwardRef } from "react";
-import { checkVisited } from "@utils";
 import { Loader } from "@components";
+import { checkVisited } from "@utils";
 
-// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const Loading = forwardRef(({ setIsLoaderHidden, className }, ref) => {
+// Forward Ref from Parent Component
+const Loading = forwardRef((props, ref) => {
+  // Retrieve Props
+  const classes = props.className;
+  const setIsLoaderHidden = props.setIsLoaderHidden;
+
   // =============================== Page Loading =============================== //
   // Set Page Loaded State
   const [isPageLoaded, setIsPageLoaded] = useState(false);
@@ -36,6 +40,7 @@ const Loading = forwardRef(({ setIsLoaderHidden, className }, ref) => {
     else {
       window.addEventListener("load", handlePageLoaded);
     }
+
     //  Clean up the setTimeout when the component unmounts
     return () => {
       clearTimeout(timeout);
@@ -47,7 +52,7 @@ const Loading = forwardRef(({ setIsLoaderHidden, className }, ref) => {
   const [showText1, setShowText1] = useState(false);
   const [showText2, setShowText2] = useState(false);
 
-  // Synchronous Animation Function
+  // Synchronous Display Animation Function
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const playLoadingAnimation = async () => {
     // ! execute synchronously instead of using setTimeOut function
@@ -64,20 +69,21 @@ const Loading = forwardRef(({ setIsLoaderHidden, className }, ref) => {
   return (
     <div
       ref={ref}
-      // If page fully loaded then fade-out loader page
-      className={`${className} w-screen h-screen px-[8px]
+      className={`${classes} w-screen h-screen px-[8px] bg-coffee-800
       flex flex-col justify-center items-center md:gap-[40px] sm:gap-[32px] gap-[24px]
-      bg-coffee-800
       text-coffee-100 font-default-sans font-light tracking-wider
       md:text-[24px] sm:text-[20px] xs:text-[16px] text-[14px]
       ${
+        // if content page fully loaded then fade-out loader page
         isPageLoaded ? "opacity-0" : "opacity-100"
       } transition-opacity duration-1000`}
     >
-      {/* Loader / Spinner Icon (stays forever) */}
+      {/* ------- Loader/Spinner Icon (stays forever) ------- */}
       <Loader />
-      {/* Text Section (animated dynamically) */}
+
+      {/* ------- Text Section (animated dynamically) ------- */}
       <div className="relative w-full text-center">
+        {/* Text Display 1 */}
         <p
           className={`absolute w-full leading-relaxed ${
             showText1 ? "opacity-100" : "opacity-0"
@@ -87,6 +93,7 @@ const Loading = forwardRef(({ setIsLoaderHidden, className }, ref) => {
           <br />
           I'm Rhina, a web developer and designer.
         </p>
+        {/* Text Display 2 */}
         <p
           className={`absolute w-full leading-relaxed ${
             showText2 ? "opacity-100" : "opacity-0"
@@ -99,10 +106,10 @@ const Loading = forwardRef(({ setIsLoaderHidden, className }, ref) => {
   );
 });
 
-// !! Assign the default value to prevent errors when they are not passed by the parent component.
+// Default Props
 Loading.defaultProps = {
+  classes: "",
   setIsLoaderHidden: null,
-  className: "",
 };
 
 export default Loading;

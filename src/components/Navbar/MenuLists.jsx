@@ -1,14 +1,20 @@
 import React, { useMemo, forwardRef } from "react";
 import { menuLists } from "@constants/data";
 
-const MenuLists = forwardRef(({ isMenuOpen, onClick, className }, ref) => {
+// Forward Ref from Parent Component
+const MenuLists = forwardRef((props, ref) => {
+  // Retrieve Props
+  const classes = props.className;
+  const isMenuOpen = props.isMenuOpen;
+  const onClick = props.onClick;
+
   // Memoize menuLists array to avoid getting created on every re-render
   const memoizedMenuLists = useMemo(() => menuLists, []);
 
   return (
     <ul
       ref={ref}
-      className={`${className} flex flex-col transition-opacity ${
+      className={`${classes} flex flex-col transition-opacity ${
         isMenuOpen
           ? "cursor-pointer opacity-100 duration-500 delay-200"
           : "pointer-events-none opacity-0 duration-200"
@@ -30,7 +36,7 @@ const MenuLists = forwardRef(({ isMenuOpen, onClick, className }, ref) => {
   );
 });
 
-// !! Assign the default value to prevent errors when they are not passed by the parent component.
-MenuLists.defaultProps = { isMenuOpen: false, onClick: null, className: "" };
+// Default Props
+MenuLists.defaultProps = { classes: "", isMenuOpen: false, onClick: null };
 
 export default MenuLists;

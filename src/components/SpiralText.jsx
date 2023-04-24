@@ -1,14 +1,16 @@
 import { useRef, useEffect } from "react";
 
 const SpiralText = ({ onDataUpdate, className, fillColor, ...props }) => {
+  // DOM References
   const svgRef = useRef(null);
   const textPathRef = useRef(null);
 
+  // Obtain DOM elements and pass it to parent component
   useEffect(() => {
     const spiralPathDOM = svgRef.current.getElementById("spiral-path");
     const totalPathLength = spiralPathDOM.getTotalLength();
 
-    onDataUpdate(svgRef, textPathRef, spiralPathDOM, totalPathLength);
+    onDataUpdate(textPathRef, spiralPathDOM, totalPathLength);
   }, []);
 
   return (

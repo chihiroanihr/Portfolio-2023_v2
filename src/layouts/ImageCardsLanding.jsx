@@ -1,15 +1,23 @@
-import { useRef, useEffect, forwardRef } from "react";
+import { useContext, useLayoutEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PlayAnimationContext } from "@contexts";
 import { homeImageCards } from "@constants/data";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const ImageCardsLanding = forwardRef(({ playAnimation }, ref) => {
-  // References to use for animation
+// Forward Ref from Parent Component
+const ImageCardsLanding = forwardRef((props, ref) => {
+  // Retrieve Props
+  const classes = props.className;
+
+  // Retrieve Play Animation State
+  const { playAnimation } = useContext(PlayAnimationContext);
+
+  // DOM References for Landing Animations
   const imageCardsRefs = useRef([]);
-  const imageCardsTweens = useRef([]);
+  // Timeline Reference for Scroll Animation
+  const imageCardsTweensRefs = useRef([]);
 
   // Allow scroll triggered animations on complete
   const allowImageCardsScrollAnim = () => {
@@ -44,7 +52,7 @@ const ImageCardsLanding = forwardRef(({ playAnimation }, ref) => {
         default:
           break;
       }
-      imageCardsTweens.current[index] = gsap.to(imageCard, {
+      imageCardsTweensRefs.current[index] = gsap.to(imageCard, {
         id: "home-image-cards-" + index,
         ...animationProps,
         opacity: 0,
@@ -61,12 +69,12 @@ const ImageCardsLanding = forwardRef(({ playAnimation }, ref) => {
   };
 
   // Update Animation when playAnimation is triggered
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!playAnimation) return;
     console.log("[LOG] (ImageCardsLanding.jsx) Animation Started");
 
     // Register animations to the timeline
-    const timeline = gsap.from(imageCardsRefs.current, {
+    ref.current.timeline = gsap.from(imageCardsRefs.current, {
       id: "home-landing-images",
       x: 200,
       y: -200,
@@ -79,21 +87,19 @@ const ImageCardsLanding = forwardRef(({ playAnimation }, ref) => {
       onComplete: allowImageCardsScrollAnim,
     });
 
-    ref.current = timeline;
-
-    // Clean up animation when component unmounts
+    // Clean Up Animations
     return () => {
-      imageCardsTweens.current.forEach((tween) => {
+      imageCardsTweensRefs.current.forEach((tween) => {
         tween?.scrollTrigger?.kill();
         tween?.kill();
       });
-      timeline?.kill();
+      ref.current.timeline?.kill();
       console.log("[LOG] (ImageCardsLanding.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
   return (
-    <>
+    <div className={`${classes} relative`}>
       {homeImageCards.map(({ id, img, style }, index) => (
         <img
           ref={(el) => (imageCardsRefs.current[index] = el)}
@@ -106,11 +112,11 @@ const ImageCardsLanding = forwardRef(({ playAnimation }, ref) => {
             pointer-events-none prevent-select`}
         />
       ))}
-    </>
+    </div>
   );
 });
 
-// !! Assign the default value to prevent errors when they are not passed by the parent component.
-ImageCardsLanding.defaultProps = { playAnimation: false };
+// Default Props
+ImageCardsLanding.defaultProps = { classes: "" };
 
 export default ImageCardsLanding;

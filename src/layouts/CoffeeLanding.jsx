@@ -1,68 +1,73 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useContext, useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SpiralText } from "@components";
-import { Coffee } from "@components";
+import { SpiralText, Coffee } from "@components";
+import { PlayAnimationContext } from "@contexts";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const CoffeeLanding = ({ className }) => {
+const CoffeeLanding = (props) => {
+  // Retrieve Props
+  const classes = props.className;
+
+  // Retrieve Play Animation State
+  const { playAnimation } = useContext(PlayAnimationContext);
+
+  // DOM References for Scroll Animations
   const coffeeLandingRef = useRef(null);
 
-  const [svgRef, setSvgRef] = useState(null);
+  // Children DOM References
   const [textPathRef, setTextPathRef] = useState(null);
   const [spiralPathDOM, setSpiralPathDOM] = useState(null);
   const [totalPathLength, setTotalPathLength] = useState(0);
 
-  const handleChildData = (
-    svgRef,
-    textPathRef,
-    spiralPathDOM,
-    totalPathLength
-  ) => {
-    setSvgRef(svgRef);
+  // Handle children DOM data
+  const handleChildData = (textPathRef, spiralPathDOM, totalPathLength) => {
     setTextPathRef(textPathRef);
     setSpiralPathDOM(spiralPathDOM);
     setTotalPathLength(totalPathLength);
   };
 
-  useEffect(() => {
-    if (!textPathRef && !svgRef && !spiralPathDOM && !totalPathLength) return;
-    console.log("[LOG] (Home2.jsx) Animation Started");
+  // Update Animation when playAnimation is triggered &
+  // when spiral svg paths/texts are updated
+  useLayoutEffect(() => {
+    if (!playAnimation) return;
+    console.log("[LOG] (CoffeeLanding.jsx) Animation Started");
 
-    const targetScrollTrigger = coffeeLandingRef.current;
+    // Register Scroll Triggered Animation
     const timeline = gsap.to(textPathRef.current, {
       attr: { startOffset: totalPathLength - 400 },
       scrollTrigger: {
         id: "home-spiral-text-on-scroll",
-        trigger: targetScrollTrigger,
-        scrub: 1,
+        trigger: coffeeLandingRef.current,
         pin: true,
-        anticipatePin: 1,
+        scrub: 1,
         start: "top top",
         end: "+=100%",
-        // markers: { startColor: "yellow", endColor: "yellow" },
+        // !! scroll position after this section gets messed up due to pinned element
+        // thus refresh it first
+        refreshPriority: 1,
       },
     });
 
+    // Clean up Animations
     return () => {
       timeline.scrollTrigger.kill();
       timeline.kill();
-      console.log("[LOG] (Home2.jsx) Animation Killed");
+      console.log("[LOG] (CoffeeLanding.jsx) Animation Killed");
     };
-  }, [svgRef, textPathRef, spiralPathDOM, totalPathLength]);
+  }, [playAnimation, textPathRef, spiralPathDOM, totalPathLength]);
 
   return (
     <div
       ref={coffeeLandingRef}
-      className={`${className} flex justify-center items-center`}
+      className={`${classes} flex justify-center items-center`}
     >
       {/* <CoffeeAlt /> */}
       <Coffee />
       <SpiralText
         onDataUpdate={handleChildData}
         className="absolute xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]
-        
         font-default-sans font-medium xxxl:text-xl text-2xl"
         fillColor="fill-coffee-600 dark:fill-coffee-300"
       />
@@ -70,9 +75,9 @@ const CoffeeLanding = ({ className }) => {
   );
 };
 
-// !! Assign the default value to prevent errors when they are not passed by the parent component.
+// Default Props
 CoffeeLanding.defaultProps = {
-  className: "",
+  classes: "",
 };
 
 export default CoffeeLanding;

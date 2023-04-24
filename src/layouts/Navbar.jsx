@@ -1,9 +1,10 @@
 import React, {
   useRef,
   useState,
-  useEffect,
+  useContext,
   useCallback,
   forwardRef,
+  useLayoutEffect,
 } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,65 +15,79 @@ import {
   MenuBackground,
   NavbarBrand,
 } from "@components";
+import { PlayAnimationContext } from "@contexts";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const Navbar = forwardRef(({ playAnimation, className }, ref) => {
+// Forward Ref from Parent Component
+const Navbar = forwardRef((props, ref) => {
+  // Retrieve Props
+  const classes = props.className;
+
   // =============================== Landing Animations =============================== //
-  // Child references
-  const navbarBrandRef = useRef(null);
-  const menuButtonRef = useRef(null);
-  const navbarBrandTween = useRef(null);
+  // Retrieve Play Animation State
+  const { playAnimation } = useContext(PlayAnimationContext);
+
+  // DOM references
+  const navbarRef = useRef(null);
+
+  // Gsap Scroll Tween reference
+  const navbarBrandScrollTweenRef = useRef(null);
+
+  // Allow scroll triggered animations on complete
+  const allowNavbarBrandScrollAnim = () => {
+    navbarBrandScrollTweenRef.current = gsap.to(".navbar-brand", {
+      y: -100,
+      opacity: 0,
+      scrollTrigger: {
+        id: "home-navbar-brand-on-scroll",
+        // ! No need to assign trigger since its all the way to top
+        scrub: 2,
+        start: "top top",
+        end: "+=200 top",
+        // markers: { startColor: "blue", endColor: "blue" },
+      },
+    });
+  };
 
   // Update Animation when playAnimation is triggered
-  useEffect(() => {
+  useLayoutEffect(() => {
     // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
+    console.log("[LOG] (Navbar.jsx) Animation Started");
 
-    // Register animations to the timeline
-    ref.current = gsap
-      .timeline({ defaults: { clearProps: true } })
-      // Add all animations within textSectionRef scope
-      .from(navbarBrandRef.current, {
-        id: "navbar-brand",
-        y: -10,
-        opacity: 0,
-        duration: 1,
-        ease: "inOut",
-        // Allow scroll up animations
-        onComplete: function () {
-          navbarBrandTween.current = gsap.to(navbarBrandRef.current, {
-            y: -100,
-            opacity: 0,
-            scrollTrigger: {
-              id: "home-navbar-brand-on-scroll",
-              trigger: navbarBrandRef.current,
-              scrub: 2,
-              start: "20% top",
-              end: "200% top",
-              // markers: { startColor: "blue", endColor: "blue" },
-            },
-          });
-        },
-      })
-      .from(
-        menuButtonRef.current,
-        {
-          id: "menu-button",
+    let ctx = gsap.context(() => {
+      // Register all animations within the scope to the timeline
+      ref.current.timeline = gsap
+        .timeline({ defaults: { clearProps: true } })
+        .from(".navbar-brand", {
+          id: "navbar-brand",
           y: -10,
           opacity: 0,
           duration: 1,
           ease: "inOut",
-        },
-        ">-0.5"
-      );
+          // Allow scroll up animations on complete
+          onComplete: allowNavbarBrandScrollAnim,
+        })
+        .from(
+          ".menu-button",
+          {
+            id: "menu-button",
+            y: -10,
+            opacity: 0,
+            duration: 1,
+            ease: "inOut",
+          },
+          ">-0.5"
+        );
+      // Scope
+      navbarRef;
+    });
 
-    // Clean animation: prevent continuing to execute even after component unmounted
+    // Clean Up Animations
     return () => {
-      navbarBrandTween.current?.scrollTrigger?.kill();
-      navbarBrandTween.current?.kill();
-      ref.current?.kill();
+      ctx.revert();
+      console.log("[LOG] (Navbar.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
@@ -85,7 +100,7 @@ const Navbar = forwardRef(({ playAnimation, className }, ref) => {
   }, [isMenuOpen]);
 
   // ================================== Scroll Lock ================================== //
-  // Reference to activate scroll lock
+  // DOM Reference to activate scroll lock
   const scrollLockTargetRef = useRef(null);
   // Set Scroll Lock State
   const [isScrollLocked, setIsScrollLocked] = useState(false);
@@ -101,21 +116,24 @@ const Navbar = forwardRef(({ playAnimation, className }, ref) => {
 
   return (
     // Navbar (sticky)
-    <nav className={`${className} w-screen h-20`}>
+    <nav ref={navbarRef} className={`${classes} w-screen h-20`}>
       {/* ---------- When Menu Closed ---------- */}
       <div className="h-full flex justify-end items-center">
         {/* Navbar Brand */}
-        <NavbarBrand ref={navbarBrandRef} className="absolute w-full mx-auto" />
+        <NavbarBrand
+          className="navbar-brand
+          absolute w-full mx-auto"
+        />
 
         {/* Menu Button */}
         <MenuButton
-          ref={menuButtonRef}
+          className="menu-button
+          z-40 relative mr-2 md:mr-5 scale-[0.5] sm:scale-[0.7]"
           isMenuOpen={isMenuOpen}
           onClick={() => {
             handleToggleMenu();
             handleScrollLock();
           }}
-          className="z-40 relative mr-2 md:mr-5 scale-[0.5] sm:scale-[0.7]"
         />
       </div>
 
@@ -123,29 +141,26 @@ const Navbar = forwardRef(({ playAnimation, className }, ref) => {
       <div>
         {/* Menu Background (hidden) */}
         <MenuBackground
-          isMenuOpen={isMenuOpen}
           className="z-20 fixed -top-[50px] -right-[50px] w-[100px] h-[100px]"
+          isMenuOpen={isMenuOpen}
         />
 
         {/* Menu Lists (hidden) */}
         <MenuLists
           ref={scrollLockTargetRef}
+          className="z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           isMenuOpen={isMenuOpen}
           onClick={() => {
             handleToggleMenu();
             handleScrollLock();
           }}
-          className="z-30 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </nav>
   );
 });
 
-// !! Assign the default value to prevent errors when they are not passed by the parent component.
-Navbar.defaultProps = {
-  playAnimation: false,
-  className: "",
-};
+// Default Props
+Navbar.defaultProps = { classes: "" };
 
 export default Navbar;

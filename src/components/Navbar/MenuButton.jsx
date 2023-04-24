@@ -1,11 +1,16 @@
 import { forwardRef } from "react";
 
-// !! forwardRef expects a function that accepts props and ref as arguments, thus destructuring is a recommended approach
-const MenuButton = forwardRef(({ isMenuOpen, onClick, className }, ref) => {
+// Forward Ref from Parent Component
+const MenuButton = forwardRef((props, ref) => {
+  // Retrieve Props
+  const classes = props.className;
+  const isMenuOpen = props.isMenuOpen;
+  const onClick = props.onClick;
+
   return (
     <div ref={ref}>
       <div
-        className={`${className} relative w-[50px] h-[40px] flex flex-col justify-between cursor-pointer
+        className={`${classes} relative w-[50px] h-[40px] flex flex-col justify-between cursor-pointer
         after:absolute after:top-1/2 after:left-1/2 after:w-[84px]
         after:h-[84px] after:-mt-[43px] after:-ml-[43px]
         after:block after:content-[''] after:rounded-full after:border-solid after:border-2
@@ -38,7 +43,7 @@ const MenuButton = forwardRef(({ isMenuOpen, onClick, className }, ref) => {
   );
 });
 
-// !! Assign the default value to prevent errors when they are not passed by the parent component.
-MenuButton.defaultProps = { isMenuOpen: false, onClick: null, className: "" };
+// Default Props
+MenuButton.defaultProps = { classes: "", isMenuOpen: false, onClick: null };
 
 export default MenuButton;

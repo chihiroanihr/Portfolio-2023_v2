@@ -37,4 +37,11 @@ const BlobDots = ({ className, fillColor, ...props }) => {
   );
 };
 
+// Default Props
+BlobDots.defaultProps = {
+  className: "",
+  fillColor: "",
+  props: null,
+};
+
 export default BlobDots;
