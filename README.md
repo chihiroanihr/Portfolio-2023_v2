@@ -16,17 +16,19 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 - Use of React Hooks
   - useState
-  - useRef
+  - useContext
   - useEffect
   - useLayoutEffect
     <!-- - Control over the timing of animation -->
     <!-- - To avoid any flickering / flashing of the content (animation only starts before DOM painted) -->
-    - useCallback
+  - useCallback
+  - useRef
   - forwardRef
-- Use of third party libraries
+- Use of third-party libraries
   - GSAP
   - body-scroll-lock-upgrade
   - tailwind
+  - react-icons
 
 ## Dependencies Installed
 
