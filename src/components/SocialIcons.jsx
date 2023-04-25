@@ -25,7 +25,7 @@ const SocialIcon = (props) => {
           !disabled
             ? "hover:text-coffee-600 dark:hover:text-coffee-100"
             : "opacity-40"
-        }`}
+        } transition-colors duration-200`}
         style={style}
       />
     </a>
