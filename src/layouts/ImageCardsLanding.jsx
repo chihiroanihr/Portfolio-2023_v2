@@ -2,7 +2,7 @@ import { useContext, useLayoutEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PlayAnimationContext } from "@contexts";
-import { homeImageCards } from "@constants/data";
+import { imageCardsData } from "@constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,7 +100,7 @@ const ImageCardsLanding = forwardRef((props, ref) => {
 
   return (
     <div className={`${classes} relative`}>
-      {homeImageCards.map(({ id, img, style }, index) => (
+      {imageCardsData.map(({ id, img, style }, index) => (
         <img
           ref={(el) => (imageCardsRefs.current[index] = el)}
           key={id}

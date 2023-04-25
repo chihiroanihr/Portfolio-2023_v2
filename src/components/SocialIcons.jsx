@@ -1,51 +1,69 @@
-import { TbBrandLinkedin } from "react-icons/tb";
-import { TbBrandGithub } from "react-icons/tb";
-import { FaDribbble } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { TbBrandPinterest } from "react-icons/tb";
-import { TbBrandBehance } from "react-icons/tb";
+import { useMemo } from "react";
+import { socialMediaPlatformsData } from "@constants";
+
+const SocialIcon = (props) => {
+  // Retrieve Props
+  const { href, icon: Icon, style, disabled } = props;
+
+  // If disabled link
+  const handleClick = (event) => {
+    if (disabled) {
+      event.preventDefault();
+    }
+  };
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      onClick={handleClick}
+      disabled={disabled}
+      className={disabled ? "pointer-events-none" : ""}
+    >
+      <Icon
+        className={`text-coffee-400 ${
+          !disabled
+            ? "hover:text-coffee-600 dark:hover:text-coffee-100"
+            : "opacity-40"
+        }`}
+        style={style}
+      />
+    </a>
+  );
+};
+
+// Default Props
+SocialIcon.defaultProps = {
+  href: "#",
+  icon: null,
+  style: "",
+  disabled: false,
+};
 
 const SocialIcons = (props) => {
   // Retrieve Props
   const classes = props.className;
 
+  // Memoize data array to avoid getting created on every re-render
+  const memoizedSocialMediaPlatformsData = useMemo(
+    () => socialMediaPlatformsData,
+    []
+  );
+
   return (
     <div
-      className={`text-[45px] ${classes} flex flex-col justify-center items-center gap-1`}
+      className={`text-[45px] ${classes}
+      flex flex-col justify-center items-center gap-1`}
     >
-      <TbBrandLinkedin
-        className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{ scale: "1.3", strokeWidth: 1.45 }}
-      />
-      <TbBrandGithub
-        className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{
-          borderRadius: "50%",
-          border: "3.7px solid",
-          padding: "3px 0px 1px 1px",
-        }}
-      />
-      {/* <TbBrandGithub className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer" /> */}
-      <FaInstagram
-        className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{ scale: "1.05", strokeWidth: 0.9 }}
-      />
-      <FaDribbble
-        className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{ strokeWidth: 2.5 }}
-      />
-      <TbBrandPinterest
-        className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{ scale: "1.2", strokeWidth: 1.5 }}
-      />
-      <TbBrandBehance
-        className="text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-100 cursor-pointer"
-        style={{
-          borderRadius: "50%",
-          border: "3.7px solid",
-          padding: "3px 0px 2px 1px",
-        }}
-      />
+      {memoizedSocialMediaPlatformsData.map((platform) => (
+        <SocialIcon
+          key={platform.name}
+          href={platform.href}
+          icon={platform.icon}
+          style={platform.style}
+          disabled={platform.disabled}
+        />
+      ))}
     </div>
   );
 };

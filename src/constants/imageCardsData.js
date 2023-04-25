@@ -1,10 +1,10 @@
-import coffeeBgImg1 from "../assets/images/coffee-bg-1.jpg";
-import coffeeBgImg2 from "../assets/images/coffee-bg-2.jpg";
-import coffeeBgImg3 from "../assets/images/coffee-bg-3.jpg";
+import coffeeBgImg1 from "@assets/images/coffee-bg-1.jpg";
+import coffeeBgImg2 from "@assets/images/coffee-bg-2.jpg";
+import coffeeBgImg3 from "@assets/images/coffee-bg-3.jpg";
 
 // From Left To Right
 // From Underneath To Top
-export const homeImageCards = [
+const imageCardsData = [
   {
     id: "coffee-bg-img-3",
     img: coffeeBgImg3,
@@ -34,25 +34,4 @@ export const homeImageCards = [
   },
 ];
 
-export const menuLists = [
-  {
-    id: "top",
-    href: "#",
-  },
-  {
-    id: "About",
-    href: "#",
-  },
-  {
-    id: "Project",
-    href: "#",
-  },
-  {
-    id: "Gallery",
-    href: "#",
-  },
-  {
-    id: "Contact",
-    href: "#",
-  },
-];
+export default imageCardsData;
