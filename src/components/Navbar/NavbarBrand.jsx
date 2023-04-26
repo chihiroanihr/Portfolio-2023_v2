@@ -1,12 +1,9 @@
-import { forwardRef } from "react";
-
-const NavbarBrand = forwardRef((props, ref) => {
+const NavbarBrand = (props) => {
   // Retrieve Props
   const classes = props.className;
 
   return (
     <div
-      ref={ref}
       className={`${classes} flex flex-col sm:gap-[4px] gap-[2px]
       text-center text-coffee-600 dark:text-coffee-300`}
     >
@@ -18,7 +15,7 @@ const NavbarBrand = forwardRef((props, ref) => {
       </p>
     </div>
   );
-});
+};
 
 // Default Props
 NavbarBrand.defaultProps = { classes: "" };
