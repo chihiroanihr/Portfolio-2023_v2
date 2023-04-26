@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { ScrollLockContext, ToggleModalContext } from "@contexts";
 import { useBodyScrollLock } from "@utils";
 
@@ -20,25 +20,42 @@ const Modal = (props) => {
     allowTouchMove: true,
   });
 
+  // DOM reference to modal content
+  const modalContentRef = useRef(null);
+  // Scroll back to top when modal closed/opened in the middle of scroll
+  useEffect(() => {
+    modalContentRef.current.scrollTo(0, 0);
+  }, [isModalOpen]);
+
   return (
     <div
       ref={scrollLockTargetRef}
-      className={`${isModalOpen ? "block" : "hidden"} fixed top-0 w-screen z-50
-      `}
+      className={`fixed top-0 w-screen z-50 ${
+        isModalOpen
+          ? "opacity-100"
+          : "opacity-0 pointer-events-none transition-opacity delay-1000"
+      }`}
       role="dialog"
       aria-modal="true"
       tabIndex="-1"
     >
       {/* Modal Background */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-75 transition-opacity h-full"
+        className={`fixed inset-0 h-full bg-black bg-opacity-75 ${
+          isModalOpen ? "opacity-100" : "opacity-0 delay-500"
+        } transition-opacity duration-500`}
         onClick={() => {
           handleToggleModal();
           handleScrollLock();
         }}
       />
       {/* Modal Content */}
-      <div className={`fixed inset-0 mx-auto ${modalContentWidth}`}>
+      <div
+        ref={modalContentRef}
+        className={`fixed inset-0 mx-auto overflow-y-scroll ${modalContentWidth} ${
+          isModalOpen ? "translate-y-0" : "translate-y-full"
+        } transition-translate duration-1000`}
+      >
         {/* Contents */}
         {props.children}
       </div>
