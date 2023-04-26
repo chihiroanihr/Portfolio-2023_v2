@@ -1,5 +1,5 @@
 import Loader from "./Loader";
-import Button from "./button";
+import Button from "./Button";
 import DarkLightButton from "./DarkLightButton";
 import ScrollLine from "./ScrollLine";
 import CoffeeAlt from "./CoffeeAlt";
