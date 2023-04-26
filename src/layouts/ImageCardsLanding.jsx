@@ -2,7 +2,7 @@ import { useContext, useLayoutEffect, useRef, forwardRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PlayAnimationContext } from "@contexts";
-import { imageCardsData } from "@constants";
+import { imageCardsData } from "@data";
 
 gsap.registerPlugin(ScrollTrigger);
 

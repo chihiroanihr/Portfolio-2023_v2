@@ -1,5 +1,5 @@
 import { useMemo, forwardRef } from "react";
-import { menuListsData } from "@constants";
+import { menuListsData } from "@data";
 
 // Forward Ref from Parent Component
 const MenuLists = forwardRef((props, ref) => {
@@ -20,7 +20,7 @@ const MenuLists = forwardRef((props, ref) => {
           : "pointer-events-none opacity-0 duration-200"
       }`}
     >
-      {memoizedMenuListsData.map(({ id, href }, index) => (
+      {memoizedMenuListsData.map(({ id, href }) => (
         <li key={id} className="text-center list-none">
           <a
             href={href}
