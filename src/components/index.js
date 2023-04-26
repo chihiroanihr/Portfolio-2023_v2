@@ -6,6 +6,7 @@ import CoffeeAlt from "./CoffeeAlt";
 import Coffee from "./Coffee";
 import SpiralText from "./SpiralText";
 import SocialIcons from "./SocialIcons";
+import DownloadButton from "./DownloadButton";
 import { BlobDots, BlobImage } from "./Blob";
 import { Modal, ModalButton } from "./Modal";
 import { TimelineWorkChart, TimelineLifeChart } from "./Timeline";
@@ -20,6 +21,7 @@ export {
   CoffeeAlt,
   SpiralText,
   SocialIcons,
+  DownloadButton,
   BlobImage,
   BlobDots,
   Modal,
