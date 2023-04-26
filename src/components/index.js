@@ -5,9 +5,8 @@ import ScrollLine from "./ScrollLine";
 import CoffeeAlt from "./CoffeeAlt";
 import Coffee from "./Coffee";
 import SpiralText from "./SpiralText";
-import BlobImage from "./BlobImage";
-import BlobDots from "./BlobDots";
 import SocialIcons from "./SocialIcons";
+import { BlobDots, BlobImage } from "./Blob";
 import { NavbarBrand, MenuButton, MenuBackground, MenuLists } from "./Navbar";
 
 export {
