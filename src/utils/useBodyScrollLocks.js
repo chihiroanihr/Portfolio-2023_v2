@@ -8,7 +8,11 @@ import {
   enableBodyScroll,
 } from "body-scroll-lock-upgrade";
 
-const useBodyScrollLock = ({ isScrollLocked, scrollLockTargetRef }) => {
+const useBodyScrollLock = ({
+  isScrollLocked,
+  scrollLockTargetRef,
+  allowTouchMove = false,
+}) => {
   useLayoutEffect(() => {
     if (!scrollLockTargetRef.current) {
       return;
@@ -16,6 +20,11 @@ const useBodyScrollLock = ({ isScrollLocked, scrollLockTargetRef }) => {
 
     // Disable scroll other than target
     if (isScrollLocked) {
+      if (allowTouchMove) {
+        disableBodyScroll(scrollLockTargetRef.current, {
+          allowTouchMove: true,
+        });
+      }
       disableBodyScroll(scrollLockTargetRef.current);
     }
     // Enable scroll other than target
@@ -25,7 +34,7 @@ const useBodyScrollLock = ({ isScrollLocked, scrollLockTargetRef }) => {
 
     // Clear all scroll locks when unmounted
     return () => clearAllBodyScrollLocks();
-  }, [isScrollLocked, scrollLockTargetRef.current]);
+  }, [isScrollLocked, scrollLockTargetRef]);
 
   return null;
 };
