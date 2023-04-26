@@ -9,7 +9,6 @@ import SocialIcons from "./SocialIcons";
 import DownloadButton from "./DownloadButton";
 import { BlobDots, BlobImage } from "./Blob";
 import { Modal, ModalButton } from "./Modal";
-import { TimelineWorkChart, TimelineLifeChart } from "./Timeline";
 import { NavbarBrand, MenuButton, MenuBackground, MenuLists } from "./Navbar";
 
 export {
@@ -26,8 +25,6 @@ export {
   BlobDots,
   Modal,
   ModalButton,
-  TimelineWorkChart,
-  TimelineLifeChart,
   NavbarBrand,
   MenuButton,
   MenuLists,

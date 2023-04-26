@@ -1,13 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FiDownload } from "react-icons/fi";
-import {
-  Modal,
-  ModalButton,
-  TimelineWorkChart,
-  TimelineLifeChart,
-  DownloadButton,
-} from "@components";
+import { TimelineWorkChart, TimelineLifeChart } from "@layouts";
+import { Modal, ModalButton, DownloadButton } from "@components";
 import { buttonStyle } from "@constants";
 
 const TimelineModal = () => {
