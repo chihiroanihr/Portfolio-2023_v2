@@ -17,6 +17,7 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 - Use of React Hooks
   - useState
   - useContext
+  - createContext
   - useEffect
   - useLayoutEffect
     <!-- - Control over the timing of animation -->
