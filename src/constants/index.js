@@ -1,5 +1,3 @@
-import imageCardsData from "./imageCardsData";
-import menuListsData from "./menuListsData";
-import socialMediaPlatformsData from "./socialMediaPlatformsData";
+import buttonStyle from "./buttonStyle";
 
-export { imageCardsData, menuListsData, socialMediaPlatformsData };
+export { buttonStyle };

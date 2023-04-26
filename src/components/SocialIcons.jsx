@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { socialMediaPlatformsData } from "@constants";
+import { socialMediaPlatformsData } from "@data";
 
 const SocialIcon = (props) => {
   // Retrieve Props
@@ -55,13 +55,13 @@ const SocialIcons = (props) => {
       className={`text-[45px] ${classes}
       flex flex-col justify-center items-center gap-1`}
     >
-      {memoizedSocialMediaPlatformsData.map((platform) => (
+      {memoizedSocialMediaPlatformsData.map((sms) => (
         <SocialIcon
-          key={platform.name}
-          href={platform.href}
-          icon={platform.icon}
-          style={platform.style}
-          disabled={platform.disabled}
+          key={sms.name}
+          href={sms.href}
+          icon={sms.icon}
+          style={sms.style}
+          disabled={sms.disabled}
         />
       ))}
     </div>
