@@ -1,9 +1,12 @@
-import React from "react";
+import { useContext } from "react";
+import { ToggleMenuContext } from "@contexts";
 
 const MenuBackground = (props) => {
   // Retrieve Props
-  const isMenuOpen = props.isMenuOpen;
   const classes = props.className;
+
+  // Retrieve Toggle Menu State
+  const { isMenuOpen } = useContext(ToggleMenuContext);
 
   return (
     <div
@@ -16,6 +19,6 @@ const MenuBackground = (props) => {
 };
 
 // Default Props
-MenuBackground.defaultProps = { isMenuOpen: false, classes: "" };
+MenuBackground.defaultProps = { classes: "" };
 
 export default MenuBackground;
