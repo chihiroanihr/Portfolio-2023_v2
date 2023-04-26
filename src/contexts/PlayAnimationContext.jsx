@@ -1,6 +1,7 @@
 import { createContext } from "react";
 
-export const PlayAnimationContext = createContext();
+// Create Context
+const PlayAnimationContext = createContext();
 
 // import { createContext, useState } from "react";
 
@@ -17,3 +18,5 @@ export const PlayAnimationContext = createContext();
 // };
 
 // export { PlayAnimationContext, PlayAnimationProvider };
+
+export default PlayAnimationContext;
