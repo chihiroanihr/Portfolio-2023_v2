@@ -184,12 +184,12 @@ const Home = forwardRef((props, ref) => {
       {/* ------------------------ First Home section ------------------------ */}
       <div
         id="home-1"
-        className="h-screen
+        className="min-h-screen
         xl:px-[150px] lg:px-[100px] md:px-[70px] sm:px-[45px] xs:px-[35px] px-[20px]"
       >
         <div
           // !! overflow grid on purpose via "fixed"
-          className="h-[90vh] pt-[10vh] grid gap-[20px]
+          className="min-h-[90vh] pt-[10vh] grid gap-[20px]
           grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4"
         >
           {/* -------- Text Area -------- */}
