@@ -49,6 +49,12 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 - **react-icons**<br />
   `npm install react-icons --save`
 
+- **fontawesome-6.4.0**<br />
+  `npm i --save @fortawesome/fontawesome-svg-core`
+  `npm i --save @fortawesome/free-solid-svg-icons`
+  `npm i --save @fortawesome/free-regular-svg-icons`
+  `npm i --save @fortawesome/react-fontawesome@latest`
+
 ## Assets Used
 
 ### Fonts
