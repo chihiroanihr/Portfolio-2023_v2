@@ -15,13 +15,13 @@ const TimelineLifeChart = (props) => {
       className={`${classes} bg-coffee-100 text-coffee-800/80 font-default-sans`}
     >
       {/* Work Timeline */}
-      <h1 id="heading" className="text-center text-[44px]">
+      <h1 id="heading" className="text-center md:text-[44px] text-[32px]">
         A Little More About Me
       </h1>
       {/* Line */}
       <div
         id="line"
-        className="relative overflow-hidden w-full mx-auto my-[50px] sm:p-[50px] p-[30px]
+        className="relative overflow-hidden w-full mx-auto md:my-[50px] my-[30px] sm:p-[50px] p-[30px]
         before:content-[''] before:absolute before:top-0 before:md:left-1/2 before:sm:left-[58px] before:left-[38px] before:-ml-px
         before:w-[2px] before:h-full before:bg-coffee-400"
       >
@@ -48,7 +48,7 @@ const TimelineLifeChart = (props) => {
               {/* Date */}
               <div
                 id="date"
-                className={`self-start px-[16px] py-[6px] text-[16px] rounded-full ring ring-coffee-300 bg-coffee-800/90 text-coffee-100 ${
+                className={`self-start mb-[5px] px-[16px] py-[6px] text-[16px] rounded-full ring ring-coffee-300 bg-coffee-800/90 text-coffee-100 ${
                   index % 2 === 0 && "md:self-end"
                 }`}
               >
@@ -57,7 +57,7 @@ const TimelineLifeChart = (props) => {
               {/* Title & Logo */}
               <div
                 id="title"
-                className={`mt-[5px] flex items-center gap-x-2 text-[25px] ${
+                className={`mt-[5px] flex items-center gap-x-2 md:text-[25px] text-[20px] ${
                   index % 2 === 0 && "md:self-end md:flex-row-reverse"
                 }`}
               >
@@ -65,14 +65,17 @@ const TimelineLifeChart = (props) => {
                 <h3>{item.title}</h3>
                 {/* Logo */}
                 {item.logo && (
-                  <img className="inline-block h-[50px]" src={item.logo} />
+                  <img
+                    className="inline-block md:h-[50px] h-[30px]"
+                    src={item.logo}
+                  />
                 )}
               </div>
               {/* Location */}
               {item.location && (
                 <div
                   id="location"
-                  className={`flex items-center text-coffee-400 ${
+                  className={`flex items-center mt-[5px] text-[14px] text-coffee-400 ${
                     index % 2 === 0 && "md:self-end"
                   }`}
                 >
@@ -84,7 +87,7 @@ const TimelineLifeChart = (props) => {
               {item.description && (
                 <p
                   id="description"
-                  className="mt-[10px] text-[14px] tracking-wide"
+                  className="md:mt-[10px] mt-[15px] text-[14px] tracking-wide whitespace-pre-line"
                 >
                   {item.description}
                 </p>
