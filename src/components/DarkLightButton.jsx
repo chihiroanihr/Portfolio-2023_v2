@@ -1,7 +1,7 @@
 import { useContext, useLayoutEffect, useRef, forwardRef } from "react";
 import { gsap } from "gsap";
-import { buttonStyle } from "@constants/buttonStyle";
 import { PlayAnimationContext } from "@contexts";
+import { buttonStyle } from "@constants";
 
 // Forward Ref from Parent Component
 const DarkLightButton = forwardRef((props, ref) => {
