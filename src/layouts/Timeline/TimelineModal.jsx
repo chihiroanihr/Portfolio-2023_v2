@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FiDownload } from "react-icons/fi";
+import { SlArrowUpCircle } from "react-icons/sl";
 import { TimelineWorkChart, TimelineLifeChart } from "@layouts";
 import { Modal, ModalButton, DownloadButton } from "@components";
 import { buttonStyle } from "@constants";
@@ -22,14 +23,28 @@ const TimelineModal = () => {
         <TimelineWorkChart />
         <TimelineLifeChart className="mt-[100px]" />
 
-        {/* Download PDF Button */}
-        <div className="flex justify-center items-center">
-          <DownloadButton
-            className={`flex items-center gap-2 ${buttonStyle.aboutModalDownloadBtnStyle}`}
+        <div className="flex justify-end items-center">
+          {/* Download PDF Button */}
+          <div className="w-full flex justify-center items-center">
+            <DownloadButton
+              className={`flex items-center gap-2 ${buttonStyle.aboutModalDownloadBtnStyle}`}
+            >
+              <FiDownload />
+              <p>Download Resume</p>
+            </DownloadButton>
+          </div>
+
+          {/* Scroll Back to Top Button */}
+          <div
+            className="absolute right-[14px]
+            flex flex-col items-center
+          text-coffee-600 hover:text-coffee-800 transition-colors duration-200"
           >
-            <FiDownload />
-            <p>Download Resume</p>
-          </DownloadButton>
+            <p className="font-default-sans font-semibold text-[12px] tracking-widest">
+              TOP
+            </p>
+            <SlArrowUpCircle className="text-[50px]" />
+          </div>
         </div>
       </div>
     </Modal>
