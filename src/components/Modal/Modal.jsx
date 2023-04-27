@@ -1,8 +1,8 @@
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useEffect, useRef, forwardRef } from "react";
 import { ScrollLockContext, ToggleModalContext } from "@contexts";
 import { useBodyScrollLock } from "@utils";
 
-const Modal = (props) => {
+const Modal = forwardRef((props, ref) => {
   // Retrieve Props
   const modalContentWidth = props.modalContentWidth;
 
@@ -20,11 +20,9 @@ const Modal = (props) => {
     allowTouchMove: true,
   });
 
-  // DOM reference to modal content
-  const modalContentRef = useRef(null);
   // Scroll back to top when modal closed/opened in the middle of scroll
   useEffect(() => {
-    modalContentRef.current.scrollTo(0, 0);
+    ref.current.scrollTo(0, 0);
   }, [isModalOpen]);
 
   return (
@@ -51,16 +49,16 @@ const Modal = (props) => {
       />
       {/* Modal Content */}
       <div
-        ref={modalContentRef}
+        ref={ref}
         className={`fixed inset-0 mx-auto overflow-y-scroll ${modalContentWidth} ${
           isModalOpen ? "translate-y-0" : "translate-y-full"
-        } transition-translate duration-1000`}
+        } transition-translate duration-[800ms]`}
       >
         {/* Contents */}
         {props.children}
       </div>
     </div>
   );
-};
+});
 
 export default Modal;

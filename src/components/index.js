@@ -7,6 +7,7 @@ import Coffee from "./Coffee";
 import SpiralText from "./SpiralText";
 import SocialIcons from "./SocialIcons";
 import DownloadButton from "./DownloadButton";
+import ScrollToTopButton from "./ScrollToTopButton";
 import { BlobDots, BlobImage } from "./Blob";
 import { Modal, ModalButton } from "./Modal";
 import { NavbarBrand, MenuButton, MenuBackground, MenuLists } from "./Navbar";
@@ -21,6 +22,7 @@ export {
   SpiralText,
   SocialIcons,
   DownloadButton,
+  ScrollToTopButton,
   BlobImage,
   BlobDots,
   Modal,
