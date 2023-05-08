@@ -8,29 +8,14 @@ const imageCardsData = [
   {
     id: "coffee-bg-img-3",
     img: coffeeBgImg3,
-    style: {
-      position: "top-[45%] right-[50%]",
-      rotation: "-rotate-[17deg]",
-      brightness: "dark:brightness-[0.5]",
-    },
   },
   {
     id: "coffee-bg-img-2",
     img: coffeeBgImg2,
-    style: {
-      position: "top-1/2 xs:right-[30%] right-[34%]",
-      rotation: "-rotate-6",
-      brightness: "dark:brightness-[0.6]",
-    },
   },
   {
     id: "coffee-bg-img-1",
     img: coffeeBgImg1,
-    style: {
-      position: "top-[60%] xs:right-[5%] right-[16%]",
-      rotation: "rotate-6",
-      brightness: "dark:brightness-[0.6]",
-    },
   },
 ];
 

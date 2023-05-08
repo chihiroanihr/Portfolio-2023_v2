@@ -1,11 +1,11 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { MdLocationPin } from "react-icons/md";
 import { IoCalendar } from "react-icons/io5";
+import { timelineChartsStyle } from "@constants";
 import { workTimelineData } from "@data";
 
-const TimelineWorkChart = (props) => {
-  // Retrieve Props
-  const classes = props.className;
+const TimelineWorkChart = ({ className }) => {
+  console.log("[Render] @layouts/Timeline/TimelineWork.jsx");
 
   // Memoize data array to avoid getting created on every re-render
   const memoizedWorkTimelineData = useMemo(() => workTimelineData, []);
@@ -13,21 +13,24 @@ const TimelineWorkChart = (props) => {
   return (
     <div
       id="work-timeline"
-      className={`${classes} bg-coffee-100 text-coffee-800/80 font-serif`}
+      className={`${className} ${timelineChartsStyle.globalFonts}`}
     >
       {/* Work Timeline */}
       <h1
         id="heading"
-        className="sm:px-[50px] px-[30px] text-center md:text-[44px] xs:text-[32px] text-[28px]"
+        className={`sm:px-[50px] px-[30px] text-center
+        ${timelineChartsStyle.contentStyle.fontStyle.headingFont}`}
       >
         Work Experience
       </h1>
       {/* Line */}
       <div
         id="line"
-        className="relative overflow-hidden w-full mx-auto md:my-[30px] my-[20px] sm:p-[50px] p-[30px]
-        before:absolute before:top-0 before:md:left-1/2 before:sm:left-[58px] before:left-[38px]
-        before:content-[''] before:-ml-px before:w-[2px] before:h-full before:bg-coffee-400"
+        className={`relative overflow-hidden w-full
+        mx-auto md:my-[30px] my-[20px] sm:p-[50px] p-[30px]
+        ${timelineChartsStyle.lineStyle.positionStyle}
+        ${timelineChartsStyle.lineStyle.layoutStyle}
+        ${timelineChartsStyle.lineStyle.colorStyle}`}
       >
         {memoizedWorkTimelineData.map((item, index) => (
           <div
@@ -43,8 +46,9 @@ const TimelineWorkChart = (props) => {
             {/* Marker */}
             <div
               id="marker"
-              className="sm:mt-[16px] mt-[10px] min-w-[16px] h-[16px]
-              rounded-full border-[2px] bg-coffee-800 border-coffee-100"
+              className={`sm:mt-[16px] mt-[10px]
+              ${timelineChartsStyle.markerStyle.layoutStyle}
+              ${timelineChartsStyle.markerStyle.colorStyle}`}
             />
             {/* Content */}
             <div
@@ -55,12 +59,12 @@ const TimelineWorkChart = (props) => {
               <div
                 id="title"
                 className={`mt-[5px]
-                md:text-[25px] sm:text-[20px] xs:text-[16px] text-[14px]
+                ${timelineChartsStyle.contentStyle.fontStyle.titleFont}
                 flex md:items-end items-center justify-between gap-x-2
                 ${index % 2 === 0 && "md:self-end md:flex-row-reverse"}`}
               >
                 {/* Position Name & Job Type */}
-                <div className="whitespace-pre font-medium">
+                <div className="font-medium whitespace-pre">
                   {item.position}
                   <br />
                   {item.company}
@@ -70,7 +74,8 @@ const TimelineWorkChart = (props) => {
                 {/* Logo */}
                 {item.logo && (
                   <img
-                    className="inline-block md:h-[50px] xs:h-[30px] h-[20px]"
+                    className={`inline-block
+                    ${timelineChartsStyle.contentStyle.layoutStyle.logoLayout}`}
                     src={item.logo}
                   />
                 )}
@@ -79,7 +84,8 @@ const TimelineWorkChart = (props) => {
               <div
                 id="date-location"
                 className={`mt-[5px]
-                sm:text-[14px] xs:text-[13px] text-[12px] text-coffee-400
+                ${timelineChartsStyle.contentStyle.fontStyle.subtitleFont}
+                ${timelineChartsStyle.contentStyle.colorStyle.subtitleColor}
                 flex flex-wrap items-center gap-x-2 gap-y-1
                 ${index % 2 === 0 && "md:self-end"}`}
               >
@@ -97,13 +103,13 @@ const TimelineWorkChart = (props) => {
               {/* Position Description */}
               <p
                 id="description"
-                className="mt-[15px] whitespace-pre-line
-                sm:text-[14px] xs:text-[13px] text-[12px] tracking-wide"
+                className={`mt-[15px] whitespace-pre-line
+                ${timelineChartsStyle.contentStyle.fontStyle.descriptionFont}`}
               >
                 {item.description}
               </p>
               {/* Tools Used */}
-              {item.tools && (
+              {item.tools && item.tools.length > 0 && (
                 <ul
                   id="tools"
                   className={`mt-[15px]
@@ -112,8 +118,10 @@ const TimelineWorkChart = (props) => {
                   {item.tools.map((tool) => (
                     <li
                       key={tool}
-                      className="inline-block px-[10px] py-[3px] rounded-sm text-[12px]
-                      bg-coffee-800/90 text-coffee-100"
+                      className={`inline-block
+                      ${timelineChartsStyle.contentStyle.layoutStyle.toolTagLayout}
+                      ${timelineChartsStyle.contentStyle.fontStyle.toolTagFont}
+                      ${timelineChartsStyle.contentStyle.colorStyle.toolTagColor}`}
                     >
                       {tool}
                     </li>
@@ -128,4 +136,4 @@ const TimelineWorkChart = (props) => {
   );
 };
 
-export default TimelineWorkChart;
+export default React.memo(TimelineWorkChart);

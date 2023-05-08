@@ -2,15 +2,15 @@ import { useContext, useEffect, useRef, forwardRef } from "react";
 import { ScrollLockContext, ToggleModalContext } from "@contexts";
 import { useBodyScrollLock } from "@utils";
 
-const Modal = forwardRef((props, ref) => {
-  // Retrieve Props
-  const modalContentWidth = props.modalContentWidth;
+const Modal = forwardRef(({ modalContentWidth, children }, ref) => {
+  console.log("[Render] @components/Modal/Modal.jsx");
 
   // Retrieve Handle Toggle Modal State
   const { isModalOpen, handleToggleModal } = useContext(ToggleModalContext);
 
   // Retrieve Scroll Lock State
   const { isScrollLocked, handleScrollLock } = useContext(ScrollLockContext);
+
   // DOM Reference to activate scroll lock
   const scrollLockTargetRef = useRef(null);
   // Function to execute scroll lock on the target reference
@@ -37,7 +37,7 @@ const Modal = forwardRef((props, ref) => {
       aria-modal="true"
       tabIndex="-1"
     >
-      {/* Modal Background */}
+      {/* Modal Background Overlay */}
       <div
         className={`fixed inset-0 h-full bg-black bg-opacity-75 ${
           isModalOpen ? "opacity-100" : "opacity-0 delay-500"
@@ -55,7 +55,7 @@ const Modal = forwardRef((props, ref) => {
         } transition-translate duration-[800ms]`}
       >
         {/* Contents */}
-        {props.children}
+        {children}
       </div>
     </div>
   );

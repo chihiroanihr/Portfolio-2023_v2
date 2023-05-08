@@ -1,11 +1,6 @@
-import {
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import { useRef, useState, useCallback, useLayoutEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Loading,
   Home,
@@ -17,71 +12,89 @@ import {
 } from "@pages";
 import { Navbar } from "@layouts";
 import { DarkLightButton } from "@components";
-import { PlayAnimationContext } from "@contexts";
+import { PlayAnimationContext, DeviceTypeProvider } from "@contexts";
+import { positionStyle, colorStyle } from "@constants";
+import {
+  addGsapChildTimelinesInOrder,
+  cleanUpGsapAnimation,
+} from "@animations/utils";
 import { useBodyScrollLock } from "@utils";
 
+gsap.registerPlugin(ScrollTrigger);
+
 function App() {
+  console.log("[Render] App.jsx");
+
   // ================================ Document On Load ================================ //
   // Set Loader Hidden State (after page loaded)
   const [isLoaderHidden, setIsLoaderHidden] = useState(false);
   // Set Play Animation State (after loader hidden)
-  // This state will be globaly available for all child components via useContext Provider.
+  // !! this state will be globaly available for all child components via useContext Provider.
   const [playAnimation, setPlayAnimation] = useState(false);
 
   // Allow animations / interactions when loader is hidden
   // !! useLayoutEffect executes before the DOM is painted -> avoid flash of content (some flickers during animation)
   useLayoutEffect(() => {
     let timeoutId;
+
     if (isLoaderHidden) {
       // Allow animation
       setPlayAnimation(true);
-      // Allow scroll
+      // Allow scroll after delay
       timeoutId = setTimeout(() => {
         setIsScrollLocked(false);
       }, 1000);
     }
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    return () => clearTimeout(timeoutId);
   }, [isLoaderHidden]);
 
   // =============================== Landing Animations =============================== //
-  // DOM element and its Timeline References to handle animations
-  const homeRef = useRef({ timeline: null });
-  const navbarRef = useRef({ timeline: null });
-  const darkLightRef = useRef({ timeline: null });
+  // Store Child Component Timelines
+  const tempChildTimelinesListRef = useRef({});
 
-  // GSAP Animation Timeline Reference
-  const timelineRef = useRef(null);
+  // Add Child Component Timelines to Parent Timeline Function
+  const addToTempChildTimelineLists = useCallback((timeline, animateIndex) => {
+    tempChildTimelinesListRef.current[animateIndex] = timeline;
+  }, []);
 
-  // Handle All Animations from parent + child components
-  // ! Referenced animations fails to get added to the timeline on first-render with useLayoutEffect(), thus use useEffect()
-  useEffect(() => {
+  // Child Component Timelines Animation Timing
+  const animateChildTimelineTimings = {
+    0: "",
+    1: ">-0.5",
+    2: ">-1",
+  };
+
+  // Reference to Timeline
+  const landingTimelineRef = useRef(
+    gsap.timeline({
+      defaults: { clearProps: true },
+      paused: true,
+    })
+  );
+
+  useLayoutEffect(() => {
     // If playAnimation is not triggered yet than skip
     if (!playAnimation) return;
+    console.log("[LOG] (App.jsx) Animation Started");
 
-    // ! Create new timeline on every render otherwise the animation will pause if you re-render in the middle.
-    timelineRef.current = gsap.timeline({
-      defaults: { clearProps: "all" },
-      onStart: function () {
-        console.log("play");
-      },
-      onComplete: function () {
-        console.log("finish");
-      },
+    // !! Create new timeline on every render otherwise the animation will pause if you re-render in the middle.
+    const ctx = gsap.context(() => {
+      // Sort and append child timelines to timeline
+      addGsapChildTimelinesInOrder(
+        tempChildTimelinesListRef.current,
+        animateChildTimelineTimings,
+        landingTimelineRef.current
+      );
+
+      // Play all landing timelines
+      landingTimelineRef.current.progress(0).play(0);
     });
-    // Add all children components' animation timelines into one timeline
-    timelineRef.current.add(navbarRef.current.timeline);
-    timelineRef.current.add(darkLightRef.current.timeline, ">-0.5");
-    timelineRef.current.add(homeRef.current.timeline, ">-1");
-
-    // Play all animations once everything is added
-    timelineRef.current.play();
 
     // Clean up animation when component unmounts
     return () => {
-      timelineRef.current?.kill();
+      cleanUpGsapAnimation(ctx);
+      console.log("[LOG] (App.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
@@ -91,7 +104,7 @@ function App() {
   // Toggle Light/Dark Mode State
   const handleToggleDarkMode = useCallback(() => {
     setIsDarkMode((prev) => !prev);
-  }, [isDarkMode]);
+  }, []);
 
   // ================================== Scroll Lock ================================== //
   // DOM Reference to activate scroll lock
@@ -105,45 +118,53 @@ function App() {
   });
 
   return (
-    <div className={`scroll-smooth ${isDarkMode ? "dark" : ""}`}>
-      {/* -------- Loader (hidden) -------- */}
-      <Loading
-        ref={scrollLockTargetRef}
-        setIsLoaderHidden={setIsLoaderHidden}
-        className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
-          isLoaderHidden && "hidden"
-        }`}
-      />
-      {/* -------- Loaded Page -------- */}
-      <div
-        className={`bg-coffee-100 dark:bg-coffee-800 ${
-          isLoaderHidden ? "opacity-100" : "opacity-0 pointer-events-none"
-        } transition-opacity duration-500`}
-      >
-        <PlayAnimationContext.Provider value={{ playAnimation }}>
-          {/* Navbar (sticky) */}
-          <Navbar ref={navbarRef} className="z-20 fixed top-0 l-0 r-0" />
+    <DeviceTypeProvider>
+      <div className={isDarkMode ? "dark" : ""}>
+        {/* -------- Loader (hidden) -------- */}
+        <Loading
+          ref={scrollLockTargetRef}
+          setIsLoaderHidden={setIsLoaderHidden}
+          className={`
+          ${positionStyle.loaderPosition}
+          ${isLoaderHidden && "hidden"}
+          `}
+        />
+        {/* -------- Loaded Page -------- */}
+        <div
+          className={`${colorStyle.bgColor} ${
+            isLoaderHidden ? "opacity-100" : "opacity-0 pointer-events-none"
+          } transition-opacity duration-500`}
+        >
+          <PlayAnimationContext.Provider value={{ playAnimation }}>
+            {/* Navbar (sticky) */}
+            <Navbar
+              addToLandingTimeline={addToTempChildTimelineLists}
+              animateIndex={0}
+              className={`z-20 ${positionStyle.navbarPosition}`}
+            />
 
-          {/* Contents */}
-          <Home
-            ref={homeRef}
-            className="max-w-screen-xxxl mx-auto overflow-x-hidden"
-          />
-          <About className="max-w-screen-xxxl mx-auto overflow-x-hidden" />
-          <Works />
-          <Galleries />
-          <Contact />
-          <Footer />
+            {/* Contents */}
+            <Home
+              addToLandingTimeline={addToTempChildTimelineLists}
+              animateIndex={2}
+            />
+            <About />
+            <Works />
+            <Galleries />
+            <Contact />
+            <Footer />
 
-          {/* Dark Light Mode Button (sticky) */}
-          <DarkLightButton
-            ref={darkLightRef}
-            handleToggleDarkMode={handleToggleDarkMode}
-            className="z-10 fixed bottom-7 right-5 lg:right-7"
-          />
-        </PlayAnimationContext.Provider>
+            {/* Dark Light Mode Button (sticky) */}
+            <DarkLightButton
+              addToLandingTimeline={addToTempChildTimelineLists}
+              animateIndex={1}
+              handleToggleDarkMode={handleToggleDarkMode}
+              className={`z-10 ${positionStyle.darkLightBtnPosition}`}
+            />
+          </PlayAnimationContext.Provider>
+        </div>
       </div>
-    </div>
+    </DeviceTypeProvider>
   );
 }
 

@@ -1,18 +1,22 @@
-import { useRef, forwardRef, useContext, useEffect } from "react";
+import React, { useRef, useContext, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollLine } from "@components";
-import { CoffeeLanding, ImageCardsLanding } from "@layouts";
+import { CoffeeLanding, ImageCardsLandingItem } from "@layouts";
 import { PlayAnimationContext } from "@contexts";
-import { splitTextToWords, splitTextToChars } from "@utils";
+import { layoutStyle } from "@constants";
+import {
+  splitTextToWords,
+  splitTextToChars,
+  addGsapChildTimelinesInOrder,
+} from "@utils";
+import { useHomeTextAnimationOnScroll } from "@animations";
+import { cleanUpGsapAnimation } from "@animations/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Forward Ref from Parent Component
-// ! forwardRef expects a function that accepts only props and ref as arguments
-const Home = forwardRef((props, ref) => {
-  // Retrieve Props
-  const classes = props.className;
+const Home = ({ addToLandingTimeline, animateIndex }) => {
+  console.log("[Render] @pages/Home.jsx");
 
   // Retrieve Play Animation State
   const { playAnimation } = useContext(PlayAnimationContext);
@@ -25,16 +29,28 @@ const Home = forwardRef((props, ref) => {
   const oneCupOfTextRef = useRef(null);
   const atTimeTextRef = useRef(null);
   const oneCupOfCoffeeTextRef = useRef(null);
-  // DOM Reference to Child Components for Landing Animations
-  const imageCardsRef = useRef({ timeline: null });
-  const scrollLineRef = useRef({ timeline: null });
   // DOM Reference for Scroll Animation
   const textSectionRef = useRef(null);
-  // Timeline Reference for Scroll Animation
-  const textScrollTweenRef = useRef(null);
+
+  // GSAP Home Timeline Reference
+  const homeTimelineRef = useRef();
+
+  // Temporary Child Component Timelines Reference
+  const tempChildTimelinesListRef = useRef({});
+
+  // Child Component Timelines Animation Timing
+  const animateChildTimelineTimings = {
+    0: ">rolling-text",
+    1: ">-1.3",
+  };
+
+  // Add Child Component Timelines to Parent Timeline Function
+  const addToTempChildTimelineLists = (childTimeline, animateIndex) => {
+    tempChildTimelinesListRef.current[animateIndex] = childTimeline;
+  };
 
   // Update animation when playAnimation is triggered
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!playAnimation) return;
     console.log("[LOG] (Home1.jsx) Animation Started");
 
@@ -49,31 +65,23 @@ const Home = forwardRef((props, ref) => {
 
     // Allow scroll triggered animations on complete
     const allowTextSectionScrollAnim = () => {
-      textScrollTweenRef.current = gsap.to(
-        [
-          sippingOnTextRef.current,
-          creativityTextRef.current,
-          oneCupOfCoffeeTextRef.current,
-          atTimeTextRef.current,
-        ],
-        {
-          x: -100,
-          opacity: 0,
-          stagger: 0.1,
-          scrollTrigger: {
-            id: "home-text-section-on-scroll",
-            trigger: textSectionRef.current,
-            scrub: 2,
-            start: "top top",
-            end: "bottom top",
-            // markers: true,
-          },
-        }
+      homeTimelineRef.current.add(
+        useHomeTextAnimationOnScroll(
+          // Trigger Targets
+          [
+            sippingOnTextRef.current,
+            creativityTextRef.current,
+            oneCupOfCoffeeTextRef.current,
+            atTimeTextRef.current,
+          ],
+          // Triggerer
+          textSectionRef.current
+        )
       );
     };
 
     // Register animations to the timeline
-    ref.current.timeline = gsap
+    homeTimelineRef.current = gsap
       .timeline({
         onComplete: allowTextSectionScrollAnim,
       })
@@ -84,8 +92,8 @@ const Home = forwardRef((props, ref) => {
       // Add all animations
       .from(sippingOnWords, {
         id: "home-sipping-on-words",
-        opacity: 0,
         duration: 2,
+        opacity: 0,
         stagger: 0.06,
         ease: "out",
       })
@@ -93,12 +101,12 @@ const Home = forwardRef((props, ref) => {
         creativityChars,
         {
           id: "home-creativity-chars",
+          duration: 1.5,
           y: -40,
           rotationX: -90,
           transformOrigin: "0% 50% -50",
           opacity: 0,
           scale: 1,
-          duration: 1.5,
           stagger: 0.05,
           ease: "out",
         },
@@ -141,9 +149,9 @@ const Home = forwardRef((props, ref) => {
         coffeeChars,
         {
           id: "home-coffee-chars",
+          duration: 0.15,
           y: -20,
           opacity: 0,
-          duration: 0.15,
           stagger: 0.05,
           ease: "power4.out",
         },
@@ -153,39 +161,42 @@ const Home = forwardRef((props, ref) => {
         coffeeCharsCopy,
         {
           id: "home-coffee-chars-copy",
+          duration: 0.15,
           y: 20,
           opacity: 0,
-          duration: 0.15,
           stagger: 0.05,
           ease: "power4.out",
         },
         ">"
-      )
-      // Add children component's animations
-      .add(imageCardsRef.current.timeline, ">rolling-text")
-      .add(scrollLineRef.current.timeline, ">-1.3");
+      );
+
+    // Sort and append child timelines to timeline
+    addGsapChildTimelinesInOrder(
+      tempChildTimelinesListRef.current,
+      animateChildTimelineTimings,
+      homeTimelineRef.current
+    );
+
+    // Add Timeline to parent component's timeline
+    addToLandingTimeline(homeTimelineRef.current, animateIndex);
 
     // Clean Up Animations
     // ! prevent continuing to execute even after component unmounted
     return () => {
-      textScrollTweenRef.current?.scrollTrigger?.kill();
-      textScrollTweenRef.current?.kill();
-      imageCardsRef.current.timeline?.kill();
-      // imageCardsRef.current = null;
-      scrollLineRef.current.timeline?.kill();
-      ref.current.timeline?.scrollTrigger?.kill();
-      ref.current.timeline?.kill();
+      cleanUpGsapAnimation(homeTimelineRef.current);
       console.log("[LOG] (Home1.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
   return (
-    <section id="home" className={classes}>
+    <section
+      id="home"
+      className={`overflow-hidden ${layoutStyle.sectionLayoutMaxSize}`}
+    >
       {/* ------------------------ First Home section ------------------------ */}
       <div
         id="home-1"
-        className="min-h-screen
-        xl:px-[150px] lg:px-[100px] md:px-[70px] sm:px-[45px] xs:px-[35px] px-[20px]"
+        className={`h-screen ${layoutStyle.sectionHomeLayoutPaddingX}`}
       >
         <div
           // !! overflow grid on purpose via "fixed"
@@ -244,15 +255,20 @@ const Home = forwardRef((props, ref) => {
           </div>
 
           {/* -------- Image Area -------- */}
-          <ImageCardsLanding
-            ref={imageCardsRef}
+          <ImageCardsLandingItem
+            addToHomeTimeline={addToTempChildTimelineLists}
+            animateIndex={0}
             className="row-start-1 row-end-6 xl:row-span-full 
             xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full"
           />
         </div>
 
         {/* -------- Scroll Line -------- */}
-        <ScrollLine ref={scrollLineRef} className="h-[15vh]" />
+        <ScrollLine
+          addToHomeTimeline={addToTempChildTimelineLists}
+          animateIndex={1}
+          className="h-[15vh]"
+        />
       </div>
 
       {/* ------------------------ Second Home section ------------------------ */}
@@ -262,10 +278,6 @@ const Home = forwardRef((props, ref) => {
       />
     </section>
   );
-});
+};
 
-// Default Props
-// ! Sets the default value to prevent errors when they are not passed by the parent component.
-Home.defaultProps = { classes: "" };
-
-export default Home;
+export default React.memo(Home);

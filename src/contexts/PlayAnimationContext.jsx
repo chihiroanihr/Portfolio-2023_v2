@@ -1,5 +1,7 @@
 import { createContext } from "react";
 
+console.log("[Render] @contexts/PlayAnimationContext.jsx");
+
 // Create Context
 const PlayAnimationContext = createContext();
 
@@ -17,6 +19,4 @@ const PlayAnimationContext = createContext();
 //   );
 // };
 
-// export { PlayAnimationContext, PlayAnimationProvider };
-
-export default PlayAnimationContext;
+export default PlayAnimationContext

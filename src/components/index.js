@@ -1,34 +1,32 @@
 import Loader from "./Loader";
 import Button from "./Button";
+import Link from "./Link";
 import DarkLightButton from "./DarkLightButton";
 import ScrollLine from "./ScrollLine";
-import CoffeeAlt from "./CoffeeAlt";
-import Coffee from "./Coffee";
-import SpiralText from "./SpiralText";
-import SocialIcons from "./SocialIcons";
+import CloseButton from "./CloseButton";
 import DownloadButton from "./DownloadButton";
 import ScrollToTopButton from "./ScrollToTopButton";
-import { BlobDots, BlobImage } from "./Blob";
+import Card from "./Card";
+import SectionOverlay from "./SectionOverlay";
 import { Modal, ModalButton } from "./Modal";
-import { NavbarBrand, MenuButton, MenuBackground, MenuLists } from "./Navbar";
+import { BlobDots, BlobImage } from "./Blob";
+import { SocialIcon, SocialIconsItem } from "./SocialIcons";
 
 export {
   Loader,
   Button,
+  Link,
   DarkLightButton,
   ScrollLine,
-  Coffee,
-  CoffeeAlt,
-  SpiralText,
-  SocialIcons,
+  CloseButton,
   DownloadButton,
   ScrollToTopButton,
-  BlobImage,
-  BlobDots,
+  Card,
+  SectionOverlay,
   Modal,
   ModalButton,
-  NavbarBrand,
-  MenuButton,
-  MenuLists,
-  MenuBackground,
+  BlobImage,
+  BlobDots,
+  SocialIcon,
+  SocialIconsItem,
 };

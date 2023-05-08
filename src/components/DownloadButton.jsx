@@ -1,16 +1,16 @@
-// Reference: https://www.geeksforgeeks.org/how-to-download-pdf-file-in-reactjs/
-
+import React, { useCallback } from "react";
+import { FiDownload } from "react-icons/fi";
 import { Button } from "@components";
+import { colorStyle, buttonStyle } from "@constants";
 
-const DownloadButton = (props) => {
-  // Retrieve Props
-  const classes = props.className;
+const DownloadButton = () => {
+  console.log("[Render] @components/DownloadButton.jsx");
 
   // PDF Path
   const pdfName = "resume_rhina-kim.pdf";
 
   // Function will execute on click of button
-  const onButtonClick = () => {
+  const onButtonClick = useCallback(() => {
     // using Java Script method to get PDF file
     fetch(pdfName).then((response) => {
       response.blob().then((blob) => {
@@ -32,18 +32,23 @@ const DownloadButton = (props) => {
         alink.click();
       });
     });
-  };
+  }, []);
 
   return (
-    <Button className={classes} onClick={onButtonClick}>
-      {props.children}
+    <Button
+      className={`
+      ${colorStyle.timelineModalDownloadBtnColor}
+      ${colorStyle.timelineModalDownloadBtnTextColor}
+      ${buttonStyle.timelineModalDownloadBtnStyle}
+      flex justify-center items-center gap-2`}
+      onClick={onButtonClick}
+    >
+      <FiDownload />
+      <p>Download Resume</p>
     </Button>
   );
 };
 
-// Default Props
-DownloadButton.defaultProps = {
-  classes: "",
-};
+export default React.memo(DownloadButton);
 
-export default DownloadButton;
+// Reference: https://www.geeksforgeeks.org/how-to-download-pdf-file-in-reactjs/

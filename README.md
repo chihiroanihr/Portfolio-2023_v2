@@ -66,6 +66,7 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 - https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/ (_Image Credit: pixabay.com_)
 - https://unsplash.com/photos/nBJHO6wmRWw (_Image Credit: Nathan Dumlao_)
 - https://unsplash.com/photos/tA90pRfL2gM (_Image Credit: Nathan Dumlao_)
+- https://github.com/trananhtuat/css-smoke-effect/tree/main (_Image Credit: Tran Anh Tuat_)
 
 ## Environment Used
 

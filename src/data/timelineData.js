@@ -36,7 +36,7 @@ export const workTimelineData = [
     date: "Sep 2020 — Dec 2020",
     location: "Remote",
     description:
-      'First internship. Worked with the production team to build new UI features on the "Lumino Health" mobile application, led two POC developments on the "my Sun Life" mobile application, and performed UI testing using the Espresso testing framework.',
+      'Worked with the production team to build new UI features on the "Lumino Health" mobile application, led two POC developments on the "my Sun Life" mobile application, and performed UI testing using the Espresso testing framework.',
     tools: ["Java", "Kotlin", "Android SDK", "Espresso"],
   },
 ];
