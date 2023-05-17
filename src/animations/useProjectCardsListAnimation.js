@@ -33,7 +33,7 @@ function useProjectCardsListAnimation(cardContainerNode, sectionWrapperNode) {
     // Animate Each Cards
     cardContainerNode.childNodes.forEach((child) => {
       gsap.set(child, { opacity: 0, autoAlpha: 0, y: -100 });
-      gsap.set("#works #new-tag", { opacity: 0, rotate: 50, y: -50 });
+      gsap.set("#works #new-tag", { opacity: 0, rotate: -50, y: -50 });
 
       ScrollTrigger.create({
         id: "project-cards-list-item-animation",
@@ -49,7 +49,7 @@ function useProjectCardsListAnimation(cardContainerNode, sectionWrapperNode) {
             "#works #new-tag",
             {
               opacity: 0.8,
-              rotate: -10,
+              rotate: 10,
               y: 0,
               duration: 1,
               ease: "elastic",
