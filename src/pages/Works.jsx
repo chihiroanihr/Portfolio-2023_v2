@@ -110,7 +110,7 @@ const Works = ({ onChangeBgColor }) => {
               "absolute",
               "w-full h-full",
               overlayFillColor,
-              "transition-dark-mode duration-700 will-change-drak-mode"
+              "transition-dark-mode duration-700 will-change-dark-mode"
             )}
             parentRef={worksSectionNodeRef}
             duration={0.8}
@@ -131,15 +131,20 @@ const Works = ({ onChangeBgColor }) => {
           <div
             id="heading"
             className={clsx(
-              "relative",
-              "z-10",
               "prevent-select",
+              "z-10",
+              "relative",
+              // color style
               "text-milky dark:text-chocolate-light",
+              // font shadow style
               "text-shadow-milky dark:text-shadow-chocolate",
+              // font size style
               "lg:text-[150px] md:text-[100px] sm:text-[90px] xs:text-[70px] text-[55px]",
               "lg:leading-[140px] md:leading-[100px] sm:leading-[90px] xs:leading-[70px] leading-[55px]",
+              // font type style
               "font-fredoka-sans",
               "font-black tracking-wide uppercase text-center",
+              // transition style
               "transition-dark-mode duration-700 will-change-dark-mode"
             )}
           >

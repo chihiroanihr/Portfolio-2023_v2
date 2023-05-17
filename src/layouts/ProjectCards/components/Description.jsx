@@ -1,21 +1,21 @@
 import clsx from "clsx";
-import { projectCardsItemStyle } from "@themes";
 
-const Description = ({ item, style }) => {
+const Description = ({ item }) => {
   // Sanitize Json String (extract links if exists)
   const createMarkup = (htmlString) => {
     return { __html: htmlString };
   };
 
-  const descriptionColor = projectCardsItemStyle.colorStyle.descriptionColor;
-  const descriptionFont = projectCardsItemStyle.fontStyle.descriptionFont;
+  // ************************* CSS ************************* //
+  const descriptionTextColor = "text-coffee-600/70 dark:text-coffee-300/80";
+  const descriptionTextFont = "xs:text-[14px] text-[12px]";
 
-  const descriptionStyle = clsx(descriptionColor, descriptionFont);
+  const descriptionStyle = clsx(descriptionTextColor, descriptionTextFont);
 
+  // ************************* JSX ************************* //
   return (
     <div
       className={descriptionStyle}
-      style={style}
       dangerouslySetInnerHTML={createMarkup(item)}
     />
   );

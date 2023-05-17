@@ -1,15 +1,18 @@
 import React from "react";
 import clsx from "clsx";
-import { projectCardsItemStyle } from "@themes";
 
 const ToolTag = ({ item }) => {
-  const toolTagColor = projectCardsItemStyle.colorStyle.toolTagColor;
-  const toolTagFont = projectCardsItemStyle.fontStyle.toolTagFont;
+  // ************************* CSS ************************* //
+  const toolTagTextColor = "text-coffee-400/90";
+  const toolTagBorderColor = "border-coffee-400/60";
+  const toolTagTextFont = "font-medium text-[10px]";
 
   const toolTagStyle = clsx(
-    toolTagColor,
-    toolTagFont,
+    // color style
+    clsx(toolTagTextColor, toolTagBorderColor),
+    // font style
     "whitespace-nowrap",
+    toolTagTextFont,
     // layout style
     "rounded-full py-[2px] px-[8px]",
     "before:content-['#'] before:pr-[2px]",
@@ -17,6 +20,7 @@ const ToolTag = ({ item }) => {
     "border"
   );
 
+  // ************************* JSX ************************* //
   return (
     <li className={clsx(toolTagStyle, "flex justify-center items-center")}>
       {item}

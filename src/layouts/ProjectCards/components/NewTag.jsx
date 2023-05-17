@@ -7,6 +7,7 @@ const NewTag = ({ id, src = newImg, width = 110 }) => {
       id={id}
       src={src}
       className={clsx(
+        "prevent-select",
         "absolute",
         "-top-[5%] -right-[7%]",
         "rotate-[-10deg]",

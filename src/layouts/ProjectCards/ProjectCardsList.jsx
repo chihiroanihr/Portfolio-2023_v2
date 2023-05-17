@@ -2,6 +2,8 @@ import React, { useMemo, useRef, useContext, useLayoutEffect } from "react";
 import clsx from "clsx";
 import {
   NewTag,
+  Thumbnail,
+  Title,
   Description,
   CategoryLinksContainer,
   ToolTagsList,
@@ -47,17 +49,21 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
   }, [isIntersected]);
 
   // ************************* CSS ************************* //
-  const cardItemColor = projectCardsItemStyle.colorStyle.cardItemColor;
-  const cardItemColorMobile =
-    projectCardsItemStyle.colorStyle.cardItemColorMobile;
-  const thumbnailColor = projectCardsItemStyle.colorStyle.thumbnailColor;
-  const titleColor = projectCardsItemStyle.colorStyle.titleColor;
-  const titleFont = projectCardsItemStyle.fontStyle.titleFont;
+  const projectCardsItemFont = "font-default-sans";
+
+  //bg-coffee-300/50
+  const cardItemBgColorMobile = "bg-white/20 dark:bg-coffee-300/20"; // No hover on mobile version
+  const cardItemBgColor = "bg-white/20 dark:bg-coffee-300/10";
+  const cardItemBgHoverColor = "hover:bg-white/40 dark:hover:bg-coffee-300/20";
+  const cardItemBorderColor = "border-white/30 dark:border-coffee-300/30";
 
   const cardItemStyle = clsx(
     // color style
-    isTouchDevice ? cardItemColorMobile : cardItemColor,
-    "transition-color duration-200",
+    isTouchDevice
+      ? cardItemBgColorMobile
+      : clsx(cardItemBgColor, cardItemBgHoverColor),
+    cardItemBorderColor,
+    "[transition:background-color_200ms]",
     // layout style
     "w-[80%] max-w-[400px]",
     "min-h-[400px]",
@@ -67,16 +73,6 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
     // effect style
     "backdrop-blur-[15px]"
   );
-  const thumbnailStyle = clsx(
-    thumbnailColor,
-    // layout style
-    "w-full",
-    "xs:h-[200px] h-[150px]",
-    "rounded-[10px]",
-    // effect style
-    "shadow-btn-on-cards"
-  );
-  const titleStyle = clsx(titleColor, titleFont);
 
   // ************************* JSX ************************* //
   // Memoize the mapped projectsListData array
@@ -87,6 +83,7 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
         id={`card${item.id}`}
         className={clsx(
           cardItemStyle,
+          projectCardsItemFont,
           projectCardsItemStyle.positionStyle[index]
         )}
       >
@@ -94,25 +91,13 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
         {item.new && <NewTag id="new-tag" />}
 
         {/* Thumbnails */}
-        <div className={thumbnailStyle}></div>
+        <Thumbnail item={item.thumbnails} />
 
         {/* Title */}
-        <div
-          className={titleStyle}
-          style={{ textShadow: "2px 2px 1px rgba(80, 46, 21, 0.25)" }}
-        >
-          {item.title}
-        </div>
+        <Title item={item.title} className="mt-[10px]" />
 
         {/* Description */}
-        <Description
-          item={item.description}
-          style={{
-            textShadow: isTouchDevice
-              ? "rgba(165, 154, 153, 1) 1px 2px 2px" // mobile
-              : "rgba(165, 154, 153, 0.8) 1px 1.8px 2px", // desktop
-          }} // 2px 2px 1px rgba(80, 46, 21, 0.25)
-        />
+        <Description item={item.description} />
 
         {/* Tools Tags */}
         {item.tools && item.tools.length > 0 && (
@@ -120,10 +105,15 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
         )}
 
         {/* Category / Link to Project */}
-        <CategoryLinksContainer className="mt-[20px]" item={item} />
+        <CategoryLinksContainer
+          className="mt-[20px]"
+          category={item.category}
+          sourceCode={item.sourceCode}
+          website={item.website}
+        />
       </Card>
     ));
-  }, [isTouchDevice, projectsListData]);
+  }, [projectsListData]);
 
   return (
     <div

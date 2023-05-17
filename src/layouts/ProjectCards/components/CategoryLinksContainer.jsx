@@ -2,10 +2,14 @@ import React, { useRef, useState, useCallback } from "react";
 import clsx from "clsx";
 import { HiOutlineCode, HiOutlineLink } from "react-icons/hi";
 import { Link } from "@components";
-import { projectCardsItemStyle } from "@themes";
 import { useResizeObserverCallback } from "@utils";
 
-const CategoryLinksContainer = ({ className, item }) => {
+const CategoryLinksContainer = ({
+  className,
+  category,
+  sourceCode,
+  website,
+}) => {
   console.log("[Render] @layouts/ProjectCardsListContainer.jsx");
 
   // Node references for flex-wrap calculation
@@ -37,20 +41,28 @@ const CategoryLinksContainer = ({ className, item }) => {
   useResizeObserverCallback(categoryLinksContainerNodeRef, handleIsFlexWrapped);
 
   // ************************* CSS ************************* //
-  const categoryTagColor = projectCardsItemStyle.colorStyle.categoryTagColor;
-  const categoryTagFont = projectCardsItemStyle.fontStyle.categoryTagFont;
-  const linkTagColor = projectCardsItemStyle.colorStyle.linkTagColor;
+  const textColor = "text-coffee-400 dark:text-coffee-800/70";
+  const categoryTagBgColor = "bg-white dark:bg-coffee-300";
+  const linkTagBgColor = "bg-white dark:bg-coffee-300";
+  const linkTagBgHoverColor = "hover:bg-white/60 dark:hover:bg-coffee-300/80";
 
   const categoryTagStyle = clsx(
-    categoryTagColor,
-    categoryTagFont,
+    // color style
+    categoryTagBgColor,
+    textColor,
+    // font style
+    "font-semibold sm:text-[14px] text-[12px]",
     // layout style
     "rounded-3xl px-[16px] py-[8px]",
     // effect style
     "shadow-btn-on-cards"
   );
   const linkTagStyle = clsx(
-    linkTagColor,
+    // color style
+    linkTagBgColor,
+    linkTagBgHoverColor,
+    textColor,
+    "[transition:background-color_200ms]",
     // layout style
     "rounded-full p-[8px]",
     // effect style
@@ -63,17 +75,14 @@ const CategoryLinksContainer = ({ className, item }) => {
       id="category-links-container"
       className={clsx(
         className,
-        {
-          "justify-center": isFlexWrapped,
-          "justify-between": !isFlexWrapped,
-        },
+        [isFlexWrapped ? "justify-center" : "justify-between"],
         "flex flex-wrap items-center",
         "gap-3"
       )}
     >
       {/* Category */}
       <div ref={categoryNodeRef} id="category" className={categoryTagStyle}>
-        {item.category}
+        {category}
       </div>
 
       {/* Links */}
@@ -84,19 +93,19 @@ const CategoryLinksContainer = ({ className, item }) => {
       >
         {/* Link to Source Code */}
         <Link
-          href={item.sourceCode}
+          href={sourceCode}
           target="_blank"
-          className={clsx(linkTagStyle, !item.sourceCode && "opacity-40")}
-          disabled={!item.sourceCode && true}
+          className={clsx(linkTagStyle, !sourceCode && "opacity-40")}
+          disabled={!sourceCode && true}
         >
           <HiOutlineCode className="text-[20px]" strokeWidth={2.3} />
         </Link>
         {/* Link to Project */}
         <Link
-          href={item.website}
+          href={website}
           target="_blank"
-          className={clsx(linkTagStyle, !item.website && "opacity-40")}
-          disabled={!item.website && true}
+          className={clsx(linkTagStyle, !website && "opacity-40")}
+          disabled={!website && true}
         >
           <HiOutlineLink className="text-[20px]" strokeWidth={2.3} />
         </Link>
