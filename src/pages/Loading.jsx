@@ -1,18 +1,13 @@
 import { useState, useEffect, forwardRef } from "react";
+import clsx from "clsx";
 import { Loader } from "@components";
-import { checkVisited } from "@utils";
-import { colorStyle } from "@constants";
+import { checkIsVisited } from "@utils";
 
 // Forward Ref from Parent Component
-const Loading = forwardRef((props, ref) => {
+const Loading = forwardRef(({ className, setIsLoaderHidden }, ref) => {
   console.log("[Render] @pages/Loading.jsx");
 
-  // Retrieve Props
-  const classes = props.className;
-  const setIsLoaderHidden = props.setIsLoaderHidden;
-
-  // =============================== Page Loading =============================== //
-  // Set Page Loaded State
+  // ===================== Page Loading ===================== //
   const [isPageLoaded, setIsPageLoaded] = useState(false);
 
   // Load page on start
@@ -22,7 +17,7 @@ const Loading = forwardRef((props, ref) => {
     // Synchronous execution once page loaded
     const handlePageLoaded = async () => {
       // Check user visited status
-      const hasVisited = checkVisited();
+      const hasVisited = checkIsVisited();
 
       // If user has never visited then display animations (call function synchronously)
       if (!hasVisited) {
@@ -55,7 +50,7 @@ const Loading = forwardRef((props, ref) => {
     };
   }, []);
 
-  // ============================ Loading Animations ============================ //
+  // ================== Loading Animations ================== //
   const [showText1, setShowText1] = useState(false);
   const [showText2, setShowText2] = useState(false);
 
@@ -75,41 +70,63 @@ const Loading = forwardRef((props, ref) => {
     await wait(1000);
   };
 
+  // ************************* CSS ************************* //
+  const loadingPageBgColor = "bg-coffee-800";
+  const loadingPageTextColor = "text-coffee-100";
+  const loadingPageTextFont = "font-default-sans";
+
+  const loadingPageStyle = clsx(
+    className,
+    loadingPageBgColor,
+    loadingPageTextColor,
+    "w-screen h-screen px-[8px]",
+    "flex flex-col justify-center items-center",
+    "md:gap-[40px] sm:gap-[32px] gap-[24px]", // Gap between loader and text section
+    "md:text-[24px] sm:text-[20px] xs:text-[16px] text-[14px]",
+    "font-light tracking-wider",
+    loadingPageTextFont,
+    {
+      // if content page fully loaded then fade-out loader page
+      "opacity-0": isPageLoaded,
+      "opacity-100": !isPageLoaded,
+    },
+    "transition-opacity duration-1000"
+  );
+
+  const loadingPageFirstTextStyle = clsx(
+    "absolute w-full leading-relaxed",
+    {
+      "opacity-0": !showText1,
+      "opacity-100": showText1,
+    },
+    "transition-opacity duration-1000"
+  );
+  
+  const loadingPageSecondTextStyle = clsx(
+    "absolute w-full leading-relaxed",
+    {
+      "opacity-0": !showText2,
+      "opacity-100": showText2,
+    },
+    "transition-opacity duration-1000"
+  );
+
+  // ************************* JSX ************************* //
   return (
-    <div
-      ref={ref}
-      className={`${classes} 
-      ${colorStyle.loadingBgColor} ${colorStyle.loadingTextColor}
-      w-screen h-screen px-[8px]
-      flex flex-col justify-center items-center md:gap-[40px] sm:gap-[32px] gap-[24px]
-      font-default-sans font-light tracking-wider
-      md:text-[24px] sm:text-[20px] xs:text-[16px] text-[14px]
-      ${
-        // if content page fully loaded then fade-out loader page
-        isPageLoaded ? "opacity-0" : "opacity-100"
-      } transition-opacity duration-1000`}
-    >
+    <div ref={ref} className={loadingPageStyle}>
       {/* ------- Loader/Spinner Icon (stays forever) ------- */}
       <Loader />
 
       {/* ------- Text Section (animated dynamically) ------- */}
       <div className="relative w-full text-center">
         {/* Text Display 1 */}
-        <p
-          className={`absolute w-full leading-relaxed ${
-            showText1 ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-1000`}
-        >
+        <p className={loadingPageFirstTextStyle}>
           Welcome to my space.
           <br />
           I'm Rhina, a web developer and designer.
         </p>
         {/* Text Display 2 */}
-        <p
-          className={`absolute w-full leading-relaxed ${
-            showText2 ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-1000`}
-        >
+        <p className={loadingPageSecondTextStyle}>
           Join me for a hot cup of freshly brewed design and development.
         </p>
       </div>

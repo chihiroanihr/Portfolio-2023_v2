@@ -1,35 +1,23 @@
-import useNavbarAnimation from "./useNavbarAnimation";
 import useDarkLightButtonAnimation from "./useDarkLightButtonAnimation";
-import {
-  useHomeAnimation,
-  useHomeTextAnimationOnScroll,
-} from "./useHomeAnimation";
-import useImageCardsLandingItemAnimation from "./useImageCardsLandingItemAnimation";
+import useNavbarAnimation from "./useNavbarAnimation";
+import useMenuListAnimation from "./useMenuListAnimation";
+import useHomeAnimation from "./useHomeAnimation";
+import useImageCardsListAnimation from "./useImageCardsListAnimation";
 import useScrollLineAnimation from "./useScrollLineAnimation";
 import useCoffeeLandingAnimationOnScroll from "./useCoffeeLandingAnimation";
 import useAboutAnimation from "./useAboutAnimation";
-import {
-  useWorkHeadingAnimationOnScroll,
-  useWorkAnimationOnEnter,
-  useWorkAnimationOnEnterBack,
-  useWorkAnimationOnLeave,
-  useWorkAnimationOnLeaveBack,
-} from "./useWorkAnimation";
-import useWorkCardsItemAnimationOnScroll from "./useWorkCardsItemAnimation";
+import useWorksAnimation from "./useWorksAnimation";
+import useProjectCardsListAnimation from "./useProjectCardsListAnimation";
 
 export {
-  useNavbarAnimation,
   useDarkLightButtonAnimation,
+  useNavbarAnimation,
+  useMenuListAnimation,
   useHomeAnimation,
-  useHomeTextAnimationOnScroll,
-  useImageCardsLandingItemAnimation,
+  useImageCardsListAnimation,
   useScrollLineAnimation,
   useCoffeeLandingAnimationOnScroll,
   useAboutAnimation,
-  useWorkHeadingAnimationOnScroll,
-  useWorkAnimationOnEnter,
-  useWorkAnimationOnEnterBack,
-  useWorkAnimationOnLeave,
-  useWorkAnimationOnLeaveBack,
-  useWorkCardsItemAnimationOnScroll,
+  useWorksAnimation,
+  useProjectCardsListAnimation,
 };

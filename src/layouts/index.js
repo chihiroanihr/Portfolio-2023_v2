@@ -1,15 +1,15 @@
-import { Navbar } from "./Navbar";
-import ImageCardsLandingItem from "./ImageCardsLandingItem";
-import { CoffeeLanding } from "./CoffeeLanding";
-import WorkCardsItem from "./WorkCardsItem";
+import Navbar from "./Navbar/Navbar";
+import ImageCardsList from "./ImageCardsList";
+import CoffeeLanding from "./CoffeeLanding/CoffeeLanding";
+import ProjectCardsList from "./ProjectCards/ProjectCardsList";
 import TimelineModal from "./Timeline/TimelineModal";
 import { DropBackground } from "./DropBackground";
 
 export {
   Navbar,
-  ImageCardsLandingItem,
+  ImageCardsList,
   CoffeeLanding,
-  WorkCardsItem,
+  ProjectCardsList,
   DropBackground,
   TimelineModal,
 };

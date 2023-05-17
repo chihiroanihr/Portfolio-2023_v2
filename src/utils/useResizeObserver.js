@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function useResizeObserver(ref, options) {
+function useResizeObserver(ref, option) {
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
@@ -10,28 +10,30 @@ function useResizeObserver(ref, options) {
       // Calculate and Set New Width and New Height
       const { width, height } = entry.contentRect;
       setSize({ width, height });
-    }, options);
+    }, option);
 
     observer.observe(ref.current);
 
-    return () => observer.unobserve(ref.current);
-  }, [ref, options]);
+    return () =>
+      ref.current ? observer.unobserve(ref.current) : observer.disconnect();
+  }, [ref, option]);
 
   return size;
 }
 
-function useResizeObserverCallback(ref, callback, options) {
+function useResizeObserverCallback(ref, callback, option) {
   useEffect(() => {
     if (!ref.current) return;
 
     const observer = new ResizeObserver((entries) => {
       callback(ref.current, entries[0]);
-    }, options);
+    }, option);
 
     observer.observe(ref.current);
 
-    return () => observer.disconnect();
-  }, [ref, callback, options]);
+    return () =>
+      ref.current ? observer.unobserve(ref.current) : observer.disconnect();
+  }, [ref, callback, option]);
 
   return ref;
 }

@@ -1,64 +1,63 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
-const SectionOverlay = ({
-  className,
-  parentRef,
-  isOpened = false,
-  handleOverlayCompleted,
-}) => {
+const SectionOverlay = ({ className, parentRef, duration = 1 }) => {
   console.log("[Render] @components/SectionOverlay.jsx");
 
-  // DOM References
-  const overlayRef = useRef(null);
-  const pathRef = useRef(null);
+  // Node References
+  const overlayNodeRef = useRef(null);
+  const pathNodeRef = useRef(null);
 
   // Configure SVG
   const numPointsRef = useRef(7);
-  const delayPointsMaxRef = useRef(0.2);
-  const durationRef = useRef(1.5);
-  const pointsDelayRef = useRef([]);
-  let pointsRef = useRef([]);
+  const delayPointsMaxRef = useRef(0.15);
+  const pointsRef = useRef([]);
 
-  // Set Initial Path pointsRef.current
-  for (let j = 0; j < numPointsRef.current; j++) {
-    pointsRef.current.push(50);
-  }
-
+  const flipRef = useRef(false);
+  const reverseRef = useRef(false);
   const timelineRef = useRef(null);
 
   useEffect(() => {
-    if (!pathRef.current && !overlayRef.current && !parentRef.current) return;
+    if (!pathNodeRef.current && !overlayNodeRef.current && !parentRef.current)
+      return;
 
     gsap.registerPlugin(ScrollTrigger);
 
+    // Initialize
+    initAnimation();
+
     timelineRef.current = gsap.timeline({
-      onUpdate: render,
       defaults: {
-        duration: durationRef.current,
-        ease: "power2.inOut",
+        duration: duration,
+        ease: "power3.inOut",
       },
       scrollTrigger: {
         trigger: parentRef.current,
         start: "top top",
-        toggleActions: "play none none reverse",
-        markers: true,
+        end: "bottom bottom",
         onEnter: () => {
           // timelineRef.current.duration(1);
-          handleOverlayCompleted(true);
-          toggle(timelineRef.current);
+          flipRef.current = false;
+          reverseRef.current = false;
+          toggleAnimation();
         },
         onLeave: () => {
-          handleOverlayCompleted(false); // Reset
+          flipRef.current = true;
+          reverseRef.current = false;
+          toggleAnimation();
         },
         onEnterBack: () => {
-          handleOverlayCompleted(true);
+          flipRef.current = true;
+          reverseRef.current = true;
+          toggleAnimation();
         },
         onLeaveBack: () => {
           // timelineRef.current.duration(1.5);
-          handleOverlayCompleted(false); // Reset
+          flipRef.current = false;
+          reverseRef.current = true;
+          toggleAnimation();
         },
       },
     });
@@ -66,55 +65,81 @@ const SectionOverlay = ({
     return () => {
       cleanUpGsapAnimation(timelineRef.current);
     };
-  }, [isOpened]);
+  }, []);
 
-  function toggle(tl) {
+  function initAnimation() {
+    // Destructure Ref
+    const numPoints = numPointsRef.current;
+    // Set Initial Path pointsRef.current
+    pointsRef.current = new Array(numPoints).fill(100);
+  }
+
+  function toggleAnimation() {
+    // Destructure Ref
+    const tl = timelineRef.current;
+    const numPoints = numPointsRef.current;
+    // Assign delays in every points
+    const pointsDelay = Array.from(
+      { length: numPoints },
+      () => Math.random() * delayPointsMaxRef.current
+    );
+
     tl.progress(0);
 
-    for (let i = 0; i < numPointsRef.current; i++) {
-      pointsDelayRef.current[i] = Math.random() * delayPointsMaxRef.current;
-    }
+    if (!reverseRef.current) {
+      tl.clear(); // Clear previous animation
 
-    for (let j = 0; j < numPointsRef.current; j++) {
-      let delay = pointsDelayRef.current[j];
-      tl.to(
-        pointsRef.current,
-        {
-          [j]: 0,
-        },
-        delay
-      );
+      // Assign every points to 0
+      for (let j = 0; j < numPoints; j++) {
+        let delay = pointsDelay[j];
+        tl.to(
+          pointsRef.current,
+          {
+            [j]: 0,
+            onUpdate: () => {
+              renderAnimation();
+            },
+          },
+          delay
+        );
+      }
+
+      tl.play(0);
+    } else {
+      tl.reverse(0);
     }
   }
 
-  function render() {
-    let d = "";
-    d += isOpened
-      ? `M 0 0 V ${pointsRef.current[0]} C`
-      : `M 0 ${pointsRef.current[0]} C`;
+  function renderAnimation() {
+    // Destructure Ref
+    const numPoints = numPointsRef.current;
+    const points = pointsRef.current;
+    const flipped = flipRef.current;
 
-    for (let j = 0; j < numPointsRef.current - 1; j++) {
-      let p = ((j + 1) / (numPointsRef.current - 1)) * 100;
-      let cp = p - ((1 / (numPointsRef.current - 1)) * 100) / 2;
-      d += ` ${cp} ${pointsRef.current[j]} ${cp} ${
-        pointsRef.current[j + 1]
-      } ${p} ${pointsRef.current[j + 1]}`;
+    // Compute new SVG path points
+    let d = "";
+    d += !flipped ? `M 0 0 V ${points[0]} C` : `M 0 ${points[0]} C`;
+
+    for (let j = 0; j < numPoints - 1; j++) {
+      let p = ((j + 1) / (numPoints - 1)) * 100;
+      let cp = p - ((1 / (numPoints - 1)) * 100) / 2;
+      d += ` ${cp} ${points[j]} ${cp} ${points[j + 1]} ${p} ${points[j + 1]}`;
     }
 
-    d += isOpened ? ` V 100 H 0` : ` V 0 H 0`;
-    pathRef.current?.setAttribute("d", d);
+    d += !flipped ? ` V 100 H 0` : ` V 0 H 0`;
+    pathNodeRef.current?.setAttribute("d", d);
   }
 
   return (
     <svg
-      ref={overlayRef}
-      className={className}
+      ref={overlayNodeRef}
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
+      className={className}
     >
-      <path ref={pathRef} />
+      <path ref={pathNodeRef} shapeRendering="optimizeSpeed" />
     </svg>
   );
 };
 
-export default SectionOverlay;
+export default React.memo(SectionOverlay);

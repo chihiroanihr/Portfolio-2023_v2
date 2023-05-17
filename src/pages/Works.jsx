@@ -1,182 +1,171 @@
-import {
+import React, {
   useRef,
   useState,
-  useCallback,
   useContext,
+  useCallback,
   useLayoutEffect,
+  useEffect,
 } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DropBackground, WorkCardsItem } from "@layouts";
+import clsx from "clsx";
+import { DropBackground, ProjectCardsList } from "@layouts";
 import { SectionOverlay } from "@components";
-import { PlayAnimationContext } from "@contexts";
-import { layoutStyle, positionStyle } from "@constants";
-import { useResizeObserverCallback } from "@utils";
-import {
-  useWorkHeadingAnimationOnScroll,
-  useWorkAnimationOnEnter,
-  useWorkAnimationOnEnterBack,
-  useWorkAnimationOnLeave,
-  useWorkAnimationOnLeaveBack,
-} from "@animations";
+import { DeviceTypeContext, ToggleOverlayProvider } from "@contexts";
+import { positionStyle } from "@themes";
+import { useIntersectionObserver, useResizeObserverCallback } from "@utils";
+import { useWorksAnimation } from "@animations";
 import {
   useMemoizedGsapContext,
   cleanUpGsapAnimation,
 } from "@animations/utils";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const Works = () => {
+const Works = ({ onChangeBgColor }) => {
   console.log("[Render] @pages/Works.jsx");
 
-  // Retrieve Play Animation State
-  const { playAnimation } = useContext(PlayAnimationContext);
+  const overlayFillColor = "fill-milky dark:fill-chocolate";
+  const mobileBgColor = "bg-milky dark:bg-chocolate";
 
-  // DOM Reference
-  const cardsRef = useRef(null);
-  const worksSectionRef = useRef(null);
+  // Node references
+  const worksSectionNodeRef = useRef(null);
+  const projectCardsListContainerNodeRef = useRef(null);
 
-  // Timeline References
-  const headingTimelineRef = useRef(null);
+  // Allow SectionOverlay depending on device type
+  const { isTouchDevice } = useContext(DeviceTypeContext);
 
-  // =========== Dynamically Change Parent Div Height =========== //
-  // Calculate Total Height of the Cards (including its distances from the top)
-  const updateContainerHeight = useCallback(() => {
-    let totalHeight = 0;
-    // Select all the cards and iterate
-    cardsRef.current.querySelectorAll('[id^="card"]').forEach((card) => {
-      if (card.offsetTop < totalHeight) {
-        if (card.offsetTop + card.offsetHeight > totalHeight) {
-          totalHeight += card.offsetTop + card.offsetHeight - totalHeight;
-        }
-      } else {
-        totalHeight += card.offsetTop - totalHeight + card.offsetHeight;
-      }
-    });
-    // Update DOM Height
-    cardsRef.current.style.height = totalHeight + "px";
+  // Inside section state
+  const [isInsideOverlay, setIsInsideOverlay] = useState(false);
+  // Toggle function
+  const handleIsInsideOverlay = useCallback((state) => {
+    setIsInsideOverlay(state);
   }, []);
 
-  // Keep track of cardsRef container height via Observer Hook
-  useResizeObserverCallback(cardsRef, updateContainerHeight);
+  // =========== Dynamically Change Parent Div Height =========== //
+  // Calculate total height of the Project Cards (including its distances from the top)
+  const updateContainerHeight = useCallback(() => {
+    if (!projectCardsListContainerNodeRef.current) return;
+
+    let totalHeight = 0;
+    // Select all the cards and iterate
+    projectCardsListContainerNodeRef.current
+      .querySelectorAll('[id^="card"]')
+      .forEach((card) => {
+        if (card.offsetTop < totalHeight) {
+          if (card.offsetTop + card.offsetHeight > totalHeight) {
+            totalHeight += card.offsetTop + card.offsetHeight - totalHeight;
+          }
+        } else {
+          totalHeight += card.offsetTop - totalHeight + card.offsetHeight;
+        }
+      });
+    // Update node height
+    projectCardsListContainerNodeRef.current.style.height = totalHeight + "px";
+  }, []);
+
+  // Keep track of cards list container height via Observer Hook
+  useResizeObserverCallback(
+    projectCardsListContainerNodeRef,
+    updateContainerHeight
+  );
 
   // ==================== Landing Animations ==================== //
-  const useWorkAnimationOnEnterRef = useRef(null);
-  const useWorkAnimationOnEnterBackRef = useRef(null);
-  const useWorkAnimationOnLeaveRef = useRef(null);
-  const useWorkAnimationOnLeaveBackRef = useRef(null);
-
-  // Memoized Gsap Context Animation
-  const ctx = useMemoizedGsapContext(worksSectionRef);
+  // Memoized gsap context animation
+  const ctx = useMemoizedGsapContext(worksSectionNodeRef);
 
   useLayoutEffect(() => {
-    if (!playAnimation || !worksSectionRef) return;
+    if (!worksSectionNodeRef.current) return;
     console.log("[LOG] (Works.jsx) Animation Started");
 
-    // Assign to Refs
-    useWorkAnimationOnEnterRef.current = useWorkAnimationOnEnter(
-      worksSectionRef.current
-    );
-    useWorkAnimationOnEnterBackRef.current = useWorkAnimationOnEnterBack();
-    useWorkAnimationOnLeaveRef.current = useWorkAnimationOnLeave();
-    useWorkAnimationOnLeaveBackRef.current = useWorkAnimationOnLeaveBack(
-      worksSectionRef.current
-    );
+    const worksSectionNode = worksSectionNodeRef.current;
 
     // Initial Index
-    worksSectionRef.current.style.zIndex = -1;
+    worksSectionNode.style.zIndex = -1;
 
+    // Retrieve Animation
     ctx.add(() => {
-      // Scroll Animations for Heading
-      headingTimelineRef.current = useWorkHeadingAnimationOnScroll(
-        worksSectionRef.current
-      );
-
-      // Begin Animations when Scrolled Inside Work Section
-      ScrollTrigger.create({
-        trigger: worksSectionRef.current,
-        start: "top top",
-        end: "bottom-=300 top",
-        onEnter: () => {
-          // Avoid Timelag (necessary for updating z-index immediately)
-          useWorkAnimationOnLeaveBackRef.current.pause();
-          useWorkAnimationOnEnterRef.current.play(0);
-        },
-        onLeave: () => {
-          useWorkAnimationOnLeaveRef.current.play(0);
-        },
-        onEnterBack: () => {
-          useWorkAnimationOnEnterBackRef.current.play(0);
-        },
-        onLeaveBack: () => {
-          useWorkAnimationOnEnterRef.current.pause();
-          useWorkAnimationOnLeaveBackRef.current.play(0);
-        },
+      useWorksAnimation({
+        worksSectionNode,
+        handleIsInsideOverlay,
+        isTouchDevice,
+        onChangeBgColor,
+        mobileBgColor,
       });
     });
 
+    // Clean Animation
     return () => {
       cleanUpGsapAnimation(ctx);
       console.log("[LOG] (Works.jsx) Animation Killed");
     };
-  }, [playAnimation]);
-
-  // ============= Section Overlay (Child Component) State ============= //
-  const [isOverlayCompleted, setIsOverlayCompleted] = useState(false);
-
-  const handleOverlayCompleted = (state) => {
-    setIsOverlayCompleted(state);
-  };
+  }, []);
 
   return (
     <section
-      ref={worksSectionRef}
+      ref={worksSectionNodeRef}
       id="works"
-      className="relative w-screen min-h-screen overflow-hidden"
+      className={clsx("relative", "overflow-hidden", "w-screen min-h-screen")}
       style={{ marginTop: -positionStyle.workToAboutSectionTransitionPosition }}
     >
-      <SectionOverlay
-        className="absolute h-full w-full fill-milky dark:fill-chocolate"
-        parentRef={worksSectionRef}
-        isOpened={true}
-        handleOverlayCompleted={handleOverlayCompleted}
-      />
-      <div
-        id="wrapper"
-        className={`relative min-h-screen mt-[100vh] mb-[100px] z-[1] ${layoutStyle.sectionLayoutMaxSize}`}
-      >
-        {/* --------- Headings -------- */}
-        <div
-          id="heading"
-          className="relative z-10 prevent-select
-          text-milky dark:text-chocolate-light text-shadow-milky dark:text-shadow-chocolate
-          font-fredoka-sans font-black text-center uppercase tracking-wide
-          lg:text-[150px] md:text-[100px] sm:text-[90px] xs:text-[70px] text-[55px]
-          lg:leading-[140px] md:leading-[100px] sm:leading-[90px] xs:leading-[70px] leading-[55px]"
-        >
-          Featured Works
-        </div>
-
-        {/* --------- Works -------- (Outer div important because of ClickedDrop) */}
-        <div ref={cardsRef} className="relative sm:mt-[100px] mt-[50px]">
-          <WorkCardsItem id="cards" className="relative z-10" />
-        </div>
-
-        {/* --------- Background -------- */}
-        <DropBackground
-          id="background"
-          className="absolute top-0 h-full w-full"
-          isOverlayCompleted={isOverlayCompleted}
+      <ToggleOverlayProvider isInsideOverlay={isInsideOverlay}>
+        <SectionOverlay
+          className={clsx(
+            "absolute",
+            "w-full h-full",
+            overlayFillColor,
+            "transition-dark-mode duration-700 will-change-drak-mode"
+          )}
+          parentRef={worksSectionNodeRef}
+          duration={0.8}
         />
-      </div>
-      <SectionOverlay
-        className="absolute h-full w-full fill-milky dark:fill-chocolate"
-        parentRef={worksSectionRef}
-        handleOverlayCompleted={handleOverlayCompleted}
-      />
-      <div className="h-screen"></div>
+        <div
+          id="wrapper"
+          className={clsx(
+            "z-[1]",
+            "relative",
+            "page-layout",
+            "min-h-screen",
+            "mt-[100vh]",
+            "mb-[50vh]"
+          )}
+        >
+          {/* --------- Headings -------- */}
+          <div
+            id="heading"
+            className={clsx(
+              "relative",
+              "z-10",
+              "prevent-select",
+              "text-milky dark:text-chocolate-light",
+              "text-shadow-milky dark:text-shadow-chocolate",
+              "lg:text-[150px] md:text-[100px] sm:text-[90px] xs:text-[70px] text-[55px]",
+              "lg:leading-[140px] md:leading-[100px] sm:leading-[90px] xs:leading-[70px] leading-[55px]",
+              "font-fredoka-sans",
+              "font-black tracking-wide uppercase text-center",
+              "transition-dark-mode duration-700 will-change-dark-mode"
+            )}
+          >
+            Featured Works
+          </div>
+
+          {/* --------- Works -------- (Outer div necessary because of ClickedDrop to work) */}
+          <div
+            ref={projectCardsListContainerNodeRef}
+            className={clsx("relative", "sm:mt-[100px] mt-[50px]")}
+          >
+            <ProjectCardsList
+              id="cards"
+              className="relative z-10"
+              parentRef={worksSectionNodeRef}
+            />
+          </div>
+
+          {/* --------- Background -------- */}
+          <DropBackground
+            id="background"
+            className={clsx("absolute", "top-0", "h-full w-full")}
+          />
+        </div>
+      </ToggleOverlayProvider>
     </section>
   );
 };
 
-export default Works;
+export default React.memo(Works);

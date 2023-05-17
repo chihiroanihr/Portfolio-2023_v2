@@ -1,121 +1,155 @@
-import React, { useRef, useContext, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect } from "react";
+import clsx from "clsx";
 import { TimelineModal } from "@layouts";
-import {
-  BlobImage,
-  BlobDots,
-  SocialIconsItem,
-  ModalButton,
-} from "@components";
-import {
-  PlayAnimationContext,
-  ScrollLockProvider,
-  ToggleModalProvider,
-} from "@contexts";
-import { positionStyle, layoutStyle, colorStyle } from "@constants";
+import { BlobImage, BlobDots, SocialIconsList, ModalButton } from "@components";
+import { ScrollLockProvider, ToggleModalProvider } from "@contexts";
+import { useBodyScrollLock } from "@utils";
 import { useAboutAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
+import girlImage from "@assets/images/girl.png";
 
 const About = () => {
   console.log("[Render] @pages/About.jsx");
 
-  // Retrieve Play Animation State
-  const { playAnimation } = useContext(PlayAnimationContext);
+  // Node Reference
+  const aboutSectionNodeRef = useRef(null);
+  // Scroll Lock Target Node Reference
+  const scrollLockTargetNodeRef = useRef(null);
 
-  // DOM References
-  const aboutSectionRef = useRef(null);
+  // Retrieve Scroll Lock Function
+  const { handleScrollLock } = useBodyScrollLock(scrollLockTargetNodeRef, {
+    allowTouchMove: true,
+  });
 
-  // Update Animation when playAnimation is triggered
+  // Render Animation
   useLayoutEffect(() => {
-    if (!playAnimation || !aboutSectionRef.current) return;
+    if (!aboutSectionNodeRef.current) return;
     console.log("[LOG] (About.jsx) Animation Started");
 
-    const ctx = useAboutAnimation(aboutSectionRef.current);
+    const ctx = useAboutAnimation(aboutSectionNodeRef.current);
 
     // Clean Up Animations
     return () => {
       cleanUpGsapAnimation(ctx);
       console.log("[LOG] (About.jsx) Animation Killed");
     };
-  }, [playAnimation]);
+  }, []);
 
+  // ************************* CSS ************************* //
+  const blobDotsFillColor = "fill-coffee-600 dark:fill-coffee-300";
+  const aboutPageTextColor = "text-coffee-600 dark:text-coffee-300";
+  const aboutPageDefaultTextFont = "font-default-sans";
+  const aboutPageFullNameTextFont = "font-autography-cursive";
+
+  const fullNameTextStyle = clsx(
+    "whitespace-nowrap",
+    "sm:text-[80px] xs:text-[58px] text-[48px]",
+    aboutPageFullNameTextFont
+  );
+
+  const introTextStyle = clsx(
+    "lg:text-[24px] sm:text-[20px] xs:text-[16px] text-[14px]",
+    "sm:leading-[1.625em] xs:leading-6 leading-5",
+    aboutPageDefaultTextFont
+  );
+
+  const socialIconsListStyle = clsx(
+    "lg:scale-[1] xs:scale-[0.8] scale-[0.7]",
+    "absolute right-0 xl:top-1/2 lg:top-[18%] md:top-[15%] xs:top-[13%] top-[7%] xl:-translate-y-1/2"
+  );
+
+  // ************************* JSX ************************* //
   return (
     <section
-      ref={aboutSectionRef}
+      ref={aboutSectionNodeRef}
       id="about"
-      className={`overflow-hidden ${layoutStyle.sectionLayoutMaxSize} ${layoutStyle.sectionDefaultLayoutPaddingX}`}
+      className="page-layout default-page-spacing"
     >
-      <ScrollLockProvider>
+      <ScrollLockProvider handleScrollLock={handleScrollLock}>
         <ToggleModalProvider>
           <div
-            className="relative xl:h-screen min-h-screen
-            flex flex-col-reverse xl:flex-row justify-center items-center xl:gap-10 gap-0"
+            className={clsx(
+              "relative",
+              "xl:h-screen min-h-screen",
+              "flex flex-col-reverse xl:flex-row justify-center items-center",
+              "xl:gap-10 gap-0"
+            )}
           >
             {/* -------- Button Column (small screen) -------- */}
-            <ModalButton id="view-more-btn" className="xl:hidden mb-3">
+            <ModalButton
+              id="view-more-btn"
+              className={clsx("xl:hidden", "mb-3")}
+            >
               View More
             </ModalButton>
             {/* -------- Image Area -------- */}
             <div
               id="images"
-              className="xl:flex-1
-              relative overflow-hidden w-full h-full lg:min-h-[50vh] min-h-[45vh]"
+              className={clsx(
+                "relative",
+                "overflow-hidden",
+                "xl:flex-1",
+                "w-full h-full lg:min-h-[50vh] min-h-[45vh]"
+              )}
             >
               <BlobDots
-                className={`${positionStyle.aboutSectionBlobDotsPosition} w-full h-full`}
-                fillColor="fill-coffee-600 dark:fill-coffee-300"
+                className={clsx(
+                  "absolute left-[-5%] top-[-1%]",
+                  "w-full h-full"
+                )}
+                fillColor={blobDotsFillColor}
               />
               <BlobImage
-                className={`${positionStyle.aboutSectionBlobImagePosition} w-full h-full`}
+                className={clsx(
+                  "absolute right-[-5%] bottom-[-1%]",
+                  "w-full h-full"
+                )}
+                imgSrc={girlImage}
               />
             </div>
             {/* -------- Text Area -------- */}
             <div
-              className={`xl:flex-1
-              max-w-screen-md xs:pr-[80px] pr-[60px] flex flex-col
-              ${colorStyle.aboutSectionTextColor}`}
+              className={clsx(
+                "xl:flex-1",
+                "max-w-screen-md",
+                "xs:pr-[80px] pr-[60px]",
+                "flex flex-col",
+                aboutPageTextColor
+              )}
             >
-              <div
-                id="full-name"
-                className="font-autography-cursive whitespace-nowrap
-                sm:text-[80px] xs:text-[58px] text-[48px]"
-              >
+              {/* Full Name */}
+              <div id="full-name" className={fullNameTextStyle}>
                 Rhina Kim
               </div>
-              <div
-                className="font-default-sans
-                lg:text-[24px] sm:text-[20px] xs:text-[16px] text-[14px]
-                sm:leading-[1.625em] xs:leading-6 leading-5"
-              >
-                <p id="text-1">
-                  I'm a web developer and designer with a passion for creating
-                  immersive digital experiences. My expertise lies in developing
-                  websites that seamlessly blend form and function, leaving a
-                  lasting impression on visitors — just like a perfect brewed
-                  cup of coffee.
-                </p>
-                <div className="m-[20px]"></div>
-                <p id="text-2">
-                  From the first sip of coffee to the last line of code, I pour
-                  my heart and soul into every project.
-                </p>
+              {/* Text 1 */}
+              <div id="text-1" className={introTextStyle}>
+                I'm a web developer and designer with a passion for creating
+                immersive digital experiences. My expertise lies in developing
+                websites that seamlessly blend form and function, leaving a
+                lasting impression on visitors — just like a perfect brewed cup
+                of coffee.
+              </div>
+              {/* Text 2 */}
+              <div id="text-2" className={clsx("mt-[20px]", introTextStyle)}>
+                From the first sip of coffee to the last line of code, I pour my
+                heart and soul into every project.
               </div>
               {/* -------- Button Row (large screen) -------- */}
               <ModalButton
                 id="view-more-btn"
-                className="xl:block hidden self-center mt-5"
+                className={clsx("xl:block hidden", "self-center", "mt-5")}
               >
                 View More
               </ModalButton>
             </div>
             {/* -------- Social Icons -------- */}
-            <SocialIconsItem
+            <SocialIconsList
               id="social-icons"
-              className={`lg:scale-[1] xs:scale-[0.8] scale-[0.7]
-              ${positionStyle.aboutSectionSocialIconListItemsPosition}`}
+              className={socialIconsListStyle}
             />
 
             {/* ------- Modal (hidden) ------- */}
-            <TimelineModal />
+            <TimelineModal ref={scrollLockTargetNodeRef} />
           </div>
         </ToggleModalProvider>
       </ScrollLockProvider>

@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback, useLayoutEffect } from "react";
+import clsx from "clsx";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Loading,
   Home,
@@ -10,22 +10,25 @@ import {
   Contact,
   Footer,
 } from "@pages";
-import { Navbar } from "@layouts";
+import { Navbar, CoffeeLanding } from "@layouts";
 import { DarkLightButton } from "@components";
-import { PlayAnimationContext, DeviceTypeProvider } from "@contexts";
-import { positionStyle, colorStyle } from "@constants";
+import { PlayAnimationProvider, DeviceTypeProvider } from "@contexts";
+import { useBodyScrollLock } from "@utils";
 import {
   addGsapChildTimelinesInOrder,
   cleanUpGsapAnimation,
 } from "@animations/utils";
-import { useBodyScrollLock } from "@utils";
-
-gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   console.log("[Render] App.jsx");
 
   // ================================ Document On Load ================================ //
+  // Node Reference to activate scroll lock
+  const scrollLockTargetNodeRef = useRef(null);
+
+  // Retrieve ScrollLock function
+  const { handleScrollLock } = useBodyScrollLock(scrollLockTargetNodeRef);
+
   // Set Loader Hidden State (after page loaded)
   const [isLoaderHidden, setIsLoaderHidden] = useState(false);
   // Set Play Animation State (after loader hidden)
@@ -36,13 +39,14 @@ function App() {
   // !! useLayoutEffect executes before the DOM is painted -> avoid flash of content (some flickers during animation)
   useLayoutEffect(() => {
     let timeoutId;
+    handleScrollLock(true);
 
     if (isLoaderHidden) {
       // Allow animation
       setPlayAnimation(true);
       // Allow scroll after delay
       timeoutId = setTimeout(() => {
-        setIsScrollLocked(false);
+        handleScrollLock(false);
       }, 1000);
     }
 
@@ -57,13 +61,6 @@ function App() {
   const addToTempChildTimelineLists = useCallback((timeline, animateIndex) => {
     tempChildTimelinesListRef.current[animateIndex] = timeline;
   }, []);
-
-  // Child Component Timelines Animation Timing
-  const animateChildTimelineTimings = {
-    0: "",
-    1: ">-0.5",
-    2: ">-1",
-  };
 
   // Reference to Timeline
   const landingTimelineRef = useRef(
@@ -81,11 +78,15 @@ function App() {
     // !! Create new timeline on every render otherwise the animation will pause if you re-render in the middle.
     const ctx = gsap.context(() => {
       // Sort and append child timelines to timeline
-      addGsapChildTimelinesInOrder(
-        tempChildTimelinesListRef.current,
-        animateChildTimelineTimings,
-        landingTimelineRef.current
-      );
+      addGsapChildTimelinesInOrder({
+        tlChild: tempChildTimelinesListRef.current,
+        tlParent: landingTimelineRef.current,
+        order: {
+          0: "",
+          1: ">-0.5",
+          2: ">-1",
+        },
+      });
 
       // Play all landing timelines
       landingTimelineRef.current.progress(0).play(0);
@@ -106,62 +107,71 @@ function App() {
     setIsDarkMode((prev) => !prev);
   }, []);
 
-  // ================================== Scroll Lock ================================== //
-  // DOM Reference to activate scroll lock
-  const scrollLockTargetRef = useRef(null);
-  // Set Scroll Lock State
-  const [isScrollLocked, setIsScrollLocked] = useState(true);
-  // Function to execute scroll lock on the target reference
-  useBodyScrollLock({
-    isScrollLocked,
-    scrollLockTargetRef,
-  });
+  // ===================== Change Background Color (Mobile Screen) ===================== //
+  // Set Background Color State
+  const [bgColor, setBgColor] = useState("bg-coffee-100 dark:bg-coffee-800");
+  // Assign new background color when scrolled into section
+  const onChangeBgColor = useCallback((newBgColor) => {
+    setBgColor(newBgColor);
+  }, []);
 
+  // ************************* CSS ************************* //
+  const navbarLayoutPositionStyle = clsx("z-20", "fixed-position-top-stretch");
+  const darkLightButtonPositionStyle = clsx(
+    "z-10",
+    "fixed bottom-7 xl:right-6 lg:right-5 right-4"
+  );
+
+  // ************************* JSX ************************* //
   return (
     <DeviceTypeProvider>
-      <div className={isDarkMode ? "dark" : ""}>
+      <div className={clsx(isDarkMode && "dark", "overflow-hidden")}>
         {/* -------- Loader (hidden) -------- */}
         <Loading
-          ref={scrollLockTargetRef}
+          ref={scrollLockTargetNodeRef}
           setIsLoaderHidden={setIsLoaderHidden}
-          className={`
-          ${positionStyle.loaderPosition}
-          ${isLoaderHidden && "hidden"}
-          `}
+          className={clsx(
+            "fixed-position-top-stretch",
+            isLoaderHidden && "hidden"
+          )}
         />
-        {/* -------- Loaded Page -------- */}
+        {/* ---------- Loaded Page ---------- */}
         <div
-          className={`${colorStyle.bgColor} ${
-            isLoaderHidden ? "opacity-100" : "opacity-0 pointer-events-none"
-          } transition-opacity duration-500`}
+          className={clsx(
+            [isLoaderHidden ? "opacity-100" : "opacity-0"],
+            bgColor,
+            // opacity transition when loader hidden & colors transition when dark mode toggled
+            "[transition:opacity_700ms,background-color_700ms]"
+          )}
         >
-          <PlayAnimationContext.Provider value={{ playAnimation }}>
-            {/* Navbar (sticky) */}
+          <PlayAnimationProvider playAnimation={playAnimation}>
+            {/* --- Navbar (sticky) --- */}
             <Navbar
               addToLandingTimeline={addToTempChildTimelineLists}
               animateIndex={0}
-              className={`z-20 ${positionStyle.navbarPosition}`}
+              className={navbarLayoutPositionStyle}
             />
 
-            {/* Contents */}
+            {/* ------ Contents ------ */}
             <Home
               addToLandingTimeline={addToTempChildTimelineLists}
               animateIndex={2}
             />
+            <CoffeeLanding />
             <About />
-            <Works />
+            <Works onChangeBgColor={onChangeBgColor} />
             <Galleries />
             <Contact />
             <Footer />
 
             {/* Dark Light Mode Button (sticky) */}
             <DarkLightButton
+              className={darkLightButtonPositionStyle}
+              handleToggleDarkMode={handleToggleDarkMode}
               addToLandingTimeline={addToTempChildTimelineLists}
               animateIndex={1}
-              handleToggleDarkMode={handleToggleDarkMode}
-              className={`z-10 ${positionStyle.darkLightBtnPosition}`}
             />
-          </PlayAnimationContext.Provider>
+          </PlayAnimationProvider>
         </div>
       </div>
     </DeviceTypeProvider>

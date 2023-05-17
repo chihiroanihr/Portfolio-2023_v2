@@ -1,25 +1,20 @@
-import React from "react";
-import girlImage from "@assets/images/girl.png";
-
-const BlobImage = ({ className, ...props }) => {
+const BlobImage = ({ className, imgSrc }) => {
   return (
     <svg
+      version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      id="blob-img-svg"
+      className={className}
       viewBox="0 0 500 500"
       width="100%"
-      id="blob-img-svg"
-      filter="blur(0px)"
-      transform="rotate(0)"
-      className={className}
-      {...props}
     >
       <image
+        href={imgSrc}
         x={0}
         y={0}
         width="100%"
         height="100%"
         clipPath="url(#blob-img-clip-shape)"
-        href={girlImage}
         preserveAspectRatio="none"
       />
       <clipPath id="blob-img-clip-shape">
@@ -34,12 +29,6 @@ const BlobImage = ({ className, ...props }) => {
       </clipPath>
     </svg>
   );
-};
-
-// Default Props
-BlobImage.defaultProps = {
-  className: "",
-  props: null,
 };
 
 export default BlobImage;

@@ -7,18 +7,47 @@
 @tailwind components;
 @tailwind utilities;
 
-.prevent-select {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+@layer components {
+  .fixed-position-top-stretch {
+    @apply fixed top-0 left-0 right-0;
+  }
+  .fixed-position-center {
+    @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .absolute-position-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .page-layout {
+    @apply max-w-screen-xxxl mx-auto;
+  }
+  .default-page-spacing {
+    @apply lg:px-[100px] md:px-[70px] sm:px-[45px] xs:px-[35px] px-[20px];
+  }
+  .home-page-spacing {
+    @apply xl:px-[150px] lg:px-[100px] md:px-[70px] sm:px-[45px] xs:px-[35px] px-[20px];
+  }
 }
-.prevent-select:focus {
-  outline: none !important;
+
+@layer utilities {
+  .prevent-select {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .prevent-select:focus {
+    outline: none !important;
+  }
+
+  .dark-color-transition {
+    @apply [transition:background-color_1000ms,border-color_1000ms,color_1000ms,fill_1000ms,stroke_1000ms,text-shadow_1000ms,box-shadow_1000ms,filter_1000ms];
+  }
 }
+
 /* hide scrollbar for IE, Edge */
 body {
   -ms-overflow-style: none;
@@ -33,11 +62,7 @@ html {
   scrollbar-width: none;
 }
 
-/* .pin-spacer.pin-spacer-home-spiral-text-on-scroll {
-  margin: 0 !important;
-} */
-
-/* @media (min-aspect-ratio: 16/9) {
+/* @media (min-aspect-ratio: 16/9) {6
   #home-1,
   #home-2 {
     width: 100vw;

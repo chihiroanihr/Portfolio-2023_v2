@@ -1,42 +1,38 @@
-// Reference:
-// https://note.com/101design/n/n164943bec0d4
-
-import { useLayoutEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   clearAllBodyScrollLocks,
   disableBodyScroll,
   enableBodyScroll,
 } from "body-scroll-lock-upgrade";
 
-const useBodyScrollLock = ({
-  isScrollLocked,
-  scrollLockTargetRef,
-  allowTouchMove = false,
-}) => {
-  useLayoutEffect(() => {
-    if (!scrollLockTargetRef.current) {
-      return;
-    }
+const useBodyScrollLock = (ref, option) => {
+  const [isScrollLocked, setIsScrollLocked] = useState(false);
+
+  // Activate Scroll Lock (handle state change when clicked)
+  const handleScrollLock = useCallback(
+    (state) => {
+      if (state) setIsScrollLocked(state);
+      else setIsScrollLocked((prev) => !prev);
+    },
+    [isScrollLocked]
+  );
+
+  useEffect(() => {
+    if (!ref.current) return;
 
     // Disable scroll other than target
-    if (isScrollLocked) {
-      if (allowTouchMove) {
-        disableBodyScroll(scrollLockTargetRef.current, {
-          allowTouchMove: true,
-        });
-      }
-      disableBodyScroll(scrollLockTargetRef.current);
-    }
+    if (isScrollLocked) disableBodyScroll(ref.current, option);
     // Enable scroll other than target
-    else {
-      enableBodyScroll(scrollLockTargetRef.current);
-    }
+    else enableBodyScroll(ref.current);
 
     // Clear all scroll locks when unmounted
     return () => clearAllBodyScrollLocks();
-  }, [isScrollLocked, scrollLockTargetRef]);
+  }, [isScrollLocked, ref, option]);
 
-  return null;
+  return { isScrollLocked, handleScrollLock };
 };
 
 export default useBodyScrollLock;
+
+// Reference:
+// https://note.com/101design/n/n164943bec0d4

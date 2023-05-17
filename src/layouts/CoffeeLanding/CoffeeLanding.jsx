@@ -1,72 +1,94 @@
-import React, { useRef, useState, useContext, useLayoutEffect } from "react";
-import { SpiralText, Coffee } from "./index";
-import { PlayAnimationContext } from "@contexts";
-import { colorStyle } from "@constants";
+import React, { useRef, useState, useLayoutEffect } from "react";
+import clsx from "clsx";
+import { SpiralText, Coffee } from "./components";
+import { checkObjectNullEmpty } from "@utils";
 import { useCoffeeLandingAnimationOnScroll } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
-const CoffeeLanding = ({ id, className }) => {
+const CoffeeLanding = () => {
   console.log("[Render] @layouts/CoffeeLanding.jsx");
 
-  // Retrieve Play Animation State
-  const { playAnimation } = useContext(PlayAnimationContext);
+  // Node References for Scroll Animations
+  const coffeeLandingContainerNodeRef = useRef(null);
 
-  // DOM References for Scroll Animations
-  const coffeeLandingRef = useRef(null);
-
-  // Children DOM States
+  // Children Node States
   const [spiralTextData, setSpiralTextData] = useState({
-    textPathDOM: null,
-    spiralPathDOM: null,
+    textPathNode: null,
+    spiralPathNode: null,
     totalPathLength: 0,
   });
 
-  // Handle children DOM data
-  const handleChildData = (textPathDOM, spiralPathDOM, totalPathLength) => {
+  // Handle Children Node data
+  const handleChildData = (textPathNode, spiralPathNode, totalPathLength) => {
     setSpiralTextData({
-      textPathDOM,
-      spiralPathDOM,
+      textPathNode,
+      spiralPathNode,
       totalPathLength,
     });
   };
 
-  // Update Animation when playAnimation is triggered &
-  // when spiral svg paths/texts are updated
+  // Update Animation when playAnimation is triggered & when spiral svg paths/texts are updated
   useLayoutEffect(() => {
-    if (!playAnimation) return;
+    if (
+      !coffeeLandingContainerNodeRef.current ||
+      checkObjectNullEmpty(spiralTextData)
+    )
+      return;
     console.log("[LOG] (CoffeeLanding.jsx) Animation Started");
 
     // Compute Start Position
     const startOffset = spiralTextData.totalPathLength - 400;
 
-    // Register Scroll Triggered Animation
+    // Retrieve Animation
     const animation = useCoffeeLandingAnimationOnScroll(
-      spiralTextData.textPathDOM, // scroll target
-      coffeeLandingRef.current, // scroll triggerer
+      spiralTextData.textPathNode, // scroll target
+      coffeeLandingContainerNodeRef.current, // scroll triggerer
       startOffset // start position
     );
 
-    // Clean up Animations
+    // Clean Up Animations
     return () => {
       cleanUpGsapAnimation(animation);
       console.log("[LOG] (CoffeeLanding.jsx) Animation Killed");
     };
-  }, [playAnimation, spiralTextData]);
+  }, [spiralTextData]);
 
+  // ************************* CSS ************************* //
+  const spiralTextFont = "font-default-sans";
+  const spiralTextFillColor = "fill-coffee-600 dark:fill-coffee-300";
+
+  const spiralTextSizeStyle =
+    "xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]";
+
+  const spiralTextFontStyle = clsx(
+    "font-medium xxxl:text-xl text-2xl",
+    spiralTextFont
+  );
+
+  const spiralTextStyle = clsx(
+    "absolute",
+    spiralTextSizeStyle,
+    spiralTextFontStyle
+  );
+
+  const coffeeLandingStyle = clsx(
+    "prevent-select",
+    "relative",
+    "h-screen xl:my-[300px] lg:my-[100px]",
+    "flex justify-center items-center"
+  );
+
+  // ************************* JSX ************************* //
   return (
     <div
-      ref={coffeeLandingRef}
-      id={id}
-      className={`${className} prevent-select
-      relative flex justify-center items-center`}
+      ref={coffeeLandingContainerNodeRef}
+      id="coffee-landing"
+      className={coffeeLandingStyle}
     >
-      {/* <CoffeeAlt /> */}
       <Coffee />
       <SpiralText
-        className="absolute
-        xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]
-        font-default-sans font-medium xxxl:text-xl text-2xl"
-        fillColor={colorStyle.spiralTextTextColor}
+        className={spiralTextStyle}
+        fillColor={spiralTextFillColor}
         onDataUpdate={handleChildData}
       />
     </div>

@@ -1,8 +1,8 @@
-function addGsapChildTimelinesInOrder(
-  childTimelineList,
-  childTimelineOrderAndAnimationTiming,
-  parentTimeline
-) {
+function addGsapChildTimelinesInOrder({
+  tlChild: childTimelineList,
+  tlParent: parentTimeline,
+  order: childTimelineOrderAndAnimationTiming,
+}) {
   Object.keys(childTimelineList)
     .sort((a, b) => parseInt(a) - parseInt(b)) // !! Alternate: Object.keys() to get the keys of an object (yet returned as string)
     .forEach((animateIndex) => {

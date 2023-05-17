@@ -3,7 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function useScrollLineAnimation(vars) {
+function useScrollLineAnimation() {
   // Register animations to the timeline
   return gsap
     .timeline({ defaults: { clearProps: true } })
@@ -12,7 +12,6 @@ function useScrollLineAnimation(vars) {
       duration: 1,
       opacity: 0,
       ease: "out",
-      ...vars,
     })
     .from(
       "#scroll-line",

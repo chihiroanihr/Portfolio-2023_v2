@@ -1,4 +1,4 @@
 import SocialIcon from "./SocialIcon";
-import SocialIconsItem from "./SocialIconsItem";
+import SocialIconsList from "./SocialIconsList";
 
-export { SocialIcon, SocialIconsItem };
+export { SocialIcon, SocialIconsList };

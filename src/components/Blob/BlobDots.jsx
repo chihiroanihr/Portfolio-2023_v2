@@ -1,26 +1,22 @@
-import React from "react";
-
-const BlobDots = ({ className, fillColor, ...props }) => {
+const BlobDots = ({ className, fillColor }) => {
   return (
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      id="blob-dots-svg"
+      className={className}
       viewBox="0 0 500 500"
       width="100%"
-      id="blob-dots-svg"
-      filter="blur(0px)"
       transform="rotate(90)"
-      className={className}
-      {...props}
     >
       <defs>
         <pattern
           id="blob-dots-pattern"
+          className={fillColor}
+          viewBox="0 0 100 100"
           patternUnits="userSpaceOnUse"
           width="25"
           height="25"
-          viewBox="0 0 100 100"
-          className={fillColor}
         >
           <circle cx="50" cy="50" r="12" />
         </pattern>
@@ -35,13 +31,6 @@ const BlobDots = ({ className, fillColor, ...props }) => {
       </path>
     </svg>
   );
-};
-
-// Default Props
-BlobDots.defaultProps = {
-  className: "",
-  fillColor: "",
-  props: null,
 };
 
 export default BlobDots;

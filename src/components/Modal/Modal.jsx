@@ -1,47 +1,53 @@
-import { useContext, useEffect, useRef, forwardRef } from "react";
-import { ScrollLockContext, ToggleModalContext } from "@contexts";
-import { useBodyScrollLock } from "@utils";
+import { useContext, useRef, forwardRef, useImperativeHandle } from "react";
+import clsx from "clsx";
+import { ToggleModalContext, ScrollLockContext } from "@contexts";
+import { useScrollBackToTop } from "@utils";
 
-const Modal = forwardRef(({ modalContentWidth, children }, ref) => {
+// (ScrollLock Target Ref passed as forwardRef from About.jsx)
+const Modal = forwardRef(({ modalContentStyle, children }, ref) => {
   console.log("[Render] @components/Modal/Modal.jsx");
 
-  // Retrieve Handle Toggle Modal State
+  // Node Reference
+  const modalContentNodeRef = useRef(null);
+
+  // Retrieve States from Context
+  const { handleScrollLock } = useContext(ScrollLockContext);
   const { isModalOpen, handleToggleModal } = useContext(ToggleModalContext);
 
-  // Retrieve Scroll Lock State
-  const { isScrollLocked, handleScrollLock } = useContext(ScrollLockContext);
-
-  // DOM Reference to activate scroll lock
-  const scrollLockTargetRef = useRef(null);
-  // Function to execute scroll lock on the target reference
-  useBodyScrollLock({
-    isScrollLocked,
-    scrollLockTargetRef,
-    allowTouchMove: true,
+  // Scroll back to top when modal closed/opened in the middle of scroll
+  useScrollBackToTop({
+    ref: modalContentNodeRef,
+    dependency: isModalOpen,
   });
 
-  // Scroll back to top when modal closed/opened in the middle of scroll
-  useEffect(() => {
-    ref.current.scrollTo(0, 0);
-  }, [isModalOpen]);
+  // Expose the childRef (modalContentNodeRef) to the parent component with useImperativeHandle
+  // (This ref is used for ScrollToTop OnClick() Event inside TimelineModal.jsx)
+  useImperativeHandle(ref, () => modalContentNodeRef.current);
 
   return (
     <div
-      ref={scrollLockTargetRef}
-      className={`fixed top-0 w-screen z-50 ${
-        isModalOpen
-          ? "opacity-100"
-          : "opacity-0 pointer-events-none transition-opacity delay-1000"
-      }`}
+      ref={ref}
+      className={clsx("z-50", "fixed top-0", "w-screen", {
+        "opacity-0 pointer-events-none transition-opacity delay-1000":
+          !isModalOpen,
+        "opacity-100": isModalOpen,
+      })}
       role="dialog"
       aria-modal="true"
       tabIndex="-1"
     >
       {/* Modal Background Overlay */}
       <div
-        className={`fixed inset-0 h-full bg-black bg-opacity-75 ${
-          isModalOpen ? "opacity-100" : "opacity-0 delay-500"
-        } transition-opacity duration-500`}
+        className={clsx(
+          "fixed inset-0",
+          "h-full",
+          "bg-black bg-opacity-75",
+          {
+            "opacity-0 delay-500": !isModalOpen,
+            "opacity-100": isModalOpen,
+          },
+          "transition-opacity duration-500"
+        )}
         onClick={() => {
           handleToggleModal();
           handleScrollLock();
@@ -49,10 +55,18 @@ const Modal = forwardRef(({ modalContentWidth, children }, ref) => {
       />
       {/* Modal Content */}
       <div
-        ref={ref}
-        className={`fixed inset-0 mx-auto overflow-y-scroll ${modalContentWidth} ${
-          isModalOpen ? "translate-y-0" : "translate-y-full"
-        } transition-translate duration-[800ms]`}
+        ref={modalContentNodeRef}
+        className={clsx(
+          modalContentStyle,
+          "overflow-y-scroll",
+          "fixed inset-0",
+          "mx-auto",
+          {
+            "translate-y-full": !isModalOpen,
+            "translate-y-0": isModalOpen,
+          },
+          "transition-translate duration-[800ms]"
+        )}
       >
         {/* Contents */}
         {children}

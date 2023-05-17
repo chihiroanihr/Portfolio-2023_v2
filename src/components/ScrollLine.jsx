@@ -1,7 +1,7 @@
-import { useContext, useLayoutEffect, useRef } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import clsx from "clsx";
 import gsap from "gsap";
 import { PlayAnimationContext } from "@contexts";
-import { colorStyle } from "@constants";
 import { useScrollLineAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
@@ -10,8 +10,10 @@ const ScrollLine = ({ className, addToHomeTimeline, animateIndex }) => {
   console.log("[Render] @components/ScrollLine.jsx");
 
   // ============================= Landing Animations ============================= //
-  // DOM References for Animations
-  const scrollLineWrapperRef = useRef(null);
+  // Node References for Animations
+  const scrollLineWrapperNodeRef = useRef(null);
+  // GSAP Timeline Reference
+  const scrollLineTimelineRef = useRef(null);
 
   // Retrieve Play Animation State
   const { playAnimation } = useContext(PlayAnimationContext);
@@ -21,15 +23,17 @@ const ScrollLine = ({ className, addToHomeTimeline, animateIndex }) => {
     if (!playAnimation) return;
     console.log("[LOG] (ScrollLine.jsx) Animation Started");
 
-    // Add animetion timeline to context
     const ctx = gsap.context(
       () => {
-        const animation = useScrollLineAnimation();
-        addToHomeTimeline(animation, animateIndex);
+        // Retrieve animation
+        scrollLineTimelineRef.current = useScrollLineAnimation();
       },
       // Scope
-      scrollLineWrapperRef
+      scrollLineWrapperNodeRef
     );
+
+    // Add timeline to parent component's timeline
+    addToHomeTimeline(scrollLineTimelineRef.current, animateIndex);
 
     // Clean Up Animations
     return () => {
@@ -39,19 +43,24 @@ const ScrollLine = ({ className, addToHomeTimeline, animateIndex }) => {
   }, [playAnimation]);
 
   // ============================= Scroll Animations ============================= //
-  useLayoutEffect(() => {
+  // Configure
+  const initScrollHeight = 15;
+  const maxScrollHeight = 45;
+  const scrollSpeed = 200;
+
+  useEffect(() => {
     const onScroll = () => {
       // Calculate the scroll percentage based on the window's scroll position,
       // the document's height, and the window's height.
-      const wintop = window.pageYOffset,
-        docheight = document.documentElement.scrollHeight,
-        winheight = window.innerHeight;
+      const winTop = window.pageYOffset,
+        docHeight = document.documentElement.scrollHeight,
+        winHeight = window.innerHeight;
       // Select the referenced element and update its style property to change its width.
-      const scrolled = (wintop / (docheight - winheight)) * 200; // speed
-      const scrolled15vh = (scrolled + 15).toFixed(2); // Initial height: 15vh
+      const scrolled = (winTop / (docHeight - winHeight)) * scrollSpeed; // speed
+      const initScrolled = (scrolled + initScrollHeight).toFixed(2); // Initial scrolled height
       // If reached to maximum 45vh then pause
-      if (scrollLineWrapperRef.current && scrolled15vh < 45) {
-        scrollLineWrapperRef.current.style.height = scrolled15vh + "vh";
+      if (scrollLineWrapperNodeRef.current && initScrolled < maxScrollHeight) {
+        scrollLineWrapperNodeRef.current.style.height = initScrolled + "vh";
       }
     };
 
@@ -64,28 +73,42 @@ const ScrollLine = ({ className, addToHomeTimeline, animateIndex }) => {
     };
   }, []);
 
+  // ************************* CSS ************************* //
+  const scrollTextFontType = "font-default-sans";
+  const scrollTextFontSize = "text-[13px]";
+  const scrollTextColor = "text-coffee-600 dark:text-coffee-300";
+  const scrollLineColor = "bg-coffee-600";
+
+  const scrollTextStyle = clsx(
+    scrollTextFontSize,
+    scrollTextFontType,
+    "font-medium",
+    "tracking-[0.2em] uppercase",
+    scrollTextColor
+  );
+
+  const scrollLineStyle = clsx("w-[1px] h-full", scrollLineColor);
+
+  // ************************* JSX ************************* //
   return (
-    <div ref={scrollLineWrapperRef} className={`${className} relative`}>
+    <div ref={scrollLineWrapperNodeRef} className={clsx(className, "relative")}>
       <div
-        className="absolute top-[-5vh] w-full h-full
-        flex flex-col justify-center items-center gap-1"
+        className={clsx(
+          "absolute top-[-5vh]",
+          "w-full h-full",
+          "flex flex-col justify-center items-center",
+          "gap-1"
+        )}
       >
         {/* Scroll Text */}
-        <div
-          id="scroll-text"
-          className={`text-[13px] ${colorStyle.scrollLineTextColor}
-          font-default-sans font-medium tracking-[0.2em] uppercase`}
-        >
+        <div id="scroll-text" className={scrollTextStyle}>
           Scroll
         </div>
         {/* Scroll Line */}
-        <div
-          id="scroll-line"
-          className={`h-full w-[1px] ${colorStyle.scrollLineColor}`}
-        />
+        <div id="scroll-line" className={scrollLineStyle} />
       </div>
     </div>
   );
 };
 
-export default ScrollLine;
+export default React.memo(ScrollLine);

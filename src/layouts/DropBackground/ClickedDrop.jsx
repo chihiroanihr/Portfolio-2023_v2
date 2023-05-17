@@ -1,38 +1,50 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+  useContext,
+} from "react";
+import clsx from "clsx";
 import { Drop } from "./index";
+import { ToggleOverlayContext } from "@contexts";
 
-const ClickedDrop = ({ clickedPosition, parentRef, isOverlayCompleted }) => {
+const ClickedDrop = ({ clickedPosition, parentNodeRef }) => {
   console.log("[Render] @layouts/DropBackground/ClickedDrop.jsx");
 
-  // Drop buffers
+  // Retrieve state from context
+  const { isInsideOverlay } = useContext(ToggleOverlayContext);
+
+  // Clicked Drop buffers
   const [addedDropPositions, setAddedDropPositions] = useState([]);
 
-  // Calculate relative Drop position
+  // ----- Calculate relative Drop position ----- //
   const newDropPosition = useMemo(() => {
-    // Compute current window's relative position (height)
+    // Calculate current window's relative position (height)
     const relativePositionHeight =
-      window.innerHeight - parentRef.current?.getBoundingClientRect()?.top;
-    // Compute x and y axis
+      window.innerHeight - parentNodeRef.current?.getBoundingClientRect()?.top;
+    // Calculate x and y axis of the new Clicked Drop
     return {
       x: clickedPosition.x,
       y: relativePositionHeight - (window.innerHeight - clickedPosition.y),
     };
-  }, [clickedPosition, parentRef]);
+  }, [clickedPosition]);
 
-  // Add new Drop
+  // --------------- Add new Drop --------------- //
   const addNewDrop = useCallback(() => {
+    // Register new drop positions
     setAddedDropPositions((prevDropPositions) => [
       ...prevDropPositions,
       newDropPosition,
     ]);
   }, [newDropPosition]);
 
-  // Remove/Clear Drop
+  // --------- Remove/Clear Drop buffer --------- //
   const removeDrop = useCallback(() => {
     setAddedDropPositions([]);
   }, []);
 
-  // Calculate Drop position and add new Drops
+  // Calculate Drop position and add new Drop
   useEffect(() => {
     addNewDrop();
   }, [clickedPosition]);
@@ -48,21 +60,26 @@ const ClickedDrop = ({ clickedPosition, parentRef, isOverlayCompleted }) => {
     return () => clearTimeout(timer);
   }, [addedDropPositions]);
 
+  // Remove Drops immediately when left from view
+  useEffect(() => {
+    removeDrop();
+  }, [isInsideOverlay]);
+
   // Render added Drops
   const addedDrops = addedDropPositions.map((drop, index) => (
     <Drop
       key={index}
       x={drop.x}
       y={drop.y}
-      className="animate-clicked-milky-drop1 dark:animate-clicked-chocolate-drop1
-      before:animate-clicked-milky-drop2 dark:before:animate-clicked-chocolate-drop2"
+      className={clsx(
+        "animate-clicked-milky-drop1 dark:animate-clicked-chocolate-drop1", // Outer Drop Circle Animation Style
+        "before:animate-clicked-milky-drop2 dark:before:animate-clicked-chocolate-drop2" // Inner Drop Circle Animation Style
+      )}
     />
   ));
 
-  // Remove Drops buffer when leaving the view
-  return isOverlayCompleted ? addedDrops : null;
+  return isInsideOverlay ? addedDrops : null;
 };
 
-// Re-render only when DropBackground clicked position value changes
-// Re-render only when DropBackground resizes
+// Re-render only when DropBackground clicked position value changes & when DropBackground resizes
 export default React.memo(ClickedDrop);

@@ -1,90 +1,101 @@
-import { useRef, useContext, useLayoutEffect } from "react";
+import { useRef, useContext, useLayoutEffect, useEffect } from "react";
+import clsx from "clsx";
 import { gsap } from "gsap";
 import {
   MenuBackground,
   MenuButton,
-  MenuListItems,
+  MenuList,
   NavbarBrand,
-} from "./index";
+} from "./components";
 import {
   PlayAnimationContext,
-  ScrollLockProvider,
   ToggleMenuProvider,
+  ScrollLockProvider,
 } from "@contexts";
-import { positionStyle } from "@constants";
+import { useBodyScrollLock } from "@utils";
 import { useNavbarAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
-// Forward Ref from Parent Component
-const Navbar = (props) => {
+const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
   console.log("[Render] @layouts/Navbar.jsx");
 
-  // Retrieve Props
-  const classes = props.className;
-  const addToLandingTimeline = props.addToLandingTimeline;
-  const animateIndex = props.animateIndex;
+  // Node references for animation
+  const navbarNodeRef = useRef(null);
+  const scrollLockTargetRef = useRef(null);
+  const navbarTimelineRef = useRef(null);
 
-  // Retrieve Play Animation State
+  // Retrieve state from context
   const { playAnimation } = useContext(PlayAnimationContext);
 
-  // DOM references
-  const navbarRef = useRef(null);
+  // Retrieve function from Custom Hook
+  const { handleScrollLock } = useBodyScrollLock(scrollLockTargetRef);
 
   useLayoutEffect(() => {
-    if (!playAnimation) return;
+    if (!playAnimation || !navbarNodeRef.current) return;
     console.log("[LOG] (Navbar.jsx) Animation Started");
 
     const ctx = gsap.context(
       () => {
-        const navbarTimeline = useNavbarAnimation();
-
-        // Add timeline to parent component's timeline
-        addToLandingTimeline(navbarTimeline, animateIndex);
+        // Retrieve animation
+        navbarTimelineRef.current = useNavbarAnimation();
       },
       // Scope
-      navbarRef
+      navbarNodeRef
     );
 
-    // Clean Up Animations
+    // Add timeline to parent component's timeline
+    addToLandingTimeline(navbarTimelineRef.current, animateIndex);
+
+    // Clean up animations
     return () => {
       cleanUpGsapAnimation(ctx);
       console.log("[LOG] (Navbar.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
+  // ************************* CSS ************************* //
+  const navbarLayoutStyle = clsx("w-screen", "h-20");
+  const navbarBrandPositionStyle = clsx("absolute-position-center");
+  const menuListPositionStyle = clsx("z-30", "fixed-position-center");
+  const menuButtonPositionStyle = clsx(
+    "z-40",
+    "absolute top-1/2 -translate-y-1/2"
+  );
+  const menuBackgroundPositionStyle = clsx("z-20", "fixed");
+
+  // ************************* JSX ************************* //
   return (
-    // Navbar (sticky)
-    <nav className={`${classes} w-screen h-20`}>
-      <ScrollLockProvider>
-        <ToggleMenuProvider>
-          {/* ---------- When Menu Closed (Navbar) ---------- */}
-          <div ref={navbarRef} className="relative h-full">
+    <ToggleMenuProvider>
+      <ScrollLockProvider handleScrollLock={handleScrollLock}>
+        {/* Navbar (sticky) */}
+        <nav className={clsx(className, navbarLayoutStyle)}>
+          {/* ------ When Menu Closed (Navbar) ------ */}
+          <div ref={navbarNodeRef} className="relative h-full">
             {/* Navbar Brand */}
             <NavbarBrand
               id="navbar-brand"
-              className={positionStyle.navbarBrandPosition}
+              className={navbarBrandPositionStyle}
             />
 
             {/* Menu Button */}
-            <MenuButton
-              id="menu-button"
-              className={`z-40 ${positionStyle.menuButtonPosition}`}
-            />
+            <MenuButton id="menu-button" className={menuButtonPositionStyle} />
           </div>
 
-          {/* -------------- When Menu Opened -------------- */}
+          {/* ---------- When Menu Opened ---------- */}
           {/* Menu Background (hidden) */}
           <MenuBackground
-            className={`z-20 ${positionStyle.menuBackgroundPosition}`}
+            className={menuBackgroundPositionStyle}
+            position="outView"
           />
 
           {/* Menu Lists (hidden) */}
-          <MenuListItems
-            className={`z-30 ${positionStyle.menuListItemsPosition}`}
+          <MenuList
+            ref={scrollLockTargetRef}
+            className={menuListPositionStyle}
           />
-        </ToggleMenuProvider>
+        </nav>
       </ScrollLockProvider>
-    </nav>
+    </ToggleMenuProvider>
   );
 };
 

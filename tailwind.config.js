@@ -25,6 +25,7 @@ export default {
         "chocolate-darker": "#291D1A",
       },
       textShadow: {
+        none: "none",
         milky: "0 10px 9px #C4B59D, 0px -3px 3px #FFF",
         chocolate: "0 10px 9px #211715, 0px -3px 3px #644640",
       },
@@ -122,8 +123,8 @@ export default {
           "0%": {
             transform: "translate(20%, -60%)",
             rotate: "0deg",
-            opacity: 0,
             filter: "blur(0px)",
+            opacity: 0,
           },
           "50%": { filter: "blur(5px)", opacity: 0.4 },
           "100%": {
@@ -137,8 +138,8 @@ export default {
           "0%": {
             transform: "translate(40%, -35%)",
             rotate: "0deg",
-            opacity: 0,
             filter: "blur(0px)",
+            opacity: 0,
           },
           "50%": { filter: "blur(5px)", opacity: 0.5 },
           "100%": {
@@ -152,8 +153,8 @@ export default {
           "0%": {
             transform: "translate(30%, -85%)",
             rotate: "0deg",
-            opacity: 0,
             filter: "blur(0px)",
+            opacity: 0,
           },
           "50%": { filter: "blur(5px)", opacity: 0.4 },
           "100%": {
@@ -165,8 +166,8 @@ export default {
         },
         "milky-drop1": {
           "0%": {
-            width: "0",
-            height: "0",
+            width: 0,
+            height: 0,
             boxShadow:
               "-5vmin -5vmin 5vmin theme('colors.milky-lighter'), \
               5vmin 5vmin 5vmin theme('colors.milky-darker'), \
@@ -192,8 +193,8 @@ export default {
         },
         "chocolate-drop1": {
           "0%": {
-            width: "0",
-            height: "0",
+            width: 0,
+            height: 0,
             boxShadow:
               "-5vmin -5vmin 5vmin theme('colors.chocolate-lighter'), \
               5vmin 5vmin 5vmin theme('colors.chocolate-darker'), \
@@ -219,8 +220,8 @@ export default {
         },
         "milky-drop2": {
           "0%": {
-            width: "0%",
-            height: "0%",
+            width: 0,
+            height: 0,
             boxShadow:
               "-5vmin -5vmin 5vmin theme('colors.milky-lighter'), \
               5vmin 5vmin 5vmin theme('colors.milky-darker'), \
@@ -244,8 +245,8 @@ export default {
         },
         "chocolate-drop2": {
           "0%": {
-            width: "0%",
-            height: "0%",
+            width: 0,
+            height: 0,
             boxShadow:
               "-5vmin -5vmin 5vmin theme('colors.chocolate-lighter'), \
               5vmin 5vmin 5vmin theme('colors.chocolate-darker'), \
@@ -268,9 +269,16 @@ export default {
           },
         },
       },
+      transitionProperty: {
+        "dark-mode":
+          "background-color, border-color, fill, stroke, color, text-decoration-color, text-shadow, box-shadow, drop-shadow, filter",
+      },
       willChange: {
-        smoke: "transform, opacity",
-        drop: "transform, box-shadow, border",
+        coffee: "transform",
+        smoke: "transform, rotate, opacity, filter",
+        drop: "width, height, transform, box-shadow, border",
+        "dark-mode":
+          "background-color, border-color, fill, stroke, color, text-decoration-color, text-shadow, box-shadow, filter, backdrop-filter",
       },
       backgroundImage: {
         coffee: "url('/src/assets/images/coffee3.png')",

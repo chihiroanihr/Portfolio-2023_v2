@@ -10,7 +10,7 @@ import Card from "./Card";
 import SectionOverlay from "./SectionOverlay";
 import { Modal, ModalButton } from "./Modal";
 import { BlobDots, BlobImage } from "./Blob";
-import { SocialIcon, SocialIconsItem } from "./SocialIcons";
+import { SocialIcon, SocialIconsList } from "./SocialIcons";
 
 export {
   Loader,
@@ -28,5 +28,5 @@ export {
   BlobImage,
   BlobDots,
   SocialIcon,
-  SocialIconsItem,
+  SocialIconsList,
 };

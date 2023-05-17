@@ -1,10 +1,10 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { positionStyle } from "@constants";
+import { positionStyle } from "@themes";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function useAboutAnimation(scopeTarget) {
+function useAboutAnimation(sectionWrapperNode) {
   return gsap.context(
     () => {
       gsap
@@ -14,7 +14,7 @@ function useAboutAnimation(scopeTarget) {
           },
           scrollTrigger: {
             id: "about-section-scroll-animation",
-            trigger: scopeTarget,
+            trigger: sectionWrapperNode,
             start: "top-=1000 top",
             end: positionStyle.aboutToWorkSectionTransitionPosition + " top",
             toggleActions: "play reverse play reverse",
@@ -54,7 +54,7 @@ function useAboutAnimation(scopeTarget) {
         );
     },
     // Scope
-    scopeTarget
+    sectionWrapperNode
   );
 }
 

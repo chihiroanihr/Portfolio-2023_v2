@@ -1,16 +1,17 @@
-import imageCardsData from "./imageCardsData";
-import menuListItemsData from "./menuListItemsData";
-import socialMediaPlatformsData from "./socialMediaPlatformsData";
-import worksData from "./worksData";
-import { workTimelineData, lifeTimelineData } from "./timelineData";
+import imageCardsListData from "./imageCardsListData";
+import menuListData from "./menuListData";
+import socialMediaPlatformsListData from "./socialMediaPlatformsListData";
+import projectsListData from "./projectsListData";
+import workTimelineListData from "./workTimelineListData";
+import lifeTimelineListData from "./lifeTimelineListData";
 import spiralSvgData from "./spiralSvgData";
 
 export {
-  imageCardsData,
-  menuListItemsData,
-  socialMediaPlatformsData,
-  worksData,
-  workTimelineData,
-  lifeTimelineData,
+  imageCardsListData,
+  menuListData,
+  socialMediaPlatformsListData,
+  projectsListData,
+  workTimelineListData,
+  lifeTimelineListData,
   spiralSvgData,
 };

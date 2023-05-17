@@ -1,18 +1,29 @@
 import React from "react";
+import clsx from "clsx";
 import { SlArrowUpCircle } from "react-icons/sl";
 import { Button } from "@components";
-import { colorStyle } from "@constants";
 
-const ScrollToTopButton = ({ className, onClick }) => {
+const ScrollToTopButton = ({ className, strokeColor, fontType, onClick }) => {
   console.log("[Render] @components/ScrollToTopButton.jsx");
 
   return (
     <Button
-      className={`${className} ${colorStyle.timelineFModalScrollToTopBtnColor} transition-colors duration-200
-      flex flex-col items-center`}
+      className={clsx(
+        className,
+        strokeColor,
+        "transition-colors duration-200",
+        "flex flex-col items-center"
+      )}
       onClick={onClick}
     >
-      <p className="font-default-sans font-semibold text-[12px] tracking-widest">
+      <p
+        className={clsx(
+          fontType,
+          "font-semibold",
+          "text-[12px]",
+          "tracking-widest"
+        )}
+      >
         TOP
       </p>
       <SlArrowUpCircle className="text-[50px]" />

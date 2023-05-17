@@ -2,21 +2,17 @@ import { createContext } from "react";
 
 console.log("[Render] @contexts/PlayAnimationContext.jsx");
 
-// Create Context
-const PlayAnimationContext = createContext();
+const PlayAnimationContext = createContext([
+  { playAnimation: false },
+  () => {},
+]);
 
-// import { createContext, useState } from "react";
+const PlayAnimationProvider = ({ playAnimation, children }) => {
+  return (
+    <PlayAnimationContext.Provider value={{ playAnimation }}>
+      {children}
+    </PlayAnimationContext.Provider>
+  );
+};
 
-// const PlayAnimationContext = createContext([{}, () => {}]);
-
-// const PlayAnimationProvider = ({ children }) => {
-//   const [playAnimation, setPlayAnimation] = useState(false);
-
-//   return (
-//     <PlayAnimationContext.Provider value={[playAnimation, setPlayAnimation]}>
-//       {children}
-//     </PlayAnimationContext.Provider>
-//   );
-// };
-
-export default PlayAnimationContext
+export { PlayAnimationContext, PlayAnimationProvider };

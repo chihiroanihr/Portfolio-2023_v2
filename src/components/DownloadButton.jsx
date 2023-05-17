@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
+import clsx from "clsx";
 import { FiDownload } from "react-icons/fi";
 import { Button } from "@components";
-import { colorStyle, buttonStyle } from "@constants";
 
-const DownloadButton = () => {
+const DownloadButton = ({ bgColor, textColor, fontType }) => {
   console.log("[Render] @components/DownloadButton.jsx");
 
   // PDF Path
@@ -36,11 +36,22 @@ const DownloadButton = () => {
 
   return (
     <Button
-      className={`
-      ${colorStyle.timelineModalDownloadBtnColor}
-      ${colorStyle.timelineModalDownloadBtnTextColor}
-      ${buttonStyle.timelineModalDownloadBtnStyle}
-      flex justify-center items-center gap-2`}
+      className={clsx(
+        // layout style
+        "rounded-full",
+        "px-8 py-2",
+        // effect style
+        "shadow-light-btn-100 dark:shadow-dark-btn-100",
+        // font style
+        fontType,
+        "sm:text-[24px] xs:text-[20px] text-[15px]",
+        // color style
+        bgColor,
+        textColor,
+        // child positioning
+        "flex justify-center items-center",
+        "gap-2"
+      )}
       onClick={onButtonClick}
     >
       <FiDownload />

@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
+import clsx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@components";
-import { ScrollLockContext, ToggleModalContext } from "@contexts";
-import { colorStyle, buttonStyle } from "@constants";
+import { ToggleModalContext, ScrollLockContext } from "@contexts";
 
-const CloseButton = ({ className }) => {
+const CloseButton = ({ className, bgColor, strokeColor }) => {
   console.log("[Render] @components/CloseButton.jsx");
 
-  // Retrieve Scroll Lock State
+  // Retrieve States from Contexts
   const { handleScrollLock } = useContext(ScrollLockContext);
   const { handleToggleModal } = useContext(ToggleModalContext);
 
@@ -22,11 +22,18 @@ const CloseButton = ({ className }) => {
     >
       <FontAwesomeIcon
         icon={faXmark}
-        className={`
-         ${buttonStyle.timelineModalCloseBtnStyle}
-         ${colorStyle.timelineModalCloseBtnColor}
-         ${colorStyle.timelineModalCloseBtnTextColor}
-         transition-colors duration-200`}
+        className={clsx(
+          // layout
+          "rounded-lg",
+          "aspect-square",
+          "p-[6px]",
+          // font size
+          "text-[32px]",
+          // color
+          "transition-colors duration-200",
+          bgColor,
+          strokeColor
+        )}
       />
     </Button>
   );

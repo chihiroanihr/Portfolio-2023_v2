@@ -1,19 +1,13 @@
-import React, { useRef, useContext, useLayoutEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef, useCallback, useContext, useLayoutEffect } from "react";
+import clsx from "clsx";
+import { ImageCardsList } from "@layouts";
 import { ScrollLine } from "@components";
-import { CoffeeLanding, ImageCardsLandingItem } from "@layouts";
 import { PlayAnimationContext } from "@contexts";
-import { layoutStyle } from "@constants";
+import { useHomeAnimation } from "@animations";
 import {
-  splitTextToWords,
-  splitTextToChars,
+  cleanUpGsapAnimation,
   addGsapChildTimelinesInOrder,
-} from "@utils";
-import { useHomeTextAnimationOnScroll } from "@animations";
-import { cleanUpGsapAnimation } from "@animations/utils";
-
-gsap.registerPlugin(ScrollTrigger);
+} from "@animations/utils";
 
 const Home = ({ addToLandingTimeline, animateIndex }) => {
   console.log("[Render] @pages/Home.jsx");
@@ -21,16 +15,16 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   // Retrieve Play Animation State
   const { playAnimation } = useContext(PlayAnimationContext);
 
-  // DOM References for Landing Animations
-  const sippingOnTextRef = useRef(null);
-  const creativityTextRef = useRef(null);
-  const coffeeTextRef = useRef(null);
-  const coffeeTextCopyRef = useRef(null);
-  const oneCupOfTextRef = useRef(null);
-  const atTimeTextRef = useRef(null);
-  const oneCupOfCoffeeTextRef = useRef(null);
-  // DOM Reference for Scroll Animation
-  const textSectionRef = useRef(null);
+  // Node References for Landing Animations
+  const sippingOnTextNodeRef = useRef(null);
+  const creativityTextNodeRef = useRef(null);
+  const coffeeTextNodeRef = useRef(null);
+  const coffeeTextNodeCopyRef = useRef(null);
+  const oneCupOfTextNodeRef = useRef(null);
+  const atTimeTextNodeRef = useRef(null);
+  // Node Reference for Scroll Animation
+  const inlineTextWrapperNodeRef = useRef(null);
+  const textContainerNodeRef = useRef(null);
 
   // GSAP Home Timeline Reference
   const homeTimelineRef = useRef();
@@ -38,243 +32,173 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   // Temporary Child Component Timelines Reference
   const tempChildTimelinesListRef = useRef({});
 
-  // Child Component Timelines Animation Timing
-  const animateChildTimelineTimings = {
-    0: ">rolling-text",
-    1: ">-1.3",
-  };
-
   // Add Child Component Timelines to Parent Timeline Function
-  const addToTempChildTimelineLists = (childTimeline, animateIndex) => {
-    tempChildTimelinesListRef.current[animateIndex] = childTimeline;
-  };
+  const addToTempChildTimelineLists = useCallback((timeline, animateIndex) => {
+    tempChildTimelinesListRef.current[animateIndex] = timeline;
+  }, []);
 
   // Update animation when playAnimation is triggered
   useLayoutEffect(() => {
     if (!playAnimation) return;
     console.log("[LOG] (Home1.jsx) Animation Started");
 
-    // Split texts from refs into words / chars
-    const sippingOnWords = splitTextToWords(sippingOnTextRef.current);
-    const creativityChars = splitTextToChars(creativityTextRef.current);
-    const oneCupOfWords = splitTextToWords(oneCupOfTextRef.current);
-    const coffeeText = coffeeTextRef.current;
-    const atTimeWords = splitTextToWords(atTimeTextRef.current);
-    const coffeeChars = splitTextToChars(coffeeTextRef.current);
-    const coffeeCharsCopy = splitTextToChars(coffeeTextCopyRef.current);
-
-    // Allow scroll triggered animations on complete
-    const allowTextSectionScrollAnim = () => {
-      homeTimelineRef.current.add(
-        useHomeTextAnimationOnScroll(
-          // Trigger Targets
-          [
-            sippingOnTextRef.current,
-            creativityTextRef.current,
-            oneCupOfCoffeeTextRef.current,
-            atTimeTextRef.current,
-          ],
-          // Triggerer
-          textSectionRef.current
-        )
-      );
-    };
-
-    // Register animations to the timeline
-    homeTimelineRef.current = gsap
-      .timeline({
-        onComplete: allowTextSectionScrollAnim,
-      })
-      // Custom: set perspective to "creativity" title text
-      .set(creativityTextRef.current, {
-        perspective: 400,
-      })
-      // Add all animations
-      .from(sippingOnWords, {
-        id: "home-sipping-on-words",
-        duration: 2,
-        opacity: 0,
-        stagger: 0.06,
-        ease: "out",
-      })
-      .from(
-        creativityChars,
-        {
-          id: "home-creativity-chars",
-          duration: 1.5,
-          y: -40,
-          rotationX: -90,
-          transformOrigin: "0% 50% -50",
-          opacity: 0,
-          scale: 1,
-          stagger: 0.05,
-          ease: "out",
-        },
-        "=-2"
-      )
-      .from(
-        oneCupOfWords,
-        {
-          id: "home-one-cup-of-words",
-          duration: 2,
-          opacity: 0,
-          ease: "out",
-          stagger: 0.06,
-        },
-        "=-1.5"
-      )
-      .from(
-        coffeeText,
-        {
-          id: "home-coffee-text",
-          duration: 2,
-          opacity: 0,
-          ease: "out",
-        },
-        ">-2"
-      )
-      .from(
-        atTimeWords,
-        {
-          id: "home-at-a-time-words",
-          duration: 2,
-          opacity: 0,
-          stagger: 0.06,
-          ease: "out",
-        },
-        "=-2"
-      )
-      .addLabel("rolling-text", "<0.5")
-      .to(
-        coffeeChars,
-        {
-          id: "home-coffee-chars",
-          duration: 0.15,
-          y: -20,
-          opacity: 0,
-          stagger: 0.05,
-          ease: "power4.out",
-        },
-        "rolling-text"
-      )
-      .from(
-        coffeeCharsCopy,
-        {
-          id: "home-coffee-chars-copy",
-          duration: 0.15,
-          y: 20,
-          opacity: 0,
-          stagger: 0.05,
-          ease: "power4.out",
-        },
-        ">"
-      );
+    // Retrive animation and register to timeline
+    homeTimelineRef.current = useHomeAnimation({
+      sippingOnTextNodeRef,
+      creativityTextNodeRef,
+      oneCupOfTextNodeRef,
+      coffeeTextNodeRef,
+      coffeeTextNodeCopyRef,
+      atTimeTextNodeRef,
+      inlineTextWrapperNodeRef,
+      textContainerNodeRef,
+    });
 
     // Sort and append child timelines to timeline
-    addGsapChildTimelinesInOrder(
-      tempChildTimelinesListRef.current,
-      animateChildTimelineTimings,
-      homeTimelineRef.current
-    );
+    addGsapChildTimelinesInOrder({
+      tlChild: tempChildTimelinesListRef.current,
+      tlParent: homeTimelineRef.current,
+      order: { 0: ">rolling-text", 1: ">-1.3" },
+    });
 
     // Add Timeline to parent component's timeline
     addToLandingTimeline(homeTimelineRef.current, animateIndex);
 
-    // Clean Up Animations
-    // ! prevent continuing to execute even after component unmounted
+    // Clean Up Animations (prevent continuing to execute even after component unmounted)
     return () => {
       cleanUpGsapAnimation(homeTimelineRef.current);
       console.log("[LOG] (Home1.jsx) Animation Killed");
     };
   }, [playAnimation]);
 
-  return (
-    <section
-      id="home"
-      className={`overflow-hidden ${layoutStyle.sectionLayoutMaxSize}`}
-    >
-      {/* ------------------------ First Home section ------------------------ */}
-      <div
-        id="home-1"
-        className={`h-screen ${layoutStyle.sectionHomeLayoutPaddingX}`}
-      >
-        <div
-          // !! overflow grid on purpose via "fixed"
-          className="min-h-[90vh] pt-[10vh] grid gap-[20px]
-          grid-rows-6 lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4"
-        >
-          {/* -------- Text Area -------- */}
-          <div
-            ref={textSectionRef}
-            className="xxxl:row-start-1 xxl:row-start-2 md:row-start-3 row-start-4 row-span-full
-            xl:col-span-6 lg:col-span-7 md:col-span-6 sm:col-span-5 col-span-full
-            xl:col-start-1 lg:col-start-1 md:col-start-1 sm:col-start-1 col-start-1
-            flex flex-col justify-center leading-snug z-10"
-          >
-            <div
-              ref={sippingOnTextRef}
-              className="xl:mb-[35px] md:mb-[30px] mb-[15px]
-              lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
-              font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
-            >
-              Sipping on
-            </div>
-            <div
-              ref={creativityTextRef}
-              id="creativity"
-              className="lg:text-[96px] md:text-[72px] xs:text-[48px] text-[36px] z-10 pl-[8px]
-              font-title-cursive whitespace-nowrap text-coffee-600 dark:text-coffee-300"
-            >
-              Creativity
-            </div>
-            <div
-              className="lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]
-              font-default-sans md:font-extralight font-light text-coffee-600 dark:text-coffee-300"
-            >
-              {/* !! texts into one line (inline) - necessary due to animation */}
-              <div
-                ref={oneCupOfCoffeeTextRef}
-                className="relative inline-block"
-              >
-                <span ref={oneCupOfTextRef}>one cup of </span>
-                <span
-                  ref={coffeeTextRef}
-                  className="md:font-light font-normal prevent-select"
-                >
-                  coffee
-                </span>
-                <span
-                  ref={coffeeTextCopyRef}
-                  className="absolute top-0 right-0 md:font-light font-normal text-yellow-500"
-                >
-                  coffee
-                </span>
-              </div>
-              <p ref={atTimeTextRef}>at a time.</p>
-            </div>
-          </div>
+  // ************************* CSS ************************* //
+  const homePageDefaultTextFont = "font-default-sans";
+  const homePageCreativityTextFont = "font-title-cursive";
+  const homePageDefaultTextColor = "text-coffee-600 dark:text-coffee-300";
+  const homePageHightlightTextColor = "text-yellow-500";
 
-          {/* -------- Image Area -------- */}
-          <ImageCardsLandingItem
-            addToHomeTimeline={addToTempChildTimelineLists}
-            animateIndex={0}
-            className="row-start-1 row-end-6 xl:row-span-full 
-            xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full"
-          />
+  const sippingOnTextFontStyle = clsx(
+    "leading-snug",
+    "md:font-extralight font-light",
+    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
+  );
+  const creativityTextFontStyle = clsx(
+    "whitespace-nowrap",
+    "leading-snug",
+    "lg:text-[96px] md:text-[72px] xs:text-[48px] text-[36px]"
+  );
+  const oneCupOfTextFontStyle = clsx(
+    "leading-snug",
+    "md:font-extralight font-light",
+    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
+  );
+  const coffeeTextFontStyle = clsx(
+    "leading-snug",
+    "md:font-light font-normal",
+    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
+  );
+  const atTimeTextFontStyle = clsx(
+    "leading-snug",
+    "md:font-extralight font-light",
+    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
+  );
+
+  // ************************* JSX ************************* //
+  return (
+    <section id="home" className="page-layout home-page-spacing h-screen">
+      <div
+        className={clsx(
+          "min-h-[90vh] pt-[10vh]",
+          "grid gap-[20px]",
+          "grid-rows-6",
+          "lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-fixed-6 grid-cols-fixed-4" // !! overflow grid on purpose via "fixed"
+        )}
+      >
+        {/* ---------------- Text Area ---------------- */}
+        <div
+          ref={textContainerNodeRef}
+          className={clsx(
+            "z-10",
+            "xxxl:row-start-1 xxl:row-start-2 md:row-start-3 row-start-4 row-span-full",
+            "xl:col-start-1 lg:col-start-1 md:col-start-1 sm:col-start-1 col-start-1",
+            "xl:col-span-6 lg:col-span-7 md:col-span-6 sm:col-span-5 col-span-full",
+            "flex flex-col justify-center",
+            homePageDefaultTextFont,
+            homePageDefaultTextColor,
+            "transition-dark-mode duration-700 will-change-drak-mode"
+          )}
+        >
+          <div
+            ref={sippingOnTextNodeRef}
+            className={clsx(
+              "xl:mb-[35px] md:mb-[30px] mb-[15px]",
+              sippingOnTextFontStyle
+            )}
+          >
+            Sipping on
+          </div>
+          <div
+            ref={creativityTextNodeRef}
+            id="creativity"
+            className={clsx(
+              "z-10",
+              "pl-[8px]",
+              homePageCreativityTextFont,
+              creativityTextFontStyle
+            )}
+          >
+            Creativity
+          </div>
+          {/* !! texts into one line (inline) - necessary due to animation */}
+          <div
+            ref={inlineTextWrapperNodeRef}
+            className={clsx("relative inline-block")}
+          >
+            <span ref={oneCupOfTextNodeRef} className={oneCupOfTextFontStyle}>
+              one cup of{" "}
+            </span>
+            <span
+              ref={coffeeTextNodeRef}
+              className={clsx(
+                "absolute",
+                "prevent-select",
+                coffeeTextFontStyle
+              )}
+            >
+              coffee
+            </span>
+            <span
+              ref={coffeeTextNodeCopyRef}
+              className={clsx(
+                "absolute top-0",
+                coffeeTextFontStyle,
+                homePageHightlightTextColor
+              )}
+            >
+              coffee
+            </span>
+          </div>
+          <div ref={atTimeTextNodeRef} className={atTimeTextFontStyle}>
+            at a time.
+          </div>
         </div>
 
-        {/* -------- Scroll Line -------- */}
-        <ScrollLine
+        {/* ---------------- Image Area ---------------- */}
+        <ImageCardsList
           addToHomeTimeline={addToTempChildTimelineLists}
-          animateIndex={1}
-          className="h-[15vh]"
+          animateIndex={0}
+          className={clsx(
+            "row-start-1 row-end-6 xl:row-span-full",
+            "xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full"
+          )}
         />
       </div>
 
-      {/* ------------------------ Second Home section ------------------------ */}
-      <CoffeeLanding
-        id="home-2"
-        className="h-screen xl:my-[300px] lg:my-[100px]"
+      {/* ---------------- Scroll Line ---------------- */}
+      <ScrollLine
+        addToHomeTimeline={addToTempChildTimelineLists}
+        animateIndex={1}
+        className="h-[15vh]"
       />
     </section>
   );

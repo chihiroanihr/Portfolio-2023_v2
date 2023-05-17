@@ -55,6 +55,9 @@ To separate logic into sub-logics for the easier maintenance and modifications.
   `npm i --save @fortawesome/free-regular-svg-icons`
   `npm i --save @fortawesome/react-fontawesome@latest`
 
+- **clsx**<br/>
+  `npm install --save clsx`
+
 ## Assets Used
 
 ### Fonts

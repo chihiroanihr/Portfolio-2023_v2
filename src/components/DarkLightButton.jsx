@@ -1,7 +1,7 @@
 import { useContext, useLayoutEffect, useRef } from "react";
+import clsx from "clsx";
 import { Button } from "@components";
 import { PlayAnimationContext } from "@contexts";
-import { buttonStyle, colorStyle } from "@constants";
 import { useDarkLightButtonAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
@@ -14,8 +14,8 @@ const DarkLightButton = ({
 }) => {
   console.log("[Render] @components/DarkLightButton.jsx");
 
-  // DOM Reference
-  const darkLightRef = useRef(null);
+  // Node Reference
+  const darkLightButtonNodeRef = useRef(null);
 
   // Retrieve Play Animation State
   const { playAnimation } = useContext(PlayAnimationContext);
@@ -26,7 +26,9 @@ const DarkLightButton = ({
     console.log("[LOG] (DarkLightButton.jsx) Animation Started");
 
     // Get Animation
-    const animation = useDarkLightButtonAnimation(darkLightRef.current);
+    const animation = useDarkLightButtonAnimation(
+      darkLightButtonNodeRef.current
+    );
     // Add timeline to parent component's timeline
     addToLandingTimeline(animation, animateIndex);
 
@@ -37,18 +39,37 @@ const DarkLightButton = ({
     };
   }, [playAnimation]);
 
+  // ************************* CSS ************************* //
+  const darkLightButtonFillColor = "fill-transparent dark:fill-yellow-400";
+  const darkLightButtonStrokeColor =
+    "stroke-coffee-600 dark:stroke-transparent";
+
+  const darkLightButtonStyle = clsx(
+    className,
+    "rounded-full p-2",
+    "shadow-light-btn-200 dark:shadow-dark-btn-200"
+  );
+  
+  const darkLightButtonSvgStyle = clsx(
+    "w-10",
+    darkLightButtonFillColor,
+    darkLightButtonStrokeColor,
+    "transition-colors duration-500"
+  );
+
+  // ************************* JSX ************************* //
   return (
     <Button
-      ref={darkLightRef}
-      className={`${className} ${buttonStyle.darkLightBtnStyle} cursor-pointer`}
+      ref={darkLightButtonNodeRef}
+      className={darkLightButtonStyle}
       onClick={handleToggleDarkMode}
     >
       <svg
-        className={`w-10 ${colorStyle.darkLightButtonColor} transition-all duration-500"`}
+        className={darkLightButtonSvgStyle}
         viewBox="0 0 24 24"
+        fill="none"
         stroke="currentColor"
         strokeWidth="1.5"
-        fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
       >

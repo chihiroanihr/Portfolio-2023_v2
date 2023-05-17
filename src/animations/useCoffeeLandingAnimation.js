@@ -3,14 +3,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function useCoffeeLandingAnimationOnScroll(target, triggerer, startOffset) {
-  return gsap.to(target, {
+function useCoffeeLandingAnimationOnScroll(
+  textPathNode,
+  containerNode,
+  startOffset
+) {
+  return gsap.to(textPathNode, {
     attr: { startOffset: startOffset },
     scrollTrigger: {
-      id: "home-spiral-text-on-scroll",
-      trigger: triggerer,
+      id: "home-spiral-text-scroll-animation",
+      trigger: containerNode,
       start: "top top",
-      end: "bottom top",
+      end: "bottom-=200 top", // finish fast
       scrub: 1,
       pin: true,
       anticipatePin: 1,

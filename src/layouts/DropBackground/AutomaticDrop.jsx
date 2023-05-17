@@ -5,17 +5,20 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
+import clsx from "clsx";
 import { Drop } from "./index";
-import { PlayAnimationContext } from "@contexts";
+import { ToggleOverlayContext } from "@contexts";
 
-const AutomaticDrop = ({ parentRef, isOverlayCompleted }) => {
+const AutomaticDrop = ({ parentNodeRef }) => {
   console.log("[Render] @layouts/DropBackground/AutomaticDrop.jsx");
 
-  // Retrieve Play Animation State
-  const { playAnimation } = useContext(PlayAnimationContext);
+  // Node reference
+  const dropNodeRef = useRef(null);
 
-  const dropRef = useRef(null);
+  // Retrieve state from context
+  const { isInsideOverlay } = useContext(ToggleOverlayContext);
 
+  // Define states
   const [dropAnimationCycleCount, setDropAnimationCycleCount] = useState(0);
   const [dropPosition, setDropPosition] = useState({
     // Initial Drop positions
@@ -34,10 +37,12 @@ const AutomaticDrop = ({ parentRef, isOverlayCompleted }) => {
       ) {
         // Calculate current window's position (updates on each drop)
         const relativePositionHeight =
-          window.innerHeight - parentRef.current?.getBoundingClientRect()?.top;
+          window.innerHeight -
+          parentNodeRef.current?.getBoundingClientRect()?.top;
 
         // Every 5th iterations, drop at center of the window
         if (dropAnimationCycleCount % 5 === 0) {
+          // Register new Drop position
           setDropPosition({
             x: window.innerWidth / 2,
             y: relativePositionHeight - window.innerHeight / 2,
@@ -50,10 +55,11 @@ const AutomaticDrop = ({ parentRef, isOverlayCompleted }) => {
           const minY = relativePositionHeight - window.innerHeight;
           const newX = Math.floor(Math.random() * maxX);
           const newY = Math.floor(Math.random() * (maxY - minY + 1) + minY); // const newY = Math.floor(Math.random() * maxY);
+          // Register new Drop position
           setDropPosition({ x: newX, y: newY });
         }
 
-        // Increment the number of iteration
+        // Increment the animation iteration number
         setDropAnimationCycleCount((prevCount) => prevCount + 1);
       }
     },
@@ -62,17 +68,16 @@ const AutomaticDrop = ({ parentRef, isOverlayCompleted }) => {
 
   // ======================== Enter View ======================== //
   useEffect(() => {
-    if (!playAnimation || !dropRef.current) return;
+    if (!dropNodeRef) return;
 
     // When Entering work section overlay
-    if (isOverlayCompleted) {
-      // Add Drop animation iterations to the event listener
-      dropRef.current.addEventListener(
+    if (isInsideOverlay) {
+      // Add Drop animation iterations to the event listener after delay
+      dropNodeRef.current.addEventListener(
         "animationiteration",
         handleDropAnimationIteration
       );
     }
-
     // When leaving from work section overlay
     else {
       // Reset the iteration number
@@ -81,19 +86,22 @@ const AutomaticDrop = ({ parentRef, isOverlayCompleted }) => {
 
     // Remove from the event listener when unmounted
     return () =>
-      dropRef.current?.removeEventListener(
+      dropNodeRef.current?.removeEventListener(
         "animationiteration",
         handleDropAnimationIteration
       );
-  }, [isOverlayCompleted, dropAnimationCycleCount]);
+  }, [isInsideOverlay, dropAnimationCycleCount]);
 
   return (
     <Drop
-      ref={dropRef}
+      ref={dropNodeRef}
       id="drop"
       className={
-        isOverlayCompleted
-          ? "animate-milky-drop1 dark:animate-chocolate-drop1 before:animate-milky-drop2 dark:before:animate-chocolate-drop2"
+        isInsideOverlay
+          ? clsx(
+              "animate-milky-drop1 dark:animate-chocolate-drop1",
+              "before:animate-milky-drop2 dark:before:animate-chocolate-drop2"
+            )
           : "animate-none before:animate-none"
       }
       x={dropPosition.x}

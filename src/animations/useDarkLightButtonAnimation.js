@@ -1,8 +1,8 @@
 import { gsap } from "gsap";
 
-function useDarkLightButtonAnimation(target, vars) {
-  return gsap.from(target, {
-    id: "dark-light-button",
+function useDarkLightButtonAnimation(darkLightButtonNode, vars) {
+  return gsap.from(darkLightButtonNode, {
+    id: "dark-light-button-animation",
     y: -10,
     opacity: 0,
     duration: 1,

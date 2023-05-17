@@ -1,16 +1,32 @@
-const Link = ({ id, className, href, target, disabled, children }) => {
+import clsx from "clsx";
+
+const Link = ({
+  id,
+  className,
+  href,
+  target,
+  onClick: handleParentClick = null,
+  disabled = false,
+  children,
+}) => {
   console.log("[Render] @components/Link.jsx");
 
   // If disabled link
-  const handleClick = (event) => {
+  const disableClick = (event) => {
     if (disabled) {
       event.preventDefault();
     }
   };
 
+  // onClick function
+  const handleClick = () => {
+    disableClick();
+    if (handleParentClick) handleParentClick();
+  };
+
   return (
     <a
-      className={`${className} ${disabled ? "pointer-events-none" : ""}`}
+      className={clsx(className, disabled && "pointer-events-none")}
       id={id}
       href={href}
       target={target}

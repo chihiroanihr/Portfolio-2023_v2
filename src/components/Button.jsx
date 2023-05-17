@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import clsx from "clsx";
 
 const Button = forwardRef(({ id, className, onClick, children }, ref) => {
   console.log("[Render] @components/Button.jsx");
@@ -7,7 +8,7 @@ const Button = forwardRef(({ id, className, onClick, children }, ref) => {
     <div
       ref={ref}
       id={id}
-      className={`${className} cursor-pointer`}
+      className={clsx(className, "cursor-pointer")}
       onClick={onClick}
       type="button"
     >

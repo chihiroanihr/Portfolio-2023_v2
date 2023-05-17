@@ -1,21 +1,19 @@
 import React, { useState, useContext, useRef } from "react";
+import { AutomaticDrop, ClickedDrop } from "./index";
 import { DeviceTypeContext } from "@contexts";
-import AutomaticDrop from "./AutomaticDrop";
-import ClickedDrop from "./ClickedDrop";
 
-const DropBackground = ({ id, className, isOverlayCompleted }) => {
+const DropBackground = ({ id, className }) => {
   console.log("[Render] @layouts/DropBackground.jsx");
+
+  // Node Reference
+  const dropBackgroundNodeRef = useRef(null);
 
   // Allow Click Drop depending on device type
   const { isTouchDevice } = useContext(DeviceTypeContext);
 
-  // DOM References
-  const dropBackgroundWrapperRef = useRef(null);
-
   // ======================= Clicked Drop ======================= //
   const [clickedPosition, setClickedPosition] = useState({ x: 0, y: 0 });
 
-  // When clicked
   const handleDropClick = (event) => {
     // Get click position
     const { clientX: x, clientY: y } = event;
@@ -25,7 +23,7 @@ const DropBackground = ({ id, className, isOverlayCompleted }) => {
   return (
     // =========== Click Drop Area =========== //
     <div
-      ref={dropBackgroundWrapperRef}
+      ref={dropBackgroundNodeRef}
       id={id}
       className={className}
       onClick={
@@ -38,14 +36,10 @@ const DropBackground = ({ id, className, isOverlayCompleted }) => {
       {/* Clicked Drops */}
       <ClickedDrop
         clickedPosition={clickedPosition}
-        parentRef={dropBackgroundWrapperRef}
-        isOverlayCompleted={isOverlayCompleted}
+        parentNodeRef={dropBackgroundNodeRef}
       />
       {/* Normal/Automatic Drop */}
-      <AutomaticDrop
-        parentRef={dropBackgroundWrapperRef}
-        isOverlayCompleted={isOverlayCompleted}
-      />
+      <AutomaticDrop parentNodeRef={dropBackgroundNodeRef} />
     </div>
   );
 };

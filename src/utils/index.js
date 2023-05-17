@@ -4,21 +4,19 @@ import {
   useResizeObserver,
   useResizeObserverCallback,
 } from "./useResizeObserver";
-import useMemoizedGsapContext from "./useMemoizedGsapContext";
-import addGsapChildTimelinesInOrder from "./addGsapChildTimelinesInOrder";
-import cleanUpGsapAnimation from "./cleanUpGsapAnimation";
-import { checkVisited } from "./useCheckVisited";
-import { splitTextToChars, splitTextToWords } from "./useSplitText";
+import useScrollBackToTop from "./useScrollBackToTop";
+import checkIsVisited from "./checkIsVisited";
+import checkObjectNullEmpty from "./checkObjectNullEmpty";
+import { splitTextToChars, splitTextToWords } from "./splitText";
 
 export {
   useBodyScrollLock,
   useIntersectionObserver,
   useResizeObserver,
   useResizeObserverCallback,
-  useMemoizedGsapContext,
-  addGsapChildTimelinesInOrder,
-  cleanUpGsapAnimation,
-  checkVisited,
+  useScrollBackToTop,
+  checkIsVisited,
+  checkObjectNullEmpty,
   splitTextToChars,
   splitTextToWords,
 };
