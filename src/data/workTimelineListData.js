@@ -1,5 +1,5 @@
-import sunLifeLogoImg from "@assets/images/sun-life-logo.png";
-import nuanceLogoImg from "@assets/images/nuance-logo.png";
+import sunLifeLogoImg from "@assets/images/timeline/sun-life-logo.png";
+import nuanceLogoImg from "@assets/images/timeline/nuance-logo.png";
 
 const workTimelineListData = [
   {

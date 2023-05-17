@@ -1,4 +1,4 @@
-import concordiaLogoImg from "@assets/images/concordia-logo.png";
+import concordiaLogoImg from "@assets/images/timeline/concordia-logo.png";
 
 const lifeTimelineListData = [
   {
