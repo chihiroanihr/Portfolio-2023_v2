@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import clsx from "clsx";
 import { Drop } from "./index";
-import { ToggleOverlayContext } from "@contexts";
+import { InsideSectionContext } from "@contexts";
 
 const AutomaticDrop = ({ parentNodeRef }) => {
   console.log("[Render] @layouts/DropBackground/AutomaticDrop.jsx");
@@ -16,7 +16,7 @@ const AutomaticDrop = ({ parentNodeRef }) => {
   const dropNodeRef = useRef(null);
 
   // Retrieve state from context
-  const { isInsideOverlay } = useContext(ToggleOverlayContext);
+  const { isInsideSection } = useContext(InsideSectionContext);
 
   // Define states
   const [dropAnimationCycleCount, setDropAnimationCycleCount] = useState(0);
@@ -71,7 +71,7 @@ const AutomaticDrop = ({ parentNodeRef }) => {
     if (!dropNodeRef) return;
 
     // When Entering work section overlay
-    if (isInsideOverlay) {
+    if (isInsideSection) {
       // Add Drop animation iterations to the event listener after delay
       dropNodeRef.current.addEventListener(
         "animationiteration",
@@ -90,14 +90,14 @@ const AutomaticDrop = ({ parentNodeRef }) => {
         "animationiteration",
         handleDropAnimationIteration
       );
-  }, [isInsideOverlay, dropAnimationCycleCount]);
+  }, [isInsideSection, dropAnimationCycleCount]);
 
   return (
     <Drop
       ref={dropNodeRef}
       id="drop"
       className={
-        isInsideOverlay
+        isInsideSection
           ? clsx(
               "animate-milky-drop1 dark:animate-chocolate-drop1",
               "before:animate-milky-drop2 dark:before:animate-chocolate-drop2"

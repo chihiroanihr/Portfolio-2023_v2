@@ -7,9 +7,9 @@ import { ScrollLockContext, ScrollLockProvider } from "./ScrollLockContext";
 import { ToggleMenuContext, ToggleMenuProvider } from "./ToggleMenuContext";
 import { ToggleModalContext, ToggleModalProvider } from "./ToggleModalContext";
 import {
-  ToggleOverlayContext,
-  ToggleOverlayProvider,
-} from "./ToggleOverlayContext";
+  InsideSectionContext,
+  InsideSectionProvider,
+} from "./InsideSectionContext";
 
 export {
   PlayAnimationContext,
@@ -22,6 +22,6 @@ export {
   ToggleMenuProvider,
   ToggleModalContext,
   ToggleModalProvider,
-  ToggleOverlayContext,
-  ToggleOverlayProvider,
+  InsideSectionContext,
+  InsideSectionProvider,
 };

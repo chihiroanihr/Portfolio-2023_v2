@@ -7,13 +7,13 @@ import React, {
 } from "react";
 import clsx from "clsx";
 import { Drop } from "./index";
-import { ToggleOverlayContext } from "@contexts";
+import { InsideSectionContext } from "@contexts";
 
 const ClickedDrop = ({ clickedPosition, parentNodeRef }) => {
   console.log("[Render] @layouts/DropBackground/ClickedDrop.jsx");
 
   // Retrieve state from context
-  const { isInsideOverlay } = useContext(ToggleOverlayContext);
+  const { isInsideSection } = useContext(InsideSectionContext);
 
   // Clicked Drop buffers
   const [addedDropPositions, setAddedDropPositions] = useState([]);
@@ -63,7 +63,7 @@ const ClickedDrop = ({ clickedPosition, parentNodeRef }) => {
   // Remove Drops immediately when left from view
   useEffect(() => {
     removeDrop();
-  }, [isInsideOverlay]);
+  }, [isInsideSection]);
 
   // Render added Drops
   const addedDrops = addedDropPositions.map((drop, index) => (
@@ -78,7 +78,7 @@ const ClickedDrop = ({ clickedPosition, parentNodeRef }) => {
     />
   ));
 
-  return isInsideOverlay ? addedDrops : null;
+  return isInsideSection ? addedDrops : null;
 };
 
 // Re-render only when DropBackground clicked position value changes & when DropBackground resizes

@@ -4,14 +4,13 @@ import React, {
   useContext,
   useCallback,
   useLayoutEffect,
-  useEffect,
 } from "react";
 import clsx from "clsx";
 import { DropBackground, ProjectCardsList } from "@layouts";
 import { SectionOverlay } from "@components";
-import { DeviceTypeContext, ToggleOverlayProvider } from "@contexts";
+import { DeviceTypeContext, InsideSectionProvider } from "@contexts";
 import { positionStyle } from "@themes";
-import { useIntersectionObserver, useResizeObserverCallback } from "@utils";
+import { useResizeObserverCallback } from "@utils";
 import { useWorksAnimation } from "@animations";
 import {
   useMemoizedGsapContext,
@@ -32,10 +31,10 @@ const Works = ({ onChangeBgColor }) => {
   const { isTouchDevice } = useContext(DeviceTypeContext);
 
   // Inside section state
-  const [isInsideOverlay, setIsInsideOverlay] = useState(false);
+  const [isInsideSection, setIsInsideSection] = useState(false);
   // Toggle function
-  const handleIsInsideOverlay = useCallback((state) => {
-    setIsInsideOverlay(state);
+  const handleInsideSection = useCallback((state) => {
+    setIsInsideSection(state);
   }, []);
 
   // =========== Dynamically Change Parent Div Height =========== //
@@ -83,7 +82,7 @@ const Works = ({ onChangeBgColor }) => {
     ctx.add(() => {
       useWorksAnimation({
         worksSectionNode,
-        handleIsInsideOverlay,
+        handleInsideSection,
         isTouchDevice,
         onChangeBgColor,
         mobileBgColor,
@@ -104,17 +103,19 @@ const Works = ({ onChangeBgColor }) => {
       className={clsx("relative", "overflow-hidden", "w-screen min-h-screen")}
       style={{ marginTop: -positionStyle.workToAboutSectionTransitionPosition }}
     >
-      <ToggleOverlayProvider isInsideOverlay={isInsideOverlay}>
-        <SectionOverlay
-          className={clsx(
-            "absolute",
-            "w-full h-full",
-            overlayFillColor,
-            "transition-dark-mode duration-700 will-change-drak-mode"
-          )}
-          parentRef={worksSectionNodeRef}
-          duration={0.8}
-        />
+      <InsideSectionProvider isInsideSection={isInsideSection}>
+        {!isTouchDevice && (
+          <SectionOverlay
+            className={clsx(
+              "absolute",
+              "w-full h-full",
+              overlayFillColor,
+              "transition-dark-mode duration-700 will-change-drak-mode"
+            )}
+            parentRef={worksSectionNodeRef}
+            duration={0.8}
+          />
+        )}
         <div
           id="wrapper"
           className={clsx(
@@ -163,7 +164,7 @@ const Works = ({ onChangeBgColor }) => {
             className={clsx("absolute", "top-0", "h-full w-full")}
           />
         </div>
-      </ToggleOverlayProvider>
+      </InsideSectionProvider>
     </section>
   );
 };

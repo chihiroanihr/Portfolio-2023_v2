@@ -102,7 +102,7 @@ function useWorksAnimationOnLeaveBack(triggerer) {
 
 function useWorksAnimation({
   worksSectionNode,
-  handleIsInsideOverlay,
+  handleInsideSection,
   isTouchDevice,
   onChangeBgColor,
   mobileBgColor: bgColor,
@@ -124,24 +124,24 @@ function useWorksAnimation({
       end: "bottom bottom",
       onEnter: () => {
         // Toggle States
-        handleIsInsideOverlay(true);
+        handleInsideSection(true);
         if (isTouchDevice) onChangeBgColor(bgColor);
         // Animate
         worksAnimationOnLeaveBack.pause(); // Avoid timelag (necessary for updating z-index immediately)
         worksAnimationOnEnter.progress(0).play(0);
       },
       onLeave: () => {
-        handleIsInsideOverlay(false);
+        handleInsideSection(false);
         if (isTouchDevice) onChangeBgColor("bg-coffee-100 dark:bg-coffee-800");
         worksAnimationOnLeave.progress(0).play(0);
       },
       onEnterBack: () => {
-        handleIsInsideOverlay(true);
+        handleInsideSection(true);
         if (isTouchDevice) onChangeBgColor(bgColor);
         worksAnimationOnEnterBack.progress(0).play(0);
       },
       onLeaveBack: () => {
-        handleIsInsideOverlay(false);
+        handleInsideSection(false);
         if (isTouchDevice) onChangeBgColor("bg-coffee-100 dark:bg-coffee-800");
         worksAnimationOnEnterBack.pause();
         worksAnimationOnLeaveBack.progress(0).play(0);
