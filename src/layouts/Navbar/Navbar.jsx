@@ -1,4 +1,4 @@
-import { useRef, useContext, useLayoutEffect, useEffect } from "react";
+import React, { useRef, useContext, useLayoutEffect } from "react";
 import clsx from "clsx";
 import { gsap } from "gsap";
 import {
@@ -86,6 +86,7 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
           <MenuBackground
             className={menuBackgroundPositionStyle}
             position="outView"
+            parentRef={navbarNodeRef}
           />
 
           {/* Menu Lists (hidden) */}
@@ -99,4 +100,4 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);
