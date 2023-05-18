@@ -1,9 +1,10 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useContext, useEffect, useCallback } from "react";
 import clsx from "clsx";
 import { ToggleMenuContext } from "@contexts";
+import { useResizeObserverCallback } from "@utils";
 import { navbarStyle } from "@themes";
 
-const MenuBackground = ({ className, position = "outView" }) => {
+const MenuBackground = ({ className, position = "outView", parentRef }) => {
   console.log("[Render] @layouts/Navbar/MenuBackground.jsx");
 
   // Node reference
@@ -20,7 +21,9 @@ const MenuBackground = ({ className, position = "outView" }) => {
   const { isMenuOpen } = useContext(ToggleMenuContext);
 
   // Calculate layout size of expanded menu background
-  const calculateValues = () => {
+  const calculateValues = useCallback(() => {
+    if (!menuBackgroundNodeRef.current) return;
+
     const menuBackgroundNode = menuBackgroundNodeRef.current;
 
     // Calculate width / height of view
@@ -62,27 +65,16 @@ const MenuBackground = ({ className, position = "outView" }) => {
       translateY: newOffsetY,
       scale: newScale,
     });
-  };
+  }, []);
 
-  // 60fps animation on Resize
-  const resizeHandler = () => {
-    window.requestAnimationFrame(() => {
-      calculateValues();
-    });
-  };
+  // Re-calculate menuBackground width when navbar (parentRef) width changes
+  useResizeObserverCallback(parentRef, calculateValues);
 
   useEffect(() => {
     if (!menuBackgroundNodeRef.current) return;
 
     // Initial calculation
     calculateValues();
-
-    // Handle resize when view resizes
-    window.addEventListener("resize", resizeHandler);
-
-    return () => {
-      window.removeEventListener("resize", resizeHandler);
-    };
   }, []);
 
   // ************************* CSS ************************* //
