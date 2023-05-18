@@ -10,7 +10,7 @@ import {
 } from "@animations/utils";
 
 const Home = ({ addToLandingTimeline, animateIndex }) => {
-  console.log("[Render] @pages/Home.jsx");
+  console.log("[Render] @views/Home.jsx");
 
   // Retrieve Play Animation State
   const { playAnimation } = useContext(PlayAnimationContext);

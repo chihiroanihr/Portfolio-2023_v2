@@ -9,7 +9,7 @@ import { cleanUpGsapAnimation } from "@animations/utils";
 import girlImage from "@assets/images/girl.png";
 
 const About = () => {
-  console.log("[Render] @pages/About.jsx");
+  console.log("[Render] @views/About.jsx");
 
   // Node Reference
   const aboutSectionNodeRef = useRef(null);

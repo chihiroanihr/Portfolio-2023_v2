@@ -4,6 +4,7 @@ import React, {
   useContext,
   useCallback,
   useLayoutEffect,
+  useEffect,
 } from "react";
 import clsx from "clsx";
 import { DropBackground, ProjectCardsList } from "@layouts";
@@ -18,7 +19,7 @@ import {
 } from "@animations/utils";
 
 const Works = ({ onChangeBgColor }) => {
-  console.log("[Render] @pages/Works.jsx");
+  console.log("[Render] @views/Works.jsx");
 
   const overlayFillColor = "fill-milky dark:fill-chocolate";
   const mobileBgColor = "bg-milky dark:bg-chocolate";
@@ -83,11 +84,8 @@ const Works = ({ onChangeBgColor }) => {
       useWorksAnimation({
         worksSectionNode,
         handleInsideSection,
-        isTouchDevice,
-        onChangeBgColor,
-        mobileBgColor,
       });
-    });
+    }, worksSectionNodeRef);
 
     // Clean Animation
     return () => {
@@ -95,6 +93,13 @@ const Works = ({ onChangeBgColor }) => {
       console.log("[LOG] (Works.jsx) Animation Killed");
     };
   }, []);
+
+  useEffect(() => {
+    if (isTouchDevice) {
+      if (isInsideSection) onChangeBgColor(mobileBgColor);
+      else onChangeBgColor("bg-coffee-100 dark:bg-coffee-800");
+    }
+  }, [isInsideSection]);
 
   return (
     <section

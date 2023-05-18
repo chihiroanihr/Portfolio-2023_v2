@@ -100,13 +100,7 @@ function useWorksAnimationOnLeaveBack(triggerer) {
     });
 }
 
-function useWorksAnimation({
-  worksSectionNode,
-  handleInsideSection,
-  isTouchDevice,
-  onChangeBgColor,
-  mobileBgColor: bgColor,
-}) {
+function useWorksAnimation({ worksSectionNode, handleInsideSection }) {
   return gsap.context(() => {
     // Scroll animations for heading
     useWorksHeadingAnimationOnScroll(worksSectionNode).progress(0);
@@ -125,24 +119,20 @@ function useWorksAnimation({
       onEnter: () => {
         // Toggle States
         handleInsideSection(true);
-        if (isTouchDevice) onChangeBgColor(bgColor);
         // Animate
         worksAnimationOnLeaveBack.pause(); // Avoid timelag (necessary for updating z-index immediately)
         worksAnimationOnEnter.progress(0).play(0);
       },
       onLeave: () => {
         handleInsideSection(false);
-        if (isTouchDevice) onChangeBgColor("bg-coffee-100 dark:bg-coffee-800");
         worksAnimationOnLeave.progress(0).play(0);
       },
       onEnterBack: () => {
         handleInsideSection(true);
-        if (isTouchDevice) onChangeBgColor(bgColor);
         worksAnimationOnEnterBack.progress(0).play(0);
       },
       onLeaveBack: () => {
         handleInsideSection(false);
-        if (isTouchDevice) onChangeBgColor("bg-coffee-100 dark:bg-coffee-800");
         worksAnimationOnEnterBack.pause();
         worksAnimationOnLeaveBack.progress(0).play(0);
       },

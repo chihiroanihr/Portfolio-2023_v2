@@ -1,19 +1,10 @@
-import { useRef, useState, useCallback, useLayoutEffect } from "react";
+import { useRef, useState, useMemo, useCallback, useLayoutEffect } from "react";
 import clsx from "clsx";
 import gsap from "gsap";
-import {
-  Loading,
-  Home,
-  About,
-  Works,
-  Galleries,
-  Contact,
-  Footer,
-} from "@pages";
+import { Home, About, Works, Galleries, Contact, Footer } from "@views";
 import { Navbar, CoffeeLanding } from "@layouts";
 import { DarkLightButton } from "@components";
 import { PlayAnimationProvider, DeviceTypeProvider } from "@contexts";
-import { useBodyScrollLock } from "@utils";
 import {
   addGsapChildTimelinesInOrder,
   cleanUpGsapAnimation,
@@ -23,35 +14,15 @@ function App() {
   console.log("[Render] App.jsx");
 
   // ================================ Document On Load ================================ //
-  // Node Reference to activate scroll lock
-  const scrollLockTargetNodeRef = useRef(null);
-
-  // Retrieve ScrollLock function
-  const { handleScrollLock } = useBodyScrollLock(scrollLockTargetNodeRef);
-
-  // Set Loader Hidden State (after page loaded)
-  const [isLoaderHidden, setIsLoaderHidden] = useState(false);
   // Set Play Animation State (after loader hidden)
   // !! this state will be globaly available for all child components via useContext Provider.
   const [playAnimation, setPlayAnimation] = useState(false);
 
-  // Allow animations / interactions when loader is hidden
+  // Allow animations when loader is hidden
   // !! useLayoutEffect executes before the DOM is painted -> avoid flash of content (some flickers during animation)
   useLayoutEffect(() => {
-    let timeoutId;
-    handleScrollLock(true);
-
-    if (isLoaderHidden) {
-      // Allow animation
-      setPlayAnimation(true);
-      // Allow scroll after delay
-      timeoutId = setTimeout(() => {
-        handleScrollLock(false);
-      }, 1000);
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [isLoaderHidden]);
+    setPlayAnimation(true);
+  }, []);
 
   // =============================== Landing Animations =============================== //
   // Store Child Component Timelines
@@ -123,58 +94,65 @@ function App() {
   );
 
   // ************************* JSX ************************* //
-  return (
-    <DeviceTypeProvider>
-      <div className={clsx(isDarkMode && "dark", "overflow-hidden")}>
-        {/* -------- Loader (hidden) -------- */}
-        <Loading
-          ref={scrollLockTargetNodeRef}
-          setIsLoaderHidden={setIsLoaderHidden}
-          className={clsx(
-            "fixed-position-top-stretch",
-            isLoaderHidden && "hidden"
-          )}
+  const memoizedContentPage = useMemo(
+    () => (
+      <>
+        {/* --- Navbar (sticky) --- */}
+        <Navbar
+          addToLandingTimeline={addToTempChildTimelineLists}
+          animateIndex={0}
+          className={navbarLayoutPositionStyle}
         />
-        {/* ---------- Loaded Page ---------- */}
-        <div
-          className={clsx(
-            [isLoaderHidden ? "opacity-100" : "opacity-0"],
-            bgColor,
-            // opacity transition when loader hidden & colors transition when dark mode toggled
-            "[transition:opacity_700ms,background-color_700ms]"
-          )}
-        >
-          <PlayAnimationProvider playAnimation={playAnimation}>
-            {/* --- Navbar (sticky) --- */}
-            <Navbar
-              addToLandingTimeline={addToTempChildTimelineLists}
-              animateIndex={0}
-              className={navbarLayoutPositionStyle}
-            />
 
-            {/* ------ Contents ------ */}
-            <Home
-              addToLandingTimeline={addToTempChildTimelineLists}
-              animateIndex={2}
-            />
-            <CoffeeLanding />
-            <About />
-            <Works onChangeBgColor={onChangeBgColor} />
-            <Galleries />
-            <Contact />
-            <Footer />
+        {/* ------ Contents ------ */}
+        <Home
+          addToLandingTimeline={addToTempChildTimelineLists}
+          animateIndex={2}
+        />
+        <CoffeeLanding />
+        <About />
+        <Works onChangeBgColor={onChangeBgColor} />
+        <Galleries />
+        <Contact />
+        <Footer />
 
-            {/* Dark Light Mode Button (sticky) */}
-            <DarkLightButton
-              className={darkLightButtonPositionStyle}
-              handleToggleDarkMode={handleToggleDarkMode}
-              addToLandingTimeline={addToTempChildTimelineLists}
-              animateIndex={1}
-            />
-          </PlayAnimationProvider>
-        </div>
-      </div>
-    </DeviceTypeProvider>
+        {/* Dark Light Mode Button (sticky) */}
+        <DarkLightButton
+          className={darkLightButtonPositionStyle}
+          handleToggleDarkMode={handleToggleDarkMode}
+          addToLandingTimeline={addToTempChildTimelineLists}
+          animateIndex={1}
+        />
+      </>
+    ),
+    []
+  );
+
+  return (
+    <div
+      className={clsx(
+        "overflow-hidden",
+        isDarkMode && "dark",
+        // opacity transition when loader hidden
+        [playAnimation ? "opacity-100" : "opacity-0"],
+        "transition-opacity duration-700"
+      )}
+    >
+      {/* Content Page */}
+      <DeviceTypeProvider>
+        <PlayAnimationProvider playAnimation={playAnimation}>
+          <div
+            className={clsx(
+              bgColor,
+              // background colors transition when dark mode toggled
+              "transition-[background-color] duration-700 will-change-[background-color]"
+            )}
+          >
+            {memoizedContentPage}
+          </div>
+        </PlayAnimationProvider>
+      </DeviceTypeProvider>
+    </div>
   );
 }
 

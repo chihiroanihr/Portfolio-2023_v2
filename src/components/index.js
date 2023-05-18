@@ -1,4 +1,3 @@
-import Loader from "./Loader";
 import Button from "./Button";
 import Link from "./Link";
 import DarkLightButton from "./DarkLightButton";
@@ -13,7 +12,6 @@ import { BlobDots, BlobImage } from "./Blob";
 import { SocialIcon, SocialIconsList } from "./SocialIcons";
 
 export {
-  Loader,
   Button,
   Link,
   DarkLightButton,
