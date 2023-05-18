@@ -1,6 +1,6 @@
-import coffeeBgImg1 from "@assets/images/coffee-bg-1.jpg";
-import coffeeBgImg2 from "@assets/images/coffee-bg-2.jpg";
-import coffeeBgImg3 from "@assets/images/coffee-bg-3.jpg";
+import coffeeBgImg1 from "@assets/images/home/coffee-bg-1.jpg";
+import coffeeBgImg2 from "@assets/images/home/coffee-bg-2.jpg";
+import coffeeBgImg3 from "@assets/images/home/coffee-bg-3.jpg";
 
 // From Left To Right
 // From Underneath To Top

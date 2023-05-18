@@ -1,3 +1,5 @@
+import antiqueRoomImg from "@assets/images/works/antique-room.png";
+
 const projectsListData = [
   {
     id: 0,
@@ -12,7 +14,7 @@ const projectsListData = [
     category: "3D Design",
     website:
       "https://my.spline.design/antiqueroomfinaloptimized-180cf5511cd98b73d490caf76f61ad16/",
-    thumbnails: [],
+    thumbnails: [antiqueRoomImg],
     new: true,
   },
   {
