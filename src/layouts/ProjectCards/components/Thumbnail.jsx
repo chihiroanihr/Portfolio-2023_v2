@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-const Thumbnail = ({ item }) => {
+const Thumbnail = ({ items, alt }) => {
   // ************************* CSS ************************* //
   const thumbnailBgColor = "bg-coffee-300 dark:bg-coffee-600";
 
@@ -13,7 +13,13 @@ const Thumbnail = ({ item }) => {
   );
 
   // ************************* JSX ************************* //
-  return <div item={item} className={thumbnailStyle} />;
+  return (
+    <div className={thumbnailStyle}>
+      {items.length > 0 && (
+        <img src={items[0]} alt={alt} className="w-full h-full object-cover" />
+      )}
+    </div>
+  );
 };
 
 export default Thumbnail;

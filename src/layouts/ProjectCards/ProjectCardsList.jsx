@@ -91,7 +91,7 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
         {item.new && <NewTag id="new-tag" />}
 
         {/* Thumbnails */}
-        <Thumbnail item={item.thumbnails} />
+        <Thumbnail items={item.thumbnails} alt={item.title} />
 
         {/* Title */}
         <Title item={item.title} className="mt-[10px]" />
