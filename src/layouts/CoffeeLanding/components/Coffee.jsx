@@ -11,7 +11,7 @@ Youtube: https://www.youtube.com/watch?v=CFb3LKrE-OQ&feature=youtu.be
 
 import React from "react";
 import clsx from "clsx";
-import smokeImg from "@assets/images/smoke.png";
+import smokeImg from "@assets/images/coffee/smoke.png";
 
 const Coffee = () => {
   console.log("[Render] @layouts/CoffeeLanding/Coffee.jsx");
@@ -23,13 +23,15 @@ const Coffee = () => {
   const coffeeSizeStyle = "w-[170px] h-[170px]";
   const coffeeImgSizeStyle = "bg-[-116px_-85px] bg-[length:370px] bg-coffee";
 
+  // Style
   const coffeeWrapperStyle = clsx(
     "relative",
     "dark:brightness-[0.8]",
     "lg:scale-[1.25] md:scale-[1.2] sm:scale-[0.9] xs:scale-[0.7] scale-[0.65]"
   );
   const coffeeCupStyle = clsx(
-    "relative top-0 left-0",
+    "relative",
+    "top-0 left-0",
     coffeeCupSizeStyle,
     coffeeCupImgSizeStyle
   );

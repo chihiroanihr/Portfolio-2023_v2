@@ -56,38 +56,30 @@ const CoffeeLanding = () => {
   // ************************* CSS ************************* //
   const spiralTextFont = "font-default-sans";
   const spiralTextFillColor = "fill-coffee-600 dark:fill-coffee-300";
-
   const spiralTextSizeStyle =
     "xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]";
-
-  const spiralTextFontStyle = clsx(
-    "font-medium xxxl:text-xl text-2xl",
-    spiralTextFont
-  );
-
-  const spiralTextStyle = clsx(
-    "absolute",
-    spiralTextSizeStyle,
-    spiralTextFontStyle
-  );
-
-  const coffeeLandingStyle = clsx(
-    "prevent-select",
-    "relative",
-    "h-screen xl:my-[300px] lg:my-[100px]",
-    "flex justify-center items-center"
-  );
+  const spiralTextFontStyle = clsx("font-medium", "xxxl:text-xl text-2xl");
 
   // ************************* JSX ************************* //
   return (
     <div
       ref={coffeeLandingContainerNodeRef}
       id="coffee-landing"
-      className={coffeeLandingStyle}
+      className={clsx(
+        "prevent-select",
+        "relative",
+        "h-screen xl:my-[300px] lg:my-[100px]",
+        "flex justify-center items-center"
+      )}
     >
       <Coffee />
       <SpiralText
-        className={spiralTextStyle}
+        className={clsx(
+          "absolute",
+          spiralTextFont,
+          spiralTextSizeStyle,
+          spiralTextFontStyle
+        )}
         fillColor={spiralTextFillColor}
         onDataUpdate={handleChildData}
       />

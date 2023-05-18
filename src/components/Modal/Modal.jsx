@@ -61,10 +61,7 @@ const Modal = forwardRef(({ modalContentStyle, children }, ref) => {
           "overflow-y-scroll",
           "fixed inset-0",
           "mx-auto",
-          {
-            "translate-y-full": !isModalOpen,
-            "translate-y-0": isModalOpen,
-          },
+          [isModalOpen ? "translate-y-0" : "translate-y-full"],
           "transition-translate duration-[800ms]"
         )}
       >
