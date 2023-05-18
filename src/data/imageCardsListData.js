@@ -1,21 +1,21 @@
-import coffeeBgImg1 from "@assets/images/home/coffee-bg-1.jpg";
-import coffeeBgImg2 from "@assets/images/home/coffee-bg-2.jpg";
-import coffeeBgImg3 from "@assets/images/home/coffee-bg-3.jpg";
+import coffeeCardImg1 from "@assets/images/home/coffee-card-1.jpg";
+import coffeeCardImg2 from "@assets/images/home/coffee-card-2.jpg";
+import coffeeCardImg3 from "@assets/images/home/coffee-card-3.jpg";
 
 // From Left To Right
 // From Underneath To Top
 const imageCardsListData = [
   {
-    id: "coffee-bg-img-3",
-    img: coffeeBgImg3,
+    id: "coffee-card-img-3",
+    img: coffeeCardImg3,
   },
   {
-    id: "coffee-bg-img-2",
-    img: coffeeBgImg2,
+    id: "coffee-card-img-2",
+    img: coffeeCardImg2,
   },
   {
-    id: "coffee-bg-img-1",
-    img: coffeeBgImg1,
+    id: "coffee-card-img-1",
+    img: coffeeCardImg1,
   },
 ];
 
