@@ -281,7 +281,7 @@ export default {
           "background-color, border-color, fill, stroke, color, text-decoration-color, text-shadow, box-shadow, filter, backdrop-filter",
       },
       backgroundImage: {
-        coffee: "url('/src/assets/images/coffee3.png')",
+        coffee: "url('/src/assets/images/coffee/coffee3.png')",
       },
     },
     screens: {
