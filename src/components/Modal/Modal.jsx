@@ -1,75 +1,101 @@
-import { useContext, useRef, forwardRef, useImperativeHandle } from "react";
+import React, {
+  useContext,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import clsx from "clsx";
-import { ToggleModalContext, ScrollLockContext } from "@contexts";
+import ModalBgOverlay from "./ModalBgOverlay";
+import { ToggleModalContext } from "@contexts";
 import { useScrollBackToTop } from "@utils";
 
 // (ScrollLock Target Ref passed as forwardRef from About.jsx)
-const Modal = forwardRef(({ modalContentStyle, children }, ref) => {
-  console.log("[Render] @components/Modal/Modal.jsx");
+const Modal = forwardRef(
+  (
+    {
+      modalStyle = "bg-white text-coffee-800 font-default-sans",
+      overlay = true,
+      fullWidth = false,
+      translate = false,
+      direction = null,
+      children,
+    },
+    ref
+  ) => {
+    console.log("[Render] @components/Modal/Modal.jsx");
 
-  // Node Reference
-  const modalContentNodeRef = useRef(null);
+    // Get modal open direction string value if specified
+    const directionStr = direction ? direction.trim().toLowerCase() : null;
 
-  // Retrieve States from Context
-  const { handleScrollLock } = useContext(ScrollLockContext);
-  const { isModalOpen, handleToggleModal } = useContext(ToggleModalContext);
+    // Node Reference
+    const modalContentNodeRef = useRef(null);
 
-  // Scroll back to top when modal closed/opened in the middle of scroll
-  useScrollBackToTop({
-    ref: modalContentNodeRef,
-    dependency: isModalOpen,
-  });
+    // Retrieve States from Context
+    const { isModalOpen } = useContext(ToggleModalContext);
 
-  // Expose the childRef (modalContentNodeRef) to the parent component with useImperativeHandle
-  // (This ref is used for ScrollToTop OnClick() Event inside TimelineModal.jsx)
-  useImperativeHandle(ref, () => modalContentNodeRef.current);
+    // Scroll back to top when modal closed/opened in the middle of scroll
+    useScrollBackToTop({
+      ref: modalContentNodeRef,
+      dependency: isModalOpen,
+    });
 
-  return (
-    <div
-      ref={ref}
-      className={clsx("z-50", "fixed top-0", "w-screen", {
-        "opacity-0 pointer-events-none transition-opacity delay-1000":
-          !isModalOpen,
-        "opacity-100": isModalOpen,
-      })}
-      role="dialog"
-      aria-modal="true"
-      tabIndex="-1"
-    >
-      {/* Modal Background Overlay */}
+    // Expose the childRef (modalContentNodeRef) to the parent component with useImperativeHandle
+    // (This ref is used for ScrollToTop OnClick() Event inside TimelineModal.jsx)
+    useImperativeHandle(ref, () => modalContentNodeRef.current);
+
+    return (
       <div
+        ref={ref}
         className={clsx(
-          "fixed inset-0",
-          "h-full",
-          "bg-black bg-opacity-75",
-          {
-            "opacity-0 delay-500": !isModalOpen,
-            "opacity-100": isModalOpen,
-          },
-          "transition-opacity duration-500"
+          "z-50",
+          "fixed top-0",
+          "w-screen h-full",
+          isModalOpen
+            ? "opacity-100"
+            : clsx(
+                "opacity-0 pointer-events-none",
+                translate && "transition-opacity delay-1000" // Animate if translate = true
+              )
         )}
-        onClick={() => {
-          handleToggleModal();
-          handleScrollLock();
-        }}
-      />
-      {/* Modal Content */}
-      <div
-        ref={modalContentNodeRef}
-        className={clsx(
-          modalContentStyle,
-          "overflow-y-scroll",
-          "fixed inset-0",
-          "mx-auto",
-          [isModalOpen ? "translate-y-0" : "translate-y-full"],
-          "transition-translate duration-[800ms]"
-        )}
+        role="dialog"
+        aria-modal="true"
+        tabIndex="-1"
       >
-        {/* Contents */}
-        {children}
+        {/* Modal Background Overlay */}
+        {overlay && <ModalBgOverlay fullWidth={fullWidth} />}
+
+        {/* Modal Content */}
+        <div
+          ref={modalContentNodeRef}
+          className={clsx(
+            "relative",
+            "overflow-x-hidden",
+            "overflow-y-scroll",
+            // position style
+            "fixed inset-0",
+            "mx-auto",
+            // layout style
+            fullWidth ? "w-full" : "page-layout xl:w-[70%]", // modal content width
+            "h-full",
+            // color/font/background style
+            modalStyle,
+            // Animate if translate = true
+            translate && // translate in y dir
+              directionStr === "y" && [
+                isModalOpen ? "translate-y-0" : "translate-y-full",
+              ],
+            translate && // translate in x dir
+              directionStr === "x" && [
+                isModalOpen ? "translate-x-0" : "translate-x-full",
+              ],
+            "transition-translate duration-[800ms]"
+          )}
+        >
+          {children}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default Modal;

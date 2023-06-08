@@ -8,6 +8,10 @@ import useCoffeeLandingAnimationOnScroll from "./useCoffeeLandingAnimation";
 import useAboutAnimation from "./useAboutAnimation";
 import useWorksAnimation from "./useWorksAnimation";
 import useProjectCardsListAnimation from "./useProjectCardsListAnimation";
+import useScrollTextFlowAnimation from "./useScrollTextFlowAnimation";
+import useDisplayTextAnimation from "./useDisplayTextAnimation";
+import useContactTextAnimation from "./useContactAnimation";
+import useFooterAnimation from "./useFooterAnimation";
 
 export {
   useDarkLightButtonAnimation,
@@ -20,4 +24,8 @@ export {
   useAboutAnimation,
   useWorksAnimation,
   useProjectCardsListAnimation,
+  useScrollTextFlowAnimation,
+  useDisplayTextAnimation,
+  useContactTextAnimation,
+  useFooterAnimation,
 };

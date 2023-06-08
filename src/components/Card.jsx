@@ -9,8 +9,8 @@ const Card = ({ id, className, children }) => {
       id={id}
       className={clsx(
         className,
-        "sm:px-[35px] px-[30px]",
-        "sm:py-[40px] py-[35px]",
+        "sm:px-[35px] xs:px-[30px] px-[25px]",
+        "sm:py-[40px] xs:py-[35px] py-[30px]",
         "shadow-xl",
         "flex flex-col justify-center"
       )}

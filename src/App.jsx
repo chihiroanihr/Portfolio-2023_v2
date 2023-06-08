@@ -1,8 +1,8 @@
 import { useRef, useState, useMemo, useCallback, useLayoutEffect } from "react";
 import clsx from "clsx";
 import gsap from "gsap";
-import { Home, About, Works, Galleries, Contact, Footer } from "@views";
-import { Navbar, CoffeeLanding } from "@layouts";
+import { Home, About, Works, Galleries, Contact } from "@views";
+import { Navbar, CoffeeLanding, Display, Footer } from "@layouts";
 import { DarkLightButton } from "@components";
 import { PlayAnimationProvider, DeviceTypeProvider } from "@contexts";
 import {
@@ -13,6 +13,8 @@ import {
 function App() {
   console.log("[Render] App.jsx");
 
+  const contentPageNodeRef = useRef(null);
+
   // ================================ Document On Load ================================ //
   // Set Play Animation State (after loader hidden)
   // !! this state will be globaly available for all child components via useContext Provider.
@@ -21,7 +23,9 @@ function App() {
   // Allow animations when loader is hidden
   // !! useLayoutEffect executes before the DOM is painted -> avoid flash of content (some flickers during animation)
   useLayoutEffect(() => {
-    setPlayAnimation(true);
+    setTimeout(() => {
+      setPlayAnimation(true);
+    }, 500);
   }, []);
 
   // =============================== Landing Animations =============================== //
@@ -35,10 +39,7 @@ function App() {
 
   // Reference to Timeline
   const landingTimelineRef = useRef(
-    gsap.timeline({
-      defaults: { clearProps: true },
-      paused: true,
-    })
+    gsap.timeline({ defaults: { clearProps: true }, paused: true })
   );
 
   useLayoutEffect(() => {
@@ -78,79 +79,68 @@ function App() {
     setIsDarkMode((prev) => !prev);
   }, []);
 
-  // ===================== Change Background Color (Mobile Screen) ===================== //
-  // Set Background Color State
-  const [bgColor, setBgColor] = useState("bg-coffee-100 dark:bg-coffee-800");
-  // Assign new background color when scrolled into section
-  const onChangeBgColor = useCallback((newBgColor) => {
-    setBgColor(newBgColor);
-  }, []);
-
-  // ************************* CSS ************************* //
-  const navbarLayoutPositionStyle = clsx("z-20", "fixed-position-top-stretch");
-  const darkLightButtonPositionStyle = clsx(
-    "z-10",
-    "fixed bottom-7 xl:right-6 lg:right-5 right-4"
-  );
-
   // ************************* JSX ************************* //
   const memoizedContentPage = useMemo(
     () => (
       <>
-        {/* --- Navbar (sticky) --- */}
-        <Navbar
-          addToLandingTimeline={addToTempChildTimelineLists}
-          animateIndex={0}
-          className={navbarLayoutPositionStyle}
-        />
+        <PlayAnimationProvider playAnimation={playAnimation}>
+          {/* --- Navbar (sticky) --- */}
+          <Navbar
+            className={clsx("z-20", "fixed-position-top-stretch")}
+            addToLandingTimeline={addToTempChildTimelineLists}
+            animateIndex={0}
+          />
 
-        {/* ------ Contents ------ */}
-        <Home
-          addToLandingTimeline={addToTempChildTimelineLists}
-          animateIndex={2}
-        />
+          {/* ------ Contents ------ */}
+          <Home
+            addToLandingTimeline={addToTempChildTimelineLists}
+            animateIndex={2}
+          />
+
+          {/* Dark Light Mode Button (sticky) */}
+          <DarkLightButton
+            className={clsx(
+              "z-10",
+              "fixed bottom-7 xl:right-6 lg:right-5 right-4"
+            )}
+            handleToggleDarkMode={handleToggleDarkMode}
+            addToLandingTimeline={addToTempChildTimelineLists}
+            animateIndex={1}
+          />
+        </PlayAnimationProvider>
+
         <CoffeeLanding />
         <About />
-        <Works onChangeBgColor={onChangeBgColor} />
-        <Galleries />
-        <Contact />
-        <Footer />
-
-        {/* Dark Light Mode Button (sticky) */}
-        <DarkLightButton
-          className={darkLightButtonPositionStyle}
-          handleToggleDarkMode={handleToggleDarkMode}
-          addToLandingTimeline={addToTempChildTimelineLists}
-          animateIndex={1}
-        />
+        <Works parentRef={contentPageNodeRef} />
+        <Display />
+        <Contact className="mt-[15vh]" />
+        <Footer className="mt-[40px] pb-[40px]" />
       </>
     ),
-    []
+    [playAnimation]
   );
 
   return (
     <div
       className={clsx(
         "overflow-hidden",
-        isDarkMode && "dark",
-        // opacity transition when loader hidden
-        [playAnimation ? "opacity-100" : "opacity-0"],
+        isDarkMode && "dark", // dark mode toggle
+        playAnimation ? "opacity-100" : "opacity-0", // opacity transition when loader hidden
         "transition-opacity duration-700"
       )}
     >
       {/* Content Page */}
       <DeviceTypeProvider>
-        <PlayAnimationProvider playAnimation={playAnimation}>
-          <div
-            className={clsx(
-              bgColor,
-              // background colors transition when dark mode toggled
-              "transition-[background-color] duration-700 will-change-[background-color]"
-            )}
-          >
-            {memoizedContentPage}
-          </div>
-        </PlayAnimationProvider>
+        <div
+          id="content-page"
+          ref={contentPageNodeRef}
+          className={clsx(
+            "bg-root-color",
+            "[transition:background-color_700ms] will-change-[background-color]" // dark mode transition
+          )}
+        >
+          {memoizedContentPage}
+        </div>
       </DeviceTypeProvider>
     </div>
   );

@@ -1,11 +1,15 @@
 import clsx from "clsx";
 
-const Title = ({ item, className }) => {
+const Title = ({ className, item }) => {
   // ************************* CSS ************************* //
   const titleTextColor = "text-white dark:text-coffee-300";
-  const titleFont = "font-medium xs:text-[32px] text-[25px]";
+  const titleTextStyle = clsx(
+    "font-medium",
+    "leading-tight",
+    "xs:text-[32px] text-[25px]"
+  );
 
-  const titleStyle = clsx(titleTextColor, titleFont);
+  const titleStyle = clsx(titleTextColor, titleTextStyle);
 
   // ************************* JSX ************************* //
   return (

@@ -6,12 +6,10 @@ const InsideSectionContext = createContext({
 });
 
 // Provide Context
-const InsideSectionProvider = ({ isInsideSection, children }) => {
-  return (
-    <InsideSectionContext.Provider value={{ isInsideSection }}>
-      {children}
-    </InsideSectionContext.Provider>
-  );
-};
+const InsideSectionProvider = ({ isInsideSection, children }) => (
+  <InsideSectionContext.Provider value={{ isInsideSection }}>
+    {children}
+  </InsideSectionContext.Provider>
+);
 
 export { InsideSectionContext, InsideSectionProvider };

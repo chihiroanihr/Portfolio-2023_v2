@@ -1,23 +1,24 @@
 const menuListData = [
   {
-    id: "top",
-    href: "#",
+    name: "top",
+    href: "#home",
   },
   {
-    id: "About",
-    href: "#",
+    name: "About",
+    href: "#about",
   },
   {
-    id: "Project",
-    href: "#",
+    name: "Project",
+    href: "#works",
+    offset: true,
   },
   {
-    id: "Gallery",
-    href: "#",
+    name: "Gallery",
+    href: "",
   },
   {
-    id: "Contact",
-    href: "#",
+    name: "Contact",
+    href: "#contact",
   },
 ];
 

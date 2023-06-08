@@ -5,6 +5,7 @@ import projectsListData from "./projectsListData";
 import workTimelineListData from "./workTimelineListData";
 import lifeTimelineListData from "./lifeTimelineListData";
 import spiralSvgData from "./spiralSvgData";
+import footerData from "./footerData";
 
 export {
   imageCardsListData,
@@ -14,4 +15,5 @@ export {
   workTimelineListData,
   lifeTimelineListData,
   spiralSvgData,
+  footerData,
 };

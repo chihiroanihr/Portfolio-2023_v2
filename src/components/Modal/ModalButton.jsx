@@ -1,45 +1,51 @@
-import { useContext } from "react";
-import clsx from "clsx";
-import { Button } from "@components";
+import { useCallback, useContext } from "react";
+import { Button, FancyButton } from "@components";
 import { ToggleModalContext, ScrollLockContext } from "@contexts";
+import { buttonStyle } from "@themes";
 
-const ModalButton = ({ id, className, children }) => {
+const ModalButton = ({ id, className, value, defaultStyle = true }) => {
   console.log("[Render] @components/Modal/ModalButton.jsx");
 
   // Retrieve States from Contexts
   const { handleToggleModal } = useContext(ToggleModalContext);
   const { handleScrollLock } = useContext(ScrollLockContext);
 
-  const modalOpenBtnFontType = "font-default-sans";
-  const modalOpenBtnBgColor =
-    "bg-coffee-600 hover:bg-coffee-800 dark:bg-coffee-300 dark:hover:bg-coffee-100";
-  const modalOpenBtnTextColor = "text-coffee-100 dark:text-coffee-800";
+  const handleClick = useCallback(() => {
+    handleToggleModal();
+    handleScrollLock();
+  }, []);
 
-  return (
+  return defaultStyle ? (
     <Button
       id={id}
       className={clsx(
         className,
-        // layout style
-        "rounded-full",
-        "px-8 py-2",
-        // effect style
-        "shadow-light-btn-100 dark:shadow-dark-btn-100",
-        // font style
-        modalOpenBtnFontType,
-        "sm:text-[24px] xs:text-[20px] text-[15px]",
-        // color style
-        modalOpenBtnBgColor,
-        modalOpenBtnTextColor,
-        "transition-colors duration-200"
+        clsx(
+          // layout style
+          "rounded-full",
+          "px-8 py-2",
+          // effect style
+          "shadow-light-btn-100 dark:shadow-dark-btn-100",
+          // font style
+          btnStyle.defualtModalBtnStyle.fontFamily,
+          "sm:text-[24px] xs:text-[20px] text-[15px]",
+          // color style
+          btnStyle.defualtModalBtnStyle.bgColor,
+          btnStyle.defualtModalBtnStyle.textColor,
+          "transition-colors duration-200"
+        )
       )}
-      onClick={() => {
-        handleToggleModal();
-        handleScrollLock();
-      }}
-    >
-      {children}
-    </Button>
+      value={value}
+      onClick={onClick}
+    />
+  ) : (
+    <FancyButton
+      id={id}
+      className={className}
+      value={value}
+      onClick={handleClick}
+      btnStyle={buttonStyle.fancyModalBtnStyle}
+    />
   );
 };
 

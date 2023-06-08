@@ -1,4 +1,8 @@
+// Credits: distillocafe
+// https://distillocaffe.com/en/
+
 import React, { useRef, useEffect } from "react";
+import clsx from "clsx";
 import { spiralSvgData } from "@data";
 
 const SpiralText = ({ className, fillColor, onDataUpdate }) => {
@@ -41,7 +45,10 @@ const SpiralText = ({ className, fillColor, onDataUpdate }) => {
           aria-label={spiralSvgData.textData}
           textLength={5420}
           startOffset={0}
-          className={fillColor}
+          className={clsx(
+            fillColor,
+            "transition-[fill] duration-300 will-change-[fill]" // dark mode transition
+          )}
           // style={{letterSpacing: "10px"}}
           // textRendering="optimizeSpeed"
         >

@@ -1,15 +1,15 @@
 import clsx from "clsx";
 
-const Line = ({ id, children }) => {
+const Line = ({ id, className, children }) => {
   // ************************* CSS ************************* //
   const lineColorStyle = "before:bg-coffee-400";
 
   const lineStyle = clsx(
     // position
-    "before:absolute before:top-0 before:md:left-1/2 before:sm:left-[58px] before:left-[38px]",
+    "before:absolute before:top-0 before:md:left-1/2 before:left-[8px]",
     // layout
-    "before:content-[''] before:-ml-px",
-    "before:w-[2px] before:h-full",
+    "before:content-['']",
+    "before:w-[1px] before:h-full",
     // color
     lineColorStyle
   );
@@ -19,10 +19,11 @@ const Line = ({ id, children }) => {
     <div
       id={id}
       className={clsx(
+        className,
         "relative",
         "overflow-hidden",
-        "mx-auto md:my-[30px] my-[20px]",
-        "sm:p-[50px] p-[30px]",
+        "mx-auto",
+        "sm:py-[50px] py-[30px]",
         "w-full",
         lineStyle
       )}

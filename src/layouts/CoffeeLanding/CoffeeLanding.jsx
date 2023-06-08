@@ -56,9 +56,13 @@ const CoffeeLanding = () => {
   // ************************* CSS ************************* //
   const spiralTextFont = "font-default-sans";
   const spiralTextFillColor = "fill-coffee-600 dark:fill-coffee-300";
-  const spiralTextSizeStyle =
-    "xxl:scale-[120%] xl:scale-[130%] md:scale-[160%] scale-[210%]";
-  const spiralTextFontStyle = clsx("font-medium", "xxxl:text-xl text-2xl");
+
+  const spiralTextTextStyle = clsx(
+    "font-medium",
+    "xxxl:text-xl text-2xl",
+    spiralTextFont,
+    spiralTextFillColor
+  );
 
   // ************************* JSX ************************* //
   return (
@@ -76,9 +80,8 @@ const CoffeeLanding = () => {
       <SpiralText
         className={clsx(
           "absolute",
-          spiralTextFont,
-          spiralTextSizeStyle,
-          spiralTextFontStyle
+          "xxl:scale-[100%] xl:scale-[130%] md:scale-[160%] scale-[210%]",
+          spiralTextTextStyle
         )}
         fillColor={spiralTextFillColor}
         onDataUpdate={handleChildData}

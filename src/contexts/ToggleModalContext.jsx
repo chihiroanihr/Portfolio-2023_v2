@@ -10,6 +10,7 @@ const ToggleModalContext = createContext({
 const ToggleModalProvider = ({ children }) => {
   // Set Modal Oepn State
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Toggle Modal Button
   const handleToggleModal = useCallback(() => {
     setIsModalOpen((prev) => !prev);

@@ -1,10 +1,4 @@
-import {
-  useContext,
-  useMemo,
-  useLayoutEffect,
-  useRef,
-  forwardRef,
-} from "react";
+import { useContext, useMemo, useLayoutEffect, forwardRef } from "react";
 import clsx from "clsx";
 import { Link } from "@components";
 import { ToggleMenuContext, ScrollLockContext } from "@contexts";
@@ -14,9 +8,6 @@ import { cleanUpGsapAnimation } from "@animations/utils";
 
 const MenuList = forwardRef(({ className }, ref) => {
   console.log("[Render] @layouts/Navbar/MenuList.jsx");
-
-  // Node Reference for Animation
-  const menuListNodesRefs = useRef([]);
 
   // Retrieve States from Contexts
   const { isMenuOpen, handleToggleMenu } = useContext(ToggleMenuContext);
@@ -28,7 +19,7 @@ const MenuList = forwardRef(({ className }, ref) => {
     console.log("[LOG] (MenuList.jsx) Animation Started");
 
     // Retrieve Animation
-    const animation = useMenuListAnimation(menuListNodesRefs.current);
+    const animation = useMenuListAnimation(ref.current);
 
     // Clean Up Animation
     return () => {
@@ -39,37 +30,82 @@ const MenuList = forwardRef(({ className }, ref) => {
 
   // ************************* CSS ************************* //
   const menuListItemsTextColor = "text-coffee-800 dark:text-coffee-100";
-  const menuListItemsTextFont = "font-default-sans";
+  const menuListItemsTextFont = "font-default-serif";
 
   const menuListItemsFontStyle = clsx(
     menuListItemsTextColor,
     menuListItemsTextFont,
-    "font-semibold tracking-widest uppercase no-underline"
+    "sm:text-[30px] xs:text-[25px] text-[20px]",
+    "font-semibold tracking-widest uppercase"
+  );
+
+  // Menu List Bar Animation Style
+  const initBarStyleBefore = clsx(
+    "before:content-['']",
+    "before:absolute",
+    "before:top-1/2",
+    "before:left-0",
+    "before:w-0 before:h-[1.5px]",
+    "before:bg-coffee-800 dark:before:bg-coffee-100"
+  );
+  const initBarStyleAfter = clsx(
+    "after:content-['']",
+    "after:absolute",
+    "after:top-1/2",
+    "after:right-0",
+    "after:w-0 after:h-[1.5px]",
+    "after:bg-coffee-800 dark:after:bg-coffee-100"
+  );
+  const hoverBarStyleBefore = clsx(
+    "hover:before:w-full",
+    "hover:before:[transition:width_0.3s_ease-in-out]"
+  );
+  const hoverBarStyleAfter = clsx(
+    "hover:after:w-full",
+    "hover:after:bg-transparent",
+    "after:[transition:width_0.3s_ease-in-out]"
   );
 
   // ************************* JSX ************************* //
   // Memoize the mapped menuListData array
   const memoizedMenuListItems = useMemo(
     () =>
-      menuListData.map(({ id, href }, index) => (
-        <li
-          key={id}
-          id={id}
-          className="list-none text-center"
-          ref={(el) => (menuListNodesRefs.current[index] = el)}
-        >
-          <Link
-            href={href}
-            onClick={() => {
-              handleToggleMenu();
-              handleScrollLock();
-            }}
-            className={clsx("block", "p-3", menuListItemsFontStyle)}
-          >
-            {id}
-          </Link>
-        </li>
-      )),
+      menuListData.map(({ name, href, offset }) => {
+        const disabled = !href || href.trim().length === 0;
+
+        return (
+          <li key={name} id="menu-list-item" className="list-none text-center">
+            <Link
+              className={clsx(
+                "relative",
+                "inline-block",
+                "p-3",
+                menuListItemsFontStyle,
+                disabled && "opacity-40 line-through"
+              )}
+              href={href}
+              disabled={disabled}
+              offset={offset && window.innerHeight} // 100vh offset
+              onClick={() => {
+                handleToggleMenu();
+                handleScrollLock();
+              }}
+            >
+              <span
+                className={clsx(
+                  "relative",
+                  initBarStyleBefore,
+                  hoverBarStyleBefore,
+                  initBarStyleAfter,
+                  hoverBarStyleAfter
+                )}
+              >
+                {name}
+              </span>
+            </Link>
+          </li>
+        );
+      }),
     [menuListData]
   );
 
@@ -78,12 +114,12 @@ const MenuList = forwardRef(({ className }, ref) => {
       ref={ref}
       className={clsx(
         className,
-        "flex flex-col",
-        {
-          "opacity-0 pointer-events-none duration-200": !isMenuOpen,
-          "opacity-100 cursor-pointer duration-500 delay-200": isMenuOpen,
-        },
-        "transition-opacity"
+        "w-full h-full",
+        isMenuOpen
+          ? "opacity-100 duration-500 delay-200"
+          : "opacity-0 pointer-events-none duration-200",
+        "transition-opacity",
+        "flex flex-col justify-center items-center"
       )}
     >
       {memoizedMenuListItems}

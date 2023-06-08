@@ -1,15 +1,13 @@
 import React, {
   useRef,
   useState,
-  useContext,
   useCallback,
   useLayoutEffect,
   useEffect,
 } from "react";
 import clsx from "clsx";
 import { DropBackground, ProjectCardsList } from "@layouts";
-import { SectionOverlay } from "@components";
-import { DeviceTypeContext, InsideSectionProvider } from "@contexts";
+import { InsideSectionProvider } from "@contexts";
 import { positionStyle } from "@themes";
 import { useResizeObserverCallback } from "@utils";
 import { useWorksAnimation } from "@animations";
@@ -18,18 +16,40 @@ import {
   cleanUpGsapAnimation,
 } from "@animations/utils";
 
-const Works = ({ onChangeBgColor }) => {
-  console.log("[Render] @views/Works.jsx");
+const Heading = React.memo(({ id, className }) => {
+  const fontType = "font-fredoka-sans";
+  const textColor = "text-milky dark:text-chocolate-light";
+  const textShadowColor = "text-shadow-milky dark:text-shadow-chocolate";
 
-  const overlayFillColor = "fill-milky dark:fill-chocolate";
-  const mobileBgColor = "bg-milky dark:bg-chocolate";
+  return (
+    <div
+      id={id}
+      className={clsx(
+        className,
+        "prevent-select",
+        "relative",
+        textColor, // text style
+        textShadowColor, // text shadow style
+        fontType, // font type style
+        "font-black tracking-wide uppercase text-center", // font style
+        // font size style
+        "lg:text-[150px] md:text-[100px] sm:text-[90px] xs:text-[70px] text-[55px]",
+        "lg:leading-[140px] md:leading-[100px] sm:leading-[90px] xs:leading-[70px] leading-[55px]",
+        // transition style
+        "[transition:color_0.7s,text-shadow_0.7s] will-change-[color,text-shadow]" // dark mode transition
+      )}
+    >
+      Featured Works
+    </div>
+  );
+});
+
+const Works = ({ parentRef }) => {
+  console.log("[Render] @views/Works.jsx");
 
   // Node references
   const worksSectionNodeRef = useRef(null);
   const projectCardsListContainerNodeRef = useRef(null);
-
-  // Allow SectionOverlay depending on device type
-  const { isTouchDevice } = useContext(DeviceTypeContext);
 
   // Inside section state
   const [isInsideSection, setIsInsideSection] = useState(false);
@@ -81,10 +101,7 @@ const Works = ({ onChangeBgColor }) => {
 
     // Retrieve Animation
     ctx.add(() => {
-      useWorksAnimation({
-        worksSectionNode,
-        handleInsideSection,
-      });
+      useWorksAnimation({ worksSectionNode, handleInsideSection });
     }, worksSectionNodeRef);
 
     // Clean Animation
@@ -94,10 +111,20 @@ const Works = ({ onChangeBgColor }) => {
     };
   }, []);
 
+  // =============== Change Root Background Color =============== // (only for mobile device)
   useEffect(() => {
-    if (isTouchDevice) {
-      if (isInsideSection) onChangeBgColor(mobileBgColor);
-      else onChangeBgColor("bg-coffee-100 dark:bg-coffee-800");
+    if (!parentRef.current) return;
+
+    if (isInsideSection) {
+      parentRef.current.classList.remove("bg-root-color");
+      parentRef.current.classList.add("bg-milky", "dark:bg-chocolate");
+    } else {
+      if (
+        parentRef.current.classList.contains("bg-milky", "dark:bg-chocolate")
+      ) {
+        parentRef.current.classList.remove("bg-milky", "dark:bg-chocolate");
+        parentRef.current.classList.add("bg-root-color");
+      }
     }
   }, [isInsideSection]);
 
@@ -108,73 +135,40 @@ const Works = ({ onChangeBgColor }) => {
       className={clsx("relative", "overflow-hidden", "w-screen min-h-screen")}
       style={{ marginTop: -positionStyle.workToAboutSectionTransitionPosition }}
     >
-      <InsideSectionProvider isInsideSection={isInsideSection}>
-        {!isTouchDevice && (
-          <SectionOverlay
-            className={clsx(
-              "absolute",
-              "w-full h-full",
-              overlayFillColor,
-              "transition-dark-mode duration-700 will-change-dark-mode"
-            )}
-            parentRef={worksSectionNodeRef}
-            duration={0.8}
-          />
+      <div
+        id="wrapper"
+        className={clsx(
+          "z-[1]",
+          "relative",
+          "page-layout",
+          "min-h-screen",
+          "mt-[100vh]",
+          positionStyle.workToDisplaySectionTransitionPosition
         )}
+      >
+        {/* --------- Headings -------- */}
+        <Heading id="heading" className="z-10" />
+
+        {/* --------- Works -------- (Outer div necessary because of ClickedDrop to work) */}
         <div
-          id="wrapper"
-          className={clsx(
-            "z-[1]",
-            "relative",
-            "page-layout",
-            "min-h-screen",
-            "mt-[100vh]",
-            "mb-[50vh]"
-          )}
+          ref={projectCardsListContainerNodeRef}
+          className={clsx("relative", "sm:mt-[100px] mt-[50px]")}
         >
-          {/* --------- Headings -------- */}
-          <div
-            id="heading"
-            className={clsx(
-              "prevent-select",
-              "z-10",
-              "relative",
-              // color style
-              "text-milky dark:text-chocolate-light",
-              // font shadow style
-              "text-shadow-milky dark:text-shadow-chocolate",
-              // font size style
-              "lg:text-[150px] md:text-[100px] sm:text-[90px] xs:text-[70px] text-[55px]",
-              "lg:leading-[140px] md:leading-[100px] sm:leading-[90px] xs:leading-[70px] leading-[55px]",
-              // font type style
-              "font-fredoka-sans",
-              "font-black tracking-wide uppercase text-center",
-              // transition style
-              "transition-dark-mode duration-700 will-change-dark-mode"
-            )}
-          >
-            Featured Works
-          </div>
+          <ProjectCardsList
+            id="cards"
+            className={clsx("relative", "z-10")}
+            parentRef={worksSectionNodeRef}
+          />
+        </div>
 
-          {/* --------- Works -------- (Outer div necessary because of ClickedDrop to work) */}
-          <div
-            ref={projectCardsListContainerNodeRef}
-            className={clsx("relative", "sm:mt-[100px] mt-[50px]")}
-          >
-            <ProjectCardsList
-              id="cards"
-              className="relative z-10"
-              parentRef={worksSectionNodeRef}
-            />
-          </div>
-
-          {/* --------- Background -------- */}
+        {/* --------- Background -------- */}
+        <InsideSectionProvider isInsideSection={isInsideSection}>
           <DropBackground
             id="background"
             className={clsx("absolute", "top-0", "h-full w-full")}
           />
-        </div>
-      </InsideSectionProvider>
+        </InsideSectionProvider>
+      </div>
     </section>
   );
 };

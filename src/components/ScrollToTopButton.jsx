@@ -3,14 +3,22 @@ import clsx from "clsx";
 import { SlArrowUpCircle } from "react-icons/sl";
 import { Button } from "@components";
 
-const ScrollToTopButton = ({ className, strokeColor, fontType, onClick }) => {
+const ScrollToTopButton = ({ className, onClick }) => {
   console.log("[Render] @components/ScrollToTopButton.jsx");
 
+  // ************************* CSS ************************* //
+  const scrollToTopTextFont = "font-default-sans";
+  const scrollToTopButtonStrokeColor = clsx(
+    "text-coffee-600",
+    "hover:text-coffee-800"
+  );
+
+  // ************************* JSX ************************* //
   return (
     <Button
       className={clsx(
         className,
-        strokeColor,
+        scrollToTopButtonStrokeColor,
         "transition-colors duration-200",
         "flex flex-col items-center"
       )}
@@ -18,7 +26,7 @@ const ScrollToTopButton = ({ className, strokeColor, fontType, onClick }) => {
     >
       <p
         className={clsx(
-          fontType,
+          scrollToTopTextFont,
           "font-semibold",
           "text-[12px]",
           "tracking-widest"

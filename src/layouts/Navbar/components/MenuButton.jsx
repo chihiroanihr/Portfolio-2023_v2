@@ -19,11 +19,10 @@ const MenuButton = ({ id, className }) => {
 
   // Menu Button Border Style
   const menuButtonStyle = clsx(
-    // ---------- Wrapper ----------
+    // ------------- Wrapper ------------- //
     "scale-[0.6] sm:scale-[0.8]",
     navbarStyle.menuButton.wrapper,
-
-    // ---------- Border ----------
+    // ------------- Border ------------- //
     // position style
     "after:absolute after:left-1/2 after:top-1/2",
     "after:-ml-[43px] after:-mt-[43px]",
@@ -34,10 +33,7 @@ const MenuButton = ({ id, className }) => {
     // color style
     menuButtonBorderColor,
     // animation style
-    {
-      "after:opacity-100": isMenuOpen,
-      "after:opacity-0": !isMenuOpen,
-    },
+    isMenuOpen ? "after:opacity-100" : "after:opacity-0",
     "after:transition-opacity after:duration-500",
     "flex flex-col justify-between"
   );
@@ -52,17 +48,20 @@ const MenuButton = ({ id, className }) => {
   const hamburgerFirstLineStyle = clsx(
     hamburgerLineStyle,
     isMenuOpen && "translate-y-[18px] rotate-45",
-    "[transition:transform_500ms,background_500ms]"
+    "[transition:transform_500ms,background-color_700ms]", // dark mode transition
+    "will-change-[background-color]"
   );
   const hamburgerSecondLineStyle = clsx(
     hamburgerLineStyle,
     isMenuOpen && "pointer-events-none translate-x-3/4 opacity-0",
-    "[transition:transform_700ms,opacity_700ms,background_500ms]"
+    "[transition:transform_700ms,opacity_700ms,background-color_700ms]", // dark mode transition
+    "will-change-[background-color]"
   );
   const hamburgerThirdLineStyle = clsx(
     hamburgerLineStyle,
     isMenuOpen && "-translate-y-[18px] -rotate-45",
-    "[transition:transform_500ms,background_500ms]"
+    "[transition:transform_500ms,background-color_700ms]", // dark mode transition
+    "will-change-[background-color]"
   );
 
   // ************************* JSX ************************* //

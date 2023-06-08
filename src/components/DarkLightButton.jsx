@@ -29,6 +29,7 @@ const DarkLightButton = ({
     const animation = useDarkLightButtonAnimation(
       darkLightButtonNodeRef.current
     );
+
     // Add timeline to parent component's timeline
     addToLandingTimeline(animation, animateIndex);
 
@@ -45,23 +46,22 @@ const DarkLightButton = ({
     "stroke-coffee-600 dark:stroke-transparent";
 
   const darkLightButtonStyle = clsx(
-    className,
     "rounded-full p-2",
     "shadow-light-btn-200 dark:shadow-dark-btn-200"
   );
-  
+
   const darkLightButtonSvgStyle = clsx(
     "w-10",
     darkLightButtonFillColor,
     darkLightButtonStrokeColor,
-    "transition-colors duration-500"
+    "[transition:fill_500ms,stroke_500ms] will-change-[fill,stroke]" // dark mode transition
   );
 
   // ************************* JSX ************************* //
   return (
     <Button
       ref={darkLightButtonNodeRef}
-      className={darkLightButtonStyle}
+      className={clsx(className, darkLightButtonStyle)}
       onClick={handleToggleDarkMode}
     >
       <svg

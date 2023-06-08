@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-const Description = ({ id, children }) => {
+const Description = ({ id, index, item }) => {
   // ************************* CSS ************************* //
   const descriptionTextStyle = clsx(
     "whitespace-pre-line",
@@ -12,9 +12,14 @@ const Description = ({ id, children }) => {
   return (
     <p
       id={id}
-      className={clsx("mt-[15px]", "whitespace-pre-line", descriptionTextStyle)}
+      className={clsx(
+        "mt-[15px]",
+        index % 2 === 0 ? "md:pl-[40px]" : "md:pr-[40px]",
+        "whitespace-pre-line",
+        descriptionTextStyle
+      )}
     >
-      {children}
+      {item}
     </p>
   );
 };

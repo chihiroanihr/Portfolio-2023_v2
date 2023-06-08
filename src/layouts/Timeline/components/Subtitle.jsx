@@ -1,7 +1,8 @@
-import React from "react";
 import clsx from "clsx";
+import { MdLocationPin } from "react-icons/md";
+import { IoCalendar } from "react-icons/io5";
 
-const Subtitle = ({ id, index, children }) => {
+const Subtitle = ({ id, index, date, location }) => {
   // ************************* CSS ************************* //
   const subtitleTextColor = "text-coffee-400";
 
@@ -22,7 +23,21 @@ const Subtitle = ({ id, index, children }) => {
         subtitleTextStyle
       )}
     >
-      {children}
+      {/* Date */}
+      {date && (
+        <div className="flex items-center">
+          <IoCalendar size={20} className="inline-block mr-[4px]" />
+          <p>{date}</p>
+        </div>
+      )}
+
+      {/* Location */}
+      {location && (
+        <div className="flex items-center">
+          <MdLocationPin size={20} className="inline-block" />
+          <p>{location}</p>
+        </div>
+      )}
     </div>
   );
 };

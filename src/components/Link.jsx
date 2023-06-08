@@ -5,22 +5,29 @@ const Link = ({
   className,
   href,
   target,
-  onClick: handleParentClick = null,
   disabled = false,
+  offset = null,
+  onClick: handleParentClick = null,
   children,
 }) => {
   console.log("[Render] @components/Link.jsx");
 
-  // If disabled link
-  const disableClick = (event) => {
-    if (disabled) {
-      event.preventDefault();
+  const offsetClick = (event) => {
+    event.preventDefault();
+
+    if (offset) {
+      const targetElement = document.querySelector(
+        event.currentTarget.getAttribute("href")
+      );
+
+      window.scrollTo({ top: targetElement.offsetTop + offset }); // offset in px
     }
   };
 
   // onClick function
-  const handleClick = () => {
-    disableClick();
+  const handleClick = (event) => {
+    if (disabled) event.preventDefault();
+    if (offset) offsetClick(event);
     if (handleParentClick) handleParentClick();
   };
 
@@ -30,7 +37,6 @@ const Link = ({
       id={id}
       href={href}
       target={target}
-      disabled={disabled}
       onClick={handleClick}
     >
       {children}

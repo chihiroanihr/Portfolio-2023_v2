@@ -9,17 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "body-scroll-lock-upgrade": "^1.0.3",
     "clsx": "^1.2.1",
     "gsap": "npm:@gsap/member@^3.11.5",
-    "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "react-spring": "^9.7.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

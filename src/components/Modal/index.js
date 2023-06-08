@@ -1,4 +1,5 @@
 import Modal from "./Modal";
+import ModalBgOverlay from "./ModalBgOverlay";
 import ModalButton from "./ModalButton";
 
-export { Modal, ModalButton };
+export { Modal, ModalBgOverlay, ModalButton };

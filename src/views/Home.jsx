@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { ImageCardsList } from "@layouts";
 import { ScrollLine } from "@components";
 import { PlayAnimationContext } from "@contexts";
+import { homeStyle } from "@themes";
+import { isFontAvailable } from "@utils";
 import { useHomeAnimation } from "@animations";
 import {
   cleanUpGsapAnimation,
@@ -26,9 +28,6 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   const inlineTextWrapperNodeRef = useRef(null);
   const textContainerNodeRef = useRef(null);
 
-  // GSAP Home Timeline Reference
-  const homeTimelineRef = useRef();
-
   // Temporary Child Component Timelines Reference
   const tempChildTimelinesListRef = useRef({});
 
@@ -36,6 +35,11 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   const addToTempChildTimelineLists = useCallback((timeline, animateIndex) => {
     tempChildTimelinesListRef.current[animateIndex] = timeline;
   }, []);
+
+  // GSAP Home Timeline Reference
+  const homeTimelineRef = useRef();
+
+  const customFontAvailableRef = useRef(false);
 
   // Update animation when playAnimation is triggered
   useLayoutEffect(() => {
@@ -77,33 +81,76 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   const homePageDefaultTextColor = "text-coffee-600 dark:text-coffee-300";
   const homePageHightlightTextColor = "text-yellow-500";
 
-  const sippingOnTextFontStyle = clsx(
-    "leading-snug",
-    "md:font-extralight font-light",
-    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
-  );
-  const creativityTextFontStyle = clsx(
-    "whitespace-nowrap",
-    "leading-snug",
-    "lg:text-[96px] md:text-[72px] xs:text-[48px] text-[36px]"
-  );
-  const oneCupOfTextFontStyle = clsx(
-    "leading-snug",
-    "md:font-extralight font-light",
-    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
-  );
-  const coffeeTextFontStyle = clsx(
-    "leading-snug",
-    "md:font-light font-normal",
-    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
-  );
-  const atTimeTextFontStyle = clsx(
-    "leading-snug",
-    "md:font-extralight font-light",
-    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
-  );
+  // TODO: This does not work on FireFox
+  customFontAvailableRef.current = isFontAvailable("Radditya Signature");
+  const homeTextStyle = customFontAvailableRef.current
+    ? homeStyle.customHomeStyle
+    : homeStyle.customHomeStyle; // defaultHomeStyle
 
   // ************************* JSX ************************* //
+  const homeTextSection = (
+    <>
+      <div
+        ref={sippingOnTextNodeRef}
+        className={clsx(
+          // !customFontAvailableRef.current &&
+          //   "xl:mb-[35px] md:mb-[30px] mb-[15px]",
+          homeTextStyle.sippingOnTextStyle
+        )}
+      >
+        Sipping on
+      </div>
+      <div
+        ref={creativityTextNodeRef}
+        id="creativity"
+        className={clsx(
+          "z-10",
+          // !customFontAvailableRef.current ? "pl-[8px] :",
+          "font-bold",
+          homeTextStyle.creativityTextStyle,
+          homePageCreativityTextFont
+        )}
+      >
+        Creativity
+      </div>
+      {/* !! texts into one line (inline) - necessary due to animation */}
+      <div
+        ref={inlineTextWrapperNodeRef}
+        className={clsx("relative inline-block")}
+      >
+        <span
+          ref={oneCupOfTextNodeRef}
+          className={homeTextStyle.oneCupOfTextStyle}
+        >
+          one cup of{" "}
+        </span>
+        <span
+          ref={coffeeTextNodeRef}
+          className={clsx(
+            "absolute",
+            "prevent-select",
+            homeTextStyle.coffeeTextStyle
+          )}
+        >
+          coffee
+        </span>
+        <span
+          ref={coffeeTextNodeCopyRef}
+          className={clsx(
+            "absolute top-0",
+            homeTextStyle.coffeeTextStyle,
+            homePageHightlightTextColor
+          )}
+        >
+          coffee
+        </span>
+      </div>
+      <div ref={atTimeTextNodeRef} className={homeTextStyle.atTimeTextStyle}>
+        at a time.
+      </div>
+    </>
+  );
+
   return (
     <section id="home" className="page-layout home-page-spacing h-screen">
       <div
@@ -124,63 +171,10 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
             "xl:col-span-6 lg:col-span-7 md:col-span-6 sm:col-span-5 col-span-full",
             "flex flex-col justify-center",
             homePageDefaultTextFont,
-            homePageDefaultTextColor,
-            "transition-dark-mode duration-700 will-change-drak-mode"
+            homePageDefaultTextColor
           )}
         >
-          <div
-            ref={sippingOnTextNodeRef}
-            className={clsx(
-              "xl:mb-[35px] md:mb-[30px] mb-[15px]",
-              sippingOnTextFontStyle
-            )}
-          >
-            Sipping on
-          </div>
-          <div
-            ref={creativityTextNodeRef}
-            id="creativity"
-            className={clsx(
-              "z-10",
-              "pl-[8px]",
-              homePageCreativityTextFont,
-              creativityTextFontStyle
-            )}
-          >
-            Creativity
-          </div>
-          {/* !! texts into one line (inline) - necessary due to animation */}
-          <div
-            ref={inlineTextWrapperNodeRef}
-            className={clsx("relative inline-block")}
-          >
-            <span ref={oneCupOfTextNodeRef} className={oneCupOfTextFontStyle}>
-              one cup of{" "}
-            </span>
-            <span
-              ref={coffeeTextNodeRef}
-              className={clsx(
-                "absolute",
-                "prevent-select",
-                coffeeTextFontStyle
-              )}
-            >
-              coffee
-            </span>
-            <span
-              ref={coffeeTextNodeCopyRef}
-              className={clsx(
-                "absolute top-0",
-                coffeeTextFontStyle,
-                homePageHightlightTextColor
-              )}
-            >
-              coffee
-            </span>
-          </div>
-          <div ref={atTimeTextNodeRef} className={atTimeTextFontStyle}>
-            at a time.
-          </div>
+          {homeTextSection}
         </div>
 
         {/* ---------------- Image Area ---------------- */}

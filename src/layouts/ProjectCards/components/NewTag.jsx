@@ -1,23 +1,46 @@
 import clsx from "clsx";
-import newImg from "@assets/images/new.png";
+import newTagLetterImg from "@assets/images/newtag/new-letter.png";
+import newTagCircleImg from "@assets/images/newtag/new-circle.png";
 
-const NewTag = ({ id, src = newImg, width = 110 }) => {
-  return (
+const NewTag = ({ id, className }) => {
+  // Option 1
+  const newTagCircle = (
     <img
       id={id}
-      src={src}
+      src={newTagCircleImg}
       className={clsx(
-        "prevent-select",
+        className,
         "absolute",
         "-top-[5%] -right-[7%]",
         "rotate-[-10deg]",
+        "xs:w-[110px] w-[90px]",
         "opacity-80",
         "dark:invert",
-        "dark:grayscale"
+        "dark:grayscale",
+        "prevent-select"
       )}
-      width={width}
     />
   );
+
+  // Option 2
+  const newTagLetters = (
+    <img
+      id={id}
+      src={newTagLetterImg}
+      className={clsx(
+        className,
+        "absolute",
+        "top-0 -right-[15%]",
+        "rotate-[40deg]",
+        "xs:w-[180px] w-[160px]",
+        "dark:grayscale",
+        "dark:brightness-200",
+        "prevent-select"
+      )}
+    />
+  );
+
+  return newTagLetters;
 };
 
 export default NewTag;

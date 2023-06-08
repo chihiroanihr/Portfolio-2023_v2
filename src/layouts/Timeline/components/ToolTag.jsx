@@ -3,8 +3,8 @@ import clsx from "clsx";
 
 const ToolTag = ({ item }) => {
   // ************************* CSS ************************* //
-  const toolTagBgColor = "bg-coffee-800/90";
-  const toolTagtextColor = "text-coffee-100";
+  const toolTagBgColor = "bg-coffee-400";
+  const toolTagtextColor = "text-white";
 
   const toolTagStyle = clsx(
     // layout

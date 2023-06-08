@@ -51,22 +51,27 @@ const CategoryLinksContainer = ({
     categoryTagBgColor,
     textColor,
     // font style
-    "font-semibold sm:text-[14px] text-[12px]",
+    "font-semibold sm:text-[14px] xs:text-[12px] text-[10px]",
     // layout style
-    "rounded-3xl px-[16px] py-[8px]",
+    "rounded-3xl",
+    "xs:px-[16px] xs:py-[8px]",
+    "px-[14px] py-[6px]",
     // effect style
-    "shadow-btn-on-cards"
+    "shadow-btn-on-cards",
+    // dark mode transition
+    "[transition:background-color_700ms] will-change-[background-color]"
   );
   const linkTagStyle = clsx(
     // color style
     linkTagBgColor,
     linkTagBgHoverColor,
     textColor,
-    "[transition:background-color_200ms]",
     // layout style
     "rounded-full p-[8px]",
     // effect style
-    "shadow-btn-on-cards"
+    "shadow-btn-on-cards",
+    // animation on hover
+    "[transition:background-color_200ms]"
   );
 
   return (
@@ -75,9 +80,9 @@ const CategoryLinksContainer = ({
       id="category-links-container"
       className={clsx(
         className,
-        [isFlexWrapped ? "justify-center" : "justify-between"],
+        isFlexWrapped ? "justify-center" : "justify-between",
         "flex flex-wrap items-center",
-        "gap-3"
+        "gap-x-3 gap-y-4"
       )}
     >
       {/* Category */}
@@ -96,18 +101,24 @@ const CategoryLinksContainer = ({
           href={sourceCode}
           target="_blank"
           className={clsx(linkTagStyle, !sourceCode && "opacity-40")}
-          disabled={!sourceCode && true}
+          disabled={!sourceCode || sourceCode.trim().length === 0}
         >
-          <HiOutlineCode className="text-[20px]" strokeWidth={2.3} />
+          <HiOutlineCode
+            className="xs:text-[20px] text-[15px]"
+            strokeWidth={2.3}
+          />
         </Link>
         {/* Link to Project */}
         <Link
           href={website}
           target="_blank"
           className={clsx(linkTagStyle, !website && "opacity-40")}
-          disabled={!website && true}
+          disabled={!website || website.trim().length === 0}
         >
-          <HiOutlineLink className="text-[20px]" strokeWidth={2.3} />
+          <HiOutlineLink
+            className="xs:text-[20px] text-[15px]"
+            strokeWidth={2.3}
+          />
         </Link>
       </div>
     </div>

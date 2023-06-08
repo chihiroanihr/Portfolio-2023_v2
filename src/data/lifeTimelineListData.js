@@ -31,14 +31,15 @@ const lifeTimelineListData = [
     logo: concordiaLogoImg,
     location: "Montreal, QC",
     description:
-      "Object Oriented Programming, System Hardware, Operation System, Data Structure & Algorithms, Computer Networks, Artificial Intelligence, Web Programming, etc...\
+      "Object Oriented Programming, System Hardware, Operation System, Data Structure & Algorithms, \
+      Computer Networks, Artificial Intelligence, Web Programming, etc...\
       \nHome of the endless coding marathons and the land of the 2 a.m. caffeine runs :)",
   },
   {
     id: 4,
     date: "Dec 2022",
     title:
-      "🎓 Graduates Concordia University — Bachelor of Computer Science (co-op)",
+      "🎓 Graduates Concordia University — Bachelor of Computer Science\n(co-op)",
     location: "Montreal, QC",
     description: "YEEHAW",
   },

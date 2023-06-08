@@ -1,13 +1,32 @@
-@import url("https://fonts.googleapis.com/css2?family=Cabin&family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans:wght@100;200;300;400&family=Open+Sans:wght@300;400&family=Poppins:wght@100;200;300;400&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Cabin&family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans:wght@100;200;300;400&family=Open+Sans:wght@300;400&family=Poppins:wght@100;200;300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=Birthstone+Bounce:wght@400;500&family=Homemade+Apple&family=Mr+De+Haviland&family=WindSong:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700"); */
 
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700");
+@import url("https://fonts.cdnfonts.com/css/radditya-signature");
+@import url("https://fonts.cdnfonts.com/css/richford");
+@import url("https://fonts.cdnfonts.com/css/castlery");
+@import url("https://fonts.cdnfonts.com/css/banirmet-dua");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* @font-face {
+    font-family: "Radditya Signature";
+    src: url("/src/assets/fonts/radditya-signature/RaddityaSignature.woff2")
+      format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  } */
+}
+
 @layer components {
+  .bg-root-color {
+    @apply bg-coffee-100 dark:bg-coffee-800;
+  }
+
   .fixed-position-top-stretch {
     @apply fixed top-0 left-0 right-0;
   }
@@ -42,10 +61,6 @@
   .prevent-select:focus {
     outline: none !important;
   }
-
-  .dark-color-transition {
-    @apply [transition:background-color_1000ms,border-color_1000ms,color_1000ms,fill_1000ms,stroke_1000ms,text-shadow_1000ms,box-shadow_1000ms,filter_1000ms];
-  }
 }
 
 /* hide scrollbar for IE, Edge */
@@ -62,7 +77,7 @@ html {
   scrollbar-width: none;
 }
 
-/* @media (min-aspect-ratio: 16/9) {6
+/* @media (min-aspect-ratio: 16/9) {
   #home-1,
   #home-2 {
     width: 100vw;

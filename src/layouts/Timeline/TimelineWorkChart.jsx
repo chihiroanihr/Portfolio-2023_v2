@@ -1,6 +1,5 @@
-import React, { useMemo } from "react";
-import { MdLocationPin } from "react-icons/md";
-import { IoCalendar } from "react-icons/io5";
+import React, { useMemo, useContext } from "react";
+import clsx from "clsx";
 import {
   Block,
   Content,
@@ -11,12 +10,15 @@ import {
   Subtitle,
   ToolTagsList,
   Description,
-  Logo,
 } from "./components";
+import { ToggleModalContext } from "@contexts";
 import { workTimelineListData } from "@data";
 
 const TimelineWorkChart = ({ className }) => {
   console.log("[Render] @layouts/Timeline/TimelineWork.jsx");
+
+  // Retrieve States from Context
+  const { isModalOpen } = useContext(ToggleModalContext);
 
   // ************************* JSX ************************* //
   const memoizedWorkTimelineListItems = useMemo(() => {
@@ -28,31 +30,24 @@ const TimelineWorkChart = ({ className }) => {
         {/* Content */}
         <Content id="content">
           {/* Title */}
-          <Title id="title" index={index} whiteSpace="whitespace-pre">
-            {item.position}
-            <br />
-            {item.company}
-            <br />
-            {item.type && "(" + item.type + ")"}
-            {item.logo && <Logo item={item.logo} />}
-          </Title>
+          <Title
+            id="title"
+            index={index}
+            title={item.title}
+            logo={item.logo}
+            whiteSpace="whitespace-pre"
+          />
 
           {/* Position Date / Location */}
-          <Subtitle id="subtitle" index={index}>
-            {/* Date */}
-            <div className="flex items-center">
-              <IoCalendar size={20} className="inline-block mr-[4px]" />
-              <p>{item.date}</p>
-            </div>
-            {/* Location */}
-            <div className="flex items-center">
-              <MdLocationPin size={20} className="inline-block" />
-              <p>{item.location}</p>
-            </div>
-          </Subtitle>
+          <Subtitle
+            id="subtitle"
+            index={index}
+            date={item.date}
+            location={item.location}
+          />
 
           {/* Position Description */}
-          <Description id="description">{item.description}</Description>
+          <Description id="description" index={index} item={item.description} />
 
           {/* Tools Used */}
           {item.tools && item.tools.length > 0 && (
@@ -64,11 +59,25 @@ const TimelineWorkChart = ({ className }) => {
   }, [workTimelineListData]);
 
   return (
-    <div id="work-timeline" className={className}>
+    <div
+      id="work-timeline"
+      className={clsx(
+        className,
+        // padding layout
+        "page-layout",
+        "xxxl:px-[300px] xxl:px-[15%] xl:px-[10%] px-[30px]",
+        isModalOpen
+          ? "opacity-100 delay-500 duration-[1s]"
+          : "opacity-0 duration-500",
+        "transition-opacity"
+      )}
+    >
       {/* Work Timeline */}
-      <Heading id="heading">Work Experience</Heading>
+      <Heading id="heading" value="Work Experience" />
       {/* Line */}
-      <Line id="line">{memoizedWorkTimelineListItems}</Line>
+      <Line id="line" className="md:my-[30px] my-[20px]">
+        {memoizedWorkTimelineListItems}
+      </Line>
     </div>
   );
 };

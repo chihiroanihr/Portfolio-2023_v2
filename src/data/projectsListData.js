@@ -19,7 +19,7 @@ const projectsListData = [
   },
   {
     id: 1,
-    title: "Dr.Pill",
+    title: "Coming Soon",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. ",
     tools: [],
@@ -30,7 +30,7 @@ const projectsListData = [
   },
   {
     id: 2,
-    title: "Dr.Pill",
+    title: "Coming Soon",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. ",
     tools: [],

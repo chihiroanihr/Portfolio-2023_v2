@@ -10,6 +10,7 @@ const ToggleMenuContext = createContext({
 const ToggleMenuProvider = ({ children }) => {
   // Set Menu Oepn State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   // Toggle Menu Button
   const handleToggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);

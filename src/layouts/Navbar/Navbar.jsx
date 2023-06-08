@@ -6,6 +6,7 @@ import {
   MenuButton,
   MenuList,
   NavbarBrand,
+  NavbarLogo,
 } from "./components";
 import {
   PlayAnimationContext,
@@ -53,50 +54,45 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
     };
   }, [playAnimation]);
 
-  // ************************* CSS ************************* //
-  const navbarLayoutStyle = clsx("w-screen", "h-20");
-  const navbarBrandPositionStyle = clsx("absolute-position-center");
-  const menuListPositionStyle = clsx("z-30", "fixed-position-center");
-  const menuButtonPositionStyle = clsx(
-    "z-40",
-    "absolute top-1/2 -translate-y-1/2"
-  );
-  const menuBackgroundPositionStyle = clsx("z-20", "fixed");
-
   // ************************* JSX ************************* //
   return (
-    <ToggleMenuProvider>
-      <ScrollLockProvider handleScrollLock={handleScrollLock}>
-        {/* Navbar (sticky) */}
-        <nav className={clsx(className, navbarLayoutStyle)}>
+    // Navbar (sticky)
+    <nav className={clsx(className, "w-screen", "h-20")}>
+      <ToggleMenuProvider>
+        <ScrollLockProvider handleScrollLock={handleScrollLock}>
           {/* ------ When Menu Closed (Navbar) ------ */}
-          <div ref={navbarNodeRef} className="relative h-full">
+          <div ref={navbarNodeRef} className="relative w-full h-full">
             {/* Navbar Brand */}
             <NavbarBrand
               id="navbar-brand"
-              className={navbarBrandPositionStyle}
+              className="absolute-position-center"
+              defaultStyle={false}
             />
 
+            {/* Navbar Logo */}
+            <NavbarLogo id="navbar-logo" className="md:ml-[25px] ml-[10px]" />
+
             {/* Menu Button */}
-            <MenuButton id="menu-button" className={menuButtonPositionStyle} />
+            <MenuButton
+              id="menu-button"
+              className={clsx("z-40", "absolute top-1/2 -translate-y-1/2")}
+            />
           </div>
 
           {/* ---------- When Menu Opened ---------- */}
           {/* Menu Background (hidden) */}
           <MenuBackground
-            className={menuBackgroundPositionStyle}
-            position="outView"
+            className={clsx("z-20", "fixed")}
             parentRef={navbarNodeRef}
           />
-
           {/* Menu Lists (hidden) */}
           <MenuList
             ref={scrollLockTargetRef}
-            className={menuListPositionStyle}
+            className={clsx("z-30", "fixed-position-center")}
           />
-        </nav>
-      </ScrollLockProvider>
-    </ToggleMenuProvider>
+        </ScrollLockProvider>
+      </ToggleMenuProvider>
+    </nav>
   );
 };
 

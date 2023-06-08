@@ -5,54 +5,61 @@ import { positionStyle } from "@themes";
 gsap.registerPlugin(ScrollTrigger);
 
 function useAboutAnimation(sectionWrapperNode) {
+  // Initialize
+  gsap.set("#about #full-name", { y: 100, opacity: 0 });
+  gsap.set("#about #local-time", { x: 100, opacity: 0 });
+  gsap.set("#about #text", { y: 100, opacity: 0 });
+  gsap.set("#about #images", { opacity: 0 });
+  gsap.set("#about #view-more-btn", { y: 100, opacity: 0 });
+  gsap.set("#about #social-icons", { y: 100, opacity: 0 });
+
   return gsap.context(
     () => {
+      // About section opacity animation
+      gsap.set(sectionWrapperNode, { autoAlpha: 0, opacity: 0 });
+
+      // Toggle opacity when moving between sections
+      gsap.to(sectionWrapperNode, {
+        duration: 0.5,
+        autoAlpha: 1,
+        opacity: 1,
+        clearProps: true,
+        scrollTrigger: {
+          id: "about-section-animation",
+          trigger: sectionWrapperNode,
+          start: "top-=1000 top",
+          end: positionStyle.aboutToWorkSectionTransitionPosition + " top",
+          toggleActions: "play reverse play none",
+          ease: "power2.out",
+          invalidateOnRefresh: true, // handles change in trigger position when viewport changes
+        },
+      });
+
+      // About section content animation
       gsap
         .timeline({
           defaults: {
-            duration: 0.8,
+            duration: 1,
+            ease: "power2.out",
+            clearProps: true,
           },
           scrollTrigger: {
             id: "about-section-scroll-animation",
             trigger: sectionWrapperNode,
             start: "top-=1000 top",
             end: positionStyle.aboutToWorkSectionTransitionPosition + " top",
-            toggleActions: "play reverse play reverse",
-            ease: "power2.out",
-            invalidateOnRefresh: true, // handles change in trigger position when viewport changes
+            // toggleActions: "play reverse play none", // only run once
+            invalidateOnRefresh: true,
           },
         })
-        .fromTo(
-          "#about #full-name",
-          { y: -100, opacity: 0 },
-          { y: 0, opacity: 1 }
-        )
-        .fromTo(
-          "#about #text-1",
-          { x: -100, opacity: 0 },
-          { x: 0, opacity: 1 },
-          "=-0.5"
-        )
-        .fromTo(
-          "#about #text-2",
-          { x: 100, opacity: 0 },
-          { x: 0, opacity: 1 },
-          "=-0.8"
-        )
-        .fromTo("#about #images", { opacity: 0 }, { opacity: 1 }, "=-0.6")
-        .fromTo(
-          "#about #view-more-btn",
-          { y: 100, opacity: 0 },
-          { y: 0, opacity: 1 },
-          "=-0.9"
-        )
-        .fromTo(
-          "#about #social-icons",
-          { y: -100, opacity: 0 },
-          { y: 0, opacity: 1, clearProps: true },
-          "=-0.7"
-        );
+        .to("#about #full-name", { y: 0, opacity: 1 })
+        .to("#about #local-time", { x: 0, opacity: 1 }, "<=5%")
+        .to("#about #text", { y: 0, opacity: 1, stagger: 0.01 }, "<=0")
+        .to("#about #view-more-btn", { y: 0, opacity: 1 }, "<=80%")
+        .to("#about #images", { opacity: 1 }, "<=20%")
+        .to("#about #social-icons", { y: 0, opacity: 1 }, "<=20%");
     },
+
     // Scope
     sectionWrapperNode
   );

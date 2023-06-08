@@ -1,20 +1,18 @@
 import clsx from "clsx";
 
-const DateMarker = ({ id, index, children }) => {
+const DateMarker = ({ id, index, item }) => {
   // ************************* CSS ************************* //
-  const dateMarkerBgcolor = "bg-coffee-800/90";
-  const dateMarkerBorderColor = "ring-coffee-300";
-  const dateMarkerTextColor = "text-coffee-100";
+  const dateMarkerBorderColor = "ring-coffee-400";
+  const dateMarkerTextColor = "text-coffee-600";
 
   const dateMarkerStyle = clsx(
     // layout
     "rounded-full",
     "px-[16px] py-[6px]",
-    "ring",
+    "ring-[1.2px]",
     // font
-    "text-[16px]",
+    "sm:text-[14px] text-[12px]",
     // color
-    dateMarkerBgcolor,
     dateMarkerBorderColor,
     dateMarkerTextColor
   );
@@ -27,7 +25,7 @@ const DateMarker = ({ id, index, children }) => {
         "md:self-end": index % 2 === 0,
       })}
     >
-      {children}
+      {item}
     </div>
   );
 };

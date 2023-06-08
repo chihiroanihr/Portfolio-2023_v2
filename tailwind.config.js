@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
+const defaultTheme = require("tailwindcss/defaultTheme"); // for font fallbacks
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -24,10 +25,63 @@ export default {
         "chocolate-lighter": "#503833",
         "chocolate-darker": "#291D1A",
       },
+      fontFamily: {
+        "default-sans": [
+          "Montserrat",
+          "Open Sans",
+          ...defaultTheme.fontFamily.sans,
+        ],
+        "cabin-sans": ["Cabin", ...defaultTheme.fontFamily.sans],
+        "fredoka-sans": ["Fredoka", ...defaultTheme.fontFamily.sans],
+        "default-serif": ["Castlery", ...defaultTheme.fontFamily.serif],
+        "banirmet-dua-cursive": [
+          "Banirmet Dua",
+          ...defaultTheme.fontFamily.sans,
+        ],
+        "radditya-signature-cursive": [
+          "Radditya Signature",
+          ...defaultTheme.fontFamily.sans,
+        ],
+        "title-cursive": [
+          "Richford",
+          "Homemade Apple",
+          "WindSong",
+          "Alex Brush",
+          ...defaultTheme.fontFamily.serif,
+        ],
+      },
+      gridTemplateColumns: {
+        // fixed width size
+        "fixed-4": "repeat(4, minmax(100px, 1fr))",
+        "fixed-6": "repeat(6, minmax(80px, 1fr))",
+        // "fixed-8": "repeat(8, minmax(80px, 1fr))",
+        // "fixed-12": "repeat(12, minmax(80px, 1fr))",
+      },
+      backgroundImage: {
+        coffee: "url('/src/assets/images/coffee/coffee3.png')",
+        notebook: "url('/src/assets/images/notebook.png')",
+        // pinstripe: "url('/src/assets/images/pinstripe.png')",
+      },
+      strokeColor: (theme) => {
+        const coffeeColors = theme("colors.coffee");
+        const coffeeShades = Object.keys(coffeeColors);
+
+        return coffeeShades.reduce((utilities, shade) => {
+          utilities[`coffee-${shade}`] = coffeeColors[shade];
+
+          return utilities;
+        }, {});
+      },
+      strokeWidth: ({ theme }) => ({
+        ...theme("spacing"),
+      }),
       textShadow: {
-        none: "none",
         milky: "0 10px 9px #C4B59D, 0px -3px 3px #FFF",
         chocolate: "0 10px 9px #211715, 0px -3px 3px #644640",
+        stroke:
+          "-1px -1px 0 theme('colors.coffee.600'), 1px -1px 0 theme('colors.coffee.600'), -1px 1px 0 theme('colors.coffee.600'), 1px 1px 0 theme('colors.coffee.600')",
+        // "dark-stroke":
+        //   "-1px -1px 0 theme('colors.coffee.300'), 1px -1px 0 theme('colors.coffee.300'), -1px 1px 0 theme('colors.coffee.300'), 1px 1px 0 theme('colors.coffee.300')",
       },
       boxShadow: {
         "light-btn-100":
@@ -54,39 +108,6 @@ export default {
           5vmin 5vmin 5vmin theme('colors.chocolate-darker'), \
           inset -5vmin -5vmin 5vmin theme('colors.chocolate-lighter'), \
           inset 5vmin 5vmin 5vmin theme('colors.chocolate-darker')",
-      },
-      fontFamily: {
-        "default-sans": [
-          "Montserrat",
-          "Poppins",
-          "Noto Sans",
-          "Open Sans",
-          "sans-serif",
-        ],
-        "cabin-sans": ["Cabin", "sans-serif"],
-        "fredoka-sans": ["Fredoka", "sans-serif"],
-        "title-cursive": [
-          "Homemade Apple",
-          "WindSong",
-          "Segoe",
-          "Allura",
-          "Alex Brush",
-          "cursive",
-        ],
-        "autography-cursive": [
-          "Birthstone Bounce",
-          "Mr De Haviland",
-          "Alex Brush",
-          "Allura",
-          "cursive",
-        ],
-      },
-      gridTemplateColumns: {
-        // fixed width size
-        "fixed-4": "repeat(4, minmax(100px, 1fr))",
-        "fixed-6": "repeat(6, minmax(80px, 1fr))",
-        "fixed-8": "repeat(8, minmax(80px, 1fr))",
-        "fixed-12": "repeat(12, minmax(80px, 1fr))",
       },
       animation: {
         coffee: "coffee 100s linear infinite",
@@ -270,18 +291,15 @@ export default {
         },
       },
       transitionProperty: {
-        "dark-mode":
-          "background-color, border-color, fill, stroke, color, text-decoration-color, text-shadow, box-shadow, drop-shadow, filter",
+        // "dark-mode":
+        //   "background-color, border-color, fill, stroke, color, text-decoration-color, text-shadow, box-shadow, drop-shadow, filter",
       },
       willChange: {
         coffee: "transform",
         smoke: "transform, rotate, opacity, filter",
         drop: "width, height, transform, box-shadow, border",
-        "dark-mode":
-          "background-color, border-color, fill, stroke, color, text-decoration-color, text-shadow, box-shadow, filter, backdrop-filter",
-      },
-      backgroundImage: {
-        coffee: "url('/src/assets/images/coffee/coffee3.png')",
+        // "dark-mode":
+        //   "background-color, border-color, fill, stroke, color, text-decoration-color, text-shadow, box-shadow, filter, backdrop-filter",
       },
     },
     screens: {
@@ -295,15 +313,58 @@ export default {
     },
   },
   plugins: [
-    plugin(function ({ matchUtilities, theme }) {
-      matchUtilities(
-        {
-          "text-shadow": (value) => ({
+    plugin(function ({ addUtilities, theme }) {
+      const textShadowUtilities = Object.entries(theme("textShadow")).map(
+        ([key, value]) => ({
+          [`.text-shadow-${key}`]: {
             textShadow: value,
-          }),
-        },
-        { values: theme("textShadow") }
+          },
+        })
       );
+      const strokeWidthUtilities = Object.entries(theme("strokeWidth")).map(
+        ([key, value]) => ({
+          [`.stroke-width-${key}`]: {
+            WebkitTextStrokeWidth: value,
+          },
+        })
+      );
+      const strokeColorUtilities = Object.entries(theme("strokeColor")).map(
+        ([key, value]) => ({
+          [`.stroke-color-${key}`]: {
+            WebkitTextStrokeColor: value,
+          },
+        })
+      );
+      const writingModeUtilities = {
+        ".horizontal-tb": {
+          writingMode: "horizontal-tb",
+        },
+        ".vertical-rl": {
+          writingMode: "vertical-rl",
+        },
+        ".vertical-lr": {
+          writingMode: "vertical-lr",
+        },
+      };
+      addUtilities([
+        ...textShadowUtilities,
+        ...strokeWidthUtilities,
+        ...strokeColorUtilities,
+        writingModeUtilities,
+      ]);
     }),
+    function ({ matchUtilities }) {
+      matchUtilities({
+        "text-shadow": (value) => ({
+          textShadow: value,
+        }),
+        "stroke-width": (value) => ({
+          WebkitTextStrokeWidth: value,
+        }),
+        "stroke-color": (value) => ({
+          WebkitTextStrokeColor: value,
+        }),
+      });
+    },
   ],
 };

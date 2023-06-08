@@ -18,10 +18,6 @@ const buttonWrapperSize = {
 // --------------- Calculation --------------- //
 const hamburgerLineTranslatePositionY = buttonWrapperSize.height / 2 - 2;
 
-const menuBackgroundPositionInViewMedium =
-  buttonWrapperPosition.right.medium / 2;
-const menuBackgroundPositionInViewSmall = buttonWrapperPosition.right.small / 2;
-
 // ---------- Create Tailwind Style ---------- //
 // Menu Button
 const menuButtonWrapperPosition = `md:right-[${buttonWrapperPosition.right.medium}px] right-[${buttonWrapperPosition.right.small}px]`; // md:right-[25px] right-[10px]
@@ -34,8 +30,7 @@ const hamburgerThirdLineTranslatePosition = `-translate-y-[${hamburgerLineTransl
 
 // Menu Background
 const menuBackgroundLayoutSize = `w-[${buttonSize}px] h-[${buttonSize}px]`; // w-[84px] h-[84px]
-const menuBackgroundPositionOutView = `-top-[${buttonSize}px] -right-[${buttonSize}px]`; // -top-[84px] -right-[84px] (default)
-const menuBackgroundPositionInView = `md:right-[${menuBackgroundPositionInViewMedium}px] right-[${menuBackgroundPositionInViewSmall}px]`; // md:right-[25px] right-[10px]
+const menuBackgroundPosition = `-top-[${buttonSize}px] -right-[${buttonSize}px]`; // -top-[84px] -right-[84px] (default)
 
 // -------------- Default Export -------------- //
 const navbarStyle = {
@@ -48,10 +43,7 @@ const navbarStyle = {
     topLine: hamburgerFirstLineTranslatePosition,
     bottomLine: hamburgerThirdLineTranslatePosition,
   },
-  menuBackground: {
-    outView: clsx(menuBackgroundLayoutSize, menuBackgroundPositionOutView),
-    inView: clsx(menuBackgroundLayoutSize, menuBackgroundPositionInView),
-  },
+  menuBackground: clsx(menuBackgroundLayoutSize, menuBackgroundPosition),
 };
 
 export default navbarStyle;

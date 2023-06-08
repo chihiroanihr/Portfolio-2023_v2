@@ -1,11 +1,17 @@
 import positionStyle from "./positionStyle";
-import ImageCardsItemStyle from "./imageCardsItemStyle";
-import projectCardsItemStyle from "./projectCardsItemStyle";
+import buttonStyle from "./buttonStyle";
 import navbarStyle from "./navbarStyle";
+import homeStyle from "./homeStyle";
+import imageCardsItemStyle from "./imageCardsItemStyle";
+import projectCardsItemStyle from "./projectCardsItemStyle";
+import socialMediaPlatformsStyle from "./socialMediaPlatformsStyle";
 
 export {
   positionStyle,
-  ImageCardsItemStyle,
-  projectCardsItemStyle,
+  buttonStyle,
   navbarStyle,
+  homeStyle,
+  imageCardsItemStyle,
+  projectCardsItemStyle,
+  socialMediaPlatformsStyle,
 };

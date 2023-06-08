@@ -17,7 +17,7 @@ const useScrollBackToTop = ({ ref, dependency, option = { top: 0 } }) => {
     handleScrollBackToTop();
   }, [...dependencies, option]);
 
-  return { handleScrollBackToTop };
+  return handleScrollBackToTop;
 };
 
 export default useScrollBackToTop;

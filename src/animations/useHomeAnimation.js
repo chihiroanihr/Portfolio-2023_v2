@@ -66,10 +66,10 @@ function useHomeAnimation(targetRefs) {
           );
         },
       })
-      // Custom: set perspective to "creativity" title text
-      .set(creativityTextNodeRef.current, {
-        perspective: 600,
-      })
+      // // Custom: set perspective to "creativity" title text
+      // .set(creativityTextNodeRef.current, {
+      //   perspective: 600,
+      // })
       // Add all animations
       .from(sippingOnWords, {
         id: "home-sipping-on-words",
@@ -83,11 +83,8 @@ function useHomeAnimation(targetRefs) {
         {
           id: "home-creativity-chars",
           duration: 1.5,
-          y: -40,
-          rotationX: -90,
-          transformOrigin: "0% 50% -50",
+          // y: -40,
           opacity: 0,
-          scale: 1,
           stagger: 0.05,
           ease: "out",
         },

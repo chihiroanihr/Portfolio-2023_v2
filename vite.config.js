@@ -18,4 +18,7 @@ export default defineConfig({
       "@themes": path.resolve(__dirname, "src/themes"),
     },
   },
+  server: {
+    host: true,
+  },
 });

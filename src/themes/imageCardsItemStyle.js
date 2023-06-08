@@ -19,10 +19,10 @@ const ImageCardsItemBrightnessStyle = [
   "dark:brightness-[0.6]",
 ];
 
-const ImageCardsItemStyle = {
+const imageCardsItemStyle = {
   positionStyle: ImageCardsItemPositionStyle,
   rotationStyle: ImageCardsItemRotationStyle,
   brightnessStyle: ImageCardsItemBrightnessStyle,
 };
 
-export default ImageCardsItemStyle;
+export default imageCardsItemStyle;

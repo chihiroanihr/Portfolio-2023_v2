@@ -4,30 +4,21 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function useWorksHeadingAnimationOnScroll(triggerer) {
-  return gsap
-    .timeline({
-      paused: true,
-      defaults: {
-        y: 0,
-        //duration: 1,
-      },
-      scrollTrigger: {
-        id: "work-section-heading-scroll-animation",
-        trigger: triggerer,
-        endTrigger: "#works #heading",
-        start: "top top",
-        end: "top+=500 top",
-        // Optional
-        scrub: true,
-        // once: true,
-        // --------
-      },
-    })
-    .from("#works #heading", {
-      y: -500,
-      opacity: 0,
-      scale: 4,
-    });
+  return gsap.from("#works #heading", {
+    clearProps: true,
+    y: -500,
+    opacity: 0,
+    scale: 4,
+    scrollTrigger: {
+      id: "work-section-heading-scroll-animation",
+      trigger: triggerer,
+      endTrigger: "#works #heading",
+      start: "top top",
+      end: "top+=500 top",
+      scrub: true, // Optional
+      // once: true,
+    },
+  });
 }
 
 // Scroll Animations when Entered
@@ -36,10 +27,8 @@ function useWorksAnimationOnEnter(triggerer) {
     .timeline({
       id: "works-section-animation-on-enter",
       paused: true,
-      defaults: {
-        y: 0,
-        opacity: 0,
-      },
+      defaults: { opacity: 0 },
+      clearProps: true,
     })
     .set(triggerer, {
       opacity: 1,
@@ -54,11 +43,8 @@ function useWorksAnimationOnLeave() {
     .timeline({
       id: "works-section-animation-on-leave",
       paused: true,
-      defaults: {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-      },
+      defaults: { duration: 0.8 },
+      clearProps: true,
     })
     .to("#works #background", { opacity: 0 }, "<")
     .to("#works #heading", { y: -200, opacity: 0 }, "<");
@@ -70,11 +56,8 @@ function useWorksAnimationOnEnterBack() {
     .timeline({
       id: "works-section-animation-on-enter-back",
       paused: true,
-      defaults: {
-        y: 0,
-        opacity: 0,
-        duration: 0.8,
-      },
+      defaults: { duration: 0.8 },
+      clearProps: true,
     })
     .to("#works #heading", { opacity: 1 }, "<")
     .to("#works #background", { opacity: 1 }, "<0.5");
@@ -86,11 +69,8 @@ function useWorksAnimationOnLeaveBack(triggerer) {
     .timeline({
       id: "works-section-animation-on-leave-back",
       paused: true,
-      defaults: {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-      },
+      defaults: { duration: 0.8 },
+      clearProps: true,
     })
     .to("#works #background", { opacity: 0 }, "<")
     .to("#works #heading", { y: 200, opacity: 0 }, "<0.3")
