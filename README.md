@@ -15,7 +15,6 @@ To follow best practices, easy to read and understand source codes.
 To separate logic into sub-logics for the easier maintenance and modifications.
 
 - Use of React Hooks
-
   - useState
   - useContext
   - createContext
@@ -29,7 +28,6 @@ To separate logic into sub-logics for the easier maintenance and modifications.
   - forwardRef
 
 - Use of third-party libraries
-
   - tailwind
   - clsx
   - react-icons
@@ -59,13 +57,11 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 ### Fonts
 
 - **Google Fonts**: https://fonts.google.com/
-
   - [_Montserrat_](https://fonts.google.com/specimen/Montserrat)
   - [_Cabin_](https://fonts.google.com/specimen/Cabin)
   - [_Fredoka_](https://fonts.google.com/specimen/Fredoka)
 
 - **CDN Fonts**: https://www.cdnfonts.com/
-
   - [_Castlery_](https://www.cdnfonts.com/castlery.font)
   - [_Banirmet Dua_](https://www.cdnfonts.com/banirmet-dua.font)
   - [_Radditya Signature_](https://www.cdnfonts.com/radditya-signature.font)
