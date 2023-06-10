@@ -4,7 +4,7 @@ import { ImageCardsList } from "@layouts";
 import { ScrollLine } from "@components";
 import { PlayAnimationContext } from "@contexts";
 import { homeStyle } from "@themes";
-import { isFontAvailable } from "@utils";
+import { splitTextToWords, splitTextToChars, isFontAvailable } from "@utils";
 import { useHomeAnimation } from "@animations";
 import {
   cleanUpGsapAnimation,
@@ -24,6 +24,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   const coffeeTextNodeCopyRef = useRef(null);
   const oneCupOfTextNodeRef = useRef(null);
   const atTimeTextNodeRef = useRef(null);
+
   // Node Reference for Scroll Animation
   const inlineTextWrapperNodeRef = useRef(null);
   const textContainerNodeRef = useRef(null);
@@ -39,23 +40,40 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   // GSAP Home Timeline Reference
   const homeTimelineRef = useRef();
 
-  const customFontAvailableRef = useRef(false);
-
   // Update animation when playAnimation is triggered
   useLayoutEffect(() => {
     if (!playAnimation) return;
     console.log("[LOG] (Home1.jsx) Animation Started");
 
+    // Split texts from refs into words / chars
+    const sippingOnWords = splitTextToWords(sippingOnTextNodeRef.current);
+    const creativityChars = splitTextToChars(creativityTextNodeRef.current);
+    const oneCupOfWords = splitTextToWords(oneCupOfTextNodeRef.current);
+    const coffeeText = coffeeTextNodeRef.current;
+    const atTimeWords = splitTextToWords(atTimeTextNodeRef.current);
+    const coffeeChars = splitTextToChars(coffeeTextNodeRef.current);
+    const coffeeCharsCopy = splitTextToChars(coffeeTextNodeCopyRef.current);
+
     // Retrive animation and register to timeline
     homeTimelineRef.current = useHomeAnimation({
-      sippingOnTextNodeRef,
-      creativityTextNodeRef,
-      oneCupOfTextNodeRef,
-      coffeeTextNodeRef,
-      coffeeTextNodeCopyRef,
-      atTimeTextNodeRef,
-      inlineTextWrapperNodeRef,
-      textContainerNodeRef,
+      triggerer: {
+        textContainerNodeRef,
+      },
+      text: {
+        sippingOnTextNodeRef,
+        creativityTextNodeRef,
+        inlineTextWrapperNodeRef,
+        atTimeTextNodeRef,
+      },
+      splitText: {
+        sippingOnWords,
+        creativityChars,
+        oneCupOfWords,
+        coffeeText,
+        atTimeWords,
+        coffeeChars,
+        coffeeCharsCopy,
+      },
     });
 
     // Sort and append child timelines to timeline
@@ -82,6 +100,8 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   const homePageHightlightTextColor = "text-yellow-500";
 
   // TODO: This does not work on FireFox
+  const customFontAvailableRef = useRef(false);
+
   customFontAvailableRef.current = isFontAvailable("Radditya Signature");
   const homeTextStyle = customFontAvailableRef.current
     ? homeStyle.customHomeStyle
@@ -95,35 +115,37 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
         className={clsx(
           // !customFontAvailableRef.current &&
           //   "xl:mb-[35px] md:mb-[30px] mb-[15px]",
-          homeTextStyle.sippingOnTextStyle
+          homeTextStyle.defaultTextStyle
         )}
       >
         Sipping on
       </div>
+
       <div
         ref={creativityTextNodeRef}
         id="creativity"
         className={clsx(
-          "z-10",
           // !customFontAvailableRef.current ? "pl-[8px] :",
-          "font-bold",
+          "relative",
+          "xl:font-bold font-normal",
           homeTextStyle.creativityTextStyle,
           homePageCreativityTextFont
         )}
       >
         Creativity
       </div>
-      {/* !! texts into one line (inline) - necessary due to animation */}
+
       <div
         ref={inlineTextWrapperNodeRef}
         className={clsx("relative inline-block")}
       >
         <span
           ref={oneCupOfTextNodeRef}
-          className={homeTextStyle.oneCupOfTextStyle}
+          className={homeTextStyle.defaultTextStyle}
         >
           one cup of{" "}
         </span>
+
         <span
           ref={coffeeTextNodeRef}
           className={clsx(
@@ -134,6 +156,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
         >
           coffee
         </span>
+
         <span
           ref={coffeeTextNodeCopyRef}
           className={clsx(
@@ -145,7 +168,8 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
           coffee
         </span>
       </div>
-      <div ref={atTimeTextNodeRef} className={homeTextStyle.atTimeTextStyle}>
+
+      <div ref={atTimeTextNodeRef} className={homeTextStyle.defaultTextStyle}>
         at a time.
       </div>
     </>

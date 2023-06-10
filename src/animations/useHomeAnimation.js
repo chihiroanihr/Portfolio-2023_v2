@@ -1,51 +1,52 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { splitTextToWords, splitTextToChars } from "@utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function useHomeTextAnimationOnScroll(arrTextNodes, textContainerNode) {
-  return gsap.fromTo(
-    arrTextNodes,
-    {
-      x: 0,
-      opacity: 1,
+  // Initialize
+  gsap.set(arrTextNodes, { x: 0, opacity: 1 });
+
+  return gsap.to(arrTextNodes, {
+    x: -100,
+    opacity: 0,
+    stagger: 0.1,
+    scrollTrigger: {
+      id: "home-text-section-scroll-animation",
+      trigger: textContainerNode,
+      scrub: 2,
+      start: "top top",
+      end: "bottom top",
     },
-    {
-      x: -100,
-      opacity: 0,
-      stagger: 0.1,
-      scrollTrigger: {
-        id: "home-text-section-scroll-animation",
-        trigger: textContainerNode,
-        scrub: 2,
-        start: "top top",
-        end: "bottom top",
-      },
-    }
-  );
+  });
 }
 
-function useHomeAnimation(targetRefs) {
-  const {
+function useHomeAnimation({
+  triggerer: { textContainerNodeRef },
+  text: {
     sippingOnTextNodeRef,
     creativityTextNodeRef,
-    oneCupOfTextNodeRef,
-    coffeeTextNodeRef,
-    coffeeTextNodeCopyRef,
-    atTimeTextNodeRef,
     inlineTextWrapperNodeRef,
-    textContainerNodeRef,
-  } = targetRefs;
-
-  // Split texts from refs into words / chars
-  const sippingOnWords = splitTextToWords(sippingOnTextNodeRef.current);
-  const creativityChars = splitTextToChars(creativityTextNodeRef.current);
-  const oneCupOfWords = splitTextToWords(oneCupOfTextNodeRef.current);
-  const coffeeText = coffeeTextNodeRef.current;
-  const atTimeWords = splitTextToWords(atTimeTextNodeRef.current);
-  const coffeeChars = splitTextToChars(coffeeTextNodeRef.current);
-  const coffeeCharsCopy = splitTextToChars(coffeeTextNodeCopyRef.current);
+    atTimeTextNodeRef,
+  },
+  splitText: {
+    sippingOnWords,
+    creativityChars,
+    oneCupOfWords,
+    coffeeText,
+    atTimeWords,
+    coffeeChars,
+    coffeeCharsCopy,
+  },
+}) {
+  // Initialize
+  gsap.set(sippingOnWords, { opacity: 0 });
+  gsap.set(creativityChars, { opacity: 0 });
+  gsap.set(oneCupOfWords, { opacity: 0 });
+  gsap.set(coffeeText, { opacity: 0 });
+  gsap.set(atTimeWords, { opacity: 0 });
+  gsap.set(coffeeChars, { y: 0, opacity: 1 });
+  gsap.set(coffeeCharsCopy, { y: 20, opacity: 0 });
 
   // Register animations to the timeline
   return (
@@ -66,57 +67,47 @@ function useHomeAnimation(targetRefs) {
           );
         },
       })
-      // // Custom: set perspective to "creativity" title text
-      // .set(creativityTextNodeRef.current, {
-      //   perspective: 600,
-      // })
       // Add all animations
-      .from(sippingOnWords, {
-        id: "home-sipping-on-words",
+      .to(sippingOnWords, {
+        opacity: 1,
         duration: 2,
-        opacity: 0,
-        stagger: 0.06,
+        stagger: 0.1,
         ease: "out",
       })
-      .from(
+      .to(
         creativityChars,
         {
-          id: "home-creativity-chars",
+          opacity: 1,
           duration: 1.5,
-          // y: -40,
-          opacity: 0,
           stagger: 0.05,
           ease: "out",
         },
-        "=-2"
+        "<=10%"
       )
-      .from(
+      .to(
         oneCupOfWords,
         {
-          id: "home-one-cup-of-words",
+          opacity: 1,
           duration: 2,
-          opacity: 0,
           ease: "out",
           stagger: 0.06,
         },
-        "=-1.5"
+        "<=20%"
       )
-      .from(
+      .to(
         coffeeText,
         {
-          id: "home-coffee-text",
+          opacity: 1,
           duration: 2,
-          opacity: 0,
           ease: "out",
         },
         ">-2"
       )
-      .from(
+      .to(
         atTimeWords,
         {
-          id: "home-at-a-time-words",
+          opacity: 1,
           duration: 2,
-          opacity: 0,
           stagger: 0.06,
           ease: "out",
         },
@@ -126,22 +117,20 @@ function useHomeAnimation(targetRefs) {
       .to(
         coffeeChars,
         {
-          id: "home-coffee-chars",
-          duration: 0.15,
           y: -20,
           opacity: 0,
+          duration: 0.15,
           stagger: 0.05,
           ease: "power4.out",
         },
         "rolling-text"
       )
-      .from(
+      .to(
         coffeeCharsCopy,
         {
-          id: "home-coffee-chars-copy",
+          y: 0,
+          opacity: 1,
           duration: 0.15,
-          y: 20,
-          opacity: 0,
           stagger: 0.05,
           ease: "power4.out",
         },
