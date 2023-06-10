@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 const Heading = ({ id, value }) => {
   // ************************* CSS ************************* //
-  const headingFontFamily = "font-default-serif";
+  const headingFontFamily = "font-limelight-cursive";
 
   const headingTextStyle = clsx(
     "text-center",
@@ -12,11 +12,11 @@ const Heading = ({ id, value }) => {
     "tracking-widest"
   );
 
-  const behindWritingFontFamily = "font-banirmet-dua-cursive";
+  const behindWritingFontFamily = "font-radditya-signature-cursive";
 
   const behindWritingTextStyle = clsx(
     "whitespace-pre",
-    "md:text-[120px] xs:text-[62px] text-[30px]",
+    "md:text-[150px] xs:text-[75px] text-[45px]",
     "tracking-normal",
     "text-white"
   );
