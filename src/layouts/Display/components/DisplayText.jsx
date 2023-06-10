@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import clsx from "clsx";
-import { WrapNodeForRevealAnim } from "@utils";
+import { WrapNodeForRevealAnim, isFontAvailable } from "@utils";
 import { useDisplayTextAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
@@ -47,8 +47,17 @@ const DisplayText = ({ className, parentRef }) => {
   }, []);
 
   // ************************* CSS ************************* //
-  const fontType = "font-default-serif";
+  const fontType = "font-limelight-cursive";
   const textColor = "text-coffee-600 dark:text-coffee-300";
+
+  const displayTextStyle = clsx(
+    "md:text-[80px] xs:text-[45px] text-[40px]",
+    "leading-tight",
+    "uppercase",
+    fontType,
+    textColor,
+    !isFontAvailable("Limelight") && "font-bold"
+  );
 
   // ************************* JSX ************************* //
   return (
@@ -56,12 +65,8 @@ const DisplayText = ({ className, parentRef }) => {
       className={clsx(
         className,
         "block relative",
-        "md:text-[80px] xs:text-[45px] text-[40px]",
         "xl:text-right",
-        "leading-tight",
-        "font-extrabold",
-        fontType,
-        textColor
+        displayTextStyle
       )}
     >
       {memoizedTextSection}
