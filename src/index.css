@@ -1,25 +1,47 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Cabin&family=Montserrat:wght@100;200;300;400;500;600;700&family=Noto+Sans:wght@100;200;300;400&family=Open+Sans:wght@300;400&family=Poppins:wght@100;200;300;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=Birthstone+Bounce:wght@400;500&family=Homemade+Apple&family=Mr+De+Haviland&family=WindSong:wght@400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700"); */
-
-@import url("https://fonts.cdnfonts.com/css/radditya-signature");
-@import url("https://fonts.cdnfonts.com/css/richford");
-@import url("https://fonts.cdnfonts.com/css/castlery");
-@import url("https://fonts.cdnfonts.com/css/banirmet-dua");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /* @font-face {
-    font-family: "Radditya Signature";
-    src: url("/src/assets/fonts/radditya-signature/RaddityaSignature.woff2")
-      format("woff2");
+  @font-face {
+    font-family: "Richford";
+    src: url("/src/assets/fonts/richford/Richford.woff2") format("woff2"),
+      url("/src/assets/fonts/richford/Richford.woff") format("woff"),
+      url("/src/assets/fonts/richford/Richford.ttf") format("truetype"),
+      url("/src/assets/fonts/richford/Richford.eot?#iefix")
+        format("embedded-opentype"),
+      url("/src/assets/fonts/richford/Richford.eot");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
-  } */
+  }
+  @font-face {
+    font-family: "Radditya Signature";
+    src: url("/src/assets/fonts/radditya-signature/RaddityaSignature.woff2")
+        format("woff2"),
+      url("/src/assets/fonts/radditya-signature/RaddityaSignature.woff")
+        format("woff"),
+      url("/src/assets/fonts/radditya-signature/RaddityaSignature.ttf")
+        format("truetype"),
+      url("/src/assets/fonts/radditya-signature/RaddityaSignature.otf")
+        format("otf");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Travel November";
+    src: url("/src/assets/fonts/travel-november/TravelNovember.woff2")
+        format("woff2"),
+      url("/src/assets/fonts/travel-november/TravelNovember.woff")
+        format("woff"),
+      url("/src/assets/fonts/travel-november/TravelNovember.ttf")
+        format("truetype"),
+      url("/src/assets/fonts/travel-november/TravelNovember.otf") format("otf");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 }
 
 @layer components {
@@ -68,19 +90,13 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 /* hide scrollbar for chrome, safari and opera, and other WebKit-based browsers */
 body::-webkit-scrollbar {
   display: none;
 }
+
 /* hide scrollbar for Firefox */
 html {
   scrollbar-width: none;
 }
-
-/* @media (min-aspect-ratio: 16/9) {
-  #home-1,
-  #home-2 {
-    width: 100vw;
-    height: calc((16 / 9) * 100vh) !important;
-  }
-} */

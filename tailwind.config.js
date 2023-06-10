@@ -33,21 +33,11 @@ export default {
         ],
         "cabin-sans": ["Cabin", ...defaultTheme.fontFamily.sans],
         "fredoka-sans": ["Fredoka", ...defaultTheme.fontFamily.sans],
-        "default-serif": ["Castlery", ...defaultTheme.fontFamily.serif],
-        "banirmet-dua-cursive": [
-          "Banirmet Dua",
-          ...defaultTheme.fontFamily.sans,
-        ],
+        "title-cursive": ["Travel November", ...defaultTheme.fontFamily.serif],
+        "limelight-cursive": ["Limelight", ...defaultTheme.fontFamily.serif],
         "radditya-signature-cursive": [
           "Radditya Signature",
           ...defaultTheme.fontFamily.sans,
-        ],
-        "title-cursive": [
-          "Richford",
-          "Homemade Apple",
-          "WindSong",
-          "Alex Brush",
-          ...defaultTheme.fontFamily.serif,
         ],
       },
       gridTemplateColumns: {
