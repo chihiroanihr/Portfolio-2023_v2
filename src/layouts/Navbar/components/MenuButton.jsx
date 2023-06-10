@@ -15,6 +15,9 @@ const MenuButton = ({ id, className }) => {
   const menuButtonBorderColor =
     "after:border-coffee-600 dark:after:border-coffee-300";
   const hamburgerMenuLineColor = "bg-coffee-600 dark:bg-coffee-300";
+  const menuButtonBorderColorOpened =
+    "after:border-chocolate/90 dark:after:border-coffee-100";
+  const hamburgerMenuLineColorOpened = "bg-chocolate/90 dark:bg-coffee-100";
   const hamburgerMenuLineThickness = "h-[3.8px]";
 
   // Menu Button Border Style
@@ -33,7 +36,9 @@ const MenuButton = ({ id, className }) => {
     // color style
     menuButtonBorderColor,
     // animation style
-    isMenuOpen ? "after:opacity-100" : "after:opacity-0",
+    isMenuOpen
+      ? clsx(menuButtonBorderColorOpened, "after:opacity-100")
+      : "after:opacity-0",
     "after:transition-opacity after:duration-500",
     "flex flex-col justify-between"
   );
@@ -47,19 +52,25 @@ const MenuButton = ({ id, className }) => {
   // Menu Button Individual Hamburger Line Styles
   const hamburgerFirstLineStyle = clsx(
     hamburgerLineStyle,
-    isMenuOpen && "translate-y-[18px] rotate-45",
+    isMenuOpen &&
+      clsx(hamburgerMenuLineColorOpened, "translate-y-[18px] rotate-45"),
     "[transition:transform_500ms,background-color_700ms]", // dark mode transition
     "will-change-[background-color]"
   );
   const hamburgerSecondLineStyle = clsx(
     hamburgerLineStyle,
-    isMenuOpen && "pointer-events-none translate-x-3/4 opacity-0",
+    isMenuOpen &&
+      clsx(
+        hamburgerMenuLineColorOpened,
+        "pointer-events-none translate-x-3/4 opacity-0"
+      ),
     "[transition:transform_700ms,opacity_700ms,background-color_700ms]", // dark mode transition
     "will-change-[background-color]"
   );
   const hamburgerThirdLineStyle = clsx(
     hamburgerLineStyle,
-    isMenuOpen && "-translate-y-[18px] -rotate-45",
+    isMenuOpen &&
+      clsx(hamburgerMenuLineColorOpened, "-translate-y-[18px] -rotate-45"),
     "[transition:transform_500ms,background-color_700ms]", // dark mode transition
     "will-change-[background-color]"
   );
