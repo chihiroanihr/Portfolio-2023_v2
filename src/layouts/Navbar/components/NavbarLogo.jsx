@@ -1,20 +1,10 @@
 import React from "react";
 import clsx from "clsx";
+import logoImg from "@assets/images/logo.png";
 
 const NavbarLogo = ({ id, className }) => {
-  // ************************* CSS ************************* //
   const fillColor = "fill-coffee-600 dark:fill-coffee-300";
-  const textColor = "text-coffee-600 dark:text-coffee-300";
 
-  const logoTextStyle = clsx(
-    "font-banirmet-dua-cursive",
-    "font-bold",
-    "line-through",
-    textColor,
-    "md:text-[25px] text-[20px]"
-  );
-
-  // ************************* JSX ************************* //
   return (
     <a
       id={id}
@@ -53,17 +43,18 @@ const NavbarLogo = ({ id, className }) => {
       </svg>
 
       {/* Logo */}
-      <div
+      <img
+        src={logoImg}
+        alt={"Back to Home"}
         className={clsx(
           "absolute",
+          "w-full h-full",
           "ml-[-10px]",
-          "h-full w-full",
-          "flex justify-center items-center",
-          logoTextStyle
+          "sm:p-[20px] p-[15px]",
+          "object-contain",
+          "brightness-125 dark:brightness-150"
         )}
-      >
-        R
-      </div>
+      />
     </a>
   );
 };

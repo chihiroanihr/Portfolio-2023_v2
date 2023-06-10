@@ -61,7 +61,10 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
       <ToggleMenuProvider>
         <ScrollLockProvider handleScrollLock={handleScrollLock}>
           {/* ------ When Menu Closed (Navbar) ------ */}
-          <div ref={navbarNodeRef} className="relative w-full h-full">
+          <div
+            ref={navbarNodeRef}
+            className={clsx("relative", "w-full h-full")}
+          >
             {/* Navbar Brand */}
             <NavbarBrand
               id="navbar-brand"
@@ -70,7 +73,7 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
             />
 
             {/* Navbar Logo */}
-            <NavbarLogo id="navbar-logo" className="md:ml-[25px] ml-[10px]" />
+            <NavbarLogo id="navbar-logo" className="ml-[10px]" />
 
             {/* Menu Button */}
             <MenuButton
