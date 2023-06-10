@@ -2,40 +2,35 @@ import React from "react";
 import clsx from "clsx";
 import { Signature } from "@components/SVG";
 
-const NavbarBrandDefault = ({ id, className, textColor }) => {
+const NavbarBrandDefault = ({ textColor }) => {
   // CSS
   const navbarBrandFirstTextStyle = clsx(
     textColor,
     "font-cabin-sans",
-    "text-[10px]",
     "tracking-widest",
-    "uppercase"
+    "uppercase",
+    "text-[10px]"
   );
   const navbarBrandSecondTextStyle = clsx(
     textColor,
-    "font-banirmet-dua-cursive",
+    "font-radditya-signature-cursive",
     "xs:text-3xl text-2xl"
   );
 
   // JSX
   return (
-    <div
-      id={id}
-      className={clsx(
-        className,
-        "h-full",
-        "text-center",
-        "flex flex-col justify-center",
-        "sm:gap-[4px] gap-[2px]"
-      )}
-    >
+    <>
       <p className={navbarBrandFirstTextStyle}>UI/UX Designer + Developer</p>
-      <p className={navbarBrandSecondTextStyle}>Rhina Kim</p>
-    </div>
+      <p
+        className={clsx(navbarBrandSecondTextStyle, "mt-[-5px]", "opacity-50")}
+      >
+        Rhina Kim
+      </p>
+    </>
   );
 };
 
-const NavbarBrandCustom = ({ id, className, textColor, fillColor }) => {
+const NavbarBrandCustom = ({ textColor, fillColor }) => {
   // CSS
   const navbarBrandTextStyle = clsx(
     "whitespace-nowrap",
@@ -48,27 +43,17 @@ const NavbarBrandCustom = ({ id, className, textColor, fillColor }) => {
 
   // JSX
   return (
-    <div
-      id={id}
-      className={clsx(
-        className,
-        "h-full",
-        "text-center",
-        "flex flex-col justify-center",
-        "sm:gap-[4px] gap-[2px]"
-      )}
-    >
+    <>
       {/* Text */}
       <p className={clsx("mt-[-45px]", navbarBrandTextStyle)}>
         UI/UX Designer + Developer
       </p>
-
       {/* Signature SVG */}
       <Signature
         fillColor={fillColor}
         className={clsx("absolute", "pr-[15px]")}
       />
-    </div>
+    </>
   );
 };
 
@@ -80,18 +65,26 @@ const NavbarBrand = ({ id, className, defaultStyle = true }) => {
   const signatureSvgFillColor = "fill-coffee-600/40 dark:fill-coffee-300/30";
 
   // JSX
-  return defaultStyle ? (
-    <NavbarBrandDefault
+  return (
+    <div
       id={id}
-      className={clsx(className, navbarBrandTextColor)}
-    />
-  ) : (
-    <NavbarBrandCustom
-      id={id}
-      className={className}
-      textColor={navbarBrandTextColor}
-      fillColor={signatureSvgFillColor}
-    />
+      className={clsx(
+        className,
+        "h-full",
+        "text-center",
+        "flex flex-col justify-center",
+        "sm:gap-[4px] gap-[2px]"
+      )}
+    >
+      {defaultStyle ? (
+        <NavbarBrandDefault textColor={navbarBrandTextColor} />
+      ) : (
+        <NavbarBrandCustom
+          textColor={navbarBrandTextColor}
+          fillColor={signatureSvgFillColor}
+        />
+      )}
+    </div>
   );
 };
 
