@@ -34,13 +34,15 @@ const fonts = [
   { name: "Montserrat", href: "https://fonts.google.com/specimen/Montserrat" },
   { name: "Cabin", href: "https://fonts.google.com/specimen/Cabin" },
   { name: "Fredoka", href: "https://fonts.google.com/specimen/Fredoka" },
-  { name: "Castlery", href: "https://www.cdnfonts.com/castlery.font" },
-  { name: "Banirmet Dua", href: "https://www.cdnfonts.com/banirmet-dua.font" },
+  { name: "Limelight", href: "https://fonts.google.com/specimen/Limelight" },
   {
     name: "Radditya Signature",
     href: "https://www.cdnfonts.com/radditya-signature.font",
   },
-  { name: "Richford", href: "https://www.cdnfonts.com/richford.font" },
+  {
+    name: "Travel November",
+    href: "https://www.creativefabrica.com/product/travel-november/",
+  },
 ];
 
 const assets = [
