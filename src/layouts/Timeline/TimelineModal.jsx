@@ -64,6 +64,9 @@ const TimelineModal = forwardRef(({}, modalRef) => {
           "gap-x-3 gap-y-5"
         )}
       >
+        {/* Download PDF Button */}
+        <DownloadButton defaultStyle={false} />
+
         {/* Scroll Back to Top Button */}
         <ScrollToTopButton
           className={clsx(
@@ -73,8 +76,6 @@ const TimelineModal = forwardRef(({}, modalRef) => {
           )}
           onClick={handleScrollBackToTop}
         />
-        {/* Download PDF Button */}
-        <DownloadButton defaultStyle={false} />
       </div>
     </Modal>
   );
