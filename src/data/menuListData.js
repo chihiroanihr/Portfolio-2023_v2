@@ -10,7 +10,7 @@ const menuListData = [
   {
     name: "Project",
     href: "#works",
-    offset: true,
+    offset: "#wrapper #heading",
   },
   {
     name: "Gallery",

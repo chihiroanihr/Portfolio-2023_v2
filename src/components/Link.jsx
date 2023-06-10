@@ -13,22 +13,27 @@ const Link = ({
   console.log("[Render] @components/Link.jsx");
 
   const offsetClick = (event) => {
-    event.preventDefault();
+    const targetElement = document.querySelector(
+      event.currentTarget.getAttribute("href")
+    );
 
-    if (offset) {
-      const targetElement = document.querySelector(
-        event.currentTarget.getAttribute("href")
-      );
-
-      window.scrollTo({ top: targetElement.offsetTop + offset }); // offset in px
-    }
+    // preventDefault() --> window.scrollTo() execution does not work in iOS thus solved with setTimeout()
+    setTimeout(() => {
+      if (typeof offset === "number")
+        // offset in px
+        window.scrollTo({
+          top: targetElement.offsetTop + offset, // 100vh
+        });
+      // scroll into child id node
+      else targetElement.querySelector(offset).scrollIntoView();
+    }, 1);
   };
 
   // onClick function
   const handleClick = (event) => {
-    if (disabled) event.preventDefault();
-    if (offset) offsetClick(event);
-    if (handleParentClick) handleParentClick();
+    offset && offsetClick(event);
+    disabled && event.preventDefault();
+    handleParentClick && handleParentClick();
   };
 
   return (

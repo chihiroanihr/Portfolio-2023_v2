@@ -29,14 +29,16 @@ const MenuList = forwardRef(({ className }, ref) => {
   }, [isMenuOpen]);
 
   // ************************* CSS ************************* //
-  const menuListItemsTextColor = "text-coffee-800 dark:text-coffee-100";
-  const menuListItemsTextFont = "font-default-serif";
+  const menuListItemsTextColor = "text-chocolate/90 dark:text-coffee-100";
+  const menuListItemsTextFont = "font-limelight-cursive";
 
   const menuListItemsFontStyle = clsx(
     menuListItemsTextColor,
     menuListItemsTextFont,
     "sm:text-[30px] xs:text-[25px] text-[20px]",
-    "font-semibold tracking-widest uppercase"
+    "uppercase",
+    "tracking-widest",
+    "xl:font-semibold"
   );
 
   // Menu List Bar Animation Style
@@ -45,8 +47,8 @@ const MenuList = forwardRef(({ className }, ref) => {
     "before:absolute",
     "before:top-1/2",
     "before:left-0",
-    "before:w-0 before:h-[1.5px]",
-    "before:bg-coffee-800 dark:before:bg-coffee-100"
+    "before:w-0 before:h-[2px]",
+    "before:bg-chocolate/80 dark:before:bg-coffee-100"
   );
   const initBarStyleAfter = clsx(
     "after:content-['']",
@@ -54,7 +56,7 @@ const MenuList = forwardRef(({ className }, ref) => {
     "after:top-1/2",
     "after:right-0",
     "after:w-0 after:h-[1.5px]",
-    "after:bg-coffee-800 dark:after:bg-coffee-100"
+    "after:bg-chocolate/80 dark:after:bg-coffee-100"
   );
   const hoverBarStyleBefore = clsx(
     "hover:before:w-full",
@@ -62,7 +64,7 @@ const MenuList = forwardRef(({ className }, ref) => {
   );
   const hoverBarStyleAfter = clsx(
     "hover:after:w-full",
-    "hover:after:bg-transparent",
+    "hover:after:bg-transparent dark:hover:after:bg-transparent",
     "after:[transition:width_0.3s_ease-in-out]"
   );
 
@@ -85,7 +87,7 @@ const MenuList = forwardRef(({ className }, ref) => {
               )}
               href={href}
               disabled={disabled}
-              offset={offset && window.innerHeight} // 100vh offset
+              offset={offset}
               onClick={() => {
                 handleToggleMenu();
                 handleScrollLock();
