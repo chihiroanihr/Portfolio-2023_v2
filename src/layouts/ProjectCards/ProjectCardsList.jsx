@@ -121,8 +121,8 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
   const memoizedProjectCardListItems = useMemo(() => {
     return projectsListData.map((item, index) => (
       <Card
-        key={item.id}
-        id={`card${item.id}`}
+        key={item.title}
+        id={`card-${index}`}
         className={clsx(
           projectCardsItemStyle.positionStyle[index], // position
           cardItemStyle

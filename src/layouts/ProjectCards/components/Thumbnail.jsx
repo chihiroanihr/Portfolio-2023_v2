@@ -6,10 +6,13 @@ const Thumbnail = ({ className, items, alt }) => {
 
   const thumbnailStyle = clsx(
     thumbnailBgColor,
+    "overflow-hidden",
     // layout style
     "w-full",
     "aspect-[4/3]",
     "rounded-[10px]",
+    // shadow style
+    "shadow-btn-on-cards",
     // animate
     "[transition:background-color_700ms]", // dark mode transition
     "will-change-[background-color]"
