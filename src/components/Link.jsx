@@ -26,7 +26,7 @@ const Link = ({
         });
       // scroll into child id node
       else targetElement.querySelector(offset).scrollIntoView();
-    }, 1);
+    }, 0);
   };
 
   // onClick function
