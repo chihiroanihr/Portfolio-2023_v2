@@ -55,6 +55,9 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 - **body-scroll-lock-upgrade**<br />
   `npm install body-scroll-lock-upgrade`
 
+- **DOMPurify** <br />
+  `npm install dompurify`
+
 ### Fonts
 
 - **Google Fonts**: https://fonts.google.com/
