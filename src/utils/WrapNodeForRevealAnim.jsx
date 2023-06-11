@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import parseTextData from "./parseTextData";
+import parseMarkup from "./parseMarkup";
 
 const WrapNodeForRevealAnim = ({
   inputText,
@@ -10,7 +10,7 @@ const WrapNodeForRevealAnim = ({
   // Wrap children elements with input text inside Div Node
   return inputText ? (
     // Parse text data
-    parseTextData(inputText).map(({ text, italic, br }, index) =>
+    parseMarkup(inputText).map(({ text, italic, br }, index) =>
       br ? (
         <div key={`br-${index}`} className={clsx("block", newLineSpace)} />
       ) : (

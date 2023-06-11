@@ -10,8 +10,9 @@ import useAnimatedSvgPath from "./useAnimatedSvgPath";
 import checkIsVisited from "./checkIsVisited";
 import checkObjectNullEmpty from "./checkObjectNullEmpty";
 import isFontAvailable from "./checkIsFontAvailable";
+import parseMarkup from "./parseMarkup";
+import sanitizeMarkup from "./sanitizeMarkup";
 import { splitTextToChars, splitTextToWords } from "./splitText";
-import parseTextData from "./parseTextData";
 import {
   getWidth,
   getHeight,
@@ -39,9 +40,10 @@ export {
   checkIsVisited,
   checkObjectNullEmpty,
   isFontAvailable,
+  parseMarkup,
+  sanitizeMarkup,
   splitTextToChars,
   splitTextToWords,
-  parseTextData,
   getWidth,
   getHeight,
   getTop,

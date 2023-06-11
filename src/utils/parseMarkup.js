@@ -16,12 +16,12 @@ function findKeyByNodeName(nodeName) {
   );
 }
 
-function parseTextData(text) {
+function parseMarkup(text) {
   // Parse text string
   const doc = parser.parseFromString(text, "text/html");
 
   // Divide into individual HTML nodes
-  const displayTextData = Array.from(doc.body.childNodes).flatMap((node) => {
+  const parsedTextData = Array.from(doc.body.childNodes).flatMap((node) => {
     // Further split each nodes into words
     const words = node.textContent.split(" ");
 
@@ -31,14 +31,14 @@ function parseTextData(text) {
     // Create key existence info
     const textData = key ? { [key]: true } : {};
 
-    // Filter empty string pnly if key is not br
+    // Filter empty string only if key is not <br>
     const cleanedWords = key === "br" ? words : words.filter(Boolean);
 
     // Return each words as dictionary with key info
     return cleanedWords.map((word) => ({ text: word, ...textData }));
   });
 
-  return displayTextData;
+  return parsedTextData;
 }
 
-export default parseTextData;
+export default parseMarkup;
