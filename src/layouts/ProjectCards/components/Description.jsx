@@ -1,11 +1,7 @@
 import clsx from "clsx";
+import { sanitizeMarkup } from "@utils";
 
 const Description = ({ className, item }) => {
-  // Sanitize Json String (extract links if exists)
-  const createMarkup = (htmlString) => {
-    return { __html: htmlString };
-  };
-
   // ************************* CSS ************************* //
   const descriptionTextColor = "text-coffee-600/70 dark:text-coffee-300/80";
   const descriptionTextFont = "xs:text-[14px] text-[12px]";
@@ -14,7 +10,7 @@ const Description = ({ className, item }) => {
   return (
     <div
       className={clsx(className, descriptionTextColor, descriptionTextFont)}
-      dangerouslySetInnerHTML={createMarkup(item)}
+      dangerouslySetInnerHTML={sanitizeMarkup(item)}
     />
   );
 };
