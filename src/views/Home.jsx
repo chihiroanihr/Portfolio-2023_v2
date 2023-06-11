@@ -127,7 +127,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
         className={clsx(
           // !customFontAvailableRef.current ? "pl-[8px] :",
           "relative",
-          "xl:font-bold font-normal",
+          "xxxl:font-bold font-normal",
           homeTextStyle.creativityTextStyle,
           homePageCreativityTextFont
         )}
