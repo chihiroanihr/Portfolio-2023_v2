@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useCallback, useContext } from "react";
 import clsx from "clsx";
 import { TimelineModal } from "@layouts";
 import {
@@ -9,7 +9,12 @@ import {
   LocalTime,
   WrapNodeForRevealAnim,
 } from "@components";
-import { ScrollLockProvider, ToggleModalProvider } from "@contexts";
+import {
+  ScrollLockContext,
+  ScrollLockProvider,
+  ToggleModalContext,
+  ToggleModalProvider,
+} from "@contexts";
 import { useBodyScrollLock } from "@hooks";
 import { socialMediaPlatformsStyle } from "@themes";
 import { useAboutAnimation } from "@animations";
@@ -88,14 +93,26 @@ const BlobImageSection = React.memo(({ className }) => {
   );
 });
 
-const ModalButtonSection = React.memo(({ className }) => (
-  <ModalButton
-    id="view-more-btn"
-    className={className}
-    value="View More"
-    defaultStyle={false}
-  />
-));
+const ModalButtonSection = React.memo(({ className }) => {
+  // Retrieve States from Contexts
+  const { handleToggleModal } = useContext(ToggleModalContext);
+  const { handleScrollLock } = useContext(ScrollLockContext);
+
+  const handleClick = useCallback(() => {
+    handleToggleModal();
+    handleScrollLock();
+  }, []);
+
+  return (
+    <ModalButton
+      id="view-more-btn"
+      className={className}
+      value="View More"
+      defaultStyle={false}
+      onClick={handleClick}
+    />
+  );
+});
 
 const LocalTimeSection = React.memo(({ className }) => {
   const fontType = "font-default-sans";

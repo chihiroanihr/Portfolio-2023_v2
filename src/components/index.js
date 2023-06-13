@@ -2,11 +2,12 @@ import {
   Button,
   FancyButton,
   CloseButton,
+  ModalButton,
   DownloadButton,
   ScrollToTopButton,
 } from "./Buttons";
 import { Link, MailToLink } from "./Links";
-import { Modal, ModalButton } from "./Modal";
+import Modal from "./Modal";
 import { BlobDots, BlobImage } from "./Blobs";
 import { SocialIcon, SocialIconsList } from "./SocialIcons";
 import Card from "./Card";
@@ -19,10 +20,10 @@ export {
   Button,
   FancyButton,
   CloseButton,
+  ModalButton,
   DownloadButton,
   ScrollToTopButton,
   Modal,
-  ModalButton,
   Link,
   MailToLink,
   Card,

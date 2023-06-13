@@ -1,19 +1,14 @@
-import { useCallback, useContext } from "react";
 import { Button, FancyButton } from "@components";
-import { ToggleModalContext, ScrollLockContext } from "@contexts";
 import { buttonStyle } from "@themes";
 
-const ModalButton = ({ id, className, value, defaultStyle = true }) => {
+const ModalButton = ({
+  id,
+  className,
+  value,
+  defaultStyle = true,
+  onClick,
+}) => {
   console.log("[Render] @components/Modal/ModalButton.jsx");
-
-  // Retrieve States from Contexts
-  const { handleToggleModal } = useContext(ToggleModalContext);
-  const { handleScrollLock } = useContext(ScrollLockContext);
-
-  const handleClick = useCallback(() => {
-    handleToggleModal();
-    handleScrollLock();
-  }, []);
 
   return defaultStyle ? (
     <Button
@@ -43,7 +38,7 @@ const ModalButton = ({ id, className, value, defaultStyle = true }) => {
       id={id}
       className={className}
       value={value}
-      onClick={handleClick}
+      onClick={onClick}
       btnStyle={buttonStyle.fancyModalBtnStyle}
     />
   );
