@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import clsx from "clsx";
 import SocialIcon from "./SocialIcon";
 import { socialMediaPlatformsListData } from "@data";
@@ -14,6 +14,9 @@ const SocialIconsList = ({ id, className, iconStyle, iconGap, direction }) => {
 
   // Alignment Direction
   const vertical = direction.trim().toLowerCase() === "y" ? true : false;
+
+  // Wrap horizontal icons (if icons more than 6)
+  const wrapIcons = !vertical && socialMediaPlatformsListData.length > 6;
 
   // Memoize to avoid getting created on every re-render
   const memoizedSocialIconListItems = useMemo(() => {
@@ -78,8 +81,6 @@ const SocialIconsList = ({ id, className, iconStyle, iconGap, direction }) => {
         ))
     );
   }, [socialMediaPlatformsListData, iconStyle]);
-
-  const wrapIcons = !vertical && socialMediaPlatformsListData.length > 6;
 
   return (
     <div

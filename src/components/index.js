@@ -9,7 +9,7 @@ import {
 import { Link, MailToLink } from "./Links";
 import Modal from "./Modal";
 import { BlobDots, BlobImage } from "./Blobs";
-import { SocialIcon, SocialIconsList } from "./SocialIcons";
+import SocialIconsList from "./SocialIcons";
 import Card from "./Card";
 import LocalTime from "./LocalTime";
 import DarkLightButton from "./DarkLightButton";
@@ -32,7 +32,6 @@ export {
   ScrollLine,
   BlobImage,
   BlobDots,
-  SocialIcon,
   SocialIconsList,
   WrapNodeForRevealAnim,
 };
