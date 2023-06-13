@@ -3,8 +3,7 @@ import clsx from "clsx";
 import { ImageCardsList } from "@layouts";
 import { ScrollLine } from "@components";
 import { PlayAnimationContext } from "@contexts";
-import { homeStyle } from "@themes";
-import { splitTextToWords, splitTextToChars, isFontAvailable } from "@utils";
+import { splitTextToWords, splitTextToChars } from "@utils";
 import { useHomeAnimation } from "@animations";
 import {
   cleanUpGsapAnimation,
