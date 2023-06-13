@@ -115,6 +115,7 @@ const Works = ({ parentRef }) => {
   useEffect(() => {
     if (!parentRef.current) return;
 
+    // Background Color Change
     if (isInsideSection) {
       parentRef.current.classList.remove("bg-root-color");
       parentRef.current.classList.add("bg-milky", "dark:bg-chocolate");
