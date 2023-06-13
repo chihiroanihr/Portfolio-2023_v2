@@ -7,10 +7,10 @@ import {
   ScrollToTopButton,
 } from "./Buttons";
 import { Link, MailToLink } from "./Links";
-import Modal from "./Modal";
 import { BlobDots, BlobImage } from "./Blobs";
-import SocialIconsList from "./SocialIcons";
 import Card from "./Card";
+import Modal from "./Modal";
+import SocialIconsList from "./SocialIcons";
 import LocalTime from "./LocalTime";
 import DarkLightButton from "./DarkLightButton";
 import ScrollLine from "./ScrollLine";
@@ -23,15 +23,15 @@ export {
   ModalButton,
   DownloadButton,
   ScrollToTopButton,
-  Modal,
   Link,
   MailToLink,
+  BlobImage,
+  BlobDots,
   Card,
+  Modal,
+  SocialIconsList,
   LocalTime,
   DarkLightButton,
   ScrollLine,
-  BlobImage,
-  BlobDots,
-  SocialIconsList,
   WrapNodeForRevealAnim,
 };
