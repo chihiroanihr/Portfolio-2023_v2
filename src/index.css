@@ -49,9 +49,6 @@
     @apply bg-coffee-100 dark:bg-coffee-800;
   }
 
-  .fixed-position-top-stretch {
-    @apply fixed top-0 left-0 right-0;
-  }
   .fixed-position-center {
     @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }

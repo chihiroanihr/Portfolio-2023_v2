@@ -86,7 +86,7 @@ function App() {
         <PlayAnimationProvider playAnimation={playAnimation}>
           {/* --- Navbar (sticky) --- */}
           <Navbar
-            className={clsx("z-20", "fixed-position-top-stretch")}
+            className={clsx("z-20", "fixed top-0 left-0 right-0")}
             addToLandingTimeline={addToTempChildTimelineLists}
             animateIndex={0}
           />
