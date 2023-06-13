@@ -12,6 +12,7 @@ export default defineConfig({
       "@layouts": path.resolve(__dirname, "src/layouts"),
       "@views": path.resolve(__dirname, "src/views"),
       "@contexts": path.resolve(__dirname, "src/contexts"),
+      "@hooks": path.resolve(__dirname, "src/hooks"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@data": path.resolve(__dirname, "src/data"),
       "@themes": path.resolve(__dirname, "src/themes"),

@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { DropBackground, ProjectCardsList } from "@layouts";
 import { InsideSectionProvider } from "@contexts";
 import { positionStyle } from "@themes";
-import { useResizeObserverCallback } from "@utils";
+import { useResizeObserverCallback } from "@hooks";
 import { useWorksAnimation } from "@animations";
 import {
   useMemoizedGsapContext,

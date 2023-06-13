@@ -12,7 +12,7 @@ import { Card } from "@components";
 import { DeviceTypeContext } from "@contexts";
 import { projectCardsItemStyle } from "@themes";
 import { projectsListData } from "@data";
-import { useIntersectionObserver } from "@utils";
+import { useIntersectionObserver } from "@hooks";
 import { useProjectCardsListAnimation } from "@animations";
 import {
   useMemoizedGsapContext,

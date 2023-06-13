@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import clsx from "clsx";
 import { animated } from "react-spring";
-import { useAnimatedSvgPath, useIntersectionObserver } from "@utils";
+import { useAnimatedSvgPath, useIntersectionObserver } from "@hooks";
 
 const IdeaLightBulbAnimatePath = ({
   toggle,

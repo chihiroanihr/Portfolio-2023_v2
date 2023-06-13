@@ -13,7 +13,7 @@ import {
   ToggleMenuProvider,
   ScrollLockProvider,
 } from "@contexts";
-import { useBodyScrollLock } from "@utils";
+import { useBodyScrollLock } from "@hooks";
 import { useNavbarAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 

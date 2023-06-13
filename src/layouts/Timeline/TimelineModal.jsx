@@ -8,7 +8,7 @@ import {
   ScrollToTopButton,
 } from "@components";
 import { DeviceTypeContext } from "@contexts";
-import { useScrollBackToTop } from "@utils";
+import { useScrollBackToTop } from "@hooks";
 
 const TimelineModal = forwardRef(({}, modalRef) => {
   console.log("[Render] @layouts/Timeline/TimelineModal.jsx");

@@ -2,7 +2,7 @@ import React, { useRef, useState, useCallback } from "react";
 import clsx from "clsx";
 import { HiOutlineCode, HiOutlineLink } from "react-icons/hi";
 import { Link } from "@components";
-import { useResizeObserverCallback } from "@utils";
+import { useResizeObserverCallback } from "@hooks";
 
 const CategoryLinksContainer = ({
   className,

@@ -10,7 +10,8 @@ import {
 } from "@components";
 import { ScrollLockProvider, ToggleModalProvider } from "@contexts";
 import { socialMediaPlatformsStyle } from "@themes";
-import { useBodyScrollLock, WrapNodeForRevealAnim } from "@utils";
+import { useBodyScrollLock } from "@hooks";
+import { WrapNodeForRevealAnim } from "@utils";
 import { useAboutAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 import girlImage from "@assets/images/girl.png";

@@ -7,7 +7,7 @@ import React, {
 import clsx from "clsx";
 import ModalBgOverlay from "./ModalBgOverlay";
 import { ToggleModalContext } from "@contexts";
-import { useScrollBackToTop } from "@utils";
+import { useScrollBackToTop } from "@hooks";
 
 // (ScrollLock Target Ref passed as forwardRef from About.jsx)
 const Modal = forwardRef(

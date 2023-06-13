@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { FiDownload } from "react-icons/fi";
 import { Button, FancyButton } from "@components";
 import { buttonStyle } from "@themes";
-import { useDownloadFile } from "@utils";
+import { useDownloadFile } from "@hooks";
 
 const DownloadButton = ({ defaultStyle = true }) => {
   console.log("[Render] @components/DownloadButton.jsx");
