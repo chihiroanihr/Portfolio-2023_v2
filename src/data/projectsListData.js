@@ -6,7 +6,7 @@ const projectsListData = [
     title: "3D Room Design",
     description:
       'Step into a captivating world of 3D room design, meticulously crafted using \
-      <a href="https://spline.design/" target="_blank" class="underline">Spline</a> (3D design software). \
+      <a href="https://spline.design/" target="_blank" rel="noopener noreferrer" class="underline">Spline</a> (3D design software). \
       Immerse yourself in the exquisite details that bring this virtual room to life, showcasing the essence of creative design. \
       While this project may not be directly linked to Web Design and Development, it serves as a vibrant showcase of my unwavering passion for creativity, and my eagerness to master new skills. \
       Explore this mesmerizing 3D room and witness firsthand the seamless blend of artistry and technology.',

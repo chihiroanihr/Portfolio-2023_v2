@@ -42,6 +42,7 @@ const Link = ({
       id={id}
       href={href}
       target={target}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
       onClick={handleClick}
     >
       {children}

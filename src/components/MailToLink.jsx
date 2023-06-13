@@ -4,7 +4,7 @@ const MailToLink = ({ className, email, children }) => {
   const mailto = "mailto:" + email;
 
   return (
-    <Link className={className} target="_blank" href={mailto}>
+    <Link className={className} href={mailto} target="_blank">
       {children}
     </Link>
   );
