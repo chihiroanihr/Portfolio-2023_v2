@@ -14,7 +14,6 @@ import Card from "./Card";
 import LocalTime from "./LocalTime";
 import DarkLightButton from "./DarkLightButton";
 import ScrollLine from "./ScrollLine";
-import { BlobDots, BlobImage } from "./Blob";
 import { SocialIcon, SocialIconsList } from "./SocialIcons";
 import WrapNodeForRevealAnim from "./WrapNodeForRevealAnim";
 
