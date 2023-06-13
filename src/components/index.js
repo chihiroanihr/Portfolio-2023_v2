@@ -8,11 +8,11 @@ import {
 import { Link, MailToLink } from "./Links";
 import { Modal, ModalButton } from "./Modal";
 import { BlobDots, BlobImage } from "./Blobs";
+import { SocialIcon, SocialIconsList } from "./SocialIcons";
 import Card from "./Card";
 import LocalTime from "./LocalTime";
 import DarkLightButton from "./DarkLightButton";
 import ScrollLine from "./ScrollLine";
-import { SocialIcon, SocialIconsList } from "./SocialIcons";
 import WrapNodeForRevealAnim from "./WrapNodeForRevealAnim";
 
 export {
