@@ -17,12 +17,14 @@ const Link = ({
       event.currentTarget.getAttribute("href")
     );
 
+    event.preventDefault();
+
     // preventDefault() --> window.scrollTo() execution does not work in iOS thus solved with setTimeout()
     setTimeout(() => {
       if (typeof offset === "number")
         // offset in px
         window.scrollTo({
-          top: targetElement.offsetTop + offset, // 100vh
+          top: targetElement.offsetTop + offset,
         });
       // scroll into child id node
       else targetElement.querySelector(offset).scrollIntoView();
