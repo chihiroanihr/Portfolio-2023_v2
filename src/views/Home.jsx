@@ -94,30 +94,32 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   }, [playAnimation]);
 
   // ************************* CSS ************************* //
-  const homePageDefaultTextFont = "font-default-sans";
-  const homePageCreativityTextFont = "font-title-cursive";
-  const homePageDefaultTextColor = "text-coffee-600 dark:text-coffee-300";
-  const homePageHightlightTextColor = "text-yellow-500";
+  const defaultTextFont = "font-default-sans";
+  const creativityTextFont = "font-title-cursive";
+  const defaultTextColor = "text-coffee-600 dark:text-coffee-300";
+  const hightlightTextColor = "text-yellow-500";
 
-  // TODO: This does not work on FireFox
-  const customFontAvailableRef = useRef(false);
+  const defaultTextStyle = clsx(
+    "leading-snug",
+    "md:font-extralight font-light",
+    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
+  );
 
-  customFontAvailableRef.current = isFontAvailable("Radditya Signature");
-  const homeTextStyle = customFontAvailableRef.current
-    ? homeStyle.customHomeStyle
-    : homeStyle.customHomeStyle; // defaultHomeStyle
+  const creativityTextStyle = clsx(
+    "whitespace-nowrap",
+    "lg:text-[140px] md:text-[116px] xs:text-[72px] text-[60px]"
+  );
+
+  const coffeeTextStyle = clsx(
+    "leading-snug",
+    "md:font-light font-normal",
+    "lg:text-[48px] md:text-[36px] sm:text-[24px] xs:text-[24px] text-[18px]"
+  );
 
   // ************************* JSX ************************* //
   const homeTextSection = (
     <>
-      <div
-        ref={sippingOnTextNodeRef}
-        className={clsx(
-          // !customFontAvailableRef.current &&
-          //   "xl:mb-[35px] md:mb-[30px] mb-[15px]",
-          homeTextStyle.defaultTextStyle
-        )}
-      >
+      <div ref={sippingOnTextNodeRef} className={clsx(defaultTextStyle)}>
         Sipping on
       </div>
 
@@ -128,8 +130,8 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
           // !customFontAvailableRef.current ? "pl-[8px] :",
           "relative",
           "xxxl:font-bold font-normal",
-          homeTextStyle.creativityTextStyle,
-          homePageCreativityTextFont
+          creativityTextStyle,
+          creativityTextFont
         )}
       >
         Creativity
@@ -139,20 +141,13 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
         ref={inlineTextWrapperNodeRef}
         className={clsx("relative inline-block")}
       >
-        <span
-          ref={oneCupOfTextNodeRef}
-          className={homeTextStyle.defaultTextStyle}
-        >
+        <span ref={oneCupOfTextNodeRef} className={defaultTextStyle}>
           one cup of{" "}
         </span>
 
         <span
           ref={coffeeTextNodeRef}
-          className={clsx(
-            "absolute",
-            "prevent-select",
-            homeTextStyle.coffeeTextStyle
-          )}
+          className={clsx("absolute", "prevent-select", coffeeTextStyle)}
         >
           coffee
         </span>
@@ -161,15 +156,15 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
           ref={coffeeTextNodeCopyRef}
           className={clsx(
             "absolute top-0",
-            homeTextStyle.coffeeTextStyle,
-            homePageHightlightTextColor
+            coffeeTextStyle,
+            hightlightTextColor
           )}
         >
           coffee
         </span>
       </div>
 
-      <div ref={atTimeTextNodeRef} className={homeTextStyle.defaultTextStyle}>
+      <div ref={atTimeTextNodeRef} className={defaultTextStyle}>
         at a time.
       </div>
     </>
@@ -194,8 +189,8 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
             "xl:col-start-1 lg:col-start-1 md:col-start-1 sm:col-start-1 col-start-1",
             "xl:col-span-6 lg:col-span-7 md:col-span-6 sm:col-span-5 col-span-full",
             "flex flex-col justify-center",
-            homePageDefaultTextFont,
-            homePageDefaultTextColor
+            defaultTextFont,
+            defaultTextColor
           )}
         >
           {homeTextSection}
