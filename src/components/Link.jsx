@@ -8,6 +8,7 @@ const Link = ({
   disabled = false,
   offset = null,
   onClick: handleParentClick = null,
+  style,
   children,
 }) => {
   console.log("[Render] @components/Link.jsx");
@@ -46,6 +47,7 @@ const Link = ({
       target={target}
       rel={target === "_blank" ? "noopener noreferrer" : undefined}
       onClick={handleClick}
+      style={style}
     >
       {children}
     </a>
