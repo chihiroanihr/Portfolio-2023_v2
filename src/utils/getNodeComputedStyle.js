@@ -3,7 +3,6 @@ export function getOpacity(node) {
   const opacityValue = computedStyle.opacity;
   return opacityValue;
 }
-// Reference: https://stackoverflow.com/questions/19574171/how-to-get-css-transform-rotation-value-in-degrees-with-javascript
 
 export function getWidth(node) {
   const computedStyle = window.getComputedStyle(node, null);
@@ -60,3 +59,5 @@ export function getFontFamily(node) {
   const fontFamily = computedStyle.fontFamily;
   return fontFamily;
 }
+
+// Reference: https://stackoverflow.com/questions/19574171/how-to-get-css-transform-rotation-value-in-degrees-with-javascript

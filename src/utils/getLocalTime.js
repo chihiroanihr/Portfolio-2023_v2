@@ -1,6 +1,7 @@
 export function getTimeZoneGMT(date) {
   var offset = date.getTimezoneOffset(),
     o = Math.abs(offset);
+
   return (
     "GMT" +
     (offset < 0 ? "+" : "-") +
