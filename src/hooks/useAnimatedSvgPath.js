@@ -7,7 +7,10 @@ function useAnimatedSvgPath({
   delay,
   pathLength = null,
 }) {
+  console.log("[Render] [hooks] useAnimatedSvgPath.js");
+
   const [length, setLength] = useState(null);
+
   const animatedStyle = useSpring({
     strokeDashoffset: toggle ? 0 : length,
     strokeDasharray: length,

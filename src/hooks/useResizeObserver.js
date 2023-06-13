@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
 function useResizeObserver(ref, option) {
+  console.log("[Render] [hooks] useResizeObserver.js");
+
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {

@@ -1,9 +1,11 @@
-import { TbBrandLinkedin } from "react-icons/tb";
-import { TbBrandGithub } from "react-icons/tb";
-import { TbBrandDribbble } from "react-icons/tb";
-import { TbBrandInstagram } from "react-icons/tb";
-import { TbBrandPinterest } from "react-icons/tb";
-import { TbBrandBehance } from "react-icons/tb";
+import {
+  TbBrandLinkedin,
+  TbBrandGithub,
+  TbBrandDribbble,
+  TbBrandInstagram,
+  TbBrandPinterest,
+  TbBrandBehance,
+} from "react-icons/tb";
 
 const socialMediaPlatformsListData = [
   {

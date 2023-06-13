@@ -1,7 +1,9 @@
 import { useCallback } from "react";
 
 const useDownloadFile = ({ fileName, targetBlank = false }) => {
-  const handleDownloadFile = useCallback(() => {
+  console.log("[Render] [hooks] useDownloadFile.js");
+
+  return useCallback(() => {
     // using Java Script method to get PDF file
     fetch(fileName)
       .then((response) => response.blob())
@@ -26,8 +28,6 @@ const useDownloadFile = ({ fileName, targetBlank = false }) => {
         alink.click();
       });
   }, [fileName]);
-
-  return handleDownloadFile;
 };
 
 export default useDownloadFile;

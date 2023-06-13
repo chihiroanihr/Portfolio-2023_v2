@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
 function useIntersectionObserver(ref, option, enterOnly = false) {
+  console.log("[Render] [hooks] useIntersectionObserver.js");
+
   const [isIntersecting, setIntersecting] = useState(false);
 
   // Observer Function

@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from "react";
 
 const useScrollBackToTop = ({ ref, dependency, option = { top: 0 } }) => {
+  console.log("[Render] [hooks] useScrollBackToTop.js");
+
   // Destructure the dependency if it is an array
   const dependencies = Array.isArray(dependency) ? dependency : [dependency];
 
@@ -11,8 +13,9 @@ const useScrollBackToTop = ({ ref, dependency, option = { top: 0 } }) => {
     ref.current?.scrollTo(option);
   }, []);
 
+  // If dependencies exists
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current && !dependency) return;
 
     handleScrollBackToTop();
   }, [...dependencies, option]);
