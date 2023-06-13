@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import clsx from "clsx";
 import { TimelineModal } from "@layouts";
 import {
@@ -40,56 +40,50 @@ const SelfIntroductionText = React.memo(() => {
     <br />\
     From the first sip of coffee to the last line of code, I pour my heart and soul into every project.";
 
-  return useMemo(
-    () => (
-      <>
-        {/* Full Name */}
-        <div id="full-name" className={fullNameTextStyle}>
-          Rhina Kim
-        </div>
+  return (
+    <>
+      {/* Full Name */}
+      <div id="full-name" className={fullNameTextStyle}>
+        Rhina Kim
+      </div>
 
-        {/* Text */}
-        <div className={introTextStyle}>
-          <WrapNodeForRevealAnim inputText={TEXT} newLineSpace="sm:mb-5 mb-3">
-            {({ text }) => (
-              <p id="text" className={clsx("sm:mr-2 mr-[5px]")}>
-                {text}
-              </p>
-            )}
-          </WrapNodeForRevealAnim>
-        </div>
-      </>
-    ),
-    [TEXT]
+      {/* Text */}
+      <div className={introTextStyle}>
+        <WrapNodeForRevealAnim inputText={TEXT} newLineSpace="sm:mb-5 mb-3">
+          {({ text }) => (
+            <p id="text" className={clsx("sm:mr-2 mr-[5px]")}>
+              {text}
+            </p>
+          )}
+        </WrapNodeForRevealAnim>
+      </div>
+    </>
   );
 });
 
 const BlobImageSection = React.memo(({ className }) => {
   const blobDotsFillColor = "fill-coffee-600 dark:fill-coffee-300";
 
-  return useMemo(
-    () => (
-      <div
-        id="images"
-        className={clsx(
-          className,
-          "relative",
-          "overflow-hidden",
-          "w-full h-full",
-          "lg:min-h-[50vh] md:min-h-[55vh] min-h-[45vh]"
-        )}
-      >
-        <BlobDots
-          className={clsx("absolute left-[-5%] top-[-1%]", "w-full h-full")}
-          fillColor={blobDotsFillColor}
-        />
-        <BlobImage
-          className={clsx("absolute right-[-5%] bottom-[-1%]", "w-full h-full")}
-          imgSrc={girlImage}
-        />
-      </div>
-    ),
-    [blobDotsFillColor, girlImage]
+  return (
+    <div
+      id="images"
+      className={clsx(
+        className,
+        "relative",
+        "overflow-hidden",
+        "w-full h-full",
+        "lg:min-h-[50vh] md:min-h-[55vh] min-h-[45vh]"
+      )}
+    >
+      <BlobDots
+        className={clsx("absolute left-[-5%] top-[-1%]", "w-full h-full")}
+        fillColor={blobDotsFillColor}
+      />
+      <BlobImage
+        className={clsx("absolute right-[-5%] bottom-[-1%]", "w-full h-full")}
+        imgSrc={girlImage}
+      />
+    </div>
   );
 });
 
