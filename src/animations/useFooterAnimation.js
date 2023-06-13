@@ -29,6 +29,7 @@ function useFooterAnimation(footerSectionNode, isTouchDevice) {
         // markers: true,
       };
 
+      // Animate
       gsap
         .timeline({
           defaults: { ease: "power2.out", clearProps: true },
