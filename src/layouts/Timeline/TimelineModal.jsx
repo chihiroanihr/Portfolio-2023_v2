@@ -25,6 +25,15 @@ const TimelineModal = forwardRef(({}, modalRef) => {
     },
   });
 
+  // ======== [DownloadButton] Download file when clicked ======= //
+  const PDF_NAME = "resume_rhina-kim.pdf";
+
+  // Handle Click Function
+  const handleDownloadFile = useDownloadFile({
+    fileName: PDF_NAME,
+    targetBlank: true,
+  });
+
   // ************************* CSS ************************* //
   const timelineModalBgColor = "bg-coffee-100";
   const timelineModalTextColor = "text-coffee-600";
@@ -65,7 +74,7 @@ const TimelineModal = forwardRef(({}, modalRef) => {
         )}
       >
         {/* Download PDF Button */}
-        <DownloadButton defaultStyle={false} />
+        <DownloadButton defaultStyle={false} onClick={handleDownloadFile} />
 
         {/* Scroll Back to Top Button */}
         <ScrollToTopButton

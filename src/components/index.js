@@ -7,8 +7,6 @@ import {
 } from "./Buttons";
 import { Link, MailToLink } from "./Links";
 import { Modal, ModalButton } from "./Modal";
-import Link from "./Link";
-import MailToLink from "./MailToLink";
 import { BlobDots, BlobImage } from "./Blobs";
 import Card from "./Card";
 import LocalTime from "./LocalTime";
