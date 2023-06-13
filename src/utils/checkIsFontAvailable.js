@@ -7,8 +7,9 @@
  * @license MIT
  * @copyright Sam Clarke 2013
  * @author Sam Clarke <sam@samclarke.com>
+ *
+ * https://www.samclarke.com/javascript-is-font-available/
  */
-// https://www.samclarke.com/javascript-is-font-available/
 
 const isFontAvailable = (function (document) {
   const body = document.body;
@@ -27,8 +28,8 @@ const isFontAvailable = (function (document) {
     body.appendChild(probeElement);
 
     const width = probeElement.offsetWidth;
-    // console.log(probeElement.style.fontFamily, width);
     body.removeChild(probeElement);
+
     return width;
   };
 
@@ -38,10 +39,6 @@ const isFontAvailable = (function (document) {
   const sansWidth = getWidth("sans-serif");
 
   return function (font) {
-    // console.log(monoWidth, getWidth(font + ",monospace"));
-    // console.log(sansWidth, getWidth(font + ",sans-serif"));
-    // console.log(serifWidth, getWidth(font + ",serif"));
-
     return (
       monoWidth !== getWidth(font + ",monospace") ||
       sansWidth !== getWidth(font + ",sans-serif") ||
@@ -50,6 +47,8 @@ const isFontAvailable = (function (document) {
   };
 })(document);
 
+export default isFontAvailable;
+
 // import { getFontFamily } from "./getNodeComputedStyle";
 
 // export function checkFontFamilyExists(node, fontFamilyToCheck) {
@@ -57,5 +56,3 @@ const isFontAvailable = (function (document) {
 //   if (fontFamily.includes(fontFamilyToCheck)) return true;
 //   return false;
 // }
-
-export default isFontAvailable;
