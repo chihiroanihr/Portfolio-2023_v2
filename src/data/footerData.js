@@ -52,11 +52,6 @@ const assets = [
     href: "https://react-icons.github.io/react-icons",
   },
   {
-    name: "Coffee cup spiral text SVG path",
-    by: "distillocaffe.com",
-    href: "https://distillocaffe.com/en/",
-  },
-  {
     name: "Coffee mug cup vector illustration",
     by: "Asya Mullakhmetova",
     provider: "istockphoto.com",
@@ -67,6 +62,17 @@ const assets = [
     by: "Polina Tomtosova",
     provider: "istockphoto.com",
     href: "https://www.istockphoto.com/vector/idea-light-bulb-doodle-hand-drawn-gm1347977917-425324482",
+  },
+  {
+    name: "Coffee cup spiral text SVG path",
+    by: "distillocaffe.com",
+    href: "https://distillocaffe.com/en/",
+  },
+  {
+    name: "Coffee cup image",
+    by: "Paulina Adamkiewicz",
+    provider: "Codepen",
+    href: "https://codepen.io/apomekhanes/pen/BprZdq",
   },
   {
     name: "Coffee background image",
