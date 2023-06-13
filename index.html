@@ -43,7 +43,7 @@
       href="src/assets/fonts/radditya-signature/RaddityaSignature.woff2"
       as="font"
       type="font/woff2"
-      crossorigin="anonymous"
+      crossorigin
     />
     <!-- Travel November (cursive) -->
     <link
@@ -51,7 +51,7 @@
       href="src/assets/fonts/travel-november/TravelNovember.woff2"
       as="font"
       type="font/woff2"
-      crossorigin="anonymous"
+      crossorigin
     />
 
     <title>Rhina | Creative Developer</title>
@@ -80,17 +80,18 @@
         transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .loading .icon {
-        display: relative;
+        position: relative;
         text-align: center;
         width: 70px;
         height: 70px;
         object-fit: cover;
-        mix-blend-mode: color-dodge;
+        mix-blend-mode: luminosity; /* mix-blend-mode: color-dodge; */
       }
       .loading .text-container {
-        display: relative;
+        position: relative;
         text-align: center;
         width: 100%;
+        margin-top: -10px;
       }
       .loading .text-1,
       .loading .text-2 {
@@ -109,8 +110,8 @@
       }
       @media only screen and (min-width: 360px) {
         .loading .icon {
-          width: 80px;
-          height: 80px;
+          width: 120px; /* 80px */
+          height: 120px;
         }
         .loading .text-1,
         .loading .text-2 {
@@ -118,12 +119,9 @@
         }
       }
       @media only screen and (min-width: 480px) {
-        .loading {
-          gap: 32px;
-        }
         .loading .icon {
-          width: 100px;
-          height: 100px;
+          width: 150px; /*100px*/
+          height: 150px;
         }
         .loading .text-1,
         .loading .text-2 {
@@ -131,9 +129,6 @@
         }
       }
       @media only screen and (min-width: 768px) {
-        .loading {
-          gap: 40px;
-        }
         .loading .text-1,
         .loading .text-2 {
           font-size: 24px;
@@ -147,7 +142,7 @@
       <!-- Loading Page (removed after react DOM is ready) -->
       <div class="loading">
         <!-- Loader -->
-        <img class="icon" src="/loading-icon.png" alt="Loading Icon" />
+        <img class="icon" src="/loading-icon.gif" alt="" />
         <!-- Text Display 1 -->
         <div class="text-container relative text-coffee-100 font-default-sans">
           <p class="text-1">
