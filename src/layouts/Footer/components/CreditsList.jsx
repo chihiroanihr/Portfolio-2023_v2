@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import clsx from "clsx";
 import { Credit, VerticalLine } from "./index";
+import { Link } from "@components";
 import { WrapNodeForRevealAnim } from "@utils";
 import { footerData } from "@data";
 
@@ -21,21 +22,25 @@ const DevelopmentCredits = () => {
               // if tool has multiple elements
               tool.map(({ name, href }, index) => (
                 <React.Fragment key={name}>
-                  <a href={href} target="_blank" className={textUnderlineStyle}>
+                  <Link
+                    href={href}
+                    target="_blank"
+                    className={textUnderlineStyle}
+                  >
                     {name}
-                  </a>
+                  </Link>
                   {index !== tool.length - 1 && <span> + </span>}
                 </React.Fragment>
               ))
             ) : (
               // if only one tool element
-              <a
+              <Link
                 href={tool.href}
                 target="_blank"
                 className={textUnderlineStyle}
               >
                 {tool.name}
-              </a>
+              </Link>
             )}
           </div>
         </WrapNodeForRevealAnim>
@@ -50,9 +55,9 @@ const FontsCredits = () => {
       footerData.fontsCredits.map(({ name, href }) => (
         <WrapNodeForRevealAnim key={name}>
           <div id="text" className="inline-block">
-            <a href={href} target="_blank" style={{ fontFamily: name }}>
+            <Link href={href} target="_blank" style={{ fontFamily: name }}>
               {name}
-            </a>
+            </Link>
           </div>
         </WrapNodeForRevealAnim>
       )),
@@ -67,7 +72,7 @@ const AssetsCredits = () => {
         <WrapNodeForRevealAnim key={name}>
           <div id="text" key={name} className="inline-block">
             <span>{name} by </span>
-            <a href={href} target="_blank" className={textUnderlineStyle}>
+            <Link href={href} target="_blank" className={textUnderlineStyle}>
               {!provider || provider.trim().length === 0 ? (
                 // if provider is not given
                 by
@@ -78,7 +83,7 @@ const AssetsCredits = () => {
                   <span>({provider})</span>
                 </>
               )}
-            </a>
+            </Link>
           </div>
         </WrapNodeForRevealAnim>
       )),
