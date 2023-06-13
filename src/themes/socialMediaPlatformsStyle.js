@@ -1,7 +1,10 @@
 const socialMediaPlatformsStyle = {
+  // Styles for every icons
   iconSize: "text-[55px]",
   iconFillColor: "text-coffee-400",
   iconHoverFillColor: "hover:text-coffee-600 dark:hover:text-coffee-100",
+
+  // Styles for each icon
   icon: {
     LinkedIn: { strokeWidth: 1 },
     GitHub: {
