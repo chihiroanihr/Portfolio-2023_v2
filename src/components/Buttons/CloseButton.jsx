@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import clsx from "clsx";
 import { SlClose } from "react-icons/sl";
-import { Button } from "@components";
+import { Button } from "./index";
 import { ToggleModalContext, ScrollLockContext } from "@contexts";
 
 const CloseButton = ({ className }) => {

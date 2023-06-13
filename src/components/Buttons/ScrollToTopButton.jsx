@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { SlArrowUpCircle } from "react-icons/sl";
-import { Button } from "@components";
+import { Button } from "./index";
 
 const ScrollToTopButton = ({ className, onClick }) => {
   console.log("[Render] @components/ScrollToTopButton.jsx");

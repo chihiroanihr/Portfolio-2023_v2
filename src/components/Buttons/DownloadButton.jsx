@@ -1,20 +1,11 @@
 import React from "react";
 import clsx from "clsx";
 import { FiDownload } from "react-icons/fi";
-import { Button, FancyButton } from "@components";
+import { Button, FancyButton } from "./index";
 import { buttonStyle } from "@themes";
-import { useDownloadFile } from "@hooks";
 
-const DownloadButton = ({ defaultStyle = true }) => {
+const DownloadButton = ({ onClick, defaultStyle = true }) => {
   console.log("[Render] @components/DownloadButton.jsx");
-
-  // PDF Path
-  const pdfName = "resume_rhina-kim.pdf";
-  // Handle Click Function
-  const handleDownloadFile = useDownloadFile({
-    fileName: pdfName,
-    targetBlank: true,
-  });
 
   return defaultStyle ? (
     <Button
@@ -36,7 +27,7 @@ const DownloadButton = ({ defaultStyle = true }) => {
           "transition-colors duration-200"
         )
       )}
-      onClick={handleDownloadFile}
+      onClick={onClick}
     >
       <div className={clsx("flex justify-center items-center", "gap-2")}>
         <FiDownload />
@@ -44,10 +35,7 @@ const DownloadButton = ({ defaultStyle = true }) => {
       </div>
     </Button>
   ) : (
-    <FancyButton
-      onClick={handleDownloadFile}
-      btnStyle={buttonStyle.fancyDownloadBtnStyle}
-    >
+    <FancyButton onClick={onClick} btnStyle={buttonStyle.fancyDownloadBtnStyle}>
       <div className={clsx("flex justify-center items-center", "gap-2")}>
         <p>Download Resume</p>
         <FiDownload />

@@ -1,4 +1,11 @@
-import { Button, FancyButton } from "./Button";
+import {
+  Button,
+  FancyButton,
+  CloseButton,
+  DownloadButton,
+  ScrollToTopButton,
+} from "./Buttons";
+import { Link, MailToLink } from "./Links";
 import { Modal, ModalButton } from "./Modal";
 import Link from "./Link";
 import MailToLink from "./MailToLink";
@@ -7,9 +14,6 @@ import Card from "./Card";
 import LocalTime from "./LocalTime";
 import DarkLightButton from "./DarkLightButton";
 import ScrollLine from "./ScrollLine";
-import CloseButton from "./CloseButton";
-import DownloadButton from "./DownloadButton";
-import ScrollToTopButton from "./ScrollToTopButton";
 import { BlobDots, BlobImage } from "./Blob";
 import { SocialIcon, SocialIconsList } from "./SocialIcons";
 import WrapNodeForRevealAnim from "./WrapNodeForRevealAnim";
@@ -17,6 +21,9 @@ import WrapNodeForRevealAnim from "./WrapNodeForRevealAnim";
 export {
   Button,
   FancyButton,
+  CloseButton,
+  DownloadButton,
+  ScrollToTopButton,
   Modal,
   ModalButton,
   Link,
@@ -25,9 +32,6 @@ export {
   LocalTime,
   DarkLightButton,
   ScrollLine,
-  CloseButton,
-  DownloadButton,
-  ScrollToTopButton,
   BlobImage,
   BlobDots,
   SocialIcon,
