@@ -56,7 +56,6 @@ const ImageCardsList = ({ className, addToHomeTimeline, animateIndex }) => {
           imageCardsItemStyle.rotationStyle[index],
           imageCardsItemStyle.brightnessStyle[index]
         )}
-        loading="lazy"
       />
     ));
   }, [imageCardsListData]);
