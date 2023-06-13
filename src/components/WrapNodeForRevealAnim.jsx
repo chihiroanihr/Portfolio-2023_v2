@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import parseMarkup from "./parseMarkup";
+import parseMarkup from "../utils/parseMarkup";
 
 const WrapNodeForRevealAnim = ({
   inputText,

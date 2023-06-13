@@ -1,8 +1,8 @@
 import { useRef, useMemo, useEffect } from "react";
 import clsx from "clsx";
 import { ContactMe } from "@layouts";
+import { WrapNodeForRevealAnim } from "@components";
 import { CoffeeCupLine } from "@components/SVG";
-import { WrapNodeForRevealAnim } from "@utils";
 import { useContactTextAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 

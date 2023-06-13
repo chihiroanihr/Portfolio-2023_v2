@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import clsx from "clsx";
 import { Credit, VerticalLine } from "./index";
-import { Link } from "@components";
-import { WrapNodeForRevealAnim } from "@utils";
+import { Link, WrapNodeForRevealAnim } from "@components";
 import { footerData } from "@data";
 
 const textUnderlineStyle = clsx(

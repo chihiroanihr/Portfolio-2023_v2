@@ -18,7 +18,6 @@ import {
   getHoursTwoDigits,
   getMinutesTwoDigits,
 } from "./getLocalTime";
-import WrapNodeForRevealAnim from "./WrapNodeForRevealAnim";
 
 export {
   checkIsVisited,
@@ -38,5 +37,4 @@ export {
   getTimeZoneGMT,
   getHoursTwoDigits,
   getMinutesTwoDigits,
-  WrapNodeForRevealAnim,
 };

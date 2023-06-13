@@ -11,6 +11,7 @@ import DownloadButton from "./DownloadButton";
 import ScrollToTopButton from "./ScrollToTopButton";
 import { BlobDots, BlobImage } from "./Blob";
 import { SocialIcon, SocialIconsList } from "./SocialIcons";
+import WrapNodeForRevealAnim from "./WrapNodeForRevealAnim";
 
 export {
   Button,
@@ -30,4 +31,5 @@ export {
   BlobDots,
   SocialIcon,
   SocialIconsList,
+  WrapNodeForRevealAnim,
 };

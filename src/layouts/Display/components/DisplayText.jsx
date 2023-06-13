@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import clsx from "clsx";
-import { WrapNodeForRevealAnim, isFontAvailable } from "@utils";
+import { WrapNodeForRevealAnim } from "@components";
+import { isFontAvailable } from "@utils";
 import { useDisplayTextAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 

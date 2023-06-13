@@ -7,11 +7,11 @@ import {
   SocialIconsList,
   ModalButton,
   LocalTime,
+  WrapNodeForRevealAnim,
 } from "@components";
 import { ScrollLockProvider, ToggleModalProvider } from "@contexts";
-import { socialMediaPlatformsStyle } from "@themes";
 import { useBodyScrollLock } from "@hooks";
-import { WrapNodeForRevealAnim } from "@utils";
+import { socialMediaPlatformsStyle } from "@themes";
 import { useAboutAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 import girlImage from "@assets/images/girl.png";

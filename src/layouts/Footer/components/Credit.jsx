@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import clsx from "clsx";
-import { WrapNodeForRevealAnim } from "@utils";
+import { WrapNodeForRevealAnim } from "@components";
 
 const Credit = ({ title, children }) => {
   // Memoize
