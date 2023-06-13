@@ -13,7 +13,7 @@ export const splitTextToChars = (textNode, style = null) => {
   textSplit.map((letter, i) => {
     const span = document.createElement("span");
     span.textContent = letter;
-    span.style = `${style} 
+    span.style = `${style ? `${style};` : ""}
     ${letter === " " ? "min-width: 1rem;" : ""}
     z-index: ${textSplit.length - i}; 
     position: relative; display: inline-block;`;
@@ -44,7 +44,7 @@ export const splitTextToWords = (textNode, style = null) => {
   wordSplit.map((word, i) => {
     const span = document.createElement("span");
     span.textContent = word;
-    span.style = `${style} 
+    span.style = `${style ? `${style};` : ""}
     z-index: ${wordSplit.length - i}; 
     position: relative; 
     display: inline-block;`;
