@@ -41,7 +41,7 @@ const fonts = [
   },
   {
     name: "Travel November",
-    href: "https://www.creativefabrica.com/product/travel-november/",
+    href: "https://www.creativefabrica.com/product/travel-november",
   },
 ];
 
