@@ -1,4 +1,4 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useRef, useState, useCallback, useLayoutEffect } from "react";
 import clsx from "clsx";
 import { SpiralText, Coffee } from "./components";
 import { checkObjectNullEmpty } from "@utils";
@@ -21,13 +21,16 @@ const CoffeeLanding = () => {
   });
 
   // Handle Children Node data
-  const handleChildData = (textPathNode, spiralPathNode, totalPathLength) => {
-    setSpiralTextData({
-      textPathNode,
-      spiralPathNode,
-      totalPathLength,
-    });
-  };
+  const handleChildData = useCallback(
+    (textPathNode, spiralPathNode, totalPathLength) => {
+      setSpiralTextData({
+        textPathNode,
+        spiralPathNode,
+        totalPathLength,
+      });
+    },
+    []
+  );
 
   // Update Animation when playAnimation is triggered & when spiral svg paths/texts are updated
   useLayoutEffect(() => {
