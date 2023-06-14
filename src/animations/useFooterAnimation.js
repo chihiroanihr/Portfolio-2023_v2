@@ -37,11 +37,11 @@ function useFooterAnimation(footerSectionNode, isTouchDevice) {
           defaults: { ease: "power2.out", clearProps: true },
           scrollTrigger: footerScrollTriggerOptions,
         })
-        .to(horizontalLineRL, { duration: 2, scaleX: 1 }, "0")
-        .to(horizontalLineLR, { duration: 2, scaleX: 1 }, "0")
+        .to(horizontalLineRL, { duration: 1.5, scaleX: 1 }, "0")
+        .to(horizontalLineLR, { duration: 1.5, scaleX: 1 }, "0")
         .to(
           verticalLine,
-          { duration: 2, transformOrigin: "top", scaleY: 1 },
+          { duration: 1.5, transformOrigin: "top", scaleY: 1 },
           "<=10%"
         )
         .to(signature, { opacity: 1 }, "<=40%")
