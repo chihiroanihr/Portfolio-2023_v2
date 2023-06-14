@@ -5,18 +5,18 @@ import { positionStyle } from "@themes";
 gsap.registerPlugin(ScrollTrigger);
 
 function useAboutAnimation(sectionWrapperNode) {
-  // Initialize
-  gsap.set("#about #full-name", { y: 100, opacity: 0 });
-  gsap.set("#about #local-time", { x: 100, opacity: 0 });
-  gsap.set("#about #text", { y: 100, opacity: 0 });
-  gsap.set("#about #images", { opacity: 0 });
-  gsap.set("#about #view-more-btn", { y: 100, opacity: 0 });
-  gsap.set("#about #social-icons", { y: 100, opacity: 0 });
   console.log("[Render] [animation] useAboutAnimation.js");
 
   return gsap.context(
     () => {
-      // About section opacity animation
+      // Initialize
+      gsap.set("#about #full-name", { y: 100, opacity: 0 });
+      gsap.set("#about #local-time", { x: 100, opacity: 0 });
+      gsap.set("#about #text", { y: 100, opacity: 0 });
+      gsap.set("#about #images", { opacity: 0 });
+      gsap.set("#about #view-more-btn", { y: 100, opacity: 0 });
+      gsap.set("#about #social-icons", { y: 100, opacity: 0 });
+
       gsap.set(sectionWrapperNode, { autoAlpha: 0, opacity: 0 });
 
       // Toggle opacity when moving between sections
@@ -26,7 +26,7 @@ function useAboutAnimation(sectionWrapperNode) {
         opacity: 1,
         clearProps: true,
         scrollTrigger: {
-          id: "about-section-animation",
+          id: "about-section-animation-on-scroll",
           trigger: sectionWrapperNode,
           start: "top-=1000 top",
           end: positionStyle.aboutToWorkSectionTransitionPosition + " top",
@@ -45,7 +45,7 @@ function useAboutAnimation(sectionWrapperNode) {
             clearProps: true,
           },
           scrollTrigger: {
-            id: "about-section-scroll-animation",
+            id: "about-section-content-animation-on-scroll",
             trigger: sectionWrapperNode,
             start: "top-=1000 top",
             end: positionStyle.aboutToWorkSectionTransitionPosition + " top",
@@ -56,7 +56,7 @@ function useAboutAnimation(sectionWrapperNode) {
         .to("#about #full-name", { y: 0, opacity: 1 })
         .to("#about #local-time", { x: 0, opacity: 1 }, "<=5%")
         .to("#about #text", { y: 0, opacity: 1, stagger: 0.01 }, "<=0")
-        .to("#about #view-more-btn", { y: 0, opacity: 1 }, "<=80%")
+        .to("#about #view-more-btn", { y: 0, opacity: 1 }, "<=40%")
         .to("#about #images", { opacity: 1 }, "<=20%")
         .to("#about #social-icons", { y: 0, opacity: 1 }, "<=20%");
     },
