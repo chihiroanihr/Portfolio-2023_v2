@@ -1,5 +1,9 @@
 # Portfolio-2023-v2
 
+## Preview
+
+https://github.com/chihiroanihr/Portfolio-2023-v2/assets/42660669/76658878-32c6-4f75-ba38-4ba6df81db43
+
 ## Objective
 
 This portfolio is crafted using the distinguished React.js framework.
