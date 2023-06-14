@@ -2,8 +2,8 @@ import { useRef, useState, useContext, useEffect, useCallback } from "react";
 import clsx from "clsx";
 import { ToggleMenuContext } from "@contexts";
 import { useResizeObserverCallback } from "@hooks";
-import { getWidth, getHeight, getTop, getRight } from "@utils";
 import { navbarStyle } from "@themes";
+import { getWidth, getHeight, getTop, getRight } from "@utils";
 
 const MenuBackground = ({ className, parentRef }) => {
   console.log("[Render] [src] @layouts/Navbar/MenuBackground.jsx");

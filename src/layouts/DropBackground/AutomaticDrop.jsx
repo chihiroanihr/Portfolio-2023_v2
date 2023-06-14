@@ -1,6 +1,6 @@
 import { useRef, useState, useContext, useCallback, useEffect } from "react";
 import clsx from "clsx";
-import { Drop } from "./index";
+import Drop from "./Drop";
 import { InsideSectionContext } from "@contexts";
 
 const AutomaticDrop = ({ parentNodeRef }) => {
