@@ -4,9 +4,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function useNavbarLogoAnimationOnscroll() {
-  // initialize navar logo
+  // Initialize navar logo
   gsap.set("#navbar-logo", { opacity: 0, x: -110 });
 
+  // Animate
   return gsap.to("#navbar-logo", {
     x: 0,
     opacity: 1,
@@ -21,6 +22,7 @@ function useNavbarLogoAnimationOnscroll() {
 }
 
 function useNavbarBrandAnimationOnScroll() {
+  // Animate
   return gsap.to("#navbar-brand", {
     y: -100,
     opacity: 0,
@@ -35,8 +37,12 @@ function useNavbarBrandAnimationOnScroll() {
 }
 
 function useNavbarAnimation() {
+  console.log("[Render] [animation] useNavbarAnimation.js");
+
+  // Start NavbarLogo scroll animation
   useNavbarLogoAnimationOnscroll();
 
+  // Animate
   return (
     gsap
       .timeline({ defaults: { duration: 1, opacity: 0, clearProps: true } })

@@ -8,6 +8,8 @@ function useCoffeeLandingAnimationOnScroll(
   containerNode,
   startOffset
 ) {
+  console.log("[Render] [animation] useCoffeeLandingAnimation.js");
+
   return gsap.to(textPathNode, {
     attr: { startOffset: startOffset },
     scrollTrigger: {

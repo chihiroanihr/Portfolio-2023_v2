@@ -12,6 +12,7 @@ function useAboutAnimation(sectionWrapperNode) {
   gsap.set("#about #images", { opacity: 0 });
   gsap.set("#about #view-more-btn", { y: 100, opacity: 0 });
   gsap.set("#about #social-icons", { y: 100, opacity: 0 });
+  console.log("[Render] [animation] useAboutAnimation.js");
 
   return gsap.context(
     () => {

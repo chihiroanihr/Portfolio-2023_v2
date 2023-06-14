@@ -81,10 +81,13 @@ function useWorksAnimationOnLeaveBack(triggerer) {
 }
 
 function useWorksAnimation({ worksSectionNode, handleInsideSection }) {
+  console.log("[Render] [animation] useWorksAnimation.js");
+
   return gsap.context(() => {
     // Scroll animations for heading
     useWorksHeadingAnimationOnScroll(worksSectionNode).progress(0);
 
+    // Scroll animations for contents
     const worksAnimationOnEnter = useWorksAnimationOnEnter(worksSectionNode);
     const worksAnimationOnLeave = useWorksAnimationOnLeave();
     const worksAnimationOnEnterBack = useWorksAnimationOnEnterBack();

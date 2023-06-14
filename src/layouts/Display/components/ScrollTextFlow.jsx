@@ -4,7 +4,7 @@ import { useScrollTextFlowAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const ScrollTextFlow = ({ className, parentRef }) => {
-  console.log("[Render] @layouts/Display/ScrollTextFlow.jsx");
+  console.log("[Render] [src] @layouts/Display/ScrollTextFlow.jsx");
 
   useLayoutEffect(() => {
     if (!parentRef.current) return;

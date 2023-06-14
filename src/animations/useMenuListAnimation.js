@@ -1,6 +1,8 @@
 import gsap from "gsap";
 
 function useMenuListAnimation(scopeNode) {
+  console.log("[Render] [animation] useMenuListAnimation.js");
+
   return gsap.context(() => {
     gsap.from("#menu-list-item", {
       id: "navbar-menu-list-animation",

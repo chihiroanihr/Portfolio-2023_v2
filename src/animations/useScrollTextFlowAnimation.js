@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function useScrollTextFlowAnimation(sectionWrapperNode) {
+  console.log("[Render] [animation] useScrollTextFlowAnimation.js");
+
   return gsap.context(
     () => {
       gsap.utils.toArray("#display #coffee-text").forEach((node, index) => {

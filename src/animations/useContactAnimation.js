@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function useContactTextAnimation(contactSectionNode) {
+  console.log("[Render] [animation] useContactAnimation.js");
+
   // Initialize
   gsap.set("#contact #text", { yPercent: 100 });
 

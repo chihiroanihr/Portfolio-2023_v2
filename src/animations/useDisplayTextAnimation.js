@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function useDisplayTextAnimation(displayTextWords, displaySectionNode) {
+  console.log("[Render] [animation] useDisplayTextAnimation.js");
+
   // Initialize
   gsap.set(displayTextWords, { yPercent: 100 });
 
