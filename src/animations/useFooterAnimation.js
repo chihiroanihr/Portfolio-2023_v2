@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function useFooterAnimation(footerSectionNode, isTouchDevice) {
+  console.log("[Render] [animation] useFooterAnimation.js");
+
   // Animate
   return gsap.context(
     () => {
