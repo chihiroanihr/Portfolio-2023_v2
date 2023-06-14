@@ -7,12 +7,14 @@ import {
   DownloadButton,
   ScrollToTopButton,
 } from "@components";
-import { DeviceTypeContext } from "@contexts";
+import { DeviceTypeContext, ToggleModalContext } from "@contexts";
 import { useScrollBackToTop, useDownloadFile } from "@hooks";
 
 const TimelineModal = forwardRef(({}, modalRef) => {
   console.log("[Render] [src] @layouts/Timeline/TimelineModal.jsx");
 
+  // Retrieve States from Context
+  const { isModalOpen } = useContext(ToggleModalContext);
   // Change modal open direction depending on the device type
   const { isTouchDevice } = useContext(DeviceTypeContext);
 
@@ -45,6 +47,9 @@ const TimelineModal = forwardRef(({}, modalRef) => {
     <Modal
       ref={modalRef}
       modalStyle={clsx(
+        isModalOpen
+          ? "opacity-100 delay-500 duration-[1s]"
+          : "opacity-0 duration-500",
         timelineModalTextFont,
         timelineModalBgColor,
         timelineModalTextColor,

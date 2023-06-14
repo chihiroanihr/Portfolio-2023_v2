@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from "react";
+import React, { useMemo } from "react";
 import clsx from "clsx";
 import {
   Block,
@@ -11,12 +11,9 @@ import {
   ToolTagsList,
   Description,
 } from "./components";
-import { ToggleModalContext } from "@contexts";
 import { workTimelineListData } from "@data";
 
 const TimelineWorkChart = ({ className }) => {
-  // Retrieve States from Context
-  const { isModalOpen } = useContext(ToggleModalContext);
   console.log(
     "[Render] [src] @layouts/Timeline/TimelineWorkChart.jsx ----- Memoized"
   );
@@ -66,11 +63,7 @@ const TimelineWorkChart = ({ className }) => {
         className,
         // padding layout
         "page-layout",
-        "xxxl:px-[300px] xxl:px-[15%] xl:px-[10%] px-[30px]",
-        isModalOpen
-          ? "opacity-100 delay-500 duration-[1s]"
-          : "opacity-0 duration-500",
-        "transition-opacity"
+        "xxxl:px-[300px] xxl:px-[15%] xl:px-[10%] px-[30px]"
       )}
     >
       {/* Work Timeline */}

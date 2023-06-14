@@ -57,7 +57,15 @@ const Modal = forwardRef(
         tabIndex="-1"
       >
         {/* Modal Background Overlay */}
-        {overlay && <ModalBgOverlay fullWidth={fullWidth} />}
+        {overlay && (
+          <ModalBgOverlay
+            fullWidth={fullWidth}
+            className={clsx(
+              [isModalOpen ? "opacity-100" : "opacity-0 delay-500"],
+              "transition-opacity duration-500"
+            )}
+          />
+        )}
 
         {/* Modal Content */}
         <div

@@ -7,16 +7,15 @@ const ModalBgOverlay = ({ className, fullWidth = false }) => {
 
   // Retrieve States from Context
   const { handleScrollLock } = useContext(ScrollLockContext);
-  const { isModalOpen, handleToggleModal } = useContext(ToggleModalContext);
+  const { handleToggleModal } = useContext(ToggleModalContext);
 
   return (
     <div
       className={clsx(
+        className,
         "fixed inset-0",
         "h-full",
-        "bg-black bg-opacity-75",
-        [isModalOpen ? "opacity-100" : "opacity-0 delay-500"],
-        "transition-opacity duration-500"
+        "bg-black bg-opacity-75"
       )}
       onClick={() => {
         if (!fullWidth) {
