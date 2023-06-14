@@ -1,9 +1,5 @@
-import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import clsx from "clsx";
-import gsap from "gsap";
-import { PlayAnimationContext } from "@contexts";
-import { useScrollLineAnimation } from "@animations";
-import { cleanUpGsapAnimation } from "@animations/utils";
 
 // Forward Ref from Parent Component
 const ScrollLine = ({ className }) => {
@@ -12,35 +8,6 @@ const ScrollLine = ({ className }) => {
   // ============================= Landing Animations ============================= //
   // Node References for Animations
   const scrollLineWrapperNodeRef = useRef(null);
-
-  // GSAP Timeline Reference
-  const scrollLineTimelineRef = useRef(null);
-
-  // Retrieve Play Animation State
-  const { playAnimation } = useContext(PlayAnimationContext);
-
-  // Update animation when playAnimation is triggered
-  useLayoutEffect(() => {
-    if (!playAnimation) return;
-    console.log("[LOG] (ScrollLine.jsx) Animation Started");
-
-    const ctx = gsap.context(
-      () => {
-        // Retrieve animation
-        scrollLineTimelineRef.current = useScrollLineAnimation();
-      },
-      // Scope
-      scrollLineWrapperNodeRef
-    );
-
-    // Add timeline to parent component's timeline
-    addToHomeTimeline(scrollLineTimelineRef.current, animateIndex);
-
-    // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(ctx);
-    };
-  }, [playAnimation]);
 
   // ============================= Scroll Animations ============================= //
   // Configure
@@ -66,13 +33,14 @@ const ScrollLine = ({ className }) => {
   };
 
   useEffect(() => {
+    if (!scrollLineWrapperNodeRef.current) return;
+
     // Add to event listener
     window.addEventListener("scroll", computeLineLengthOnScroll);
 
     // Remove from event listener when unmounted
-    return () => {
+    return () =>
       window.removeEventListener("scroll", computeLineLengthOnScroll);
-    };
   }, []);
 
   // ************************* CSS ************************* //
@@ -97,7 +65,11 @@ const ScrollLine = ({ className }) => {
 
   // ************************* JSX ************************* //
   return (
-    <div ref={scrollLineWrapperNodeRef} className={clsx(className, "relative")}>
+    <div
+      ref={scrollLineWrapperNodeRef}
+      id="scroll-line"
+      className={clsx(className, "relative")}
+    >
       <div
         className={clsx(
           "absolute",
@@ -108,11 +80,11 @@ const ScrollLine = ({ className }) => {
         )}
       >
         {/* Scroll Text */}
-        <div id="scroll-text" className={clsx(scrollTextStyle)}>
+        <div id="text" className={clsx(scrollTextStyle, "prevent-select")}>
           Scroll
         </div>
         {/* Scroll Line */}
-        <div id="scroll-line" className={scrollLineStyle} />
+        <div id="line" className={scrollLineStyle} />
       </div>
     </div>
   );

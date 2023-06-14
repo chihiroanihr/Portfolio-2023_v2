@@ -1,14 +1,11 @@
-import React, { useRef, useCallback, useContext, useLayoutEffect } from "react";
+import React, { useRef, useContext, useLayoutEffect } from "react";
 import clsx from "clsx";
 import { ImageCardsList } from "@layouts";
 import { ScrollLine } from "@components";
 import { PlayAnimationContext } from "@contexts";
 import { splitTextToWords, splitTextToChars } from "@utils";
 import { useHomeAnimation } from "@animations";
-import {
-  cleanUpGsapAnimation,
-  addGsapChildTimelinesInOrder,
-} from "@animations/utils";
+import { cleanUpGsapAnimation } from "@animations/utils";
 
 const Home = ({ addToLandingTimeline, animateIndex }) => {
   console.log("[Render] [src] @views/Home.jsx ----- Memoized");
@@ -24,20 +21,11 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   const oneCupOfTextNodeRef = useRef(null);
   const atTimeTextNodeRef = useRef(null);
 
+  // Node Reference for Landing Animation Scope
+  const homeSectionContainerRef = useRef(null);
+
   // Node Reference for Scroll Animation
-  const inlineTextWrapperNodeRef = useRef(null);
   const textContainerNodeRef = useRef(null);
-
-  // Temporary Child Component Timelines Reference
-  const tempChildTimelinesListRef = useRef({});
-
-  // Add Child Component Timelines to Parent Timeline Function
-  const addToTempChildTimelineLists = useCallback((timeline, animateIndex) => {
-    tempChildTimelinesListRef.current[animateIndex] = timeline;
-  }, []);
-
-  // GSAP Home Timeline Reference
-  const homeTimelineRef = useRef();
 
   // Update animation when playAnimation is triggered
   useLayoutEffect(() => {
@@ -54,17 +42,10 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
     const coffeeCharsCopy = splitTextToChars(coffeeTextNodeCopyRef.current);
 
     // Retrive animation and register to timeline
-    homeTimelineRef.current = useHomeAnimation({
-      triggerer: {
-        textContainerNodeRef,
-      },
-      text: {
-        sippingOnTextNodeRef,
-        creativityTextNodeRef,
-        inlineTextWrapperNodeRef,
-        atTimeTextNodeRef,
-      },
-      splitText: {
+    const animation = useHomeAnimation({
+      scopeNode: homeSectionContainerRef.current,
+      textContainerNode: textContainerNodeRef.current,
+      splitTextNodes: {
         sippingOnWords,
         creativityChars,
         oneCupOfWords,
@@ -75,20 +56,11 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
       },
     });
 
-    // Sort and append child timelines to timeline
-    addGsapChildTimelinesInOrder({
-      tlChild: tempChildTimelinesListRef.current,
-      tlParent: homeTimelineRef.current,
-      order: { 0: ">rolling-text", 1: ">-1.3" },
-    });
-
     // Add Timeline to parent component's timeline
-    addToLandingTimeline(homeTimelineRef.current, animateIndex);
+    addToLandingTimeline(animation, animateIndex);
 
     // Clean Up Animations (prevent continuing to execute even after component unmounted)
-    return () => {
-      cleanUpGsapAnimation(homeTimelineRef.current);
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, [playAnimation]);
 
   // ************************* CSS ************************* //
@@ -117,7 +89,11 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   // ************************* JSX ************************* //
   const homeTextSection = (
     <>
-      <div ref={sippingOnTextNodeRef} className={clsx(defaultTextStyle)}>
+      <div
+        ref={sippingOnTextNodeRef}
+        id="sipping-on"
+        className={clsx(defaultTextStyle)}
+      >
         Sipping on
       </div>
 
@@ -135,10 +111,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
         Creativity
       </div>
 
-      <div
-        ref={inlineTextWrapperNodeRef}
-        className={clsx("relative inline-block")}
-      >
+      <div id="one-cup-of-coffee" className={clsx("relative inline-block")}>
         <span ref={oneCupOfTextNodeRef} className={defaultTextStyle}>
           one cup of{" "}
         </span>
@@ -162,14 +135,18 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
         </span>
       </div>
 
-      <div ref={atTimeTextNodeRef} className={defaultTextStyle}>
+      <div id="at-a-time" ref={atTimeTextNodeRef} className={defaultTextStyle}>
         at a time.
       </div>
     </>
   );
 
   return (
-    <section id="home" className="page-layout home-page-spacing h-screen">
+    <section
+      ref={homeSectionContainerRef}
+      id="home"
+      className="page-layout home-page-spacing h-screen"
+    >
       <div
         className={clsx(
           "min-h-[90vh] pt-[10vh]",
@@ -196,8 +173,6 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
 
         {/* ---------------- Image Area ---------------- */}
         <ImageCardsList
-          addToHomeTimeline={addToTempChildTimelineLists}
-          animateIndex={0}
           className={clsx(
             "row-start-1 row-end-6 xl:row-span-full",
             "xl:col-start-6 md:col-start-4 xs:col-start-2 col-start-1 col-span-full"
@@ -206,11 +181,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
       </div>
 
       {/* ---------------- Scroll Line ---------------- */}
-      <ScrollLine
-        addToHomeTimeline={addToTempChildTimelineLists}
-        animateIndex={1}
-        className="h-[15vh]"
-      />
+      <ScrollLine className="h-[15vh]" />
     </section>
   );
 };

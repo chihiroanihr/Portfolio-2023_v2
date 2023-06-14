@@ -1,42 +1,16 @@
-import React, { useRef, useContext, useLayoutEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import clsx from "clsx";
-import { PlayAnimationContext } from "@contexts";
 import { imageCardsItemStyle } from "@themes";
 import { imageCardsListData } from "@data";
-import { useImageCardsListAnimation } from "@animations";
-import { cleanUpGsapAnimation } from "@animations/utils";
 
-const ImageCardsList = ({ className, addToHomeTimeline, animateIndex }) => {
-
-  // Node References for Landing Animations
-  const imageCardNodesRefs = useRef([]);
-
-  // Retrieve Play Animation State
-  const { playAnimation } = useContext(PlayAnimationContext);
-
-  // Update Animation when playAnimation is triggered
-  useLayoutEffect(() => {
-    if (!playAnimation) return;
-    console.log("[LOG] (ImageCardsList.jsx) Animation Started");
-
-    // Retrieve Animation
-    const animation = useImageCardsListAnimation(imageCardNodesRefs.current);
-    // Add timeline to parent component's timeline
-    addToHomeTimeline(animation, animateIndex);
-
-    // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(animation, true);
-      console.log("[LOG] (ImageCardsList.jsx) Animation Killed");
-    };
-  }, [playAnimation]);
+const ImageCardsList = ({ className }) => {
   console.log("[Render] [src] @layouts/ImageCardsList.jsx ----- Memoized");
 
   // ************************* JSX ************************* //
   const memoizedImageCards = useMemo(() => {
     return imageCardsListData.map(({ id, img }, index) => (
       <img
-        ref={(el) => (imageCardNodesRefs.current[index] = el)}
+        id="image-card"
         key={id}
         src={img}
         alt={id}
@@ -61,7 +35,9 @@ const ImageCardsList = ({ className, addToHomeTimeline, animateIndex }) => {
   }, [imageCardsListData]);
 
   return (
-    <div className={clsx(className, "relative")}>{memoizedImageCards}</div>
+    <div id="image-cards-container" className={clsx(className, "relative")}>
+      {memoizedImageCards}
+    </div>
   );
 };
 
