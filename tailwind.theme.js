@@ -20,13 +20,9 @@ module.exports = {
       "chocolate-darker": "#291D1A",
     },
     fontFamily: {
-      "default-sans": [
-        "Montserrat",
-        "Open Sans",
-        ...defaultTheme.fontFamily.sans,
-      ],
-      "cabin-sans": ["Cabin", ...defaultTheme.fontFamily.sans],
-      "fredoka-sans": ["Fredoka", ...defaultTheme.fontFamily.sans],
+      "default-sans": ["Montserrat", "Roboto", ...defaultTheme.fontFamily.sans],
+      "cabin-sans": ["Cabin", "Roboto", ...defaultTheme.fontFamily.sans],
+      "fredoka-sans": ["Fredoka", "Helvetica Neue", ...defaultTheme.fontFamily.sans],
       "title-cursive": ["Travel November", ...defaultTheme.fontFamily.serif],
       "limelight-cursive": ["Limelight", ...defaultTheme.fontFamily.serif],
       "radditya-signature-cursive": [
