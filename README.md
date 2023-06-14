@@ -2,11 +2,11 @@
 
 ## Preview
 
-https://github.com/chihiroanihr/Portfolio-2023-v2/assets/42660669/f4160cf9-7d65-4028-aa31-5d4e518b6b98
+https://github.com/chihiroanihr/Portfolio-2023-v2/assets/42660669/76658878-32c6-4f75-ba38-4ba6df81db43
 
 ## Objective
 
-This portfolio is crafted using the distinguished React.js framework.
+This portfolio is crafted using the distinguished **React.js** framework.
 
 ### UI / UX Design Objective
 
@@ -78,19 +78,19 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 ### Images
 
-- Coffee Background Image by [**_@Engin\_Akyurt_ (pixabay.com)**](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
-- Coffe Cup Image by [**_Paulina Adamkiewicz_ (Codepen)**](https://codepen.io/apomekhanes/pen/BprZdq)
-- Smoke Image by [**_@trananhtuat_ (Github)**](https://github.com/trananhtuat/css-smoke-effect/tree/main)
+- Coffee Background Image by [_@Engin\_Akyurt_ (pixabay.com)](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
+- Coffe Cup Image by [_Paulina Adamkiewicz_ (Codepen)](https://codepen.io/apomekhanes/pen/BprZdq)
+- Smoke Image by [_@trananhtuat_ (Github)](https://github.com/trananhtuat/css-smoke-effect/tree/main)
 
 ### Vector Images
 
-- Coffee mug cup vector illustration by [**_Asya Mullakhmetova_ (istockphoto.com)**](https://www.istockphoto.com/vector/vector-mug-with-hot-coffee-tea-drawn-by-one-line-with-the-addition-of-color-gm1345529779-423577631)
-- Idea light bulb vector illustration by [**_Polina Tomtosova_ (istockphoto.com)**](https://www.istockphoto.com/vector/idea-light-bulb-doodle-hand-drawn-gm1347977917-425324482)
+- Coffee mug cup vector illustration by [_Asya Mullakhmetova_ (istockphoto.com)](https://www.istockphoto.com/vector/vector-mug-with-hot-coffee-tea-drawn-by-one-line-with-the-addition-of-color-gm1345529779-423577631)
+- Idea light bulb vector illustration by [_Polina Tomtosova_ (istockphoto.com)](https://www.istockphoto.com/vector/idea-light-bulb-doodle-hand-drawn-gm1347977917-425324482)
 
 ### Other Assets
 
-- Coffee cup spiral text SVG path by [**_distillocaffe.com_**](https://distillocaffe.com/en/)
-- All icons by [**_react-icons_**](https://react-icons.github.io/react-icons/)
+- Coffee cup spiral text SVG path by [_distillocaffe.com_](https://distillocaffe.com/en/)
+- All icons by [_react-icons_](https://react-icons.github.io/react-icons/)
 
 ## Environment
 
