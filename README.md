@@ -2,7 +2,7 @@
 
 ## Preview
 
-https://github.com/chihiroanihr/Portfolio-2023-v2/assets/42660669/76658878-32c6-4f75-ba38-4ba6df81db43
+https://github.com/chihiroanihr/Portfolio-2023-v2/assets/42660669/f4160cf9-7d65-4028-aa31-5d4e518b6b98
 
 ## Objective
 
