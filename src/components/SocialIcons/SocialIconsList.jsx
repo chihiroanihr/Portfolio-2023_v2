@@ -5,7 +5,9 @@ import { socialMediaPlatformsListData } from "@data";
 
 // iconStyle varies depending on the section
 const SocialIconsList = ({ id, className, iconStyle, iconGap, direction }) => {
-  console.log("[Render] @components/SocialIconsList/SocialIconListItems.jsx");
+  console.log(
+    "[Render] [src] @components/SocialIcons/SocialIconList.jsx ----- Memoized"
+  );
 
   // CSS
   const iconSize = iconStyle.iconSize;

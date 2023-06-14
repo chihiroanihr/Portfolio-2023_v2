@@ -7,7 +7,7 @@ import { useMenuListAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const MenuList = forwardRef(({ className }, ref) => {
-  console.log("[Render] @layouts/Navbar/MenuList.jsx");
+  console.log("[Render] [src] @layouts/Navbar/MenuList.jsx");
 
   // Retrieve States from Contexts
   const { isMenuOpen, handleToggleMenu } = useContext(ToggleMenuContext);
@@ -22,10 +22,7 @@ const MenuList = forwardRef(({ className }, ref) => {
     const animation = useMenuListAnimation(ref.current);
 
     // Clean Up Animation
-    return () => {
-      cleanUpGsapAnimation(animation);
-      console.log("[LOG] (MenuList.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, [isMenuOpen]);
 
   // ************************* CSS ************************* //

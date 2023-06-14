@@ -17,7 +17,7 @@ const Modal = forwardRef(
     },
     ref
   ) => {
-    console.log("[Render] @components/Modal/Modal.jsx");
+    console.log("[Render] [src] @components/Modal/Modal.jsx");
 
     // Get modal open direction string value if specified
     const directionStr = direction ? direction.trim().toLowerCase() : null;

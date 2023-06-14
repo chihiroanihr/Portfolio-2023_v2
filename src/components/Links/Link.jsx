@@ -11,7 +11,7 @@ const Link = ({
   style,
   children,
 }) => {
-  console.log("[Render] @components/Link.jsx");
+  console.log("[Render] [src] @components/Links/Link.jsx");
 
   const offsetClick = (event) => {
     const targetElement = document.querySelector(

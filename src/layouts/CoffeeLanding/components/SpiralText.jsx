@@ -6,7 +6,9 @@ import clsx from "clsx";
 import { spiralSvgData } from "@data";
 
 const SpiralText = ({ className, fillColor, onDataUpdate }) => {
-  console.log("[Render] @layouts/CoffeeLanding/SpiralText.jsx");
+  console.log(
+    "[Render] [src] @layouts/CoffeeLanding/SpiralText.jsx ----- Memoized"
+  );
 
   // Node References
   const textPathNodeRef = useRef(null);

@@ -3,6 +3,8 @@ import clsx from "clsx";
 import logoImg from "@assets/images/logo.png";
 
 const NavbarLogo = ({ id, className }) => {
+  console.log("[Render] [src] @layouts/Navbar/NavbarLogo.jsx ----- Memoized");
+
   const fillColor = "fill-coffee-600 dark:fill-coffee-300";
 
   return (

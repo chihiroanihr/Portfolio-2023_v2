@@ -11,7 +11,7 @@ import { DeviceTypeContext } from "@contexts";
 import { useScrollBackToTop, useDownloadFile } from "@hooks";
 
 const TimelineModal = forwardRef(({}, modalRef) => {
-  console.log("[Render] @layouts/Timeline/TimelineModal.jsx");
+  console.log("[Render] [src] @layouts/Timeline/TimelineModal.jsx");
 
   // Change modal open direction depending on the device type
   const { isTouchDevice } = useContext(DeviceTypeContext);

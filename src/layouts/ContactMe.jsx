@@ -47,6 +47,8 @@ const ContactMeText = ({ className }) => {
 };
 
 const ContactMe = ({ className }) => {
+  console.log("[Render] [src] @layouts/ContactMe.jsx");
+
   const fontType = "font-limelight-cursive";
   const textColor = "text-coffee-600 dark:text-coffee-300";
 

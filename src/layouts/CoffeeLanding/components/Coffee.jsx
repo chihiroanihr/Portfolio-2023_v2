@@ -14,7 +14,9 @@ import clsx from "clsx";
 import smokeImg from "@assets/images/coffee/smoke.png";
 
 const Coffee = () => {
-  console.log("[Render] @layouts/CoffeeLanding/Coffee.jsx");
+  console.log(
+    "[Render] [src] @layouts/CoffeeLanding/Coffee.jsx ----- Memoized"
+  );
 
   // ************************* CSS ************************* //
   // Config

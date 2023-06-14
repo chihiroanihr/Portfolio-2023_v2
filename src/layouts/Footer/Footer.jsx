@@ -7,7 +7,7 @@ import { useFooterAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const Footer = ({ className }) => {
-  console.log("[Render] @layouts/Footer.jsx");
+  console.log("[Render] [src] @layouts/Footer/Footer.jsx ----- Memoized");
 
   // Node Reference
   const footerSectionNodeRef = useRef(null);
@@ -26,10 +26,7 @@ const Footer = ({ className }) => {
     );
 
     // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(animation);
-      console.log("[LOG] (Footer.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, []);
 
   // ************************* CSS ************************* //

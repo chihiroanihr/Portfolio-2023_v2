@@ -4,7 +4,7 @@ import { Drop } from "./index";
 import { InsideSectionContext } from "@contexts";
 
 const ClickedDrop = ({ clickedPosition, parentNodeRef }) => {
-  console.log("[Render] @layouts/DropBackground/ClickedDrop.jsx");
+  console.log("[Render] [src] @layouts/DropBackground/ClickedDrop.jsx");
 
   // Retrieve state from context
   const { isInsideSection } = useContext(InsideSectionContext);

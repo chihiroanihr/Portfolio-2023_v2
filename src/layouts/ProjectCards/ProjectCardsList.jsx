@@ -20,7 +20,7 @@ import {
 } from "@animations/utils";
 
 const ProjectCardsList = ({ id, className, parentRef }) => {
-  console.log("[Render] @layouts/ProjectCardsList.jsx");
+  console.log("[Render] [src] @layouts/ProjectCards/ProjectCardsList.jsx");
 
   // Node reference for animation
   const projectCardsListNodeRef = useRef();
@@ -52,7 +52,6 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
     // Clean up animation
     return () => {
       cleanUpGsapAnimation(ctx);
-      console.log("[LOG] (ProjectCardsList.jsx) Animation Killed");
     };
   }, [isIntersected]);
 

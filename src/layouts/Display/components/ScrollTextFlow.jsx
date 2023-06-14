@@ -14,7 +14,6 @@ const ScrollTextFlow = ({ className, parentRef }) => {
 
     return () => {
       cleanUpGsapAnimation(ctx);
-      console.log("[LOG] (ScrollTextFlow.jsx) Animation Killed");
     };
   }, []);
 

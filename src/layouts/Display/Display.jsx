@@ -5,7 +5,7 @@ import { IdeaLightBulb } from "@components/SVG";
 import { positionStyle } from "@themes";
 
 const Display = () => {
-  console.log("[Render] @layouts/Display/Display.jsx");
+  console.log("[Render] [src] @layouts/Display/Display.jsx ----- Memoized");
 
   const scrollTextFlowContainerRef = useRef(null);
 

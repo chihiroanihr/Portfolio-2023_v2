@@ -3,7 +3,7 @@ import { SlArrowUpCircle } from "react-icons/sl";
 import { Button } from "./index";
 
 const ScrollToTopButton = ({ className, onClick }) => {
-  console.log("[Render] @components/ScrollToTopButton.jsx");
+  console.log("[Render] [src] @components/Buttons/ScrollToTopButton.jsx");
 
   // ************************* CSS ************************* //
   const scrollToTopTextFont = "font-default-sans";

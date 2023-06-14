@@ -11,7 +11,7 @@ import {
 } from "@animations/utils";
 
 function App() {
-  console.log("[Render] App.jsx");
+  console.log("[Render] [src] App.jsx");
 
   const contentPageNodeRef = useRef(null);
 
@@ -65,10 +65,7 @@ function App() {
     });
 
     // Clean up animation when component unmounts
-    return () => {
-      cleanUpGsapAnimation(ctx);
-      console.log("[LOG] (App.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(ctx);
   }, [playAnimation]);
 
   // ============================= Toggle Dark/Light Mode ============================= //

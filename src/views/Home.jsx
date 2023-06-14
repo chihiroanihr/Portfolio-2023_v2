@@ -11,7 +11,7 @@ import {
 } from "@animations/utils";
 
 const Home = ({ addToLandingTimeline, animateIndex }) => {
-  console.log("[Render] @views/Home.jsx");
+  console.log("[Render] [src] @views/Home.jsx ----- Memoized");
 
   // Retrieve Play Animation State
   const { playAnimation } = useContext(PlayAnimationContext);
@@ -42,7 +42,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   // Update animation when playAnimation is triggered
   useLayoutEffect(() => {
     if (!playAnimation) return;
-    console.log("[LOG] (Home1.jsx) Animation Started");
+    console.log("[LOG] (Home.jsx) Animation Started");
 
     // Split texts from refs into words / chars
     const sippingOnWords = splitTextToWords(sippingOnTextNodeRef.current);
@@ -88,7 +88,6 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
     // Clean Up Animations (prevent continuing to execute even after component unmounted)
     return () => {
       cleanUpGsapAnimation(homeTimelineRef.current);
-      console.log("[LOG] (Home1.jsx) Animation Killed");
     };
   }, [playAnimation]);
 

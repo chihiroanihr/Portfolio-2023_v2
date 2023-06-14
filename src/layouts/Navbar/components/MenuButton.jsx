@@ -5,7 +5,7 @@ import { ToggleMenuContext, ScrollLockContext } from "@contexts";
 import { navbarStyle } from "@themes";
 
 const MenuButton = ({ id, className }) => {
-  console.log("[Render] @layouts/Navbar/MenuButton.jsx");
+  console.log("[Render] [src] @layouts/Navbar/MenuButton.jsx");
 
   // Retrieve States from Contexts
   const { isMenuOpen, handleToggleMenu } = useContext(ToggleMenuContext);

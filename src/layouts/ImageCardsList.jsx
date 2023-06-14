@@ -7,7 +7,6 @@ import { useImageCardsListAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const ImageCardsList = ({ className, addToHomeTimeline, animateIndex }) => {
-  console.log("[Render] @layouts/ImageCardsList.jsx");
 
   // Node References for Landing Animations
   const imageCardNodesRefs = useRef([]);
@@ -31,6 +30,7 @@ const ImageCardsList = ({ className, addToHomeTimeline, animateIndex }) => {
       console.log("[LOG] (ImageCardsList.jsx) Animation Killed");
     };
   }, [playAnimation]);
+  console.log("[Render] [src] @layouts/ImageCardsList.jsx ----- Memoized");
 
   // ************************* JSX ************************* //
   const memoizedImageCards = useMemo(() => {

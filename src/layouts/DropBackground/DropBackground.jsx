@@ -3,7 +3,9 @@ import { AutomaticDrop, ClickedDrop } from "./index";
 import { DeviceTypeContext } from "@contexts";
 
 const DropBackground = ({ id, className }) => {
-  console.log("[Render] @layouts/DropBackground.jsx");
+  console.log(
+    "[Render] [src] @layouts/DropBackground/DropBackground.jsx ----- Memoized"
+  );
 
   // Node Reference
   const dropBackgroundNodeRef = useRef(null);
@@ -17,11 +19,13 @@ const DropBackground = ({ id, className }) => {
   const handleDropClick = (event) => {
     // Get click position
     const { clientX: x, clientY: y } = event;
+    // Assign click position
     setClickedPosition({ x, y });
   };
 
+  // ************************* JSX ************************* //
   return (
-    // =========== Click Drop Area =========== //
+    // ====== Click Drop Area ====== //
     <div
       ref={dropBackgroundNodeRef}
       id={id}
@@ -32,7 +36,7 @@ const DropBackground = ({ id, className }) => {
           : handleDropClick
       }
     >
-      {/* ============== Drops ============== */}
+      {/* ========= Drops ========= */}
       {/* Clicked Drops */}
       <ClickedDrop
         clickedPosition={clickedPosition}

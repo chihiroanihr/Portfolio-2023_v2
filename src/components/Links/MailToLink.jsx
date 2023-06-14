@@ -1,6 +1,8 @@
 import Link from "./Link";
 
 const MailToLink = ({ className, email, children }) => {
+  console.log("[Render] [src] @components/Links/MailToLink.jsx");
+
   const mailto = "mailto:" + email;
 
   return (

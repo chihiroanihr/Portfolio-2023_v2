@@ -6,7 +6,9 @@ import { useCoffeeLandingAnimationOnScroll } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const CoffeeLanding = () => {
-  console.log("[Render] @layouts/CoffeeLanding.jsx");
+  console.log(
+    "[Render] [src] @layouts/CoffeeLanding/CoffeeLanding.jsx ----- Memoized"
+  );
 
   // Node References for Scroll Animations
   const coffeeLandingContainerNodeRef = useRef(null);
@@ -47,10 +49,7 @@ const CoffeeLanding = () => {
     );
 
     // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(animation);
-      console.log("[LOG] (CoffeeLanding.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, [spiralTextData]);
 
   // ************************* CSS ************************* //

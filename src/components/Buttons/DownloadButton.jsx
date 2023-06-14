@@ -4,7 +4,7 @@ import { Button, FancyButton } from "./index";
 import { buttonStyle } from "@themes";
 
 const DownloadButton = ({ onClick, defaultStyle = true }) => {
-  console.log("[Render] @components/DownloadButton.jsx");
+  console.log("[Render] [src] @components/Buttons/DownloadButton.jsx");
 
   return defaultStyle ? (
     <Button

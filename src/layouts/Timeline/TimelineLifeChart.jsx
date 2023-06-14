@@ -15,10 +15,12 @@ import { ToggleModalContext } from "@contexts";
 import { lifeTimelineListData } from "@data";
 
 const TimelineLifeChart = ({ className }) => {
-  console.log("[Render] @layouts/Timeline/TimelineLife.jsx");
 
   // Retrieve States from Context
   const { isModalOpen } = useContext(ToggleModalContext);
+  console.log(
+    "[Render] [src] @layouts/Timeline/TimelineLifeChart.jsx ----- Memoized"
+  );
 
   const memoizedLifeTimelineListItems = useMemo(() => {
     return lifeTimelineListData.map((item, index) => (

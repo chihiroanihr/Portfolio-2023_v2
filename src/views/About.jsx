@@ -132,7 +132,7 @@ const LocalTimeSection = React.memo(({ className }) => {
 });
 
 const About = () => {
-  console.log("[Render] @views/About.jsx");
+  console.log("[Render] [src] @views/About.jsx ----- Memoized");
 
   // Node Reference
   const aboutSectionNodeRef = useRef(null);
@@ -154,7 +154,6 @@ const About = () => {
     // Clean Up Animations
     return () => {
       cleanUpGsapAnimation(ctx);
-      console.log("[LOG] (About.jsx) Animation Killed");
     };
   }, []);
 

@@ -6,7 +6,7 @@ import { getWidth, getHeight, getTop, getRight } from "@utils";
 import { navbarStyle } from "@themes";
 
 const MenuBackground = ({ className, parentRef }) => {
-  console.log("[Render] @layouts/Navbar/MenuBackground.jsx");
+  console.log("[Render] [src] @layouts/Navbar/MenuBackground.jsx");
 
   // Node reference
   const menuBackgroundNodeRef = useRef(null);

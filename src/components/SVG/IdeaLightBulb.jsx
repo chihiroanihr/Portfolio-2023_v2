@@ -42,6 +42,8 @@ const IdeaLightBulb = ({
   lightStrokeColor = "stroke-yellow-100/50 dark:stroke-yellow-600/50",
   lightFillColor = "fill-yellow-300 dark:fill-yellow-500",
 }) => {
+  console.log("[Render] [src] @components/SVG/IdeaLightBulb.jsx");
+
   const svgContainerRef = useRef(null);
 
   const isEntered = useIntersectionObserver(

@@ -5,7 +5,7 @@ import React, { forwardRef } from "react";
 import clsx from "clsx";
 
 const Drop = forwardRef(({ className, x, y }, ref) => {
-  console.log("[Render] @layouts/DropBackground/Drop.jsx");
+  console.log("[Render] [src] @layouts/DropBackground/Drop.jsx ----- Memoized");
 
   const dropStyle = {
     left: `${x}px`,

@@ -8,7 +8,7 @@ const ModalButton = ({
   defaultStyle = true,
   onClick,
 }) => {
-  console.log("[Render] @components/Modal/ModalButton.jsx");
+  console.log("[Render] [src] @components/Buttons/ModalButton.jsx");
 
   return defaultStyle ? (
     <Button

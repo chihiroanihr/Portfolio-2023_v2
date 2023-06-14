@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 const Card = ({ id, className, children }) => {
-  console.log("[Render] @components/Card.jsx");
+  console.log("[Render] [src] @components/Card.jsx ----- Memoized");
 
   return (
     <div

@@ -2,8 +2,8 @@ import { useContext } from "react";
 import clsx from "clsx";
 import { ToggleModalContext, ScrollLockContext } from "@contexts";
 
-const ModalBgOverlay = ({ fullWidth = false }) => {
-  console.log("[Render] @components/Modal/ModalBgOverlay.jsx");
+const ModalBgOverlay = ({ className, fullWidth = false }) => {
+  console.log("[Render] [src] @components/Modal/ModalBgOverlay.jsx");
 
   // Retrieve States from Context
   const { handleScrollLock } = useContext(ScrollLockContext);

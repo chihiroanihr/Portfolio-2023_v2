@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { getTimeZoneGMT, getHoursTwoDigits, getMinutesTwoDigits } from "@utils";
 
 const LocalTime = ({ id, className }) => {
+  console.log("[Render] [src] @components/LocalTime.jsx");
+
   const now = new Date();
 
   const [localTime, setLocalTime] = useState({

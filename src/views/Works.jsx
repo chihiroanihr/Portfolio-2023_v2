@@ -45,7 +45,7 @@ const Heading = React.memo(({ id, className }) => {
 });
 
 const Works = ({ parentRef }) => {
-  console.log("[Render] @views/Works.jsx");
+  console.log("[Render] [src] @views/Works.jsx ----- Memoized");
 
   // Node references
   const worksSectionNodeRef = useRef(null);
@@ -107,7 +107,6 @@ const Works = ({ parentRef }) => {
     // Clean Animation
     return () => {
       cleanUpGsapAnimation(ctx);
-      console.log("[LOG] (Works.jsx) Animation Killed");
     };
   }, []);
 

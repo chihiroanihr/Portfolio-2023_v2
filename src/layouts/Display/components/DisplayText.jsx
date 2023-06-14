@@ -6,7 +6,7 @@ import { useDisplayTextAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const DisplayText = ({ className, parentRef }) => {
-  console.log("[Render] @layouts/Display/DisplayText.jsx");
+  console.log("[Render] [src] @layouts/Display/DisplayText.jsx");
 
   // Words Node References
   const displayWordsNodeRef = useRef([]);
@@ -22,10 +22,7 @@ const DisplayText = ({ className, parentRef }) => {
     );
 
     // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(animation);
-      console.log("[LOG] (DisplayText.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, []);
 
   // ------------- Memoize text section JSX ------------- //

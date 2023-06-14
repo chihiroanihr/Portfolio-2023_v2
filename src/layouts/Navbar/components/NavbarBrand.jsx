@@ -58,7 +58,7 @@ const NavbarBrandCustom = ({ textColor, fillColor }) => {
 };
 
 const NavbarBrand = ({ id, className, defaultStyle = true }) => {
-  console.log("[Render] @layouts/Navbar/NavbarBrand.jsx");
+  console.log("[Render] [src] @layouts/Navbar/NavbarBrand.jsx ----- Memoized");
 
   // CSS
   const navbarBrandTextColor = "text-coffee-600 dark:text-coffee-300";

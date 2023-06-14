@@ -5,7 +5,7 @@ import { Button } from "./index";
 import { ToggleModalContext, ScrollLockContext } from "@contexts";
 
 const CloseButton = ({ className }) => {
-  console.log("[Render] @components/CloseButton.jsx");
+  console.log("[Render] [src] @components/Buttons/CloseButton.jsx");
 
   // Retrieve States from Contexts
   const { handleScrollLock } = useContext(ScrollLockContext);

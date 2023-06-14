@@ -10,7 +10,9 @@ const CategoryLinksContainer = ({
   sourceCode,
   website,
 }) => {
-  console.log("[Render] @layouts/ProjectCardsListContainer.jsx");
+  console.log(
+    "[Render] [src] @layouts/ProjectCards/CategoryLinksContainer.jsx"
+  );
 
   // Node references for flex-wrap calculation
   const categoryLinksContainerNodeRef = useRef(null);
@@ -108,6 +110,7 @@ const CategoryLinksContainer = ({
             strokeWidth={2.3}
           />
         </Link>
+
         {/* Link to Project */}
         <Link
           href={website}

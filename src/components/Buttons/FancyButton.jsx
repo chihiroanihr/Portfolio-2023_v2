@@ -6,6 +6,10 @@ import clsx from "clsx";
 import { Button } from "./index";
 
 const FancyButton = ({ id, className, value, onClick, btnStyle, children }) => {
+  console.log(
+    "[Render] [src] @components/Buttons/FancyButton.jsx ----- Memoized"
+  );
+
   return (
     <Button
       id={id}

@@ -12,7 +12,7 @@ const DarkLightButton = ({
   addToLandingTimeline,
   animateIndex,
 }) => {
-  console.log("[Render] @components/DarkLightButton.jsx");
+  console.log("[Render] [src] @components/DarkLightButton.jsx");
 
   // Node Reference
   const darkLightButtonNodeRef = useRef(null);
@@ -34,10 +34,7 @@ const DarkLightButton = ({
     addToLandingTimeline(animation, animateIndex);
 
     // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(animation);
-      console.log("[LOG] (DarkLightButton.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, [playAnimation]);
 
   // ************************* CSS ************************* //

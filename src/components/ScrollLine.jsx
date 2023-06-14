@@ -6,8 +6,8 @@ import { useScrollLineAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 // Forward Ref from Parent Component
-const ScrollLine = ({ className, addToHomeTimeline, animateIndex }) => {
-  console.log("[Render] @components/ScrollLine.jsx");
+const ScrollLine = ({ className }) => {
+  console.log("[Render] [src] @components/ScrollLine.jsx ----- Memoized");
 
   // ============================= Landing Animations ============================= //
   // Node References for Animations
@@ -39,7 +39,6 @@ const ScrollLine = ({ className, addToHomeTimeline, animateIndex }) => {
     // Clean Up Animations
     return () => {
       cleanUpGsapAnimation(ctx);
-      console.log("[LOG] (ScrollLine.jsx) Animation Killed");
     };
   }, [playAnimation]);
 

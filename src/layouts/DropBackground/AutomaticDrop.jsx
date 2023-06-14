@@ -4,7 +4,7 @@ import { Drop } from "./index";
 import { InsideSectionContext } from "@contexts";
 
 const AutomaticDrop = ({ parentNodeRef }) => {
-  console.log("[Render] @layouts/DropBackground/AutomaticDrop.jsx");
+  console.log("[Render] [src] @layouts/DropBackground/AutomaticDrop.jsx");
 
   // Node reference
   const dropNodeRef = useRef(null);

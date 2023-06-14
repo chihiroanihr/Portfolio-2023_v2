@@ -18,7 +18,7 @@ import { useNavbarAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
-  console.log("[Render] @layouts/Navbar.jsx");
+  console.log("[Render] [src] @layouts/Navbar/Navbar.jsx ----- Memoized");
 
   // Node references for animation
   const navbarNodeRef = useRef(null);
@@ -48,10 +48,7 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
     addToLandingTimeline(navbarTimelineRef.current, animateIndex);
 
     // Clean up animations
-    return () => {
-      cleanUpGsapAnimation(ctx);
-      console.log("[LOG] (Navbar.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(ctx);
   }, [playAnimation]);
 
   // ************************* JSX ************************* //

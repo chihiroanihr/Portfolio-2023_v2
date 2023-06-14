@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Link } from "@components";
 
 const SocialIcon = ({ href, icon: Icon, style, disabled, fillColor, size }) => {
-  console.log("[Render] @components/SocialIconsList/SocialIcon.jsx");
+  console.log("[Render] @components/SocialIcons/SocialIcon.jsx ----- Memoized");
 
   return (
     <Link href={href} target="_blank" disabled={disabled}>

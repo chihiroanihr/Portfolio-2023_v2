@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 const Button = forwardRef(
   ({ id, className, value, onClick, children }, ref) => {
-    console.log("[Render] @components/Button.jsx");
+    console.log("[Render] [src] @components/Buttons/Button.jsx");
 
     return (
       <button

@@ -15,10 +15,11 @@ import { ToggleModalContext } from "@contexts";
 import { workTimelineListData } from "@data";
 
 const TimelineWorkChart = ({ className }) => {
-  console.log("[Render] @layouts/Timeline/TimelineWork.jsx");
-
   // Retrieve States from Context
   const { isModalOpen } = useContext(ToggleModalContext);
+  console.log(
+    "[Render] [src] @layouts/Timeline/TimelineWorkChart.jsx ----- Memoized"
+  );
 
   // ************************* JSX ************************* //
   const memoizedWorkTimelineListItems = useMemo(() => {

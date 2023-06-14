@@ -1,6 +1,8 @@
 import { useRef } from "react";
 
 const Galleries = () => {
+  console.log("[Render] [src] @views/Galleries.jsx");
+
   // Node Reference
   const galleriesSectionNodeRef = useRef(null);
 

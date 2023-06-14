@@ -7,7 +7,7 @@ import { useContactTextAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
 const Contact = ({ className }) => {
-  console.log("[Render] @views/Contact.jsx");
+  console.log("[Render] [src] @views/Contact.jsx ----- Memoized");
 
   const contactSectionNodeRef = useRef(null);
 
@@ -20,10 +20,7 @@ const Contact = ({ className }) => {
     const animation = useContactTextAnimation(contactSectionNodeRef.current);
 
     // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(animation);
-      console.log("[LOG] (Contact.jsx) Animation Killed");
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, []);
 
   // ------------- Memoize text section JSX ------------- //
