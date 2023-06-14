@@ -1,7 +1,7 @@
 const BlobImage = ({ className, imgSrc }) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     id="blob-img-svg"
+    xmlns="http://www.w3.org/2000/svg"
     className={className}
     viewBox="0 0 500 500"
   >

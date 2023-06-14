@@ -2,8 +2,8 @@ import clsx from "clsx";
 
 const BlobDots = ({ className, fillColor }) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     id="blob-dots-svg"
+    xmlns="http://www.w3.org/2000/svg"
     className={className}
     viewBox="0 0 500 500"
   >
