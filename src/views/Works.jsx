@@ -11,10 +11,7 @@ import { InsideSectionProvider } from "@contexts";
 import { positionStyle } from "@themes";
 import { useResizeObserverCallback } from "@hooks";
 import { useWorksAnimation } from "@animations";
-import {
-  useMemoizedGsapContext,
-  cleanUpGsapAnimation,
-} from "@animations/utils";
+import { cleanUpGsapAnimation } from "@animations/utils";
 
 const Heading = React.memo(({ id, className }) => {
   const fontType = "font-fredoka-sans";
@@ -87,9 +84,6 @@ const Works = ({ parentRef }) => {
   );
 
   // ==================== Landing Animations ==================== //
-  // Memoized gsap context animation
-  const ctx = useMemoizedGsapContext(worksSectionNodeRef);
-
   useLayoutEffect(() => {
     if (!worksSectionNodeRef.current) return;
     console.log("[LOG] (Works.jsx) Animation Started");
@@ -99,15 +93,13 @@ const Works = ({ parentRef }) => {
     // Initial Index
     worksSectionNode.style.zIndex = -1;
 
-    // Retrieve Animation
-    ctx.add(() => {
-      useWorksAnimation({ worksSectionNode, handleInsideSection });
-    }, worksSectionNodeRef);
+    const animation = useWorksAnimation({
+      worksSectionNode,
+      handleInsideSection,
+    });
 
     // Clean Animation
-    return () => {
-      cleanUpGsapAnimation(ctx);
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, []);
 
   // =============== Change Root Background Color =============== // (only for mobile device)

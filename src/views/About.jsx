@@ -149,12 +149,10 @@ const About = () => {
     if (!aboutSectionNodeRef.current) return;
     console.log("[LOG] (About.jsx) Animation Started");
 
-    const ctx = useAboutAnimation(aboutSectionNodeRef.current);
+    const animation = useAboutAnimation(aboutSectionNodeRef.current);
 
     // Clean Up Animations
-    return () => {
-      cleanUpGsapAnimation(ctx);
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, []);
 
   return (

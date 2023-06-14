@@ -14,10 +14,7 @@ import { projectCardsItemStyle } from "@themes";
 import { projectsListData } from "@data";
 import { useIntersectionObserver } from "@hooks";
 import { useProjectCardsListAnimation } from "@animations";
-import {
-  useMemoizedGsapContext,
-  cleanUpGsapAnimation,
-} from "@animations/utils";
+import { cleanUpGsapAnimation } from "@animations/utils";
 
 const ProjectCardsList = ({ id, className, parentRef }) => {
   console.log("[Render] [src] @layouts/ProjectCards/ProjectCardsList.jsx");
@@ -34,25 +31,17 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
     rootMargin: "0px 0px -100%",
   });
 
-  // Memoized gsap context animation
-  const ctx = useMemoizedGsapContext(projectCardsListNodeRef);
-
   useLayoutEffect(() => {
     if (!projectCardsListNodeRef.current) return;
     console.log("[LOG] (ProjectCardsList.jsx) Animation Started");
 
-    // No memoization of context since individual cards animation have to restart when inside overlay
-    ctx.add(() => {
-      useProjectCardsListAnimation(
-        projectCardsListNodeRef.current,
-        parentRef.current
-      );
-    }, projectCardsListNodeRef);
+    const animation = useProjectCardsListAnimation(
+      projectCardsListNodeRef.current,
+      parentRef.current
+    );
 
     // Clean up animation
-    return () => {
-      cleanUpGsapAnimation(ctx);
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, [isIntersected]);
 
   // ************************* CSS ************************* //

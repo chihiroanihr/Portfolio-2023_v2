@@ -10,11 +10,9 @@ const ScrollTextFlow = ({ className, parentRef }) => {
     if (!parentRef.current) return;
     console.log("[LOG] (ScrollTextFlow.jsx) Animation Started");
 
-    const ctx = useScrollTextFlowAnimation(parentRef.current);
+    const animation = useScrollTextFlowAnimation(parentRef.current);
 
-    return () => {
-      cleanUpGsapAnimation(ctx);
-    };
+    return () => cleanUpGsapAnimation(animation);
   }, []);
 
   // ************************* CSS ************************* //
