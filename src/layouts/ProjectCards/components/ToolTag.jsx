@@ -5,10 +5,7 @@ const ToolTag = ({ item }) => {
   const toolTagTextColor = "text-coffee-400/90";
   const toolTagBorderColor = "border-coffee-400/60";
 
-  const toolTagTextFontStyle = clsx(
-    "font-medium",
-    "xs:text-[10px] text-[8px]"
-  );
+  const toolTagTextFontStyle = clsx("font-medium", "xs:text-[10px] text-[8px]");
 
   const toolTagStyle = clsx(
     // color style
