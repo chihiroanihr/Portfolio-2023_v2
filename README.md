@@ -29,18 +29,16 @@ To separate logic into sub-logics for the easier maintenance and modifications.
   - forwardRef
 
 - Use of third-party libraries
-  - tailwind
-  - clsx
-  - react-icons
+
+  - Tailwind CSS
+  - React Icons
   - GSAP
+  - clsx
   - body-scroll-lock-upgrade
 
-## Dependencies Installed
+## Dependencies
 
-- **tailwindcss**
-- **postcss**
-- **autoprefixer**<br />
-  https://tailwindcss.com/<br />
+- **tailwindcss**, **postcss**, **autoprefixer**: https://tailwindcss.com/<br />
   `npm install -D tailwindcss postcss autoprefixer`
 
 - **react-icons**<br />
@@ -58,6 +56,8 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 - **DOMPurify** <br />
   `npm install dompurify`
 
+## Assets
+
 ### Fonts
 
 - **Google Fonts**: https://fonts.google.com/
@@ -74,18 +74,21 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 ### Images
 
-- [Coffee Background Image (Image Credit: _@Engin\_Akyurt_ (pixabay.com))](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
-- [Coffe Cup Image (Image Credit: _Paulina Adamkiewicz_ (Codepen))](https://codepen.io/apomekhanes/pen/BprZdq)
-- [Smoke Image (Image Credit: _Tran Anh Tuat_ (Github))](https://github.com/trananhtuat/css-smoke-effect/tree/main)
+- Coffee Background Image by [**_@Engin\_Akyurt_ (pixabay.com)**](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
+- Coffe Cup Image by [**_Paulina Adamkiewicz_ (Codepen)**](https://codepen.io/apomekhanes/pen/BprZdq)
+- Smoke Image by [**_@trananhtuat_ (Github)**](https://github.com/trananhtuat/css-smoke-effect/tree/main)
 
-## Other Assets Used
+### Vector Images
 
-- [Coffee cup spiral text SVG path by **_distillocaffe.com_**](https://distillocaffe.com/en/)
-- [Coffee mug cup vector illustration by **_Asya Mullakhmetova_ (istockphoto.com)**](https://www.istockphoto.com/vector/vector-mug-with-hot-coffee-tea-drawn-by-one-line-with-the-addition-of-color-gm1345529779-423577631)
-- [Idea light bulb vector illustration by **_Polina Tomtosova_ (istockphoto.com)**](https://www.istockphoto.com/vector/idea-light-bulb-doodle-hand-drawn-gm1347977917-425324482)
-- [All icons by **_react-icons_**](https://react-icons.github.io/react-icons/)
+- Coffee mug cup vector illustration by [**_Asya Mullakhmetova_ (istockphoto.com)**](https://www.istockphoto.com/vector/vector-mug-with-hot-coffee-tea-drawn-by-one-line-with-the-addition-of-color-gm1345529779-423577631)
+- Idea light bulb vector illustration by [**_Polina Tomtosova_ (istockphoto.com)**](https://www.istockphoto.com/vector/idea-light-bulb-doodle-hand-drawn-gm1347977917-425324482)
 
-## Environment Used
+### Other Assets
+
+- Coffee cup spiral text SVG path by [**_distillocaffe.com_**](https://distillocaffe.com/en/)
+- All icons by [**_react-icons_**](https://react-icons.github.io/react-icons/)
+
+## Environment
 
 - Vite.js
 
