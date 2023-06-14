@@ -65,20 +65,18 @@ To separate logic into sub-logics for the easier maintenance and modifications.
   - [_Montserrat_](https://fonts.google.com/specimen/Montserrat)
   - [_Cabin_](https://fonts.google.com/specimen/Cabin)
   - [_Fredoka_](https://fonts.google.com/specimen/Fredoka)
+  - [_Limelight_](https://fonts.google.com/specimen/Limelight)
 
-- **CDN Fonts**: https://www.cdnfonts.com/
+- **Other Fonts**: https://www.cdnfonts.com/
 
-  - [_Castlery_](https://www.cdnfonts.com/castlery.font)
-  - [_Banirmet Dua_](https://www.cdnfonts.com/banirmet-dua.font)
   - [_Radditya Signature_](https://www.cdnfonts.com/radditya-signature.font)
-  - [_Richford_](https://www.cdnfonts.com/richford.font)
+  - [_Travel November_](https://www.creativefabrica.com/product/travel-november)
 
 ### Images
 
-- [Coffee Background Image (_Image Credit: pixabay.com_)](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
-- [Smoke Image (_Image Credit: Tran Anh Tuat_)](https://github.com/trananhtuat/css-smoke-effect/tree/main)
-<!-- - https://unsplash.com/photos/nBJHO6wmRWw (_Image Credit: Nathan Dumlao_)
-- https://unsplash.com/photos/tA90pRfL2gM (_Image Credit: Nathan Dumlao_) -->
+- [Coffee Background Image (Image Credit: _@Engin\_Akyurt_ (pixabay.com))](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
+- [Coffe Cup Image (Image Credit: _Paulina Adamkiewicz_ (Codepen))](https://codepen.io/apomekhanes/pen/BprZdq)
+- [Smoke Image (Image Credit: _Tran Anh Tuat_ (Github))](https://github.com/trananhtuat/css-smoke-effect/tree/main)
 
 ## Other Assets Used
 
