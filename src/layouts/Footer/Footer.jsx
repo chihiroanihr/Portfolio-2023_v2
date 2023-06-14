@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import clsx from "clsx";
 import { SocialIcons, CreditsList, Copyright } from "./components";
 import { Signature } from "@components/SVG";
@@ -71,4 +71,4 @@ const Footer = ({ className }) => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

@@ -1,9 +1,4 @@
-import React, {
-  useContext,
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import { useContext, useRef, forwardRef, useImperativeHandle } from "react";
 import clsx from "clsx";
 import ModalBgOverlay from "./ModalBgOverlay";
 import { ToggleModalContext } from "@contexts";

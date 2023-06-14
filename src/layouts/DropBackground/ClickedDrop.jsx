@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-  useContext,
-} from "react";
+import { useState, useMemo, useCallback, useEffect, useContext } from "react";
 import clsx from "clsx";
 import { Drop } from "./index";
 import { InsideSectionContext } from "@contexts";
@@ -81,5 +75,4 @@ const ClickedDrop = ({ clickedPosition, parentNodeRef }) => {
   return isInsideSection ? addedDrops : null;
 };
 
-// Re-render only when DropBackground clicked position value changes & when DropBackground resizes
-export default React.memo(ClickedDrop);
+export default ClickedDrop;

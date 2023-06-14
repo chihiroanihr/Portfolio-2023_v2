@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useContext, useLayoutEffect } from "react";
+import { useMemo, useRef, useContext, useLayoutEffect } from "react";
 import clsx from "clsx";
 import {
   NewTag,
@@ -184,6 +184,6 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
   );
 };
 
-export default React.memo(ProjectCardsList);
+export default ProjectCardsList;
 
 // Reference: https://coco-factory.jp/ugokuweb/move01/7-1-40/ (card shining style)

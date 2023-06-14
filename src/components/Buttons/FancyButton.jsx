@@ -1,6 +1,7 @@
 // Credits: @cssbuttons-io
 // https://uiverse.io/cssbuttons-io/brown-otter-21
 
+import React from "react";
 import clsx from "clsx";
 import { Button } from "./index";
 
@@ -119,4 +120,4 @@ const FancyButton = ({ id, className, value, onClick, btnStyle, children }) => {
   );
 };
 
-export default FancyButton;
+export default React.memo(FancyButton);

@@ -1,4 +1,3 @@
-import React from "react";
 import clsx from "clsx";
 import { FiDownload } from "react-icons/fi";
 import { Button, FancyButton } from "./index";
@@ -44,4 +43,4 @@ const DownloadButton = ({ onClick, defaultStyle = true }) => {
   );
 };
 
-export default React.memo(DownloadButton);
+export default DownloadButton;

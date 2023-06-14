@@ -1,4 +1,3 @@
-import React from "react";
 import clsx from "clsx";
 
 const Card = ({ id, className, children }) => {
@@ -20,4 +19,4 @@ const Card = ({ id, className, children }) => {
   );
 };
 
-export default React.memo(Card);
+export default Card;

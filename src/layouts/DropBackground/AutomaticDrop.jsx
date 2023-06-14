@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useContext,
-  useCallback,
-  useEffect,
-} from "react";
+import { useRef, useState, useContext, useCallback, useEffect } from "react";
 import clsx from "clsx";
 import { Drop } from "./index";
 import { InsideSectionContext } from "@contexts";
@@ -110,5 +104,4 @@ const AutomaticDrop = ({ parentNodeRef }) => {
   );
 };
 
-// Re-render only when DropBackground resizes
-export default React.memo(AutomaticDrop);
+export default AutomaticDrop;

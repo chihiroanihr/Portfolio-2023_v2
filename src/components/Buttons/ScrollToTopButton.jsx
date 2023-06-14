@@ -1,4 +1,3 @@
-import React from "react";
 import clsx from "clsx";
 import { SlArrowUpCircle } from "react-icons/sl";
 import { Button } from "./index";
@@ -39,4 +38,4 @@ const ScrollToTopButton = ({ className, onClick }) => {
   );
 };
 
-export default React.memo(ScrollToTopButton);
+export default ScrollToTopButton;

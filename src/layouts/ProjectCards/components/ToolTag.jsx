@@ -1,4 +1,3 @@
-import React from "react";
 import clsx from "clsx";
 
 const ToolTag = ({ item }) => {
@@ -33,4 +32,4 @@ const ToolTag = ({ item }) => {
   );
 };
 
-export default React.memo(ToolTag);
+export default ToolTag;

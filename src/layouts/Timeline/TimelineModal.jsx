@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef } from "react";
+import { useContext, forwardRef } from "react";
 import clsx from "clsx";
 import { TimelineWorkChart, TimelineLifeChart } from "./index";
 import {
@@ -90,4 +90,4 @@ const TimelineModal = forwardRef(({}, modalRef) => {
   );
 });
 
-export default React.memo(TimelineModal);
+export default TimelineModal;

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import clsx from "clsx";
 import { HiOutlineCode, HiOutlineLink } from "react-icons/hi";
 import { Link } from "@components";
@@ -125,4 +125,4 @@ const CategoryLinksContainer = ({
   );
 };
 
-export default React.memo(CategoryLinksContainer);
+export default CategoryLinksContainer;

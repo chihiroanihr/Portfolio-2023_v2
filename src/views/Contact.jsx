@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect } from "react";
+import React, { useRef, useMemo, useEffect } from "react";
 import clsx from "clsx";
 import { ContactMe } from "@layouts";
 import { WrapNodeForRevealAnim } from "@components";
@@ -102,4 +102,4 @@ const Contact = ({ className }) => {
   );
 };
 
-export default Contact;
+export default React.memo(Contact);

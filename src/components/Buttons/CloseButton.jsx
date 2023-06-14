@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import clsx from "clsx";
 import { SlClose } from "react-icons/sl";
 import { Button } from "./index";
@@ -36,4 +36,4 @@ const CloseButton = ({ className }) => {
   );
 };
 
-export default React.memo(CloseButton);
+export default CloseButton;

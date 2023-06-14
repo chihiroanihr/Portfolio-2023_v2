@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import clsx from "clsx";
 import { DisplayText, ScrollTextFlow } from "./components";
 import { IdeaLightBulb } from "@components/SVG";
@@ -55,4 +55,4 @@ const Display = () => {
   );
 };
 
-export default Display;
+export default React.memo(Display);
