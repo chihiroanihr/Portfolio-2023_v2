@@ -1,4 +1,4 @@
-import { useMemo, useRef, useContext, useLayoutEffect } from "react";
+import { useMemo, useRef, useContext, useLayoutEffect, useEffect } from "react";
 import clsx from "clsx";
 import {
   NewTag,
@@ -31,8 +31,8 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
     rootMargin: "0px 0px -100%",
   });
 
-  useLayoutEffect(() => {
-    if (!projectCardsListNodeRef.current) return;
+  useEffect(() => {
+    if (!projectCardsListNodeRef.current && !parentRef.current) return;
     console.log("[LOG] (ProjectCardsList.jsx) Animation Started");
 
     const animation = useProjectCardsListAnimation(

@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import clsx from "clsx";
 import { useScrollTextFlowAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
@@ -6,7 +6,7 @@ import { cleanUpGsapAnimation } from "@animations/utils";
 const ScrollTextFlow = ({ className, parentRef }) => {
   console.log("[Render] [src] @layouts/Display/ScrollTextFlow.jsx");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!parentRef.current) return;
     console.log("[LOG] (ScrollTextFlow.jsx) Animation Started");
 
