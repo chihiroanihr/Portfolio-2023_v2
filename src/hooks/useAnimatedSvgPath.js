@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSpring } from "react-spring/web";
+import { useSpring } from "@react-spring/web";
 
 function useAnimatedSvgPath({
   toggle,
