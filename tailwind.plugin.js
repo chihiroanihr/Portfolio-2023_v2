@@ -9,7 +9,6 @@ module.exports = [
         },
       })
     );
-
     const writingModeUtilities = {
       ".horizontal-tb": {
         writingMode: "horizontal-tb",
@@ -21,22 +20,12 @@ module.exports = [
         writingMode: "vertical-lr",
       },
     };
-    addUtilities([
-      ...textShadowUtilities,
-
-      writingModeUtilities,
-    ]);
+    addUtilities([...textShadowUtilities, writingModeUtilities]);
   }),
   function ({ matchUtilities }) {
     matchUtilities({
       "text-shadow": (value) => ({
         textShadow: value,
-      }),
-      "stroke-width": (value) => ({
-        WebkitTextStrokeWidth: value,
-      }),
-      "stroke-color": (value) => ({
-        WebkitTextStrokeColor: value,
       }),
     });
   },
