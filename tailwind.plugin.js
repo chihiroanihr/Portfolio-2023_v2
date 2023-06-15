@@ -9,20 +9,7 @@ module.exports = [
         },
       })
     );
-    const strokeWidthUtilities = Object.entries(theme("strokeWidth")).map(
-      ([key, value]) => ({
-        [`.stroke-width-${key}`]: {
-          WebkitTextStrokeWidth: value,
-        },
-      })
-    );
-    const strokeColorUtilities = Object.entries(theme("strokeColor")).map(
-      ([key, value]) => ({
-        [`.stroke-color-${key}`]: {
-          WebkitTextStrokeColor: value,
-        },
-      })
-    );
+
     const writingModeUtilities = {
       ".horizontal-tb": {
         writingMode: "horizontal-tb",
@@ -36,8 +23,7 @@ module.exports = [
     };
     addUtilities([
       ...textShadowUtilities,
-      ...strokeWidthUtilities,
-      ...strokeColorUtilities,
+
       writingModeUtilities,
     ]);
   }),

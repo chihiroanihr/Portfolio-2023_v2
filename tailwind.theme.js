@@ -42,19 +42,7 @@ module.exports = {
       notebook: "url('/src/assets/images/notebook.png')",
       // pinstripe: "url('/src/assets/images/pinstripe.png')",
     },
-    strokeColor: (theme) => {
-      const coffeeColors = theme("colors.coffee");
-      const coffeeShades = Object.keys(coffeeColors);
 
-      return coffeeShades.reduce((utilities, shade) => {
-        utilities[`coffee-${shade}`] = coffeeColors[shade];
-
-        return utilities;
-      }, {});
-    },
-    strokeWidth: ({ theme }) => ({
-      ...theme("spacing"),
-    }),
     textShadow: {
       milky: "0 10px 9px #C4B59D, 0px -3px 3px #FFF",
       chocolate: "0 10px 9px #211715, 0px -3px 3px #644640",
