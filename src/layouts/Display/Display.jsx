@@ -7,11 +7,11 @@ import { positionStyle } from "@themes";
 const Display = () => {
   console.log("[Render] [src] @layouts/Display/Display.jsx ----- Memoized");
 
-  const scrollTextFlowContainerRef = useRef(null);
+  const displaySectionWrapperRef = useRef(null);
 
   return (
     <div
-      ref={scrollTextFlowContainerRef}
+      ref={displaySectionWrapperRef}
       id="display"
       className={clsx(
         "relative",
@@ -34,7 +34,7 @@ const Display = () => {
       >
         <DisplayText
           className="flex-[2]"
-          parentRef={scrollTextFlowContainerRef}
+          parentRef={displaySectionWrapperRef}
         />
         <IdeaLightBulb
           className={clsx("flex-1", "w-full h-full", "max-h-screen")}
@@ -49,7 +49,7 @@ const Display = () => {
           "flex justify-center items-center"
         )}
       >
-        <ScrollTextFlow parentRef={scrollTextFlowContainerRef} />
+        <ScrollTextFlow parentRef={displaySectionWrapperRef} />
       </div>
     </div>
   );
