@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo, useCallback, useLayoutEffect } from "react";
 import clsx from "clsx";
-import gsap from "gsap";
+import { gsap } from "gsap";
 import { Home, About, Works, Galleries, Contact } from "@views";
 import { Navbar, CoffeeLanding, Display, Footer } from "@layouts";
 import { DarkLightButton } from "@components";

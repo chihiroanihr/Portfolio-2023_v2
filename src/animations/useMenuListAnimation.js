@@ -1,4 +1,4 @@
-import gsap from "gsap";
+import { gsap } from "gsap";
 
 function useMenuListAnimation(scopeNode) {
   console.log("[Render] [animation] useMenuListAnimation.js");
