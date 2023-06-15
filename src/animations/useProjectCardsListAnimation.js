@@ -14,6 +14,7 @@ function animateProjectCard(cardNode) {
     autoAlpha: 1,
     y: 0,
     duration: 1.5,
+    delay: 0.5,
     scrollTrigger: {
       id: "project-card-animation-on-scroll",
       trigger: cardNode,
