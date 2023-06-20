@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-css": "npx tailwindcss -i ./src/index.css -o ./public/output.css --watch"
   },
   "dependencies": {
     "@react-spring/web": "^9.7.2",
