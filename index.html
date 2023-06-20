@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
-    <link rel="icon" href="/src/assets/images/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- <link rel="stylesheet" href="/public/output.css" /> -->
+    <title>Rhina | Creative Developer</title>
+
+    <link rel="icon" href="/src/assets/images/logo.png" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,12 +54,11 @@
       crossorigin
     />
 
-    <title>Rhina | Creative Developer</title>
+    <!-- <link rel="stylesheet" href="/public/output.css" /> -->
 
     <style>
       .loading {
         box-sizing: border-box;
-        background-color: #231814;
         overflow: hidden;
         position: fixed;
         top: 0;
@@ -74,6 +73,7 @@
         justify-content: center;
         align-items: center;
         gap: 24px;
+        background-color: #231814;
       }
       .loading.hide {
         opacity: 0;
@@ -86,6 +86,16 @@
         height: 70px;
         object-fit: cover;
         mix-blend-mode: luminosity; /* mix-blend-mode: color-dodge; */
+      }
+      .loading img {
+        pointer-events: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
       .loading .text-container {
         position: relative;

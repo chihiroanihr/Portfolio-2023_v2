@@ -129,7 +129,6 @@ function App() {
       {/* Content Page */}
       <DeviceTypeProvider>
         <div
-          id="content-page"
           ref={contentPageNodeRef}
           className={clsx(
             "bg-root-color",
