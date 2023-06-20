@@ -14,7 +14,7 @@ const projectCardsItemPositionStyle = [
   ),
   clsx(
     "md:absolute",
-    "xxl:top-[200px] lg:top-[900px] md:top-[1300px]",
+    "xxl:top-[200px] lg:top-[900px] md:top-[1500px]",
     "xxxl:left-[65%] xxl:left-[68%] xl:left-[18%] lg:left-[12%] md:left-[8%]"
   ),
 ];
