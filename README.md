@@ -71,7 +71,7 @@ To separate logic into sub-logics for the easier maintenance and modifications.
   - [_Fredoka_](https://fonts.google.com/specimen/Fredoka)
   - [_Limelight_](https://fonts.google.com/specimen/Limelight)
 
-- [**Other Fonts**](https://www.cdnfonts.com/)
+- **Other Fonts**
 
   - [_Radditya Signature_](https://www.cdnfonts.com/radditya-signature.font)
   - [_Travel November_](https://www.creativefabrica.com/product/travel-november)
