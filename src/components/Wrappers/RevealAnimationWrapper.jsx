@@ -7,7 +7,7 @@ const RevealAnimationWrapper = ({
   newLineSpace = "mb-5",
   children,
 }) => {
-  console.log("[Render] [src] @components/RevealAnimationWrapper.jsx");
+  console.log("[Render] [src] @components/Wrappers/RevealAnimationWrapper.jsx");
 
   // Wrap children elements with input text inside Div Node
   return inputText ? (

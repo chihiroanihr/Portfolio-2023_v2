@@ -4,6 +4,8 @@ import { RemoveScroll } from "react-remove-scroll";
 import { ScrollLockContext } from "@contexts";
 
 const ScrollLockWrapper = forwardRef(({ className, children }, ref) => {
+  console.log("[Render] [src] @components/Wrappers/ScrollLockWrapper.jsx");
+
   const { isScrollLocked } = useContext(ScrollLockContext);
 
   return (
