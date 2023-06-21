@@ -81,7 +81,7 @@ const assets = [
     name: "Coffee background image",
     by: "@Engin_Akyurt",
     provider: "pixabay.com",
-    href: "https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/",
+    href: "https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149",
   },
   {
     name: "Coffee smoke image",
