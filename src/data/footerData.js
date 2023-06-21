@@ -27,7 +27,10 @@ const development = [
       { name: "React Spring", href: "https://www.react-spring.dev/" },
     ],
   },
-  { text: "Deployed with", tool: { name: "ABCD", href: "" } },
+  {
+    text: "Deployed with",
+    tool: { name: "Vercel", href: "https://vercel.com/" },
+  },
 ];
 
 const fonts = [
