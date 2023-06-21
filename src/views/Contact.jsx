@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect } from "react";
 import clsx from "clsx";
 import { ContactMe } from "@layouts";
-import { WrapNodeForRevealAnim } from "@components";
+import { RevealAnimationWrapper } from "@components";
 import { CoffeeCupLine } from "@components/SVG";
 import { useContactTextAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
@@ -30,13 +30,13 @@ const Contact = ({ className }) => {
       <br />Let's <i>Collaborate</i> and <i>Create</i> an impressive website that represents your brand.";
 
     return (
-      <WrapNodeForRevealAnim inputText={TEXT} newLineSpace="mb-5">
+      <RevealAnimationWrapper inputText={TEXT} newLineSpace="mb-5">
         {({ text, italic }) => (
           <p id="text" className={clsx("mr-3", italic && "italic")}>
             {text}
           </p>
         )}
-      </WrapNodeForRevealAnim>
+      </RevealAnimationWrapper>
     );
   }, []);
 

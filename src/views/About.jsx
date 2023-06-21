@@ -7,7 +7,7 @@ import {
   SocialIconsList,
   ModalButton,
   LocalTime,
-  WrapNodeForRevealAnim,
+  RevealAnimationWrapper,
 } from "@components";
 import {
   ScrollLockContext,
@@ -55,13 +55,13 @@ const SelfIntroductionText = React.memo(() => {
 
       {/* Text */}
       <div className={introTextStyle}>
-        <WrapNodeForRevealAnim inputText={TEXT} newLineSpace="sm:mb-5 mb-3">
+        <RevealAnimationWrapper inputText={TEXT} newLineSpace="sm:mb-5 mb-3">
           {({ text }) => (
             <p id="text" className={clsx("sm:mr-2 mr-[5px]")}>
               {text}
             </p>
           )}
-        </WrapNodeForRevealAnim>
+        </RevealAnimationWrapper>
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import clsx from "clsx";
 import { Credit, VerticalLine } from "./index";
-import { Link, WrapNodeForRevealAnim } from "@components";
+import { Link, RevealAnimationWrapper } from "@components";
 import { footerData } from "@data";
 
 const textUnderlineStyle = clsx(
@@ -13,7 +13,7 @@ const DevelopmentCredits = () => {
   return useMemo(
     () =>
       footerData.developmentCredits.map(({ text, tool }) => (
-        <WrapNodeForRevealAnim key={text}>
+        <RevealAnimationWrapper key={text}>
           <div id="text" className="inline-block">
             <span>{text} </span>
 
@@ -42,7 +42,7 @@ const DevelopmentCredits = () => {
               </Link>
             )}
           </div>
-        </WrapNodeForRevealAnim>
+        </RevealAnimationWrapper>
       )),
     [footerData.developmentCredits]
   );
@@ -52,13 +52,13 @@ const FontsCredits = () => {
   return useMemo(
     () =>
       footerData.fontsCredits.map(({ name, href }) => (
-        <WrapNodeForRevealAnim key={name}>
+        <RevealAnimationWrapper key={name}>
           <div id="text" className="inline-block">
             <Link href={href} target="_blank" style={{ fontFamily: name }}>
               {name}
             </Link>
           </div>
-        </WrapNodeForRevealAnim>
+        </RevealAnimationWrapper>
       )),
     [footerData.fontsCredits]
   );
@@ -68,7 +68,7 @@ const AssetsCredits = () => {
   return useMemo(
     () =>
       footerData.assetsCredits.map(({ name, by, provider, href }) => (
-        <WrapNodeForRevealAnim key={name}>
+        <RevealAnimationWrapper key={name}>
           <div id="text" key={name} className="inline-block">
             <span>{name} by </span>
             <Link href={href} target="_blank" className={textUnderlineStyle}>
@@ -84,7 +84,7 @@ const AssetsCredits = () => {
               )}
             </Link>
           </div>
-        </WrapNodeForRevealAnim>
+        </RevealAnimationWrapper>
       )),
     [footerData.assetsCredits]
   );

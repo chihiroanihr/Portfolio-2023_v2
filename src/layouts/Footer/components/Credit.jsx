@@ -1,18 +1,18 @@
 import React, { useMemo } from "react";
 import clsx from "clsx";
-import { WrapNodeForRevealAnim } from "@components";
+import { RevealAnimationWrapper } from "@components";
 
 const Credit = ({ title, children }) => {
   // Memoize
   const memoizedTitleSection = useMemo(() => {
     return (
-      <WrapNodeForRevealAnim inputText={title}>
+      <RevealAnimationWrapper inputText={title}>
         {({ text }) => (
           <p id="title" className={clsx("font-medium", "text-center")}>
             {text}
           </p>
         )}
-      </WrapNodeForRevealAnim>
+      </RevealAnimationWrapper>
     );
   }, [title]);
 

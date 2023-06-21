@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import clsx from "clsx";
-import { WrapNodeForRevealAnim } from "@components";
+import { RevealAnimationWrapper } from "@components";
 import { isFontAvailable } from "@utils";
 import { useDisplayTextAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
@@ -30,7 +30,7 @@ const DisplayText = ({ className, parentRef }) => {
     const TEXT = "I also enjoy some <i>cool UI stuff</i> like this:";
 
     return (
-      <WrapNodeForRevealAnim inputText={TEXT}>
+      <RevealAnimationWrapper inputText={TEXT}>
         {({ text, italic }, index) => (
           <p
             key={index}
@@ -40,7 +40,7 @@ const DisplayText = ({ className, parentRef }) => {
             {text}
           </p>
         )}
-      </WrapNodeForRevealAnim>
+      </RevealAnimationWrapper>
     );
   }, []);
 
