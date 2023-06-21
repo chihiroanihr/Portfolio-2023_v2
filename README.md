@@ -64,14 +64,14 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 ### Fonts
 
-- **Google Fonts**: https://fonts.google.com/
+- [**Google Fonts**](https://fonts.google.com/)
 
   - [_Montserrat_](https://fonts.google.com/specimen/Montserrat)
   - [_Cabin_](https://fonts.google.com/specimen/Cabin)
   - [_Fredoka_](https://fonts.google.com/specimen/Fredoka)
   - [_Limelight_](https://fonts.google.com/specimen/Limelight)
 
-- **Other Fonts**: https://www.cdnfonts.com/
+- [**Other Fonts**](https://www.cdnfonts.com/)
 
   - [_Radditya Signature_](https://www.cdnfonts.com/radditya-signature.font)
   - [_Travel November_](https://www.creativefabrica.com/product/travel-november)
