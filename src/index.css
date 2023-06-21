@@ -68,6 +68,7 @@
 }
 
 @layer utilities {
+  /* Prevent Select */
   .prevent-select {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -80,20 +81,44 @@
   .prevent-select:focus {
     outline: none !important;
   }
-}
 
-/* hide scrollbar for IE, Edge */
-body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  /* Custom Scroll Bar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 0.4em;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #786766;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgb(240, 237, 235, 1);
+  }
+
+  /* No Scroll Bar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 /* hide scrollbar for chrome, safari and opera, and other WebKit-based browsers */
 body::-webkit-scrollbar {
   display: none;
 }
-
+/* hide scrollbar for IE, Edge */
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 /* hide scrollbar for Firefox */
 html {
   scrollbar-width: none;
+}
+
+/* Overscroll behavior */
+html,
+body {
+  overscroll-behavior: none;
 }
