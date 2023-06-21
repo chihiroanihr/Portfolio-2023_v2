@@ -1,13 +1,16 @@
-import { useContext, useMemo, useLayoutEffect, forwardRef } from "react";
+import { useContext, useRef, useMemo, useLayoutEffect } from "react";
 import clsx from "clsx";
-import { Link } from "@components";
+import { Link, ScrollLockWrapper } from "@components";
 import { ToggleMenuContext, ScrollLockContext } from "@contexts";
 import { menuListData } from "@data";
 import { useMenuListAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
-const MenuList = forwardRef(({ className }, ref) => {
+const MenuList = ({ className }) => {
   console.log("[Render] [src] @layouts/Navbar/MenuList.jsx");
+
+  // Node Reference
+  const menuListNodeRef = useRef(null);
 
   // Retrieve States from Contexts
   const { isMenuOpen, handleToggleMenu } = useContext(ToggleMenuContext);
@@ -19,7 +22,7 @@ const MenuList = forwardRef(({ className }, ref) => {
     console.log("[LOG] (MenuList.jsx) Animation Started");
 
     // Retrieve Animation
-    const animation = useMenuListAnimation(ref.current);
+    const animation = useMenuListAnimation(menuListNodeRef.current);
 
     // Clean Up Animation
     return () => cleanUpGsapAnimation(animation);
@@ -109,8 +112,8 @@ const MenuList = forwardRef(({ className }, ref) => {
   );
 
   return (
-    <ul
-      ref={ref}
+    <ScrollLockWrapper
+      ref={menuListNodeRef}
       className={clsx(
         className,
         "w-full h-full",
@@ -122,8 +125,8 @@ const MenuList = forwardRef(({ className }, ref) => {
       )}
     >
       {memoizedMenuListItems}
-    </ul>
+    </ScrollLockWrapper>
   );
-});
+};
 
 export default MenuList;

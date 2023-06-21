@@ -1,6 +1,7 @@
 import { useContext, useRef, forwardRef, useImperativeHandle } from "react";
 import clsx from "clsx";
 import ModalBgOverlay from "./ModalBgOverlay";
+import { ScrollLockWrapper } from "@components";
 import { ToggleModalContext } from "@contexts";
 import { useScrollBackToTop } from "@hooks";
 
@@ -68,12 +69,11 @@ const Modal = forwardRef(
         )}
 
         {/* Modal Content */}
-        <div
+        <ScrollLockWrapper
           ref={modalContentNodeRef}
           className={clsx(
             "relative",
-            "overflow-x-hidden",
-            "overflow-y-scroll",
+            "overflow-x-hidden overflow-y-scroll custom-scrollbar",
             // position style
             "fixed inset-0",
             "mx-auto",
@@ -95,7 +95,7 @@ const Modal = forwardRef(
           )}
         >
           {children}
-        </div>
+        </ScrollLockWrapper>
       </div>
     );
   }

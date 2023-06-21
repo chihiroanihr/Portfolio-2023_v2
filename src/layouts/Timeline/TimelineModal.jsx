@@ -1,4 +1,4 @@
-import { useContext, forwardRef } from "react";
+import { useRef, useContext } from "react";
 import clsx from "clsx";
 import { TimelineWorkChart, TimelineLifeChart } from "./index";
 import {
@@ -10,8 +10,11 @@ import {
 import { DeviceTypeContext, ToggleModalContext } from "@contexts";
 import { useScrollBackToTop, useDownloadFile } from "@hooks";
 
-const TimelineModal = forwardRef(({}, modalRef) => {
+const TimelineModal = () => {
   console.log("[Render] [src] @layouts/Timeline/TimelineModal.jsx");
+
+  // Node Reference
+  const modalNodeRef = useRef(null);
 
   // Retrieve States from Context
   const { isModalOpen } = useContext(ToggleModalContext);
@@ -20,7 +23,7 @@ const TimelineModal = forwardRef(({}, modalRef) => {
 
   // ==== [ScrollToTopButton] Scroll Back to Top when clicked === //
   const handleScrollBackToTop = useScrollBackToTop({
-    ref: modalRef,
+    ref: modalNodeRef,
     option: {
       top: 0,
       behavior: "smooth",
@@ -45,7 +48,7 @@ const TimelineModal = forwardRef(({}, modalRef) => {
   // ************************* JSX ************************* //
   return (
     <Modal
-      ref={modalRef}
+      ref={modalNodeRef}
       modalStyle={clsx(
         isModalOpen
           ? "opacity-100 delay-500 duration-[1s]"
@@ -93,6 +96,6 @@ const TimelineModal = forwardRef(({}, modalRef) => {
       </div>
     </Modal>
   );
-});
+};
 
 export default TimelineModal;

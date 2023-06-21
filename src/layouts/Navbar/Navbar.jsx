@@ -13,7 +13,6 @@ import {
   ToggleMenuProvider,
   ScrollLockProvider,
 } from "@contexts";
-import { useBodyScrollLock } from "@hooks";
 import { useNavbarAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
 
@@ -22,14 +21,10 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
 
   // Node references for animation
   const navbarNodeRef = useRef(null);
-  const scrollLockTargetRef = useRef(null);
   const navbarTimelineRef = useRef(null);
 
   // Retrieve state from context
   const { playAnimation } = useContext(PlayAnimationContext);
-
-  // Retrieve function from Custom Hook
-  const { handleScrollLock } = useBodyScrollLock(scrollLockTargetRef);
 
   useLayoutEffect(() => {
     if (!playAnimation || !navbarNodeRef.current) return;
@@ -56,7 +51,7 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
     // Navbar (sticky)
     <nav className={clsx(className, "w-screen", "h-20")}>
       <ToggleMenuProvider>
-        <ScrollLockProvider handleScrollLock={handleScrollLock}>
+        <ScrollLockProvider>
           {/* ------ When Menu Closed (Navbar) ------ */}
           <div
             ref={navbarNodeRef}
@@ -80,16 +75,14 @@ const Navbar = ({ className, addToLandingTimeline, animateIndex }) => {
           </div>
 
           {/* ---------- When Menu Opened ---------- */}
+
           {/* Menu Background (hidden) */}
           <MenuBackground
             className={clsx("z-20", "fixed")}
             parentRef={navbarNodeRef}
           />
           {/* Menu Lists (hidden) */}
-          <MenuList
-            ref={scrollLockTargetRef}
-            className={clsx("z-30", "fixed-position-center")}
-          />
+          <MenuList className={clsx("z-30", "fixed-position-center")} />
         </ScrollLockProvider>
       </ToggleMenuProvider>
     </nav>

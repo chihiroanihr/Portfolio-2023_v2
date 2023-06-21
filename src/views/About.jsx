@@ -15,7 +15,6 @@ import {
   ToggleModalContext,
   ToggleModalProvider,
 } from "@contexts";
-import { useBodyScrollLock } from "@hooks";
 import { socialMediaPlatformsStyle } from "@themes";
 import { useAboutAnimation } from "@animations";
 import { cleanUpGsapAnimation } from "@animations/utils";
@@ -136,13 +135,6 @@ const About = () => {
 
   // Node Reference
   const aboutSectionNodeRef = useRef(null);
-  // Scroll Lock Target Node Reference
-  const scrollLockTargetNodeRef = useRef(null);
-
-  // Retrieve Scroll Lock Function
-  const { handleScrollLock } = useBodyScrollLock(scrollLockTargetNodeRef, {
-    allowTouchMove: true,
-  });
 
   // Render Animation
   useLayoutEffect(() => {
@@ -159,74 +151,68 @@ const About = () => {
     <section
       ref={aboutSectionNodeRef}
       id="about"
-      className="page-layout default-page-spacing"
+      className={clsx(
+        // layout
+        "relative",
+        "page-layout default-page-spacing",
+        "xl:h-screen min-h-screen",
+        // flex box
+        "flex justify-center items-center",
+        "xl:flex-row flex-col-reverse",
+        "xl:gap-10 gap-0"
+      )}
     >
-      <div
-        className={clsx(
-          "relative",
-          "xl:h-screen min-h-screen",
-          "flex justify-center items-center",
-          "xl:flex-row flex-col-reverse",
-          "xl:gap-10 gap-0"
-        )}
-      >
-        <ScrollLockProvider handleScrollLock={handleScrollLock}>
-          <ToggleModalProvider>
-            {/* ---- Button Column (small screen) ---- */}
-            <ModalButtonSection className={clsx("xl:hidden", "mb-3")} />
+      <ScrollLockProvider>
+        <ToggleModalProvider>
+          {/* ---- Button Column (small screen) ---- */}
+          <ModalButtonSection className={clsx("xl:hidden", "mb-3")} />
 
-            {/* --------------- Image --------------- */}
-            <BlobImageSection className="xl:flex-1" />
+          {/* --------------- Image --------------- */}
+          <BlobImageSection className="xl:flex-1" />
 
-            <div
-              className={clsx(
-                "xl:flex-1",
-                "relative",
-                "xs:pr-[80px] pr-[60px]"
-              )}
-            >
-              <div className={clsx("max-w-screen-md", "flex flex-col")}>
-                {/* -------- Introduction Text -------- */}
-                <SelfIntroductionText />
+          <div
+            className={clsx("xl:flex-1", "relative", "xs:pr-[80px] pr-[60px]")}
+          >
+            <div className={clsx("max-w-screen-md", "flex flex-col")}>
+              {/* -------- Introduction Text -------- */}
+              <SelfIntroductionText />
 
-                {/* ---- Button Row (large screen) ---- */}
-                <ModalButtonSection
-                  className={clsx("xl:block hidden", "self-center", "mt-6")}
-                />
-              </div>
-
-              {/* -------- Local Time Indicator -------- */}
-              <LocalTimeSection
-                className={clsx(
-                  "absolute",
-                  "right-0",
-                  "xl:top-1/2 xl:-translate-y-1/2 xl:mt-[-210px]",
-                  "lg:top-[10%] top-[5%]"
-                )}
-              />
-
-              {/* ------------ Social Icons ------------ */}
-              <SocialIconsList
-                id="social-icons"
-                className={clsx(
-                  "lg:scale-100 xs:scale-[0.8] scale-[0.7]",
-                  "absolute",
-                  "right-0",
-                  "xl:top-1/2 xl:-translate-y-1/2",
-                  "lg:top-[30%] md:top-[15%] xs:top-[13%] top-[7%]"
-                )}
-                iconStyle={socialMediaPlatformsStyle}
-                iconGap="xl:gap-1 gap-2"
-                direction="y"
+              {/* ---- Button Row (large screen) ---- */}
+              <ModalButtonSection
+                className={clsx("xl:block hidden", "self-center", "mt-6")}
               />
             </div>
 
-            {/* ------- Modal (hidden) ------- */}
+            {/* -------- Local Time Indicator -------- */}
+            <LocalTimeSection
+              className={clsx(
+                "absolute",
+                "right-0",
+                "xl:top-1/2 xl:-translate-y-1/2 xl:mt-[-210px]",
+                "lg:top-[10%] top-[5%]"
+              )}
+            />
 
-            <TimelineModal ref={scrollLockTargetNodeRef} />
-          </ToggleModalProvider>
-        </ScrollLockProvider>
-      </div>
+            {/* ------------ Social Icons ------------ */}
+            <SocialIconsList
+              id="social-icons"
+              className={clsx(
+                "lg:scale-100 xs:scale-[0.8] scale-[0.7]",
+                "absolute",
+                "right-0",
+                "xl:top-1/2 xl:-translate-y-1/2",
+                "lg:top-[30%] md:top-[15%] xs:top-[13%] top-[7%]"
+              )}
+              iconStyle={socialMediaPlatformsStyle}
+              iconGap="xl:gap-1 gap-2"
+              direction="y"
+            />
+          </div>
+
+          {/* ------- Modal (hidden) ------- */}
+          <TimelineModal />
+        </ToggleModalProvider>
+      </ScrollLockProvider>
     </section>
   );
 };

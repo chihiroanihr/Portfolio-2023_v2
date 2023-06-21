@@ -1,4 +1,3 @@
-import useBodyScrollLock from "./useBodyScrollLock";
 import useIntersectionObserver from "./useIntersectionObserver";
 import {
   useResizeObserver,
@@ -9,7 +8,6 @@ import useDownloadFile from "./useDownloadFile";
 import useAnimatedSvgPath from "./useAnimatedSvgPath";
 
 export {
-  useBodyScrollLock,
   useIntersectionObserver,
   useResizeObserver,
   useResizeObserverCallback,
