@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import { parseMarkup } from "@utils";
 
-const WrapNodeForRevealAnim = ({
+const RevealAnimationWrapper = ({
   inputText,
   className,
   newLineSpace = "mb-5",
   children,
 }) => {
-  console.log("[Render] [src] @components/WrapNodeForRevealAnim.jsx");
+  console.log("[Render] [src] @components/RevealAnimationWrapper.jsx");
 
   // Wrap children elements with input text inside Div Node
   return inputText ? (
@@ -45,4 +45,4 @@ const WrapNodeForRevealAnim = ({
   );
 };
 
-export default WrapNodeForRevealAnim;
+export default RevealAnimationWrapper;

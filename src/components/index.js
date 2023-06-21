@@ -14,7 +14,6 @@ import SocialIconsList from "./SocialIcons";
 import LocalTime from "./LocalTime";
 import DarkLightButton from "./DarkLightButton";
 import ScrollLine from "./ScrollLine";
-import WrapNodeForRevealAnim from "./WrapNodeForRevealAnim";
 
 export {
   Button,
@@ -33,5 +32,5 @@ export {
   LocalTime,
   DarkLightButton,
   ScrollLine,
-  WrapNodeForRevealAnim,
+  RevealAnimationWrapper,
 };
