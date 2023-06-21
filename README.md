@@ -42,22 +42,22 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 ## Dependencies
 
-- **tailwindcss**, **postcss**, **autoprefixer**: https://tailwindcss.com/<br />
+- [tailwindcss, postcss, autoprefixer](https://tailwindcss.com/)<br />
   `npm install -D tailwindcss postcss autoprefixer`
 
-- **react-icons**<br />
+- [react-icons](https://react-icons.github.io/react-icons)<br />
   `npm install react-icons --save`
 
-- **clsx**<br/>
+- [clsx](https://www.npmjs.com/package/clsx)<br/>
   `npm install --save clsx`
 
-- **gsap**<br />
+- [gsap](https://greensock.com/gsap/)<br />
   `npm install gsap`
 
-- **body-scroll-lock-upgrade**<br />
-  `npm install body-scroll-lock-upgrade`
+- [react-remove-scroll](https://www.npmjs.com/package/react-remove-scroll)<br />
+  `npm install react-remove-scroll`
 
-- **DOMPurify** <br />
+- [DOMPurify](https://www.npmjs.com/package/dompurify) <br />
   `npm install dompurify`
 
 ## Assets
@@ -78,7 +78,7 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 ### Images
 
-- Coffee Background Image by [_@Engin\_Akyurt_ (pixabay.com)](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
+- Coffee Background Image by [_@Engin_Akyurt_ (pixabay.com)](https://pixabay.com/photos/coffee-drink-caffeine-beverage-cup-6371149/)
 - Coffe Cup Image by [_Paulina Adamkiewicz_ (Codepen)](https://codepen.io/apomekhanes/pen/BprZdq)
 - Smoke Image by [_@trananhtuat_ (Github)](https://github.com/trananhtuat/css-smoke-effect/tree/main)
 
@@ -94,7 +94,7 @@ To separate logic into sub-logics for the easier maintenance and modifications.
 
 ## Environment
 
-- Vite.js
+- [Vite.js](https://vitejs.dev/)
 
 ### Run App
 
