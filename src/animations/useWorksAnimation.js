@@ -5,7 +5,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 function useWorksHeadingAnimationOnScroll(triggerer) {
   return gsap.from("#works #heading", {
-    clearProps: true,
     y: -500,
     opacity: 0,
     scale: 4,
@@ -18,6 +17,7 @@ function useWorksHeadingAnimationOnScroll(triggerer) {
       scrub: true, // Optional
       // once: true,
     },
+    clearProps: true,
   });
 }
 
@@ -27,8 +27,8 @@ function useWorksAnimationOnEnter(triggerer) {
     .timeline({
       id: "works-section-animation-on-enter",
       paused: true,
-      defaults: { opacity: 0 },
       clearProps: true,
+      defaults: { opacity: 0 },
     })
     .set(triggerer, {
       opacity: 1,
@@ -43,8 +43,8 @@ function useWorksAnimationOnLeave() {
     .timeline({
       id: "works-section-animation-on-leave",
       paused: true,
-      defaults: { duration: 0.8 },
       clearProps: true,
+      defaults: { duration: 0.8 },
     })
     .to("#works #background", { opacity: 0 }, "<")
     .to("#works #heading", { y: -200, opacity: 0 }, "<");
@@ -56,8 +56,8 @@ function useWorksAnimationOnEnterBack() {
     .timeline({
       id: "works-section-animation-on-enter-back",
       paused: true,
-      defaults: { duration: 0.8 },
       clearProps: true,
+      defaults: { duration: 0.8 },
     })
     .to("#works #heading", { opacity: 1 }, "<")
     .to("#works #background", { opacity: 1 }, "<0.5");
@@ -69,8 +69,8 @@ function useWorksAnimationOnLeaveBack(triggerer) {
     .timeline({
       id: "works-section-animation-on-leave-back",
       paused: true,
-      defaults: { duration: 0.8 },
       clearProps: true,
+      defaults: { duration: 0.8 },
     })
     .to("#works #background", { opacity: 0 }, "<")
     .to("#works #heading", { y: 200, opacity: 0 }, "<0.3")
