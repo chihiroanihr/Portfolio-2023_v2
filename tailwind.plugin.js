@@ -22,6 +22,7 @@ module.exports = [
     };
     addUtilities([...textShadowUtilities, writingModeUtilities]);
   }),
+
   function ({ matchUtilities }) {
     matchUtilities({
       "text-shadow": (value) => ({
