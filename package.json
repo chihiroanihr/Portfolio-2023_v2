@@ -10,7 +10,7 @@
     "build-css": "npx tailwindcss -i ./src/index.css -o ./public/output.css --watch"
   },
   "dependencies": {
-    "@react-spring/web": "^9.7.2",
+    "@react-spring/web": "^9.7.3",
     "clsx": "^1.2.1",
     "dompurify": "^3.0.3",
     "gsap": "npm:@gsap/member@^3.12.1",
