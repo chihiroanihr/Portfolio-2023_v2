@@ -13,7 +13,7 @@
     "@react-spring/web": "^9.7.3",
     "clsx": "^2.0.0",
     "dompurify": "^3.0.5",
-    "gsap": "npm:@gsap/member@^3.12.1",
+    "gsap": "npm:@gsap/member@^3.12.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
