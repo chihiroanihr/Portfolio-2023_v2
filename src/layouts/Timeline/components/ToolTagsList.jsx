@@ -6,7 +6,7 @@ const ToolTagsList = ({ id, item, index }) => {
   // Memoize tool list array
   const memoizedToolTagsListItem = useMemo(() => {
     return item.map((tool) => <ToolTag key={tool} item={tool} />);
-  }, []);
+  }, [item]);
 
   // JSX
   return (
