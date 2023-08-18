@@ -1,7 +1,25 @@
 import antiqueRoomImg from "@assets/images/works/antique-room.png";
 import foodbookImg from "@assets/images/works/foodbook.jpg";
+import gokooImg from "@assets/images/works/gokoo.jpg";
 
 const projectsListData = [
+  {
+    title: "Gokoo Company Website",
+    description:
+      "A complete Startup website crafted from scratch, handling everything from design and development to deployment. \
+      This website is geared towards helping individuals establish income-generating side hustles. \
+      It provides an all-in-one solution that includes designers, developers, and marketers, streamlining the process for clients starting side ventures. \
+      Rather than searching for multiple talents, clients can find everything they need in one place. \
+      The textual content and <a href='https://wejoy-template.webflow.io/' target='_blank' rel='noopener noreferrer' class='underline'>reference website design</a> \
+      were supplied by the Gokoo company to convey their desired atmosphere of the website. \
+      Subsequently, I undertook the design and development process to ensure that the website harmoniously aligned with their values.",
+    tools: ["Framer", "React", "Figma"],
+    category: "Web Development",
+    sourceCode: "",
+    website: "https://www.gokoo.ca/",
+    thumbnails: [gokooImg],
+    new: true,
+  },
   {
     title: "3D Room Design",
     description:
@@ -15,7 +33,6 @@ const projectsListData = [
     website:
       "https://my.spline.design/antiqueroomfinaloptimized-180cf5511cd98b73d490caf76f61ad16/",
     thumbnails: [antiqueRoomImg],
-    new: true,
   },
   {
     title: "Foodbook",
@@ -33,16 +50,6 @@ const projectsListData = [
     sourceCode: "https://github.com/chihiroanihr/Foodbook",
     website: "https://devpost.com/software/foodbook-124ebm",
     thumbnails: [foodbookImg],
-  },
-  {
-    title: "Coming Soon",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. ",
-    tools: [],
-    category: "Web Development",
-    sourceCode: "",
-    website: "",
-    thumbnails: [],
   },
 ];
 

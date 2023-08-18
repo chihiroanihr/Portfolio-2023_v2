@@ -1,9 +1,27 @@
 import sunLifeLogoImg from "@assets/images/timeline/sun-life-logo.png";
 import nuanceLogoImg from "@assets/images/timeline/nuance-logo.png";
+import gokooLogoImg from "@assets/images/timeline/gokoo-logo.png"
 
 const workTimelineListData = [
   {
-    id: 0,
+    id: 3,
+    title: {
+      position: "Web Developer",
+      company: "Gokoo",
+      type: "Contract / Part-Time",
+    },
+    logo: gokooLogoImg,
+    date: "Jul 2023 — Aug 2023 (480 hours)",
+    location: "Remote",
+    description:
+      "Directed the design and development of a Startup website entirely from scratch, meticulously harmonizing it with the client's unique desires and objectives. \
+      Utilized Framer as the development framework, skillfully incorporating advanced features such as integrating contact and subscribe forms, as well as executing complex animations and scroll effects through custom React code. \
+      Accomplished rapid design and development within tight time constraints given while surmounting challenges posed by Framer's customization limitations and rendering performance issues. \
+      Fostered collaboration with the client, offering them insights aligned with modern web design standards, resulting in a high-quality, user-friendly, and vibrant platform which secured the first customer shortly after the launch.",
+    tools: ["Framer", "React", "Figma"],
+  },
+  {
+    id: 2,
     title: {
       position: "Front-end Developer",
       company: "Nuance Communications Inc.",
@@ -37,7 +55,7 @@ const workTimelineListData = [
     tools: ["Java", "Kotlin", "Swift", "Android SDK", "Espresso"],
   },
   {
-    id: 2,
+    id: 0,
     title: {
       position: "Android Application Developer",
       company: "Sun Life Financial",
