@@ -23,6 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-.npmrc
 .vercel
 .env*.local
