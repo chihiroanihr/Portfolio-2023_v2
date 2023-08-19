@@ -15,9 +15,8 @@ const workTimelineListData = [
     location: "Remote",
     description:
       "Directed the design and development of a Startup website entirely from scratch, meticulously harmonizing it with the client's unique desires and objectives. \
-      Utilized Framer as the development framework, skillfully incorporating advanced features such as integrating contact and subscribe forms, as well as executing complex animations and scroll effects through custom React code. \
-      Accomplished rapid design and development within tight time constraints given while surmounting challenges posed by Framer's customization limitations and rendering performance issues. \
-      Fostered collaboration with the client, offering them insights aligned with modern web design standards, resulting in a high-quality, user-friendly, and vibrant platform which secured the first customer shortly after the launch.",
+      Accomplished rapid yet high-quality design and development with Framer + React within tight time constraints given while surmounting challenges posed by Framer's customization limitations and rendering performance issues. \
+      Fostered collaboration with the client, offering them insights aligned with modern web design standards, resulting in a seamless, user-friendly, and vibrant platform which secured the first customer shortly after the launch.",
     tools: ["Framer", "React", "Figma"],
   },
   {
