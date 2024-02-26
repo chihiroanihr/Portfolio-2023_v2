@@ -20,7 +20,7 @@
     "react-remove-scroll": "^2.5.7"
   },
   "devDependencies": {
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.58",
     "@types/react-dom": "^18.2.13",
     "@vitejs/plugin-react-swc": "^3.4.0",
     "autoprefixer": "^10.4.16",
