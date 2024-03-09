@@ -6,18 +6,22 @@ const workTimelineListData = [
   {
     id: 3,
     title: {
-      position: "Web Developer",
+      position: "Website Developer",
       company: "Gokoo",
       type: "Contract / Part-Time",
     },
     logo: gokooLogoImg,
-    date: "Jul 2023 — Aug 2023 (480 hours)",
+    date: "Jul 2023 — Present",
     location: "Remote",
     description:
-      "Directed the design and development of a Startup website entirely from scratch, meticulously harmonizing it with the client's unique desires and objectives. \
-      Accomplished rapid yet high-quality design and development with Framer + React within tight time constraints given while surmounting challenges posed by Framer's customization limitations and rendering performance issues. \
-      Fostered collaboration with the client, offering them insights aligned with modern web design standards, resulting in a seamless, user-friendly, and vibrant platform which secured the first customer shortly after the launch.",
-    tools: ["Framer", "React", "Figma"],
+      "Led the comprehensive design and development of several websites for a varied clientele, both nationally and internationally. \
+      This involved tailoring each project to meet specific goals and requirements. \
+      Utilizing CMS platforms such as Webflow, Framer, and Shopify, alongside React, \
+      I navigated challenges in customization and rendering to ensure the delivery of high-quality design within tight deadlines. \
+      Collaborating closely with clients, I provided valuable insights aligned with contemporary web design standards, \
+      resulting in the creation of user-friendly and visually dynamic platforms. \
+      The successful launch of these platforms culminated in securing their inaugural customer shortly thereafter.",
+    tools: ["Framer", "Webflow", "React", "Figma"],
   },
   {
     id: 2,
