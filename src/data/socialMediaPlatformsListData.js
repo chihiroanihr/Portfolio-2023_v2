@@ -24,16 +24,19 @@ const socialMediaPlatformsListData = [
     icon: TbBrandInstagram,
   },
   {
+    name: "Behance",
+    href: "https://www.behance.net/chihiroanihr",
+    icon: TbBrandBehance,
+  },
+  {
     name: "Dribbble",
+    href: "https://dribbble.com/chihiroanihr",
     icon: TbBrandDribbble,
   },
   {
     name: "Pinterest",
+    href: "https://in.pinterest.com/chihiroanihr/",
     icon: TbBrandPinterest,
-  },
-  {
-    name: "Behance",
-    icon: TbBrandBehance,
   },
 ];
 
