@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import clsx from "clsx";
 
 const Button = forwardRef(
-  ({ id, className, value, onClick, children }, ref) => {
+  ({ id, className, value, onClick, disabled = false, children }, ref) => {
     console.log("[Render] [src] @components/Buttons/Button.jsx");
 
     return (
@@ -11,6 +11,7 @@ const Button = forwardRef(
         id={id}
         className={clsx(className, "cursor-pointer")}
         onClick={onClick}
+        disabled={disabled}
       >
         {value ? value : children}
       </button>

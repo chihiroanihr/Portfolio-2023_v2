@@ -3,6 +3,8 @@ import { FiDownload } from "react-icons/fi";
 import { Button, FancyButton } from "./index";
 import { buttonStyle } from "@themes";
 
+const TEMPORARY_DISABLE = true;
+
 const DownloadButton = ({ onClick, defaultStyle = true }) => {
   console.log("[Render] [src] @components/Buttons/DownloadButton.jsx");
 
@@ -27,6 +29,7 @@ const DownloadButton = ({ onClick, defaultStyle = true }) => {
         )
       )}
       onClick={onClick}
+      disabled={TEMPORARY_DISABLE}
     >
       <div className={clsx("flex justify-center items-center", "gap-2")}>
         <FiDownload />
@@ -34,7 +37,7 @@ const DownloadButton = ({ onClick, defaultStyle = true }) => {
       </div>
     </Button>
   ) : (
-    <FancyButton onClick={onClick} btnStyle={buttonStyle.fancyDownloadBtnStyle}>
+    <FancyButton onClick={onClick} btnStyle={buttonStyle.fancyDownloadBtnStyle} disabled={TEMPORARY_DISABLE}>
       <div className={clsx("flex justify-center items-center", "gap-2")}>
         <p>Download Resume</p>
         <FiDownload />

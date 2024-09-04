@@ -5,7 +5,15 @@ import React from "react";
 import clsx from "clsx";
 import { Button } from "./index";
 
-const FancyButton = ({ id, className, value, onClick, btnStyle, children }) => {
+const FancyButton = ({
+  id,
+  className,
+  value,
+  onClick,
+  btnStyle,
+  disabled = false,
+  children,
+}) => {
   console.log(
     "[Render] [src] @components/Buttons/FancyButton.jsx ----- Memoized"
   );
@@ -33,6 +41,7 @@ const FancyButton = ({ id, className, value, onClick, btnStyle, children }) => {
         "[transition:border-color_300ms_ease-in-out,background-color_300ms_ease-in-out]"
       )}
       onClick={onClick}
+      disabled={disabled}
     >
       {/* ------------ Hyphen ------------ */}
       <span
