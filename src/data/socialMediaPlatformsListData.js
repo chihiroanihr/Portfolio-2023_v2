@@ -10,7 +10,7 @@ import {
 const socialMediaPlatformsListData = [
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/rhina-kim-568ab3178/",
+    href: "https://www.linkedin.com/in/rhina-kim",
     icon: TbBrandLinkedin,
   },
   {
@@ -20,7 +20,7 @@ const socialMediaPlatformsListData = [
   },
   {
     name: "Instagram",
-    href: "https://www.instagram.com/chipie_af/",
+    href: "https://www.instagram.com/chihiroanihr",
     icon: TbBrandInstagram,
   },
   {

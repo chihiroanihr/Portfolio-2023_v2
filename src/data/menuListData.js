@@ -8,7 +8,7 @@ const menuListData = [
     href: "#about",
   },
   {
-    name: "Project",
+    name: "WORKS",
     href: "#works",
     offset: "#wrapper #heading",
   },

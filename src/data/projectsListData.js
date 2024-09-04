@@ -1,47 +1,46 @@
 import antiqueRoomImg from "@assets/images/works/antique-room.png";
 import foodbookImg from "@assets/images/works/foodbook.jpg";
 import gokooImg from "@assets/images/works/gokoo.jpg";
-import dhhImg from "@assets/images/works/dhh-registration.png"
-import gtaRealEstateImg from "@assets/images/works/gta-real-estate.png"
+import dhhImg from "@assets/images/works/dhh-registration.png";
+import gtaRealEstateImg from "@assets/images/works/gta-real-estate.png";
 
 const projectsListData = [
   {
     title: "GTA Real Estate Studio",
     description:
-      "A dynamic website designed for a real estate photographer. \
-      This project beautifully showcases three core services: \
-      'Realtors'—tailored photography and videography for real estate agencies, \
-      'Drones'—captivating aerial visuals for real estate, and 'Development'—capturing the evolution of construction projects. \
-      I undertook the design and development to ensure that the website harmoniously aligned with their values. \
+      "A dynamic website designed for a real estate photographer, showcasing three core services: \
+      <i>Realtors</i>—tailored photography and videography for real estate agencies, \
+      <i>Drones</i>—high-quality aerial visuals of homes, and <i>Development</i>—capturing the evolution of construction projects. \
+      I undertook the design and development, ensuring the site aligned seamlessly with the brand. \
       Explore this engaging platform that brings the art of real estate marketing to life.",
-    tools: ["Webflow", "React", "Figma"],
+    tools: ["Webflow", "JavaScript", "Figma"],
     category: "Website Development",
     sourceCode: "",
-    website: "https://www.gtarealestatestudio.ca/",
+    website: "https://gta-real-estate-studio.webflow.io/", // https://www.gtarealestatestudio.ca/
     thumbnails: [gtaRealEstateImg],
-    new: true,
+    // new: true,
   },
   {
-    title: "Duncan Hill Homes - Registration Page",
+    title: "Duncan Hill Homes - Registration",
     description:
-      "A single-page website, \"Duncan Hill Homes,\" for a real estate company, focusing on a user-friendly registration section. \
-      Utilizing Webflow, I customized a suitable theme, incorporating the company's branding, logo, and color palette. \
-      This project integrated design, development, and problem-solving, resulting in a visually appealing, fully functional website tailored for the upcoming real estate project launch.",
-    tools: ["Webflow", "Figma"],
+      "A registration page for Duncan Hill Homes, a new real estate project by <a href='https://arkfield.com/' target='_blank' rel='noopener noreferrer' class='underline'>Arkfield</a>. \
+      I customized the theme to align with the company's branding, including its logo and color palette, \
+      while ensuring responsiveness for optimal display across devices. Led the design and development, \
+      resulting in a simple and visually appealing registration page, tailored for the real estate project’s upcoming launch.",
+    tools: ["Webflow", "JavaScript", "Figma"],
     category: "Website Development",
     sourceCode: "",
-    website: "https://www.duncanhillhomes.ca/",
+    website: "https://duncan-hill-homes-registration.webflow.io/", // https://www.duncanhillhomes.ca/
     thumbnails: [dhhImg],
   },
   {
-    title: "Gokoo (Startup)",
+    title: "Gokoo",
     description:
       "A complete Startup website which is geared towards helping individuals establish income-generating side hustles. \
-      It provides an all-in-one solution that includes designers, developers, and marketers, streamlining the process for clients starting side ventures. \
+      Its service includes all-in-one solution involving designers, developers, and marketers, streamlining the process for clients starting side ventures. \
       Rather than searching for multiple talents, clients can find everything they need in one place. \
-      The textual content and <a href='https://wejoy-template.webflow.io/' target='_blank' rel='noopener noreferrer' class='underline'>reference website design</a> \
-      were supplied by Gokoo to convey their desired atmosphere of the website. \
-      Subsequently, I undertook the design and development to ensure that the website harmoniously aligned with their values.",
+      The content and <a href='https://wejoy-template.webflow.io/' target='_blank' rel='noopener noreferrer' class='underline'>reference website</a> \
+      were supplied by Gokoo to convey their desired atmosphere of the website.",
     tools: ["Framer", "React", "Figma"],
     category: "Website Development",
     sourceCode: "",
