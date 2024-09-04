@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Analytics } from "@vercel/analytics/react";
 import App from "./App";
 import "./index.css";
 import { checkIsVisited } from "@utils";
@@ -44,7 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Render React App after loading animation completed
     ReactDOM.createRoot(document.getElementById("root")).render(
       // <React.StrictMode>
-      <App />
+      <>
+        <App />
+        <Analytics />
+      </>
       // </React.StrictMode>
     );
   };
