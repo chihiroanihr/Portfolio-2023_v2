@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // If user has never visited then display text animations
     if (!hasVisited) {
       text1.classList.add("show"); // display text1
-      await wait(2000);
+      await wait(1500);
       text1.classList.remove("show"); // hide text1
       await wait(1000);
       text2.classList.add("show"); // display text2
-      await wait(2000);
+      await wait(1500);
       text2.classList.remove("show"); // hide text2
       await wait(1000);
     }

@@ -45,7 +45,7 @@ const Display = () => {
       {/* Display */}
       <div
         className={clsx(
-          "mt-[100px]",
+          "md:mt-[100px] mt-[50px]",
           "w-full",
           "flex justify-center items-center"
         )}
