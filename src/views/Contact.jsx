@@ -26,8 +26,8 @@ const Contact = ({ className }) => {
   // ------------- Memoize text section JSX ------------- //
   const memoizedTextSection = useMemo(() => {
     const TEXT =
-      "Enjoyed my website? Need help with designing and building your own? I'm here for you!\
-      <br />Let's <i>Collaborate</i> and <i>Create</i> an impressive website that represents your brand.";
+      "Need help with your project? I'm here for you!\
+      <br />Contact me for <i>collaboration</i>, I am ready to create a custom solutions tailored to your needs.";
 
     return (
       <RevealAnimationWrapper inputText={TEXT} newLineSpace="mb-5">

@@ -3,8 +3,23 @@ import foodbookImg from "@assets/images/works/foodbook.jpg";
 import gokooImg from "@assets/images/works/gokoo.jpg";
 import dhhImg from "@assets/images/works/dhh-registration.png";
 import gtaRealEstateImg from "@assets/images/works/gta-real-estate.png";
+import annieIzmirliyanImg from "@assets/images/works/annie-izmirliyan.png";
 
 const projectsListData = [
+  {
+    title: "Annie Izmirliyan - A Holistic Financial Planner",
+    description:
+      "A website for Annie Izmirliyan's holistic financial planning business, blending professionalism with emotional wellness. \
+      Design elements emphasized community, connection, and emotional support—core aspects of her brand. \
+      A calming color scheme of turquoise, gold, and orange evokes a sense of trust and vibrancy. \
+      Website structure also made to be flexible for future scalability, allowing easy addition of courses and other upcoming contents.",
+    tools: ["Webflow", "JavaScript", "Figma"],
+    category: "Website Development",
+    sourceCode: "",
+    website: "https://www.annieizmirliyan.com/",
+    thumbnails: [annieIzmirliyanImg],
+    new: true,
+  },
   {
     title: "GTA Real Estate Studio",
     description:
@@ -18,7 +33,6 @@ const projectsListData = [
     sourceCode: "",
     website: "https://gta-real-estate-studio.webflow.io/", // https://www.gtarealestatestudio.ca/
     thumbnails: [gtaRealEstateImg],
-    // new: true,
   },
   {
     title: "Duncan Hill Homes - Registration",

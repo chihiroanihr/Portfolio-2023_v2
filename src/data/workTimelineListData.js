@@ -1,6 +1,6 @@
 import sunLifeLogoImg from "@assets/images/timeline/sun-life-logo.png";
 import nuanceLogoImg from "@assets/images/timeline/nuance-logo.png";
-import gokooLogoImg from "@assets/images/timeline/gokoo-logo.png"
+import gokooLogoImg from "@assets/images/timeline/gokoo-logo.png";
 
 const workTimelineListData = [
   {
@@ -8,25 +8,22 @@ const workTimelineListData = [
     title: {
       position: "Website Developer",
       company: "Gokoo",
-      type: "Contract / Part-Time",
+      type: "Contract",
     },
     logo: gokooLogoImg,
     date: "Jul 2023 — Present",
     location: "Remote",
     description:
-      "Led the comprehensive design and development of several websites for a varied clientele, both nationally and internationally. \
-      This involved tailoring each project to meet specific goals and requirements. \
-      Utilizing CMS platforms such as Webflow, Framer, and Shopify, alongside React, \
-      I navigated challenges in customization and rendering to ensure the delivery of high-quality design within tight deadlines. \
-      Collaborating closely with clients, I provided valuable insights aligned with contemporary web design standards, \
-      resulting in the creation of user-friendly and visually dynamic platforms. \
-      The successful launch of these platforms culminated in securing their inaugural customer shortly thereafter.",
-    tools: ["Framer", "Webflow", "React", "Figma"],
+      "Led the design and development of responsive websites using Webflow and Framer, \
+      enhanced with custom JavaScript and React for API integration, animations, and dynamic content. \
+      Worked for national and international clients across industries like real estate and financial planning, \
+      tailoring each project to their goals.",
+    tools: ["React", "JavaScript", "Framer", "Webflow", "Figma"],
   },
   {
     id: 2,
     title: {
-      position: "Front-end Developer",
+      position: "Frontend Developer - Enterprise Solutions Team",
       company: "Nuance Communications Inc.",
       type: "Internship",
     },
@@ -34,44 +31,49 @@ const workTimelineListData = [
     date: "Jan 2022 — Apr 2022",
     location: "Remote",
     description:
-      "Built and customized reusable front-end components, contributed to the UI component library, \
-      implemented interactive React components using lifecycle methods and other features, \
-      and created a design library using Storybook to match the company's brand colors... \
-      thanks to my supportive teams and the fuel provided by caffeine ☕",
+      "Collaborated with a UI designer to build reusable UI components and design tokens, \
+      integrating them into the company’s UI component hub (Storybook) to streamline collaboration and improve the frontend development workflow.",
     tools: ["React", "Javascript", "Typescript", "Storybook"],
   },
   {
     id: 1,
     title: {
-      position: "Mobile Application Developer",
-      company: "Sun Life Financial",
+      position: "Mobile Application Developer - R&D Team",
+      company: "Sun Life Canada",
       type: "Internship",
     },
     logo: sunLifeLogoImg,
     date: "May 2021 — Aug 2021",
     location: "Remote",
     description:
-      'Assisted multiple POC developments, improved "my Sun Life" mobile App\'s UI/UX, \
-      experimented with Carplay support, engaged in R&D on mobile security and mobile API as a part of digital strategy, \
-      conducted Adaptive Authentication research, and ensured code reliability on "my Sun Life" mobile app \
-      using the Espresso☕ testing framework.',
-    tools: ["Java", "Kotlin", "Swift", "Android SDK", "Espresso"],
+      'Developed 5+ proof-of-concept projects, including creation and improvement of features in "my Sun Life" mobile App. \
+      Worked on cross-platform development for both Android and iOS, while also conducting research on mobile security and APIs. \
+      Additionally, performed UI testing for the app using the Espresso testing framework.',
+    tools: [
+      "Java",
+      "Kotlin",
+      "Android SDK",
+      "Swift",
+      "iOS SDK",
+      "Espresso",
+      "JUnit",
+    ],
   },
   {
     id: 0,
     title: {
       position: "Android Application Developer",
-      company: "Sun Life Financial",
+      company: "Sun Life Canada",
       type: "Internship",
     },
     logo: sunLifeLogoImg,
     date: "Sep 2020 — Dec 2020",
     location: "Remote",
     description:
-      'Worked with the production team to build new UI features on the "Lumino Health" mobile application, \
-      led two POC developments on the "my Sun Life" mobile application, \
-      and performed UI testing using the Espresso testing framework.',
-    tools: ["Java", "Kotlin", "Android SDK", "Espresso"],
+      'Worked within the production team to implement new UI features on the "Lumino Health" mobile app. \
+      Later, joined the R&D team to develop two proof-of-concept projects for the "My Sun Life" mobile app \
+      and conducted UI testing using the Espresso framework.',
+    tools: ["Java", "Kotlin", "Android SDK", "Espresso", "JUnit"],
   },
 ];
 

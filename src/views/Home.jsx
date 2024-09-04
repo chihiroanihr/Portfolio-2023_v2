@@ -41,7 +41,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
     const coffeeChars = splitTextToChars(coffeeTextNodeRef.current);
     const coffeeCharsCopy = splitTextToChars(coffeeTextNodeCopyRef.current);
 
-    // Retrive animation and register to timeline
+    // Retrieve animation and register to timeline
     const animation = useHomeAnimation({
       scopeNode: homeSectionContainerRef.current,
       textContainerNode: textContainerNodeRef.current,
@@ -67,7 +67,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
   const defaultTextFont = "font-default-sans";
   const creativityTextFont = "font-title-cursive";
   const defaultTextColor = "text-coffee-600 dark:text-coffee-300";
-  const hightlightTextColor = "text-yellow-500";
+  const highlightTextColor = "text-yellow-500";
 
   const defaultTextStyle = clsx(
     "leading-snug",
@@ -128,7 +128,7 @@ const Home = ({ addToLandingTimeline, animateIndex }) => {
           className={clsx(
             "absolute top-0",
             coffeeTextStyle,
-            hightlightTextColor
+            highlightTextColor
           )}
         >
           coffee

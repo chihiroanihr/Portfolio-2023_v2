@@ -104,68 +104,68 @@ const ProjectCardsList = ({ id, className, parentRef }) => {
     "before:[transition:transform_700ms]"
   );
 
+  const MAX_PROJECT_CARDS_NUM = 4;
+
   // ************************* JSX ************************* //
   // Memoize the mapped projectsListData array
   const memoizedProjectCardListItems = useMemo(() => {
-    return projectsListData.map((item, index) => (
-      <Card
-        key={item.title}
-        id={`card-${index}`}
-        className={clsx(
-          projectCardsItemStyle.positionStyle[index], // position
-          cardItemStyle
-        )}
-      >
-        {/* Card Shining Effect */}
-        <div className={cardItemShineStyle} />
+    return projectsListData
+      .slice(0, MAX_PROJECT_CARDS_NUM)
+      .map((item, index) => (
+        <Card
+          key={item.title}
+          id={`card-${index}`}
+          className={clsx(
+            projectCardsItemStyle.positionStyle[index], // position
+            cardItemStyle
+          )}
+        >
+          {/* Card Shining Effect */}
+          <div className={cardItemShineStyle} />
 
-        {/* New */}
-        {item.new && <NewTag id="new-tag" className="z-[2]" />}
+          {/* New */}
+          {item.new && <NewTag id="new-tag" className="z-[2]" />}
 
-        {/* Thumbnails */}
-        <Thumbnail
-          items={item.thumbnails}
-          alt={item.title}
-          className={clsx("z-[1]")} // cardItemThumbnailShineStyle
-        />
-
-        {/* Title */}
-        <Title
-          item={item.title}
-          className={clsx("z-[1]", "mt-[15px] mb-[10px]")}
-        />
-
-        {/* Description */}
-        <Description item={item.description} className={clsx("z-[1]")} />
-
-        {/* Tools Tags */}
-        {item.tools && item.tools.length > 0 && (
-          <ToolTagsList
-            item={item.tools}
-            className={clsx("z-[1]", "mt-[10px]")}
+          {/* Thumbnails */}
+          <Thumbnail
+            items={item.thumbnails}
+            alt={item.title}
+            className={clsx("z-[1]")} // cardItemThumbnailShineStyle
           />
-        )}
 
-        {/* Category / Link to Project */}
-        <CategoryLinksContainer
-          category={item.category}
-          sourceCode={item.sourceCode}
-          website={item.website}
-          className="z-[1] mt-[20px]"
-        />
-      </Card>
-    ));
+          {/* Title */}
+          <Title
+            item={item.title}
+            className={clsx("z-[1]", "mt-[15px] mb-[10px]")}
+          />
+
+          {/* Description */}
+          <Description item={item.description} className={clsx("z-[1]")} />
+
+          {/* Tools Tags */}
+          {item.tools && item.tools.length > 0 && (
+            <ToolTagsList
+              item={item.tools}
+              className={clsx("z-[1]", "mt-[10px]")}
+            />
+          )}
+
+          {/* Category / Link to Project */}
+          <CategoryLinksContainer
+            category={item.category}
+            sourceCode={item.sourceCode}
+            website={item.website}
+            className="z-[1] mt-[20px]"
+          />
+        </Card>
+      ));
   }, [projectsListData]);
 
   return (
     <div
       ref={projectCardsListNodeRef}
       id={id}
-      className={clsx(
-        className,
-        "flex flex-col jusity-center items-center",
-        "gap-10"
-      )}
+      className={clsx(className, "flex flex-col items-center", "gap-10")}
     >
       {memoizedProjectCardListItems}
     </div>

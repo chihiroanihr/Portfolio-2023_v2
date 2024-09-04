@@ -27,7 +27,7 @@ const DisplayText = ({ className, parentRef }) => {
 
   // ------------- Memoize text section JSX ------------- //
   const memoizedTextSection = useMemo(() => {
-    const TEXT = "I also enjoy some <i>cool UI stuff</i> like this:";
+    const TEXT = "I also enjoy creating some <i>cool stuff</i> like this:";
 
     return (
       <RevealAnimationWrapper inputText={TEXT}>
@@ -49,7 +49,7 @@ const DisplayText = ({ className, parentRef }) => {
   const textColor = "text-coffee-600 dark:text-coffee-300";
 
   const displayTextStyle = clsx(
-    "md:text-[80px] xs:text-[45px] text-[40px]",
+    "lg:text-[80px] md:text-[60px] sm:text-[45px] xs:text-[40px]",
     "leading-tight",
     "uppercase",
     fontType,
