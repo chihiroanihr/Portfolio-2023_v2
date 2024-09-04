@@ -49,7 +49,7 @@ const DisplayText = ({ className, parentRef }) => {
   const textColor = "text-coffee-600 dark:text-coffee-300";
 
   const displayTextStyle = clsx(
-    "md:text-[80px] xs:text-[45px] text-[40px]",
+    "md:text-[80px] text-[40px]",
     "leading-tight",
     "uppercase",
     fontType,
