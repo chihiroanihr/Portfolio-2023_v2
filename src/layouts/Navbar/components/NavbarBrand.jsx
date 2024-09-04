@@ -46,7 +46,7 @@ const NavbarBrandCustom = ({ textColor, fillColor }) => {
     <>
       {/* Text */}
       <p className={clsx("mt-[-45px]", navbarBrandTextStyle)}>
-        UI/UX Designer + Developer
+        Creative Developer
       </p>
       {/* Signature SVG */}
       <Signature
