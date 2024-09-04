@@ -27,8 +27,9 @@ const Display = () => {
         className={clsx(
           "mx-auto",
           "xl:aspect-[5/3]",
-          "max-w-[80%]",
-          "xl:flex-row-reverse flex justify-center items-center",
+          "md:max-w-[80%]",
+          "max-w-full",
+          "flex justify-center items-center", // xl:flex-row-reverse
           "gap-5"
         )}
       >
