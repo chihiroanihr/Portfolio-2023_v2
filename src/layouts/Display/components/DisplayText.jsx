@@ -27,7 +27,7 @@ const DisplayText = ({ className, parentRef }) => {
 
   // ------------- Memoize text section JSX ------------- //
   const memoizedTextSection = useMemo(() => {
-    const TEXT = "I also enjoy some <i>cool UI stuff</i> like this:";
+    const TEXT = "I also enjoy creating some <i>cool stuff</i> like this:";
 
     return (
       <RevealAnimationWrapper inputText={TEXT}>

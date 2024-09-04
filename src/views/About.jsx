@@ -41,7 +41,7 @@ const SelfIntroductionText = React.memo(() => {
   const TEXT =
     "I'm a web developer and designer with a passion for creating immersive digital experiences. \
     My expertise lies in developing websites that seamlessly blend form and function, \
-    leaving a lasting impression on visitors — just like a perfect brewed cup of coffee.\
+    leaving a lasting impression on visitors.\
     <br />\
     From the first sip of coffee to the last line of code, I pour my heart and soul into every project.";
 

@@ -37,7 +37,7 @@ const lifeTimelineListData = [
   },
   {
     id: 4,
-    date: "Dec 2022",
+    date: "Jun 2023",
     title:
       "🎓 Graduates Concordia University — Bachelor of Computer Science\n(co-op)",
     location: "Montreal, QC",
