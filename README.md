@@ -6,7 +6,7 @@ https://github.com/chihiroanihr/Portfolio-2023-v2/assets/42660669/76658878-32c6-
 
 ## Objective
 
-This portfolio is crafted using the distinguished **React.js** framework.
+This portfolio is crafted using **React.js** framework.
 
 ### UI / UX Design Objective
 
