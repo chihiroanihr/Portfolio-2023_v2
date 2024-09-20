@@ -46,7 +46,7 @@ const workTimelineListData = [
     date: "May 2021 — Aug 2021",
     location: "Remote",
     description:
-      'Developed 5+ proof-of-concept projects, including creation and improvement of features in "my Sun Life" mobile App. \
+      'Developed 7+ proof-of-concept projects, including creation and improvement of features in "my Sun Life" mobile App. \
       Worked on cross-platform development for both Android and iOS, while also conducting research on mobile security and APIs. \
       Additionally, performed UI testing for the app using the Espresso testing framework.',
     tools: [
