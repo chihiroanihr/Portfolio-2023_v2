@@ -5,6 +5,7 @@ import {
   TbBrandInstagram,
   TbBrandPinterest,
   TbBrandBehance,
+  TbNote,
 } from "react-icons/tb";
 
 const socialMediaPlatformsListData = [
@@ -29,15 +30,20 @@ const socialMediaPlatformsListData = [
     icon: TbBrandBehance,
   },
   {
-    name: "Dribbble",
-    href: "https://dribbble.com/chihiroanihr",
-    icon: TbBrandDribbble,
+    name: "Note.com (JP)",
+    href: "https://note.com/chihiroanihr",
+    icon: TbNote,
   },
-  {
-    name: "Pinterest",
-    href: "https://in.pinterest.com/chihiroanihr/",
-    icon: TbBrandPinterest,
-  },
+  // {
+  //   name: "Dribbble",
+  //   href: "https://dribbble.com/chihiroanihr",
+  //   icon: TbBrandDribbble,
+  // },
+  // {
+  //   name: "Pinterest",
+  //   href: "https://in.pinterest.com/chihiroanihr/",
+  //   icon: TbBrandPinterest,
+  // },
 ];
 
 export default socialMediaPlatformsListData;
